@@ -1,10 +1,12 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
+import java.util.ArrayList;
+
 public abstract class Actor {
 	
 	protected int HP, resource, atk, def, gold, XP;
 	
-	protected Ability[] abilities;
+	protected ArrayList<Ability> abilities;
 	
 	protected String status;
 	
