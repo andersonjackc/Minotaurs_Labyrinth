@@ -17,7 +17,7 @@ public class NPC extends Actor {
 		this.description = description;
 		this.name = name;
 	}
-	//comment
+	
 	public String getDialogue() {
 		return dialogue;
 	}
