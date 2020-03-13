@@ -25,7 +25,7 @@ public class Room {
 	}
 
 	public void printDescription() {
-		throw new UnsupportedOperationException("TODO - implement");
+		throw new UnsupportedOperationException("TODO");
 	}
 	
 }
