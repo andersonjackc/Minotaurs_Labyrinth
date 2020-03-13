@@ -69,23 +69,28 @@ public class Player extends Actor {
 	}
 	public String checkMap() {
 		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException("TODO - implement");
+
 	}
 	public String checkStats() {
 		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException("TODO - implement");
+
 	}
 	public String checkNPC() {
 		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException("TODO - implement");
+
 	}
 	public String checkValue() {
 		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException("TODO - implement");
+
 	}
 	public String checkInventory() {
 		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException("TODO - implement");
+
 	}
 	
 	
