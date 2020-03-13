@@ -11,7 +11,9 @@ public class NPC extends Actor {
 	
 	//methods
 	public NPC(String dialogue, int attitude, String description, String name) {
+		
 		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status);
+		
 		this.dialogue = dialogue;
 		this.attitude = attitude;
 		this.description = description;

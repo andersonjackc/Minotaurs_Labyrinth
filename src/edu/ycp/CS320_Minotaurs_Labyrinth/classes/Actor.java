@@ -4,23 +4,37 @@ import java.util.ArrayList;
 
 public abstract class Actor {
 	
-	protected int maxHP, HP, maxResource, resource, atk, def, gold, XP;
+	protected static int maxHP;
+
+	protected static int HP;
+
+	protected static int maxResource;
+
+	protected static int resource;
+
+	protected static int atk;
+
+	protected static int def;
+
+	protected static int gold;
+
+	protected static int XP;
 	
-	protected ArrayList<Ability> abilities;
+	protected static ArrayList<Ability> abilities;
 	
-	protected String status;
+	protected static String status;
 	
 	public Actor(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status){
-		this.maxHP = maxHP;
-		this.HP = HP;
-		this.maxResource = maxResource;
-		this.resource = resource;
-		this.atk = atk;
-		this.def = def;
-		this.gold = gold;
-		this.XP = XP;
-		this.abilities = abilities;
-		this.status = status;
+		Actor.maxHP = maxHP;
+		Actor.HP = HP;
+		Actor.maxResource = maxResource;
+		Actor.resource = resource;
+		Actor.atk = atk;
+		Actor.def = def;
+		Actor.gold = gold;
+		Actor.XP = XP;
+		Actor.abilities = abilities;
+		Actor.status = status;
 		
 	}
 	
@@ -71,26 +85,26 @@ public abstract class Actor {
 		
 	//setters
 	public void setHP(int HP) {
-		this.HP = HP;
+		Actor.HP = HP;
 	}
 	
 	public void setResource(int resource) {
-		this.resource =  resource;
+		Actor.resource =  resource;
 	}
 
 	public void setAtk(int atk) {
-		this.atk = atk;
+		Actor.atk = atk;
 	}
 	
 	public void setDef(int def) {
-		this.def = def;
+		Actor.def = def;
 	}
 	
 	public void setGold(int gold) {
-		this.gold = gold;
+		Actor.gold = gold;
 	}
 
 	public void setXP(int XP) {
-		this.XP = XP;
+		Actor.XP = XP;
 	}
 }

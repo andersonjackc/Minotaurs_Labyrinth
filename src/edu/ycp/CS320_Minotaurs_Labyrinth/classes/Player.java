@@ -1,13 +1,17 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
-public class Player extends Actor {
-	public void basicAttack() {
-		// TODO Auto-generated method stub
-	}
+import java.util.ArrayList;
 
-	public void cast() {
-		
+public class Player extends Actor {
+	
+	
+	public Player(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP,
+			ArrayList<Ability> abilities, String status) {
+		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status);
+		// TODO Auto-generated constructor stub
 	}
+	
+	
 	public void crawl() {
 		// TODO Auto-generated method stub
 		
@@ -92,6 +96,20 @@ public class Player extends Actor {
 		throw new UnsupportedOperationException("TODO - implement");
 
 	}
+
+	@Override
+	public void basicAttack(Player target) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cast(Actor target, Ability spell) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 	
 	
 
