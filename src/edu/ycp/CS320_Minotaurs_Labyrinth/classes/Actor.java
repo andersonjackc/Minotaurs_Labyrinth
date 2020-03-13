@@ -24,9 +24,9 @@ public abstract class Actor {
 		
 	}
 	
-	public abstract void basicAttack();
+	public abstract void basicAttack(Player target);
 	
-	public abstract void cast();
+	public abstract void cast(Actor target, Ability spell);
 	
 	//getters
 	public int getMaxHP() {
