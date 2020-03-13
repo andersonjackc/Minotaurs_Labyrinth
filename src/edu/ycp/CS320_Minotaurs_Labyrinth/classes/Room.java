@@ -7,8 +7,8 @@ public class Room {
 	private ArrayList<String> directions;
 	private String description;
 	
-	public Room() {
-		
+	public Room(String description) {
+		this.description = description;
 	}
 	
 	public ArrayList<String> getDirection() {
@@ -20,6 +20,12 @@ public class Room {
 		this.directions = directions;
 	}
 	
-	
+	public String getDescription() {
+		return description;
+	}
+
+	public void printDescription() {
+		throw new UnsupportedOperationException("TODO - implement");
+	}
 	
 }
