@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Room {
 
-	private ArrayList<String> direction;
+	private ArrayList<String> directions;
 	private String description;
 	
 	public Room() {
@@ -13,10 +13,12 @@ public class Room {
 	
 	public ArrayList<String> getDirection() {
 		
-		return direction;
+		return directions;
 	}
 	
-	
+	public void setDirection(ArrayList<String> directions) {
+		this.directions = directions;
+	}
 	
 	
 	
