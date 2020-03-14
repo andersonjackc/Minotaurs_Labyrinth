@@ -5,13 +5,20 @@ public class Minotaur {
 	int[][] map = new int[3][3];
 	int currentPosX=1;
 	int currentPosY=1;
+	String errorMessage;
 	
 	public void initMap() {
+		
 		for (int x = 0; x <= 2; x++) {
 			for (int y = 0; y <= 2; y++) {
 				map[x][y] = 0;
 			}
 		}
+		
+		map[0][0]=3;
+		map[0][2]=3;
+		map[2][0]=3;
+		map[2][2]=3;
 	}
 	
 	public void initPlayer() {
@@ -36,35 +43,51 @@ public class Minotaur {
 		return currentPosY;
 	}
 	
+	public String getError() {
+		return errorMessage;
+	}
 	public void moveNorth() {
-		if(currentPosX-1 >= 0){
+		if(map[currentPosX-1][currentPosY] != 3){
 			map[currentPosX][currentPosY]=0;
 			map[currentPosX-1][currentPosY]=1;
 			currentPosX+=-1;
 		}
+		else {
+			errorMessage="Sorry thats an invalid move";
+		}
 	}
 	
 	public void moveSouth() {
-		if(currentPosX+1 <= 2){
+		if(map[currentPosX+1][currentPosY]!=3){
 			map[currentPosX][currentPosY]=0;
 			map[currentPosX+1][currentPosY]=1;
 			currentPosX+=1;
 		}
+		else {
+			errorMessage="Sorry thats an invalid move";
+		}
 	}
 	
 	public void moveWest() {
-		if(currentPosY-1 >= 0){
+		if(map[currentPosX][currentPosY-1]!=3){
 			map[currentPosX][currentPosY]=0;
 			map[currentPosX][currentPosY-1]=1;
 			currentPosY+=-1;
 		}
+		else {
+			errorMessage="Sorry thats an invalid move";
+		}
 	}
 	
 	public void moveEast() {
-		if(currentPosY+1 <= 2){
+		if(map[currentPosX][currentPosY+1]!=3){
 			map[currentPosX][currentPosY]=0;
 			map[currentPosX][currentPosY+1]=1;
 			currentPosY+=1;
 		}
+		else {
+			errorMessage="Sorry thats an invalid move";
+		}
+
 	}
 }
