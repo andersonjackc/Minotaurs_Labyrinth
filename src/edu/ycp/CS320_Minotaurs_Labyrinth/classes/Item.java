@@ -26,7 +26,7 @@ public void printDescription(){
 public void addEffect() throws Exception {
 	//this needs some kind of logic and or us thinking about how we want to apply the effect of items
 	//for example if its a potion that heals versus a potion that buffs attack
-	 throw new Exception("TODO");
+	 throw new Exception("TODO ");
 }
 
 }

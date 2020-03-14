@@ -3,8 +3,8 @@ package edu.ycp.cs320.Minotaurs_Labyrinth.model;
 public class Minotaur {
 	
 	int[][] map = new int[3][3];
-	int currentPosX=1;
-	int currentPosY=1;
+	int currentPosX = 1;
+	int currentPosY = 1;
 	String errorMessage;
 	
 	public void initMap() {

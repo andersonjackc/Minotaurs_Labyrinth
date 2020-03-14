@@ -86,19 +86,21 @@
 				</tr>
 				<tr>
 					<td class="Corner"></td>
-					<script>
-					checkNorth(${game.getValue(0,1)});
-					checkWest(${game.getValue(1,0)});
-					checkCenter(${game.getValue(1,1)});
-					checkEast(${game.getValue(1,2)});
-					checkSouth(${game.getValue(2,1)});
-					</script>
+					
 					<td id="South" class="Game"></td>
+					
 					<td class="Corner"></td>	
 				</tr>
 				<tr>
 				</tr>
 		</table>
+		<script>
+		checkNorth(${game.getValue(0,1)});
+		checkWest(${game.getValue(1,0)});
+		checkCenter(${game.getValue(1,1)});
+		checkEast(${game.getValue(1,2)});
+		checkSouth(${game.getValue(2,1)});
+		</script>
 		<table class = "buttons">
 			<tr>
 				<td></td>
