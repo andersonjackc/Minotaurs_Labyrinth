@@ -19,6 +19,16 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 
 		System.out.println("Minotaurs_Labyrinth Servlet: doGet");	
 		
+		Minotaur model = new Minotaur();
+
+		MinotaursLabyrinthController controller = new MinotaursLabyrinthController();
+		
+		controller.setModel(model);
+		
+		controller.initModel();
+
+		req.setAttribute("game", model);		
+
 		// call JSP to generate empty form
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
 	}

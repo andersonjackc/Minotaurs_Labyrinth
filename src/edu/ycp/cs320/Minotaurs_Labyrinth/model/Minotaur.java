@@ -2,14 +2,14 @@ package edu.ycp.cs320.Minotaurs_Labyrinth.model;
 
 public class Minotaur {
 	
-	int map[][] = new int[2][2];
+	int map[][] = new int[3][3];
 	int currentPosX=1;
 	int currentPosY=1;
 	
 	public void initMap() {
-		for (int x = 0; x < 3; x++) {
-			for (int y = 0; x < 3; y++) {
-				map[x][y]=0;
+		for (int x = 0; x < 2; x++) {
+			for (int y = 0; x < 2; y++) {
+				map[x][y] =0;
 			}
 		}
 	}

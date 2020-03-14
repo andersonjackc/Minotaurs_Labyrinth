@@ -22,7 +22,7 @@
 			<table>
 				<tr>
 					<td class="label">This works:</td>
-					<td><input type="text" name="first" size="12" value="${game.playertest}" /></td>
+					<td><input type="text" name="first" size="12" value="${game.value(0,1)}" /></td>
 				</tr>
 				<tr>
 					<td class="label">Second number:</td>
