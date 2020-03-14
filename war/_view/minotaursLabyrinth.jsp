@@ -29,7 +29,7 @@
 		
     		function checkNorth(val1){
 				if(val1 == 0){
-					document.getElementById("North").innerHTML = "";
+					document.getElementById("North").innerHTML = "&#160";
 				}else{
 					document.getElementById("North").innerHTML = "*";
 				}
@@ -37,7 +37,7 @@
   			 
   			 function checkWest(val2){
     			if(val2 == 0){
-					document.getElementById("West").innerHTML = "";
+					document.getElementById("West").innerHTML = "&#160";
 				}else{
 					document.getElementById("West").innerHTML = "*";
 				}
@@ -45,7 +45,7 @@
   			 
   			 function checkCenter(val3){
     			if(val3 == 0){
-					document.getElementById("Center").innerHTML = "";
+					document.getElementById("Center").innerHTML = "&#160";
 				}else{
 					document.getElementById("Center").innerHTML = "*";
 				}    			  			
@@ -53,7 +53,7 @@
   			 
   			 function checkEast(val4){
     			if(val4 == 0){
-					document.getElementById("East").innerHTML = "";
+					document.getElementById("East").innerHTML = "&#160";
 				}else{
 					document.getElementById("East").innerHTML = "*";
 				}    			
@@ -61,7 +61,7 @@
   			 
   			 function checkSouth(val5){
     			if(val5 ==  0){
-					document.getElementById("South").innerHTML = "";
+					document.getElementById("South").innerHTML = "&#160";
 				}else{
 					document.getElementById("South").innerHTML = "*";
 				}
