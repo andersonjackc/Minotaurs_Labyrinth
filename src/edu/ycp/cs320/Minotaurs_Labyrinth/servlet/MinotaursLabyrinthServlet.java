@@ -39,12 +39,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		System.out.println("Minotaurs_Labyrinth Servlet: doPost");
 		
-		//if user pushes index throw them back to index
-		if (req.getParameter("Index") != null) {
-			System.out.println("doGet Index");
-			resp.sendRedirect("/Minotaurs_Labyrinth/_view/index.jsp");
-		}
-		
 		// create GuessingGame model - model does not persist between requests
 		// must recreate it each time a Post comes in 
 		Minotaur model = new Minotaur();
@@ -55,14 +49,13 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				
 		// assign model reference to controller so that controller can access model
 		controller.setModel(model);
-		
-		controller.initModel();
-		
+				
 		req.setAttribute("game", model);	
 		
 		if (req.getParameter("North") != null || req.getParameter("South") != null 
 				|| req.getParameter("West") != null || req.getParameter("East") != null) {
 				if(req.getParameter("North") != null) {
+					System.out.println("check");
 					model.moveNorth();
 				}
 				if(req.getParameter("South") != null) {
