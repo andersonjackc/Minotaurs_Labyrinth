@@ -18,13 +18,15 @@
 		}
 		table.Game{
 			table-layout: fixed ;
+			width: 400px;
+			height: 400px;
 		}
 		</style>
 	</head>
 
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
-			<table class="Game"'>
+			<table class="Game">
 				<tr>
 					<td class="Corner"></td>
 					<td class="Game">${game.getValue(0,1)}</td>
