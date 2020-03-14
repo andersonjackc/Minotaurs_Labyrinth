@@ -25,7 +25,8 @@ public class Room {
 	}
 
 	public void printDescription() {
-		throw new UnsupportedOperationException("TODO");
+		//For now just printing in terminal, will adapt to game later
+		System.out.println(description);
 	}
 	
 }
