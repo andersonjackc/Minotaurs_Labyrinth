@@ -9,7 +9,7 @@
 		
 		.error {
 			color: red;
-		}		
+		}
 		td.Game {
 			border: 1px solid black;
 		}
@@ -21,10 +21,14 @@
 			width: 400px;
 			height: 400px;
 		}
+		table.buttons{
+			margin-left: 120px;
+		}
 		</style>
 	</head>
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
+			<div class="error">${game.error}</div>
 			<table class="table">
 				<tr>
 					<td class="Corner"></td>
@@ -43,10 +47,18 @@
 				</tr>
 				<tr>
 				</tr>
-			</table>
-			<input type="Submit" name="submit" value="Add Numbers!">
-			<%-- index button --%>
-			<input name="Index" type="submit" value="Index" />
+		</table>
+		<table class = "buttons">
+			<tr>
+				<td></td>
+				<td><input type="Submit" name="North" value="North"></td>
+			</tr>
+			<tr>
+				<td><input type="Submit" name="West" value="West"></td>
+				<td><input type="Submit" name="South" value="South"></td>
+				<td><input type="Submit" name="East" value="East"></td>
+			</tr>
+		</table>
 		</form>
 	</body>
 </html>

@@ -58,7 +58,23 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		controller.initModel();
 		
-		req.setAttribute("game", model);		
+		req.setAttribute("game", model);	
+		
+		if (req.getParameter("North") != null || req.getParameter("South") != null 
+				|| req.getParameter("West") != null || req.getParameter("East") != null) {
+				if(req.getParameter("North") != null) {
+					model.moveNorth();
+				}
+				if(req.getParameter("South") != null) {
+					model.moveSouth();
+				}
+				if(req.getParameter("West") != null) {
+					model.moveWest();
+				}
+				if(req.getParameter("East") != null) {
+					model.moveEast();
+				}
+		}
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
