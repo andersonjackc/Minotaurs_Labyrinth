@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.ycp.cs320.Minotaurs_Labyrinth.controller.AddNumbersController;
 import edu.ycp.cs320.Minotaurs_Labyrinth.controller.MultiplyNumbersController;
+import edu.ycp.cs320.Minotaurs_Labyrinth.model.Numbers;
 
 public class MultiplyNumbersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,52 +28,68 @@ public class MultiplyNumbersServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("MultiplyNumbers Servlet: doPost");
 		
+		System.out.println("AddNumbers Servlet: doPost");
+		
+		//if user pushes index throw them back to index
+		if (req.getParameter("Index") != null) {
+			System.out.println("doGet Index");
+			resp.sendRedirect("/Minotaurs_Labyrinth/_view/index.jsp");
+		}
+		// create GuessingGame model - model does not persist between requests
+		// must recreate it each time a Post comes in 
+		Numbers model = new Numbers();
 
-		// holds the error message text, if there is any
-		String errorMessage = null;
-
-		// result of calculation goes here
-		Double result = null;
+		// create GuessingGame controller - controller does not persist between requests
+		// must recreate it each time a Post comes in
+		MultiplyNumbersController controller = new MultiplyNumbersController();
+				
+		// assign model reference to controller so that controller can access model
+		controller.setModel(model);	
 		
 		// decode POSTed form parameters and dispatch to controller
 		try {
+			//Set users given parameters to variables
 			Double first = getDoubleFromParameter(req.getParameter("first"));
 			Double second = getDoubleFromParameter(req.getParameter("second"));
 			Double third = getDoubleFromParameter(req.getParameter("third"));
 
 
-			// check for errors in the form data before using is in a calculation
+			// check for errors in the form data before using is in a calculation (if its empty)
 			if (first == null || second == null || third == null) {
-				errorMessage = "Please specify three numbers";
+				//These are STRINGS as we cannot save non doubles as doubles
+				// We save them in order to send back the invalid
+				//Doubles inside the page boxes
+				model.setErrorfirst(req.getParameter("first"));
+				model.setErrorsecond(req.getParameter("second"));
+				model.setErrorthird(req.getParameter("third"));
+				
+				//Sets the error to missing one or more of the 3 doubles
+				model.setNumbs();
 			}
 			// otherwise, data is good, do the calculation
 			// must create the controller each time, since it doesn't persist between POSTs
 			// the view does not alter data, only controller methods should be used for that
 			// thus, always call a controller method to operate on the data
 			else {
-				MultiplyNumbersController controller = new MultiplyNumbersController();
-				result = controller.multiply(first, second, third);
+				//calls model.setFirst, setSecond, and setThird to store
+				//the given variables in the model
+				controller.setAll(first, second, third);
+				
+				//calls the controller, to call the model to calculates the product of the 3 numbers
+				controller.MultiplyResult();
 			}
 		} catch (NumberFormatException e) {
-			errorMessage = "Invalid double";
+			
+			//does the same as above, same all 3 as strings
+			//so we can send them back even if theyre invalid
+			model.setErrorfirst(req.getParameter("first"));
+			model.setErrorsecond(req.getParameter("second"));
+			model.setErrorthird(req.getParameter("third"));
+			model.setInvalid();
 		}
 		
-		// Add parameters as request attributes
-		// this creates attributes named "first" and "second for the response, and grabs the
-		// values that were originally assigned to the request attributes, also named "first" and "second"
-		// they don't have to be named the same, but in this case, since we are passing them back
-		// and forth, it's a good idea
-		req.setAttribute("first", req.getParameter("first"));
-		req.setAttribute("second", req.getParameter("second"));
-		req.setAttribute("third", req.getParameter("third"));
-		
-		// add result objects as attributes
-		// this adds the errorMessage text and the result to the response
-		req.setAttribute("errorMessage", errorMessage);
-		req.setAttribute("result", result);
-		
+		req.setAttribute("game", model);		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/multiplyNumbers.jsp").forward(req, resp);
 	}

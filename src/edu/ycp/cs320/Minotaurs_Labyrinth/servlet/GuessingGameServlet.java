@@ -29,6 +29,12 @@ public class GuessingGameServlet extends HttpServlet {
 		
 		System.out.println("GuessingGame Servlet: doPost");
 		
+		//if user pushes index throw them back to index
+		if (req.getParameter("Index") != null) {
+			System.out.println("doGet Index");
+			resp.sendRedirect("/Minotaurs_Labyrinth/_view/index.jsp");
+		}
+				
 		// create GuessingGame model - model does not persist between requests
 		// must recreate it each time a Post comes in 
 		GuessingGame model = new GuessingGame();

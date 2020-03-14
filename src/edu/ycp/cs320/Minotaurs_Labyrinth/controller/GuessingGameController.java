@@ -30,8 +30,9 @@ public class GuessingGameController {
 	 * Set the min and max to the current guess.
 	 */
 	public void setNumberFound() {
-		model.setMax(model.getGuess());
-		model.setMin(model.getGuess());
+		int finalAns = model.getGuess();
+		model.setMax(finalAns);
+		model.setMin(finalAns);
 	}
 
 	/**

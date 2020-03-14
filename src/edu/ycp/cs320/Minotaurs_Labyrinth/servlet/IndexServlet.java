@@ -27,17 +27,20 @@ public class IndexServlet extends HttpServlet {
 		
 		System.out.println("Index Servlet: doPost");
 
+		//if the addnumbs param isnt empty throw user addnums jsp
 		if (req.getParameter("AddNumbers") != null) {
 			System.out.println("doGet addNumbers");
-			resp.sendRedirect("/Minotaurs_Labyrinth/_view/multiplyNumbers.jsp");
+			resp.sendRedirect("/Minotaurs_Labyrinth/_view/addNumbers.jsp");
 		}
+		//if multnumbers param isnt empty throw user multiplynumbers jsp
 		if (req.getParameter("MultiplyNumbers") != null) {
 			System.out.println("doGet multiplyNumbers");
 			resp.sendRedirect("/Minotaurs_Labyrinth/_view/multiplyNumbers.jsp");
 		}
+		//if guessing game isnt empty throw user guessinggame jsps
 		if (req.getParameter("GuessingGame") != null) {
 			System.out.println("doGet guessingGame");
-			resp.sendRedirect("/Minotaurs_Labyrinth/_view/multiplyNumbers.jsp");
+			resp.sendRedirect("/Minotaurs_Labyrinth/_view/guessingGame.jsp");
 		}
 	}
 }

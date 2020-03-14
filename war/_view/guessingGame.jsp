@@ -11,6 +11,8 @@
 		<form action="${pageContext.servletContext.contextPath}/guessingGame" method="post">
 			<c:if test="${empty game}">
 				<input name="startGame" type="submit" value="Start game" />
+				<%-- index button --%>
+				<input name="Index" type="submit" value="Index" />
 			</c:if>
 			<c:if test="${! empty game}">
 				<c:if test="${game.done}">
@@ -19,6 +21,8 @@
 					</div>
 					<div>
 						<input name="startGame" type="submit" value="Play again" />
+						<%-- index button --%>
+						<input name="Index" type="submit" value="Index" />
 					</div>
 				</c:if>
 				<c:if test="${!game.done}">
@@ -29,7 +33,8 @@
 						<input name="gotIt" type="submit" value="Yes, that's it!" />
 						<input name="less" type="submit" value="No, that's too big" />
 						<input name="more" type="submit" value="No, that's too small" />
-						
+						<%-- index button --%>
+						<input name="Index" type="submit" value="Index" />
 						<input name="min" type="hidden" value="${game.min}" />
 						<input name="max" type="hidden" value="${game.max}" />
 					</div>
