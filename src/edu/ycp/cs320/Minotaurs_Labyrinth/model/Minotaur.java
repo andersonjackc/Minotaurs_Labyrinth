@@ -6,6 +6,7 @@ public class Minotaur {
 	int currentPosX=1;
 	int currentPosY=1;
 	
+	//why isnt this working :(
 	public void initMap() {
 		for (int x = 0; x < 2; x++) {
 			for (int y = 0; x < 2; y++) {
