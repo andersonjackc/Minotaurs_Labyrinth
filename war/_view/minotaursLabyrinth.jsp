@@ -60,7 +60,7 @@
   			 }
   			 
   			 function checkSouth(val5){
-    			if(val5 == 0){
+    			if(val5 ==  0){
 					document.getElementById("South").innerHTML = "";
 				}else{
 					document.getElementById("South").innerHTML = "*";
