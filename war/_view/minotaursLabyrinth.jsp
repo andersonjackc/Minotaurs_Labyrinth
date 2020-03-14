@@ -6,30 +6,41 @@
 	<head>
 		<title>Minotaur's Labyrinth</title>
 		<style type="text/css">
+		
 		.error {
 			color: red;
+		}		
+		td.Game {
+			border: 1px solid black;
+			width=50px;
+		}
+		td.Corner{
+			color:red;
+		}
+		table.Game{
+			table-layout: fixed ;
 		}
 		
-		td.label {
-			text-align: right;
-		}
 		</style>
 	</head>
 
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
-			<table>
+			<table class="Game"'>
 				<tr>
-					<td class="label">This works:</td>
-					<td><input type="text" name="first" size="12" value="${game.getValue(0,1)}" /></td>
+					<td class="Corner">${game.getValue(0,0)}</td>
+					<td class="Game">${game.getValue(0,1)}</td>
+					<td class="Corner">${game.getValue(0,2)}</td>					
 				</tr>
 				<tr>
-					<td class="label">Second number:</td>
-					<td><input type="text" name="second" size="12"/></td>
+					<td class="Game">${game.getValue(1,0)}</td>
+					<td class="Game">${game.getValue(1,1)}</td>
+					<td class="Game">${game.getValue(1,2)}</td>	
 				</tr>
 				<tr>
-					<td class="label">Third number:</td>
-					<td><input type="text" name="third" size="12" /></td>
+					<td class="Corner">${game.getValue(2,0)}</td>
+					<td class="Game">${game.getValue(2,1)}</td>
+					<td class="Corner">${game.getValue(2,2)}</td>	
 				</tr>
 				<tr>
 					<td class="label">Result:</td>
