@@ -12,15 +12,13 @@
 		}		
 		td.Game {
 			border: 1px solid black;
-			width=50px;
 		}
 		td.Corner{
-			color:red;
+			background-color: red;
 		}
 		table.Game{
 			table-layout: fixed ;
 		}
-		
 		</style>
 	</head>
 
@@ -28,9 +26,9 @@
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
 			<table class="Game"'>
 				<tr>
-					<td class="Corner">${game.getValue(0,0)}</td>
+					<td class="Corner"></td>
 					<td class="Game">${game.getValue(0,1)}</td>
-					<td class="Corner">${game.getValue(0,2)}</td>					
+					<td class="Corner"></td>					
 				</tr>
 				<tr>
 					<td class="Game">${game.getValue(1,0)}</td>
@@ -38,12 +36,11 @@
 					<td class="Game">${game.getValue(1,2)}</td>	
 				</tr>
 				<tr>
-					<td class="Corner">${game.getValue(2,0)}</td>
+					<td class="Corner"></td>
 					<td class="Game">${game.getValue(2,1)}</td>
-					<td class="Corner">${game.getValue(2,2)}</td>	
+					<td class="Corner"></td>	
 				</tr>
 				<tr>
-					<td class="label">Result:</td>
 				</tr>
 			</table>
 			<input type="Submit" name="submit" value="Add Numbers!">
