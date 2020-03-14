@@ -20,6 +20,7 @@
 			table-layout: fixed ;
 			width: 400px;
 			height: 400px;
+			text-align: center;
 		}
 		table.buttons{
 			margin-left: 120px;
