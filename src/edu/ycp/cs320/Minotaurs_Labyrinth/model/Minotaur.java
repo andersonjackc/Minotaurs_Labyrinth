@@ -39,15 +39,34 @@ public class Minotaur {
 		return currentPosX;
 	}
 	
+	
 	public int getPosY() {
 		return currentPosY;
 	}
+	
+	public void setPosition(int posX, int posY) {
+		for(int i=0; i<=2; i++) {
+			for(int j=0; j<=2; j++) {
+				map[i][j] = 0;
+			}
+		}
+		
+		map[0][0]=3;
+		map[0][2]=3;
+		map[2][0]=3;
+		map[2][2]=3;
+		
+		currentPosX = posX;
+		currentPosY = posY;
+		map[posX][posY] = 1;
+	}
+	
 	
 	public String getError() {
 		return errorMessage;
 	}
 	public void moveNorth() {
-		if(map[currentPosX-1][currentPosY] != 3){
+		if(currentPosX - 1 != -1 && map[currentPosX-1][currentPosY] != 3){
 			map[currentPosX][currentPosY]=0;
 			map[currentPosX-1][currentPosY]=1;
 			currentPosX+=-1;
@@ -58,7 +77,7 @@ public class Minotaur {
 	}
 	
 	public void moveSouth() {
-		if(map[currentPosX+1][currentPosY]!=3){
+		if( currentPosX + 1 != 3 && map[currentPosX+1][currentPosY]!=3){
 			map[currentPosX][currentPosY]=0;
 			map[currentPosX+1][currentPosY]=1;
 			currentPosX+=1;
@@ -69,7 +88,7 @@ public class Minotaur {
 	}
 	
 	public void moveWest() {
-		if(map[currentPosX][currentPosY-1]!=3){
+		if( currentPosY - 1 != -1 && map[currentPosX][currentPosY-1]!=3 ){
 			map[currentPosX][currentPosY]=0;
 			map[currentPosX][currentPosY-1]=1;
 			currentPosY+=-1;
@@ -80,7 +99,7 @@ public class Minotaur {
 	}
 	
 	public void moveEast() {
-		if(map[currentPosX][currentPosY+1]!=3){
+		if( currentPosY + 1 != 3 && map[currentPosX][currentPosY+1]!=3){
 			map[currentPosX][currentPosY]=0;
 			map[currentPosX][currentPosY+1]=1;
 			currentPosY+=1;

@@ -50,7 +50,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		// assign model reference to controller so that controller can access model
 		controller.setModel(model);
 				
-		req.setAttribute("game", model);	
+		req.setAttribute("game", model);
+		
+		Integer xLoc = getInteger(req, "xLoc");
+		Integer yLoc = getInteger(req, "yLoc");
+		//System.out.println(xLoc + " " + yLoc);
+		model.setPosition(xLoc, yLoc);
 		
 		if (req.getParameter("North") != null || req.getParameter("South") != null 
 				|| req.getParameter("West") != null || req.getParameter("East") != null) {
@@ -73,12 +78,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
 	}
 
-	// gets double from the request with attribute named s
-	private Double getDoubleFromParameter(String s) {
-		if (s == null || s.equals("")) {
-			return null;
-		} else {
-			return Double.parseDouble(s);
-		}
+	// gets an Integer from the Posted form data, for the given attribute name
+	private int getInteger(HttpServletRequest req, String name) {
+		return Integer.parseInt(req.getParameter(name));
 	}
 }

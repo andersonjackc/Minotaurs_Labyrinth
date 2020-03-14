@@ -73,7 +73,7 @@
 	</head>
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
-			<div class="error">${game.error}</div>
+			
 			<table class="table">
 				<tr>
 					<td class="Corner"></td>
@@ -111,8 +111,12 @@
 				<td><input type="Submit" name="West" value="West"></td>
 				<td><input type="Submit" name="South" value="South"></td>
 				<td><input type="Submit" name="East" value="East"></td>
+				<input name="xLoc" type="hidden" value="${game.posX}" />
+				<input name="yLoc" type="hidden" value="${game.posY}" />
 			</tr>
 		</table>
 		</form>
+		</br>
+		<div class="error">${game.error}</div>
 	</body>
 </html>
