@@ -9,4 +9,9 @@ public class MinotaursLabyrinthController {
 	public void setModel(Minotaur model) {
 		this.model = model;
 	}
+	
+	public void initModel() {
+		model.initMap();
+		model.initPlayer();
+	}
 }

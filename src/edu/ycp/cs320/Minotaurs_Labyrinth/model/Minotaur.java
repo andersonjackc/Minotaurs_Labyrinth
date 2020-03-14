@@ -24,6 +24,10 @@ public class Minotaur {
 		return map;
 	}
 	
+	public int getValue(int posX, int posY) {
+		return map[posX][posY];
+	}
+	
 	public int getPosX() {
 		return currentPosX;
 	}

@@ -44,7 +44,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		MinotaursLabyrinthController controller = new MinotaursLabyrinthController();
 				
 		// assign model reference to controller so that controller can access model
-		controller.setModel(model);	
+		controller.setModel(model);
+		
+		controller.initModel();
 		
 		req.setAttribute("game", model);		
 		
