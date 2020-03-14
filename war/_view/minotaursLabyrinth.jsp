@@ -16,21 +16,20 @@
 		td.Corner{
 			background-color: red;
 		}
-		table.Game{
+		table.table{
 			table-layout: fixed ;
 			width: 400px;
 			height: 400px;
 		}
 		</style>
 	</head>
-
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
-			<table class="Game">
+			<table class="table">
 				<tr>
 					<td class="Corner"></td>
 					<td class="Game">${game.getValue(0,1)}</td>
-					<td class="Corner"></td>					
+					<td class="Corner"></td>
 				</tr>
 				<tr>
 					<td class="Game">${game.getValue(1,0)}</td>
