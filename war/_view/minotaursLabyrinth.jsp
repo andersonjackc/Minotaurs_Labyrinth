@@ -4,7 +4,7 @@
 
 <html>
 	<head>
-		<title>Add Numbers</title>
+		<title>Minotaur's Labyrinth</title>
 		<style type="text/css">
 		.error {
 			color: red;
@@ -21,8 +21,8 @@
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
 			<table>
 				<tr>
-					<td class="label">First number:</td>
-					<td><input type="text" name="first" size="12" value="${game.first}" /></td>
+					<td class="label">This works:</td>
+					<td><input type="text" name="first" size="12" value="${game.playertest}" /></td>
 				</tr>
 				<tr>
 					<td class="label">Second number:</td>
