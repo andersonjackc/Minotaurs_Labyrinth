@@ -24,7 +24,7 @@
   </servlet>
   <servlet>
     <servlet-name>MinotaursLabyrinthServlet</servlet-name>
-    <servlet-class>edu.ycp.cs320.Minotaurs_Labyrinth.servlet.MultiplyNumbersServlet</servlet-class>
+    <servlet-class>edu.ycp.cs320.Minotaurs_Labyrinth.servlet.MinotaursLabyrinthServlet</servlet-class>
   </servlet>
   
   <!-- AJAX servlets. -->
