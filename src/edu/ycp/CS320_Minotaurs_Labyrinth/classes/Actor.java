@@ -4,37 +4,37 @@ import java.util.ArrayList;
 
 public abstract class Actor {
 	
-	protected static int maxHP;
+	protected int maxHP;
 
-	protected static int HP;
+	protected int HP;
 
-	protected static int maxResource;
+	protected int maxResource;
 
-	protected static int resource;
+	protected int resource;
 
-	protected static int atk;
+	protected int atk;
 
-	protected static int def;
+	protected int def;
 
-	protected static int gold;
+	protected int gold;
 
-	protected static int XP;
+	protected int XP;
 	
-	protected static ArrayList<Ability> abilities;
+	protected ArrayList<Ability> abilities;
 	
-	protected static String status;
+	protected String status;
 	
 	public Actor(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status){
-		Actor.maxHP = maxHP;
-		Actor.HP = HP;
-		Actor.maxResource = maxResource;
-		Actor.resource = resource;
-		Actor.atk = atk;
-		Actor.def = def;
-		Actor.gold = gold;
-		Actor.XP = XP;
-		Actor.abilities = abilities;
-		Actor.status = status;
+		this.maxHP = maxHP;
+		this.HP = HP;
+		this.maxResource = maxResource;
+		this.resource = resource;
+		this.atk = atk;
+		this.def = def;
+		this.gold = gold;
+		this.XP = XP;
+		this.abilities = abilities;
+		this.status = status;
 		
 	}
 	
@@ -43,9 +43,7 @@ public abstract class Actor {
 	public abstract void cast(Actor target, Ability spell);
 	
 	//getters
-		public int getMaxHP() {
-			return maxHP;
-		}
+		public abstract int getMaxHP();
 
 		public abstract int getHP(); 
 		
