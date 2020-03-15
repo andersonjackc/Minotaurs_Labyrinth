@@ -70,7 +70,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				}
 		}
 		
-		Enemy target = new Enemy("Grr", 2, "Will try to eat you", "Ogre");
+		Enemy target = new Enemy("Grr", 2, "Will try to eat you", "Ogre", 2, 20);
 		
 		if(model.getMap()[0][1] == 1 && model.isEnemyAlive(target)) {
 			req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);

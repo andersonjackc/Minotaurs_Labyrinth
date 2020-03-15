@@ -12,7 +12,7 @@ private Enemy testEnemy;
 	@Before
 	public void setUp() {
 		
-		testEnemy = new Enemy("test", 10, "test", "test");
+		testEnemy = new Enemy("test", 10, "test", "test", 2, 20);
 		testEnemy.maxHP = 5;
 		testEnemy.maxResource = 5;
 		Ability fireball;
