@@ -102,26 +102,26 @@ public class NPC extends Actor {
 			
 		//setters
 		public void setHP(int HP) {
-			NPC.HP = HP;
+			this.HP = HP;
 		}
 		
 		public void setResource(int resource) {
-			NPC.resource =  resource;
+			this.resource =  resource;
 		}
 
 		public void setAtk(int atk) {
-			NPC.atk = atk;
+			this.atk = atk;
 		}
 		
 		public void setDef(int def) {
-			NPC.def = def;
+			this.def = def;
 		}
 		
 		public void setGold(int gold) {
-			NPC.gold = gold;
+			this.gold = gold;
 		}
 
 		public void setXP(int XP) {
-			NPC.XP = XP;
+			this.XP = XP;
 		}
 }
