@@ -43,68 +43,38 @@ public abstract class Actor {
 	public abstract void cast(Actor target, Ability spell);
 	
 	//getters
-	public int getMaxHP() {
-		return maxHP;
-	}
+		public int getMaxHP() {
+			return maxHP;
+		}
 
-	public int getHP() {
-		return HP;
-	}
-	
-	public int getMaxResource() {
-		return maxResource;
-	}
-	
-	public int getResource() {
-		return resource;
-	}
-
-	public int getAtk() {
-		return atk;
-	}
-	
-	public int getDef() {
-		return def;
-	}
-	
-	public int getGold() {
-		return gold;
-	}
-
-	public int getXP() {
-		return XP;
-	}
-	
-	public ArrayList<Ability> getAbilities() {
-		return abilities;
-	}
-	
-	public String getStatus() {
-		return status;
-	}
+		public abstract int getHP(); 
 		
-	//setters
-	public void setHP(int HP) {
-		Actor.HP = HP;
-	}
-	
-	public void setResource(int resource) {
-		Actor.resource =  resource;
-	}
+		public abstract int getMaxResource(); 
+		
+		public abstract int getResource();
 
-	public void setAtk(int atk) {
-		Actor.atk = atk;
-	}
-	
-	public void setDef(int def) {
-		Actor.def = def;
-	}
-	
-	public void setGold(int gold) {
-		Actor.gold = gold;
-	}
+		public abstract int getAtk();
+		
+		public abstract int getDef();
+		
+		public abstract int getGold();
 
-	public void setXP(int XP) {
-		Actor.XP = XP;
-	}
+		public abstract int getXP();
+		
+		public abstract ArrayList<Ability> getAbilities();
+		
+		public abstract String getStatus();
+			
+		//setters
+		public abstract void setHP(int HP);
+		
+		public abstract void setResource(int resource);
+
+		public abstract void setAtk(int atk);
+		
+		public abstract void setDef(int def);
+		
+		public abstract void setGold(int gold);
+
+		public abstract void setXP(int XP);
 }
