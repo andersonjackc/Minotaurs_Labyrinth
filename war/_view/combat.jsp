@@ -31,11 +31,11 @@
 				<td></td>
 				<td><input type="Submit" name="Attack" value="Attack"></td>
 			</tr>
-			<c:if test="${! empty game.attackMessage}">
-			<div>${game.attackMessage}</div>
+			<c:if test="${! empty game.attackmessage}">
+				<div>${game.attackmessage}</div>
 			</c:if>
-			<c:if test="${! empty game.defendMessage}">
-			<div>${game.defendMessage}</div>
+			<c:if test="${! empty game.defendmessage}">
+				<div>${game.defendmessage}</div>
 			</c:if>
 		</form>
 	</body>
