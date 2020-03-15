@@ -10,7 +10,7 @@ public class NPC extends Actor {
 	protected String name;
 	
 	//methods
-	public NPC(String dialogue, int attitude, String description, String name) {
+	public NPC(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, String dialogue, int attitude, String description, String name) {
 		
 		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status);
 		

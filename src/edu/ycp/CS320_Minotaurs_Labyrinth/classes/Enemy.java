@@ -1,14 +1,13 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
+import java.util.ArrayList;
+
 public class Enemy extends NPC {
-		
-	int atk;
-	int hp;
 	
-	public Enemy(String dialogue, int attitude, String description, String name, int atk, int hp) {
-		super(dialogue, attitude, description, name);
-		this.atk = atk;
-		this.hp = hp;
+
+	public Enemy(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, String dialogue, int attitude, String description, String name) {
+		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, dialogue, attitude, description, name);
+		
 	}
 
 	public void rollForAction() throws Exception {

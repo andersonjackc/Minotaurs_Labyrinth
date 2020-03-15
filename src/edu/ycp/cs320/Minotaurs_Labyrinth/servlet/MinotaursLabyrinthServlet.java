@@ -70,7 +70,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				}
 		}
 		
-		Enemy target = new Enemy("Grr", 2, "Will try to eat you", "Ogre", 2, 20);
+		//Enemy target = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, OgreAbilities, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre");
 		
 		if(model.getMap()[0][1] == 1/* && model.isEnemyAlive(target)*/ ) {
 			 resp.sendRedirect(req.getContextPath() + "/combat");

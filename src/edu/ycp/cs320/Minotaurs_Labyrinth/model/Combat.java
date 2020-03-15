@@ -16,7 +16,8 @@ public class Combat {
 		PlayerCharacter = new Player(1000, 20, 1000, 10, 2, 2, 50, 0, PlayerAbilities, "Normal");
 		
 		//creates an instance of enemy
-		ogre = new Enemy("Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", 1, 20);
+		ArrayList<Ability> OgreAbilities = new ArrayList<Ability>();
+		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, OgreAbilities, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre");
 	}
 	
 	public void enemyAtk() {
