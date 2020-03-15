@@ -68,27 +68,27 @@ public class Enemy extends NPC {
 			
 		//setters
 		public void setHP(int HP) {
-			Enemy.HP = HP;
+			this.HP = HP;
 		}
 		
 		public void setResource(int resource) {
-			Enemy.resource =  resource;
+			this.resource =  resource;
 		}
 
 		public void setAtk(int atk) {
-			Enemy.atk = atk;
+			this.atk = atk;
 		}
 		
 		public void setDef(int def) {
-			Enemy.def = def;
+			this.def = def;
 		}
 		
 		public void setGold(int gold) {
-			Enemy.gold = gold;
+			this.gold = gold;
 		}
 
 		public void setXP(int XP) {
-			Enemy.XP = XP;
+			this.XP = XP;
 		}
 	
 	
