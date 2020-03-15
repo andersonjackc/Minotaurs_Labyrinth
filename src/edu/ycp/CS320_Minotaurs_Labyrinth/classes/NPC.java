@@ -60,68 +60,68 @@ public class NPC extends Actor {
 		
 	}
 	//getters
-		public int getMaxHP() {
-			return maxHP;
-		}
+	public int getMaxHP() {
+		return maxHP;
+	}
 
-		public int getHP() {
-			return HP;
-		}
-		
-		public int getMaxResource() {
-			return maxResource;
-		}
-		
-		public int getResource() {
-			return resource;
-		}
+	public int getHP() {
+		return HP;
+	}
+	
+	public int getMaxResource() {
+		return maxResource;
+	}
+	
+	public int getResource() {
+		return resource;
+	}
 
-		public int getAtk() {
-			return atk;
-		}
-		
-		public int getDef() {
-			return def;
-		}
-		
-		public int getGold() {
-			return gold;
-		}
+	public int getAtk() {
+		return atk;
+	}
+	
+	public int getDef() {
+		return def;
+	}
+	
+	public int getGold() {
+		return gold;
+	}
 
-		public int getXP() {
-			return XP;
-		}
+	public int getXP() {
+		return XP;
+	}
+	
+	public ArrayList<Ability> getAbilities() {
+		return abilities;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
 		
-		public ArrayList<Ability> getAbilities() {
-			return abilities;
-		}
-		
-		public String getStatus() {
-			return status;
-		}
-			
-		//setters
-		public void setHP(int HP) {
-			NPC.HP = HP;
-		}
-		
-		public void setResource(int resource) {
-			NPC.resource =  resource;
-		}
+	//setters
+	public void setHP(int HP) {
+		NPC.HP = HP;
+	}
+	
+	public void setResource(int resource) {
+		NPC.resource =  resource;
+	}
 
-		public void setAtk(int atk) {
-			NPC.atk = atk;
-		}
-		
-		public void setDef(int def) {
-			NPC.def = def;
-		}
-		
-		public void setGold(int gold) {
-			NPC.gold = gold;
-		}
+	public void setAtk(int atk) {
+		NPC.atk = atk;
+	}
+	
+	public void setDef(int def) {
+		NPC.def = def;
+	}
+	
+	public void setGold(int gold) {
+		NPC.gold = gold;
+	}
 
-		public void setXP(int XP) {
-			NPC.XP = XP;
-		}
+	public void setXP(int XP) {
+		NPC.XP = XP;
+	}
 }

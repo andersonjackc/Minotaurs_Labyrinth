@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Actor {
 	
-	protected static int maxHP;
+	protected static  int maxHP;
 
 	protected static int HP;
 
@@ -43,38 +43,34 @@ public abstract class Actor {
 	public abstract void cast(Actor target, Ability spell);
 	
 	//getters
-		public int getMaxHP() {
-			return maxHP;
-		}
+	public abstract int getHP(); 
+	
+	public abstract int getMaxResource(); 
+	
+	public abstract int getResource();
 
-		public abstract int getHP(); 
-		
-		public abstract int getMaxResource(); 
-		
-		public abstract int getResource();
+	public abstract int getAtk();
+	
+	public abstract int getDef();
+	
+	public abstract int getGold();
 
-		public abstract int getAtk();
+	public abstract int getXP();
+	
+	public abstract ArrayList<Ability> getAbilities();
+	
+	public abstract String getStatus();
 		
-		public abstract int getDef();
-		
-		public abstract int getGold();
+	//setters
+	public abstract void setHP(int HP);
+	
+	public abstract void setResource(int resource);
 
-		public abstract int getXP();
-		
-		public abstract ArrayList<Ability> getAbilities();
-		
-		public abstract String getStatus();
-			
-		//setters
-		public abstract void setHP(int HP);
-		
-		public abstract void setResource(int resource);
+	public abstract void setAtk(int atk);
+	
+	public abstract void setDef(int def);
+	
+	public abstract void setGold(int gold);
 
-		public abstract void setAtk(int atk);
-		
-		public abstract void setDef(int def);
-		
-		public abstract void setGold(int gold);
-
-		public abstract void setXP(int XP);
+	public abstract void setXP(int XP);
 }
