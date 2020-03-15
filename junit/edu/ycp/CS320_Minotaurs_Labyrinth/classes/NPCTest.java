@@ -12,10 +12,8 @@ private NPC testNPC;
 	
 	@Before
 	public void setUp() {
-		
-		testNPC = new NPC("test", 10, "test", "test");
-		testNPC.maxHP = 5;
-		testNPC.maxResource = 5;
+		ArrayList<Ability> abilities = null;
+		testNPC = new NPC(5, 5, 5, 5, 1, 5, 5, 5, abilities, "test", "test", 1, "test", "test");
 		Ability fireball;
 	}
 	@Test
@@ -66,7 +64,7 @@ private NPC testNPC;
 	}
 	@Test
 	public void testDialogueMethods() {
-		testNPC.dialogue = "test";
+		
 		assertEquals("test", testNPC.getDialogue());
 	}
 	@Test
@@ -76,12 +74,11 @@ private NPC testNPC;
 	}
 	@Test
 	public void testDescriptionMethods() {
-		testNPC.description = "test";
+		
 		assertEquals("test", testNPC.getDescription());
 	}
 	@Test
 	public void testNameMethods() {
-		testNPC.name = "test";
 		assertEquals("test", testNPC.getName());
 	}
 	@Test
