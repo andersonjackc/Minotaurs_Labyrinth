@@ -152,27 +152,27 @@ public class Player extends Actor {
 			
 		//setters
 		public void setHP(int HP) {
-			Player.HP = HP;
+			this.HP = HP;
 		}
 		
 		public void setResource(int resource) {
-			Player.resource =  resource;
+			this.resource =  resource;
 		}
 
 		public void setAtk(int atk) {
-			Player.atk = atk;
+			this.atk = atk;
 		}
 		
 		public void setDef(int def) {
-			Player.def = def;
+			this.def = def;
 		}
 		
 		public void setGold(int gold) {
-			Player.gold = gold;
+			this.gold = gold;
 		}
 
 		public void setXP(int XP) {
-			Player.XP = XP;
+			this.XP = XP;
 		}
 	
 	
