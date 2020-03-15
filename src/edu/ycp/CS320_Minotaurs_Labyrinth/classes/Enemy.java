@@ -7,7 +7,7 @@ public class Enemy extends NPC {
 		super(dialogue, attitude, description, name);
 		
 	}
-	
+
 	public void rollForAction() throws Exception {
 		throw new Exception("TODO ");
 	}

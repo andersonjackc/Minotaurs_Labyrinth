@@ -7,6 +7,7 @@ public class Minotaur {
 	int currentPosY = 1;
 	String errorMessage;
 	
+	//fills map w/ 0 for empty, 1 for player, 3 for non-enterable room
 	public void initMap() {
 		
 		for (int x = 0; x <= 2; x++) {
@@ -21,6 +22,7 @@ public class Minotaur {
 		map[2][2]=3;
 	}
 	
+	//currently sets player to middle of the map
 	public void initPlayer() {
 		map[1][1]=1;
 		currentPosX=1;
@@ -44,6 +46,7 @@ public class Minotaur {
 		return currentPosY;
 	}
 	
+	//resets the location as model does not persist between posts
 	public void setPosition(int posX, int posY) {
 		for(int i=0; i<=2; i++) {
 			for(int j=0; j<=2; j++) {
@@ -61,10 +64,12 @@ public class Minotaur {
 		map[posX][posY] = 1;
 	}
 	
-	
+	//prints what type of error it is
 	public String getError() {
 		return errorMessage;
 	}
+	
+	//moves the player by changing curr pos vals after checking the location they want to move to
 	public void moveNorth() {
 		if(currentPosX - 1 != -1 && map[currentPosX-1][currentPosY] != 3){
 			map[currentPosX][currentPosY]=0;

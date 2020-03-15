@@ -19,14 +19,15 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 
 		System.out.println("Minotaurs_Labyrinth Servlet: doGet");	
 		
+		//model and controller setup
 		Minotaur model = new Minotaur();
-
 		MinotaursLabyrinthController controller = new MinotaursLabyrinthController();
-		
 		controller.setModel(model);
 		
+		//fills map 
 		controller.initModel();
 
+		//set attribute name for jsp
 		req.setAttribute("game", model);		
 
 		// call JSP to generate empty form
@@ -39,24 +40,18 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		System.out.println("Minotaurs_Labyrinth Servlet: doPost");
 		
-		// create GuessingGame model - model does not persist between requests
-		// must recreate it each time a Post comes in 
+		//model, controller and attribute for jsp setup
 		Minotaur model = new Minotaur();
-
-		// create GuessingGame controller - controller does not persist between requests
-		// must recreate it each time a Post comes in
 		MinotaursLabyrinthController controller = new MinotaursLabyrinthController();
-				
-		// assign model reference to controller so that controller can access model
 		controller.setModel(model);
-				
 		req.setAttribute("game", model);
 		
+		//used to persist x and y location on our sample map
 		Integer xLoc = getInteger(req, "xLoc");
 		Integer yLoc = getInteger(req, "yLoc");
-		//System.out.println(xLoc + " " + yLoc);
 		model.setPosition(xLoc, yLoc);
 		
+		//check for command, call the move method
 		if (req.getParameter("North") != null || req.getParameter("South") != null 
 				|| req.getParameter("West") != null || req.getParameter("East") != null) {
 				if(req.getParameter("North") != null) {

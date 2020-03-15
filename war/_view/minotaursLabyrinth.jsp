@@ -7,27 +7,32 @@
 		<title>Minotaur's Labyrinth</title>
 		<style type="text/css">
 		
+		<%--set error text to red--%>
 		.error {
 			color: red;
 		}
+		<%--Movable rooms have a border--%>
 		td.Game {
 			border: 1px solid black;
 		}
+		<%-- non movable rooms are red --%>
 		td.Corner{
 			background-color: red;
 		}
+		<%-- set size, align all text--%>
 		table.table{
 			table-layout: fixed ;
 			width: 400px;
 			height: 400px;
 			text-align: center;
 		}
+		<%-- move buttons to middle of map--%>
 		table.buttons{
 			margin-left: 120px;
 		}
 		</style>
+		<%-- script to make 0's blank and the player a *--%>
 		<script>
-		
     		function checkNorth(val1){
 				if(val1 == 0){
 					document.getElementById("North").innerHTML = "&#160";
@@ -74,6 +79,7 @@
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
 			
+			<%--draws the map--%>
 			<table class="table">
 				<tr>
 					<td class="Corner"></td>
@@ -95,6 +101,7 @@
 				<tr>
 				</tr>
 		</table>
+		<%--run js scripts to enter " " at 0's and * at 1's --%>
 		<script>
 		checkNorth(${game.getValue(0,1)});
 		checkWest(${game.getValue(1,0)});
@@ -111,12 +118,14 @@
 				<td><input type="Submit" name="West" value="West"></td>
 				<td><input type="Submit" name="South" value="South"></td>
 				<td><input type="Submit" name="East" value="East"></td>
+				<%--used for persistence--%>
 				<input name="xLoc" type="hidden" value="${game.posX}" />
 				<input name="yLoc" type="hidden" value="${game.posY}" />
 			</tr>
 		</table>
 		</form>
 		</br>
+		<%--error message based on what error--%>
 		<div class="error">${game.error}</div>
 	</body>
 </html>
