@@ -17,7 +17,7 @@ public class Enemy extends NPC {
 
 	@Override
 	public void basicAttack(Actor target) {
-		target.setHP(target.getHP() - atk); 
+		target.setHP((target.getHP() - getAtk())); 
 		
 	}
 	
@@ -27,12 +27,6 @@ public class Enemy extends NPC {
 		
 	}
 	
-	public int getHP() {
-		return hp;
-	}
 	
-	public int getAtk() {
-		return atk;
-	}
 	
 }

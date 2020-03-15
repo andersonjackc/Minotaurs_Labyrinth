@@ -99,7 +99,7 @@ public class Player extends Actor {
 
 	@Override
 	public void basicAttack(Actor target) {
-		target.setHP(target.getHP() - atk); 
+		target.setHP((target.getHP() - getAtk())); 
 		
 	}
 
