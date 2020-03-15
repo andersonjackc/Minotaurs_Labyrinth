@@ -73,15 +73,15 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		Enemy target = new Enemy("Grr", 2, "Will try to eat you", "Ogre", 2, 20);
 		
 		if(model.getMap()[0][1] == 1/* && model.isEnemyAlive(target)*/) {
-			req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath() + "/combat");
 		}else if(model.getMap()[1][0] == 1) {
-			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
 		}else if(model.getMap()[1][2] == 1) {
-			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
 		}else if(model.getMap()[2][1] == 1) {
-			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
 		}else {
-			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
 		}
 	}
 
