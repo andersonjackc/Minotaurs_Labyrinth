@@ -2,6 +2,8 @@ package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,10 +13,9 @@ private Enemy testEnemy;
 	
 	@Before
 	public void setUp() {
+		ArrayList<Ability> abilities = null;
+		testEnemy = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, abilities, "test", "test", 1, "test", "test");
 		
-		testEnemy = new Enemy("test", 10, "test", "test", 2, 20);
-		testEnemy.maxHP = 5;
-		testEnemy.maxResource = 5;
 		Ability fireball;
 	}
 	@Test
@@ -65,7 +66,6 @@ private Enemy testEnemy;
 	}
 	@Test
 	public void testDialogueMethods() {
-		testEnemy.dialogue = "test";
 		assertEquals("test", testEnemy.getDialogue());
 	}
 	@Test
@@ -75,12 +75,10 @@ private Enemy testEnemy;
 	}
 	@Test
 	public void testDescriptionMethods() {
-		testEnemy.description = "test";
 		assertEquals("test", testEnemy.getDescription());
 	}
 	@Test
 	public void testNameMethods() {
-		testEnemy.name = "test";
 		assertEquals("test", testEnemy.getName());
 	}
 	@Test
