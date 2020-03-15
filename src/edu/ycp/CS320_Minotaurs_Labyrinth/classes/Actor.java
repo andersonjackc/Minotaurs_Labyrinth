@@ -38,7 +38,7 @@ public abstract class Actor {
 		
 	}
 	
-	public abstract void basicAttack(Player target);
+	public abstract void basicAttack(Actor target);
 	
 	public abstract void cast(Actor target, Ability spell);
 	

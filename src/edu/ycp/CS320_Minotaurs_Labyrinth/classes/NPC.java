@@ -28,6 +28,10 @@ public class NPC extends Actor {
 		return attitude;
 	}
 	
+	public void setAttitude(int attitude) {
+		this.attitude = attitude;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -45,7 +49,7 @@ public class NPC extends Actor {
 	}
 	
 	@Override
-	public void basicAttack(Player target) {
+	public void basicAttack(Actor target) {
 		target.setHP(target.getHP() - getAtk()); 
 		
 	}

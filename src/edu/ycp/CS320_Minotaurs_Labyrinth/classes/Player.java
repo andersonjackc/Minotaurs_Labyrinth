@@ -98,7 +98,7 @@ public class Player extends Actor {
 	}
 
 	@Override
-	public void basicAttack(Player target) {
+	public void basicAttack(Actor target) {
 		// TODO Auto-generated method stub
 		
 	}
