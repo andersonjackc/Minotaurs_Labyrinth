@@ -17,7 +17,7 @@ public class CombatServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		System.out.println("Minotaurs_Labyrinth Servlet: doGet");	
+		System.out.println("Combat Servlet: doGet");	
 		
 		//model and controller setup
 		Combat model = new Combat();
@@ -38,7 +38,7 @@ public class CombatServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		System.out.println("Minotaurs_Labyrinth Servlet: doPost");
+		System.out.println("Combat Servlet: doPost");
 		
 		//model, controller and attribute for jsp setup
 		Combat model = new Combat();
