@@ -48,7 +48,8 @@ public class CombatServlet extends HttpServlet {
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);
-		model.initPlayers();
+
+		
 		if (req.getParameter("Attack") != null){
 			model.enemyAtk();
 			model.playerAtk();
