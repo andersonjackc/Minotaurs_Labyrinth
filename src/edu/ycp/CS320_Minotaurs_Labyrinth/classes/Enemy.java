@@ -7,7 +7,8 @@ public class Enemy extends NPC {
 	
 	public Enemy(String dialogue, int attitude, String description, String name, int atk, int hp) {
 		super(dialogue, attitude, description, name);
-		
+		this.atk = atk;
+		this.hp = hp;
 	}
 
 	public void rollForAction() throws Exception {

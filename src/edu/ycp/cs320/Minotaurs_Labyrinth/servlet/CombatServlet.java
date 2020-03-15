@@ -57,8 +57,8 @@ public class CombatServlet extends HttpServlet {
 
 		
 		if (req.getParameter("Attack") != null){
-			model.enemyAtk();
 			model.playerAtk();
+			model.enemyAtk();
 		}
 		
 		// Forward to view to render the result HTML document

@@ -8,7 +8,7 @@ public class Player extends Actor {
 	public Player(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP,
 			ArrayList<Ability> abilities, String status) {
 		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status);
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	
