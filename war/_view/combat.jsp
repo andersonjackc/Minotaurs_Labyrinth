@@ -11,6 +11,10 @@
 	width: 20%;
 	height: 20%;
 	}
+	<%-- move buttons to middle of map--%>
+	table.buttons{
+			margin-left: 120px;
+	}
 	</style>
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/combat" method="post">
@@ -22,6 +26,17 @@
 					<td>HP: </td>
 				</tr>
 			</table>
+			<table class = "buttons">
+			<tr>
+				<td></td>
+				<td><input type="Submit" name="Attack" value="Attack"></td>
+			</tr>
+			<c:if test="${! empty game.attackMessage}">
+			<div>${game.attackMessage}</div>
+			</c:if>
+			<c:if test="${! empty game.defendMessage}">
+			<div>${game.defendMessage}</div>
+			</c:if>
 		</form>
 	</body>
 </html>

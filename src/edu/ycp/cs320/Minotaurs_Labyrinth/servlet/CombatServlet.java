@@ -48,6 +48,11 @@ public class CombatServlet extends HttpServlet {
 		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);
+		
+		if (req.getParameter("Attack") != null){
+			model.playerAtk();
+			model.enemyAtk();
+		}
 	}
 
 	// gets an Integer from the Posted form data, for the given attribute name
