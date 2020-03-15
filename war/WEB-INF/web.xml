@@ -10,6 +10,10 @@
     <servlet-name>MinotaursLabyrinthServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.Minotaurs_Labyrinth.servlet.MinotaursLabyrinthServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>CombatServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.Minotaurs_Labyrinth.servlet.CombatServlet</servlet-class>
+  </servlet>
   
 
 
@@ -19,6 +23,10 @@
   <servlet-mapping>
     <servlet-name>MinotaursLabyrinthServlet</servlet-name>
     <url-pattern>/minotaursLabyrinth</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>CombatServlet</servlet-name>
+    <url-pattern>/combat</url-pattern>
   </servlet-mapping>
 
 </web-app>
