@@ -1,5 +1,7 @@
 package edu.ycp.cs320.Minotaurs_Labyrinth.model;
 
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
+
 public class Minotaur {
 	
 	int[][] map = new int[3][3];
@@ -113,5 +115,13 @@ public class Minotaur {
 			errorMessage="Sorry thats an invalid move";
 		}
 
+	}
+	
+	public Boolean isEnemyAlive(Enemy target) {
+		if(target.getHP() <= 0) {
+			return false;
+		}else{
+			return true;
+		}
 	}
 }

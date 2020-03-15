@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.cs320.Minotaurs_Labyrinth.controller.MinotaursLabyrinthController;
 import edu.ycp.cs320.Minotaurs_Labyrinth.model.Minotaur;
 
@@ -69,8 +70,19 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				}
 		}
 		
-		// Forward to view to render the result HTML document
-		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+		Enemy target = new Enemy("Grr", 2, "Will try to eat you", "Ogre");
+		
+		if(model.getMap()[0][1] == 1 && model.isEnemyAlive(target)) {
+			req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);
+		}else if(model.getMap()[1][0] == 1) {
+			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+		}else if(model.getMap()[1][2] == 1) {
+			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+		}else if(model.getMap()[2][1] == 1) {
+			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+		}else {
+			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+		}
 	}
 
 	// gets an Integer from the Posted form data, for the given attribute name
