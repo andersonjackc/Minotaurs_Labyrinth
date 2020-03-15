@@ -6,6 +6,8 @@ public class Combat {
 	int currentPlayerHP;
 	int currentEnemyHP;
 	
+	Enemy ogre;
+	Player PlayerCharacter;
 	
 	public void initPlayers() {
 	//creates an instance of player
@@ -14,5 +16,13 @@ public class Combat {
 	
 	//creates an instance of enemy
 	Enemy ogre = new Enemy("Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", 1, 20);
+	}
+	
+	public void enemyAtk() {
+		ogre.basicAttack(PlayerCharacter);
+	}
+	
+	public void playerAtk() {
+		PlayerCharacter.basicAttack(ogre);
 	}
 }
