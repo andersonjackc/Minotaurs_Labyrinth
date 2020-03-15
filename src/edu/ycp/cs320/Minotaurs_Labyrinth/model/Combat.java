@@ -22,11 +22,13 @@ public class Combat {
 	public void enemyAtk() {
 		ogre.basicAttack(PlayerCharacter);
 		defendMessage = "Ogre did " + ogre.getAtk() + " You now have " + PlayerCharacter.getHP();
+		
 	}
 	
 	public void playerAtk() {
 		PlayerCharacter.basicAttack(ogre);
 		attackMessage = "You did " + PlayerCharacter.getAtk() + " to " + ogre.getName() + ", it now has " + ogre.getHP() + " HP";
+		
 	}
 	public String getAttackmessage() {
 		return attackMessage;
