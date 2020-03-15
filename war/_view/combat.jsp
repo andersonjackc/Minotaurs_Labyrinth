@@ -19,7 +19,7 @@
 			<img class='enemy' src='https://cdn.pixabay.com/photo/2013/07/13/01/23/troll-155646_1280.png'>
 			<table class="table">
 				<tr>
-					<td>TEST</td>
+					<td>HP: </td>
 				</tr>
 			</table>
 		</form>
