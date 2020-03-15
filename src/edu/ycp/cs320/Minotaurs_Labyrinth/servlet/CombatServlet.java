@@ -46,15 +46,21 @@ public class CombatServlet extends HttpServlet {
 		controller.setModel(model);
 		req.setAttribute("game", model);
 		
+
 		//used to persist health
 		Integer playerHP = getInteger(req, "playerHP");
 		Integer enemyHP = getInteger(req, "enemyHP");
 		model.setPlayerHP(playerHP);
 		model.setEnemyHP(enemyHP);
+
+		// Forward to view to render the result HTML document
+		req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);
+
+
 		
 		if (req.getParameter("Attack") != null){
-			model.playerAtk();
 			model.enemyAtk();
+			model.playerAtk();
 		}
 		
 		// Forward to view to render the result HTML document

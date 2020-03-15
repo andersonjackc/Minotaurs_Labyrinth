@@ -28,10 +28,17 @@ public class Combat {
 		PlayerCharacter.basicAttack(ogre);
 		attackMessage = "You did " + PlayerCharacter.getAtk() + " to " + ogre.getName() + ", it now has " + ogre.getHP() + " HP";
 	}
-	public String getAttackmessage() {
-		return attackMessage;
+	public void setPlayerHP(int HP) {
+		PlayerCharacter.setHP(HP);
 	}
-	public String getDefendmessage() {
-		return defendMessage;
+	public int getPlayerHP() {
+		return PlayerCharacter.getHP();
+	}
+	public void setEnemyHP(int HP) {
+		ogre.setHP(HP);
+	}
+	public int getEnemyHP() {
+		return ogre.getHP();
 	}
 }
+
