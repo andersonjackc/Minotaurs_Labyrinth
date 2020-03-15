@@ -10,7 +10,7 @@ public class MinotaursLabyrinthController {
 		this.model = model;
 	}
 	
-	//fills the map with 0 for empty, 1 for player, 3 for unmovable
+	//fills the map with 0 for empty, 1 for player,  3 for unmovable
 	public void initModel() {
 		model.initMap();
 		model.initPlayer();
