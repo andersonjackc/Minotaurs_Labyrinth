@@ -19,7 +19,7 @@
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/combat" method="post">
 			
-			<%--draws the map--%>
+			<%--imports ogre pic--%>
 			<img class='enemy' src='https://cdn.pixabay.com/photo/2013/07/13/01/23/troll-155646_1280.png'>
 			<table class="table">
 				<tr>
