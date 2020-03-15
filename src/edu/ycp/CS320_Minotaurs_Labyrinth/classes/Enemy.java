@@ -25,7 +25,71 @@ public class Enemy extends NPC {
 		
 		
 	}
-	
+	//getters
+		public int getMaxHP() {
+			return maxHP;
+		}
+
+		public int getHP() {
+			return HP;
+		}
+		
+		public int getMaxResource() {
+			return maxResource;
+		}
+		
+		public int getResource() {
+			return resource;
+		}
+
+		public int getAtk() {
+			return atk;
+		}
+		
+		public int getDef() {
+			return def;
+		}
+		
+		public int getGold() {
+			return gold;
+		}
+
+		public int getXP() {
+			return XP;
+		}
+		
+		public ArrayList<Ability> getAbilities() {
+			return abilities;
+		}
+		
+		public String getStatus() {
+			return status;
+		}
+			
+		//setters
+		public void setHP(int HP) {
+			Enemy.HP = HP;
+		}
+		
+		public void setResource(int resource) {
+			Enemy.resource =  resource;
+		}
+
+		public void setAtk(int atk) {
+			Enemy.atk = atk;
+		}
+		
+		public void setDef(int def) {
+			Enemy.def = def;
+		}
+		
+		public void setGold(int gold) {
+			Enemy.gold = gold;
+		}
+
+		public void setXP(int XP) {
+			Enemy.XP = XP;
+		}
 	
 	
 }
