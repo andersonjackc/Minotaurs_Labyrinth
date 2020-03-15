@@ -19,16 +19,20 @@ public class Combat {
 
 		ArrayList<Ability> OgreAbilities = new ArrayList<Ability>();
 		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, OgreAbilities, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre");
+		
+
 
 	}
 	
 	public void enemyAtk() {
+		
 		ogre.basicAttack(PlayerCharacter);
 		defendMessage = "Ogre did " + ogre.getAtk() + " You now have " + PlayerCharacter.getHP();
-		
+	
 	}
 	
 	public void playerAtk() {
+	
 		PlayerCharacter.basicAttack(ogre);
 		attackMessage = "You did " + PlayerCharacter.getAtk() + " to " + ogre.getName() + ", it now has " + ogre.getHP() + " HP";
 		
