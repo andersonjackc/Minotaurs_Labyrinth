@@ -99,7 +99,7 @@ public class Player extends Actor {
 
 	@Override
 	public void basicAttack(Actor target) {
-		// TODO Auto-generated method stub
+		target.setHP(target.getHP() - atk); 
 		
 	}
 
