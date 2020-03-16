@@ -53,9 +53,8 @@ public class DialogueServlet extends HttpServlet {
 
 		model.getNPCDesc();
 		
-		if (req.getParameter("Dialogue") != null){
-			model.getPlayerResp();
-			model.getNPCResp();
+		if (req.getParameter("Greetings") != null){
+			model.initResponses();
 		}
 		
 		// Forward to view to render the result HTML document

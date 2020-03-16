@@ -32,13 +32,18 @@ public class Dialogue {
 	}
 	
 	public String getPlayerResp() {
-		PlayerResp = "Greetings";
+		
 		return PlayerResp;
 	}
 	
 	public String getNPCResp() {
-		NPCResp = "The" + villager.getName() + "says" + villager.getDialogue();
+		
 		return NPCResp;
+	}
+	
+	public void initResponses() {
+		PlayerResp = "Greetings";
+		NPCResp = "The" + villager.getName() + "says" + villager.getDialogue();
 	}
 	
 }
