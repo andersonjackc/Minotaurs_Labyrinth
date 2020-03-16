@@ -46,6 +46,7 @@
 					document.getElementById("West").innerHTML = "&#160";
 				}else{
 					document.getElementById("West").innerHTML = "*";
+					document.getElementById("Empty").innerHTML = "This room is empty, turn around and check out the other rooms!";
 				}
   			 }
   			 
@@ -101,14 +102,7 @@
 				<tr>
 				</tr>
 		</table>
-		<%--run js scripts to enter " " at 0's and * at 1's --%>
-		<script>
-		checkNorth(${game.getValue(0,1)});
-		checkWest(${game.getValue(1,0)});
-		checkCenter(${game.getValue(1,1)});
-		checkEast(${game.getValue(1,2)});
-		checkSouth(${game.getValue(2,1)});
-		</script>
+		
 		<table class = "buttons">
 			<tr>
 				<td></td>
@@ -125,7 +119,16 @@
 		</table>
 		</form>
 		</br>
+		<div id="Empty"></div>
 		<%--error message based on what error--%>
 		<div class="error">${game.error}</div>
+		<%--run js scripts to enter " " at 0's and * at 1's --%>
+		<script>
+		checkNorth(${game.getValue(0,1)});
+		checkWest(${game.getValue(1,0)});
+		checkCenter(${game.getValue(1,1)});
+		checkEast(${game.getValue(1,2)});
+		checkSouth(${game.getValue(2,1)});
+		</script>
 	</body>
 </html>

@@ -43,7 +43,7 @@ public class Dialogue {
 	
 	public void initResponses() {
 		PlayerResp = "Greetings";
-		NPCResp = "The" + villager.getName() + "says" + villager.getDialogue();
+		NPCResp = "The " + villager.getName() + " says " + villager.getDialogue();
 	}
 	
 }
