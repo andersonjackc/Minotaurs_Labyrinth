@@ -60,6 +60,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					model.moveNorth();
 				}
 				if(req.getParameter("South") != null) {
+					System.out.println("check");
 					model.moveSouth();
 				}
 				if(req.getParameter("West") != null) {
@@ -79,7 +80,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		}else if(model.getMap()[1][2] == 1) {
 			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
 		}else if(model.getMap()[2][1] == 1) {
-			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+			 resp.sendRedirect(req.getContextPath() + "/dialogue");
 		}else {
 			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
 		}
