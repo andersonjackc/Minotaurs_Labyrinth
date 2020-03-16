@@ -21,11 +21,6 @@
 			
 			<%--imports villager pic--%>
 			<img class='enemy' src='https://cdn1.iconfinder.com/data/icons/avatar-flat-design-big-family/512/avatar_villager-512.png'>
-			<table class="table">
-				<tr>
-					<td>HP: </td>
-				</tr>
-			</table>
 			<table class = "buttons">
 			<tr>
 				<td></td>
