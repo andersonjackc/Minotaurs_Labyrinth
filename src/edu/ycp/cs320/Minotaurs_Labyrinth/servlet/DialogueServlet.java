@@ -31,7 +31,7 @@ public class DialogueServlet extends HttpServlet {
 		req.setAttribute("game", model);		
 
 		// call JSP to generate empty form
-		req.getRequestDispatcher("/_view/Dialogue.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/dialogue.jsp").forward(req, resp);
 	}
 	
 	@Override
