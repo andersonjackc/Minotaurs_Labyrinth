@@ -62,7 +62,11 @@ public class CombatServlet extends HttpServlet {
 		}
 		
 		// Forward to view to render the result HTML document
-		req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);
+		if(model.getEnemyHP() > 0) {
+			req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);
+		}else if(model.getEnemyHP() <= 0) {
+			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
+		}
 		
 		
 	}
