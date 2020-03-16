@@ -8,6 +8,7 @@ public class Minotaur {
 	int currentPosX = 1;
 	int currentPosY = 1;
 	String errorMessage;
+	String message;
 	
 	//fills map w/ 0 for empty, 1 for player, 3 for non-enterable room
 	public void initMap() {
@@ -22,6 +23,7 @@ public class Minotaur {
 		map[0][2]=3;
 		map[2][0]=3;
 		map[2][2]=3;
+		map[1][2]=4;
 	}
 	
 	//currently sets player to middle of the map
@@ -60,6 +62,7 @@ public class Minotaur {
 		map[0][2]=3;
 		map[2][0]=3;
 		map[2][2]=3;
+		map[1][2]=4;
 		
 		currentPosX = posX;
 		currentPosY = posY;
@@ -69,6 +72,10 @@ public class Minotaur {
 	//prints what type of error it is
 	public String getError() {
 		return errorMessage;
+	}
+	
+	public String getMessage() {
+		return message;
 	}
 	
 	//moves the player by changing curr pos vals after checking the location they want to move to
@@ -106,12 +113,13 @@ public class Minotaur {
 	}
 	
 	public void moveEast() {
-		if( currentPosY + 1 != 3 && map[currentPosX][currentPosY+1]!=3){
+		if( currentPosY + 1 != 3 && map[currentPosX][currentPosY+1]!=3 && map[currentPosX][currentPosY+1]!=4){
 			map[currentPosX][currentPosY]=0;
 			map[currentPosX][currentPosY+1]=1;
 			currentPosY+=1;
-		}
-		else {
+		}else if(map[currentPosX][currentPosY+1]==4){
+			message = "Sorry, this room is locked right now!";
+		}else {
 			errorMessage="Sorry thats an invalid move";
 		}
 

@@ -36,7 +36,7 @@
     		function checkNorth(val1){
 				if(val1 == 0){
 					document.getElementById("North").innerHTML = "&#160";
-				}else{
+				}else if(val1 == 1){
 					document.getElementById("North").innerHTML = "*";
 				}
   			 }
@@ -44,7 +44,7 @@
   			 function checkWest(val2){
     			if(val2 == 0){
 					document.getElementById("West").innerHTML = "&#160";
-				}else{
+				}else if(val2 == 1){
 					document.getElementById("West").innerHTML = "*";
 					document.getElementById("Empty").innerHTML = "This room is empty, turn around and check out the other rooms!";
 				}
@@ -53,7 +53,7 @@
   			 function checkCenter(val3){
     			if(val3 == 0){
 					document.getElementById("Center").innerHTML = "&#160";
-				}else{
+				}else if(val3 == 1){
 					document.getElementById("Center").innerHTML = "*";
 				}    			  			
   			 }
@@ -61,7 +61,7 @@
   			 function checkEast(val4){
     			if(val4 == 0){
 					document.getElementById("East").innerHTML = "&#160";
-				}else{
+				}else if(val4 == 1){
 					document.getElementById("East").innerHTML = "*";
 				}    			
   			 }
@@ -69,7 +69,7 @@
   			 function checkSouth(val5){
     			if(val5 ==  0){
 					document.getElementById("South").innerHTML = "&#160";
-				}else{
+				}else if(val5 == 1){
 					document.getElementById("South").innerHTML = "*";
 				}
 
@@ -120,6 +120,7 @@
 		</form>
 		</br>
 		<div id="Empty"></div>
+		<div class="Message">${game.message}</div>
 		<%--error message based on what error--%>
 		<div class="error">${game.error}</div>
 		<%--run js scripts to enter " " at 0's and * at 1's --%>
