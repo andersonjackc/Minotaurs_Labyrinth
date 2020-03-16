@@ -54,7 +54,7 @@ public class DialogueServlet extends HttpServlet {
 		model.getNPCDesc();
 		
 		if (req.getParameter("Dialogue") != null){
-			model.playerResp();
+			model.getPlayerResp();
 			model.getNPCResp();
 		}
 		

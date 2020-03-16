@@ -31,7 +31,7 @@ public class Dialogue {
 		return NPCDesc;
 	}
 	
-	public String playerResp() {
+	public String getPlayerResp() {
 		PlayerResp = "Greetings";
 		return PlayerResp;
 	}

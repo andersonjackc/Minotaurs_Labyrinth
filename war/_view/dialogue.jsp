@@ -34,8 +34,8 @@
 			<c:if test="${! empty game.NPCDesc}">
 				<div>${game.NPCDesc}</div>
 			</c:if>
-			<c:if test="${! empty game.PlayerResp}">
-				<div>${game.PlayerResp}</div>
+			<c:if test="${! empty game.playerResp}">
+				<div>${game.playerResp}</div>
 			</c:if>
 			<c:if test="${! empty game.NPCResp}">
 				<div>${game.NPCResp}</div>
