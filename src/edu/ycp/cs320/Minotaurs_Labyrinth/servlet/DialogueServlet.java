@@ -57,6 +57,10 @@ public class DialogueServlet extends HttpServlet {
 			model.initResponses();
 		}
 		
+		if(req.getParameter("Leave") != null) {
+			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
+		}
+		
 		// Forward to view to render the result HTML document
 		req.getRequestDispatcher("/_view/dialogue.jsp").forward(req, resp);
 		

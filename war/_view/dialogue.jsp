@@ -25,6 +25,7 @@
 			<tr>
 				<td></td>
 				<td><input type="Submit" name="Greetings" value="Greetings"></td>
+				<td><input type="Submit" name="Leave" value="Leave"></td>
 			</tr>
 			<c:if test="${! empty game.NPCDesc}">
 				<div>${game.NPCDesc}</div>
