@@ -11,12 +11,22 @@ private Item testItem;
 	
 	@Before
 	public void setUp() {
-		String text = "test";
-		int effect = 1;
-		testItem = new Item(text, effect);
+		
+		testItem = new Item("test", 1);
 		
 	}
 	
+	@Test
+	public void testDescriptionMethods() {
+		
+		assertEquals("test", testItem.getDescription());
+	}
+	
+	@Test
+	public void testEffectMethods() {
+		
+		assertEquals(1, testItem.getEffect());
+	}
 	
 	@Test
 	public void testPrintDescription() {
