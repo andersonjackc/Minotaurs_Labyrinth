@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class InventoryTest {
 
 	Inventory testInventory;
-	ArrayList<Item> inventory = null;
+	ArrayList<Item> inventory = new ArrayList<Item>();
 	@Before
 	public void setUp() {
 		
@@ -38,15 +38,15 @@ public class InventoryTest {
 	
 	@Test
 	public void testAddItem() {
-		Item potion = null;
+		Item potion = new Item("test", 1);
 		testInventory.addItem(potion);
 		assertEquals(potion, testInventory.getInventory().get(0));
 	}
 	
 	@Test
 	public void testRemoveItem() {
-		Item potion = null;
-		Item sword = null;
+		Item potion = new Item("test", 1);
+		Item sword = new Item("test2", 2);
 		testInventory.addItem(potion);
 		testInventory.addItem(sword);
 		testInventory.removeItem(potion);
