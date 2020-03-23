@@ -13,5 +13,28 @@ public class Gear extends Item{
 		this.HP = HP;
 		this.variety = variety;
 		}
+	
+	public int getAtk() {
+		return atk;
+	}
+	
+	public int getDef() {
+		return def;
+	}
+	
+	public int getHP() {
+		return HP;
+	}
+	
+	public String getVariety() {
+		return variety;
+	}
+	
+
+
+
+
+
+
 
 }
