@@ -14,4 +14,8 @@ public class GameMap {
 	public Map<Room, LinkedList<Room>> getMap(){
 		return map;
 	}
+	
+	public void addRoom(Room room, LinkedList<Room> rooms) {
+		map.put(room, rooms);
+	}
 }
