@@ -12,19 +12,13 @@ public class PlayerTest {
 	Item testItem = new Item("A generic item", 5, true, false, 50, "testItem");
 	
 	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
 	public void testCheckStats() {
-		assertEquals(testPlayer.checkStats(), "You have: " + testPlayer.getHP() + " HP, " + testPlayer.getResource() + " Mana, " +
-				testPlayer.getAtk() + " Attack, " + testPlayer.getDef() + " Defense");
+		assertEquals(testPlayer.checkStats(), "You have: 100 HP, 50 Mana, 10 Attack, 5 Defense");
 	}
 	
 	@Test
 	public void testCheckNPC() {
-		assertEquals(testPlayer.checkNPC(testNPC), "A generic item");
+		assertEquals(testPlayer.checkNPC(testNPC), "A test NPC");
 	}
 	
 	@Test
