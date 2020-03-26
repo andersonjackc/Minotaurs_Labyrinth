@@ -7,7 +7,8 @@ import org.junit.Test;
 public class PlayerTest {
 
 	//Set up a test Player obj
-	Player testplayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null);
+	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null);
+	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 0, "A test NPC", "test", null);
 	
 	@Test
 	public void test() {
@@ -15,9 +16,14 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void testCheckPlayerStats() {
-		assertEquals(testplayer.checkStats(), "You have: " + testplayer.getHP() + " HP, " + testplayer.getResource() + " Mana, " +
-				testplayer.getAtk() + " Attack, " + testplayer.getDef() + " Defense");
+	public void testCheckStats() {
+		assertEquals(testPlayer.checkStats(), "You have: " + testPlayer.getHP() + " HP, " + testPlayer.getResource() + " Mana, " +
+				testPlayer.getAtk() + " Attack, " + testPlayer.getDef() + " Defense");
+	}
+	
+	@Test
+	public void testCheckNPC() {
+		assertEquals(testPlayer.checkNPC(testNPC), testNPC.getDescription());
 	}
 
 }

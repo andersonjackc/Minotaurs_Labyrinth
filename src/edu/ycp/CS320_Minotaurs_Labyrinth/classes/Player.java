@@ -97,11 +97,11 @@ public class Player extends Actor {
 				+ this.def + " Defense";
 		return Message;
 	}
-	public String checkNPC() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO - implement");
-
+	public String checkNPC(NPC npc) {
+		String Message = npc.getDescription();
+		return Message;
 	}
+	
 	public String checkValue() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("TODO - implement");
