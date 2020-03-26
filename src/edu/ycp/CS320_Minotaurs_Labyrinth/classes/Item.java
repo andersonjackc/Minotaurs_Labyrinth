@@ -31,7 +31,9 @@ public Boolean getLit() {
 }
 
 public void setLit(Boolean lit) {
+	if(getFlammable()) {
 	this.lit = lit;
+	}
 }
 
 public void printDescription(){
