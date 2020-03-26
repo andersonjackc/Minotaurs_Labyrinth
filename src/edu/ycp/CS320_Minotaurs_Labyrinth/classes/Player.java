@@ -72,9 +72,7 @@ public class Player extends Actor {
 		}
 		
 	}
-	public void check() {
-		// TODO Auto-generated method stub	
-	}
+
 	public void barter() {
 		// TODO Auto-generated method stub
 		
@@ -99,6 +97,11 @@ public class Player extends Actor {
 	}
 	public String checkNPC(NPC npc) {
 		String Message = npc.getDescription();
+		return Message;
+	}
+	
+	public String checkItem(Item item) {
+		String Message = item.getDescription();
 		return Message;
 	}
 	
