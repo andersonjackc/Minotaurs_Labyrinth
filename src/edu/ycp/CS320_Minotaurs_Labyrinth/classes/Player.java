@@ -93,9 +93,9 @@ public class Player extends Actor {
 
 	}
 	public String checkStats() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO - implement");
-
+		String Message = "You have: " + this.HP + " HP, " + this.resource + " Mana, " + this.atk + " Attack, " 
+				+ this.def + " Defense";
+		return Message;
 	}
 	public String checkNPC() {
 		// TODO Auto-generated method stub
