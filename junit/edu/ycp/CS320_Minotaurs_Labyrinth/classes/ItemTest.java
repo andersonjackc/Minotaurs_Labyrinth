@@ -12,7 +12,7 @@ private Item testItem;
 	@Before
 	public void setUp() {
 		
-		testItem = new Item("test", 1);
+		testItem = new Item("test", 1, true, false);
 		
 	}
 	
@@ -26,6 +26,18 @@ private Item testItem;
 	public void testEffectMethods() {
 		
 		assertEquals(1, testItem.getEffect());
+	}
+	
+	@Test
+	public void testFlammableMethods() {
+		
+		assertTrue(testItem.getFlammable());
+	}
+	
+	@Test
+	public void testLitMethods() {
+		testItem.setLit(true);
+		assertTrue(testItem.getLit());
 	}
 	
 	@Test
