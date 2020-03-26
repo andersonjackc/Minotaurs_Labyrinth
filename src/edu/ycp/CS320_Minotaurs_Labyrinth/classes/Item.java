@@ -4,11 +4,14 @@ public class Item {
 //attributes
 protected String description;
 protected int effect;
+protected Boolean flammable, lit;
 
 //methods
-public Item(String description, int effect) {
+public Item(String description, int effect, Boolean flammable,  Boolean lit) {
 	this.description = description;
 	this.effect = effect;
+	this.flammable = flammable;
+	this.lit = lit;
 }
 
 public String getDescription() {
@@ -17,6 +20,18 @@ public String getDescription() {
 
 public int getEffect() {
 	return effect;
+}
+
+public Boolean getFlammable() {
+	return flammable;
+}
+
+public Boolean getLit() {
+	return lit;
+}
+
+public void setLit(Boolean lit) {
+	this.lit = lit;
 }
 
 public void printDescription(){
