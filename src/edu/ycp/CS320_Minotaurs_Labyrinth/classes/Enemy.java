@@ -65,6 +65,10 @@ public class Enemy extends NPC {
 		public String getStatus() {
 			return status;
 		}
+		
+		public Inventory getInventory() {
+			return inventory;
+		}
 			
 		//setters
 		public void setHP(int HP) {
