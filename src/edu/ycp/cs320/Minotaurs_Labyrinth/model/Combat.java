@@ -13,12 +13,14 @@ public class Combat {
 	public void initPlayers() {
 		//creates an instance of player
 		ArrayList<Ability> PlayerAbilities = new ArrayList<Ability>();
-		PlayerCharacter = new Player(1000, 20, 1000, 10, 2, 2, 50, 0, PlayerAbilities, "Normal");
+		ArrayList<Item> items = new ArrayList<Item>();
+		Inventory i = new Inventory(0, 0, items);
+		PlayerCharacter = new Player(1000, 20, 1000, 10, 2, 2, 50, 0, PlayerAbilities, "Normal", i);
 		
 		//creates an instance of enemy
 
 		ArrayList<Ability> OgreAbilities = new ArrayList<Ability>();
-		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, OgreAbilities, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre");
+		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, OgreAbilities, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", i);
 		
 
 
