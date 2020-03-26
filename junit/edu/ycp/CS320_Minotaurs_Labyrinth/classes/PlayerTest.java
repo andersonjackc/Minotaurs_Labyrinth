@@ -24,7 +24,7 @@ public class PlayerTest {
 	
 	@Test
 	public void testCheckNPC() {
-		assertEquals(testPlayer.checkNPC(testNPC), testNPC.getDescription());
+		assertEquals(testPlayer.checkNPC(testNPC), "A generic item");
 	}
 	
 	@Test
