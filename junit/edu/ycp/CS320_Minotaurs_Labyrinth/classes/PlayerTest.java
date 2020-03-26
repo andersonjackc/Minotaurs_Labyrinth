@@ -12,6 +12,7 @@ public class PlayerTest {
 	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null);
 	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 0, "A test NPC", "test", null);
 	Item testItem = new Item("A test item", 5, true, false, 50, "testItem");
+	Room room = new Room("A test room");
 	ArrayList<Item> Inventory = new ArrayList<Item>();
 	Inventory testInventory = new Inventory(100, 100, Inventory);
 
@@ -42,5 +43,10 @@ public class PlayerTest {
 		assertEquals(testPlayer.checkInventory(testInventory), "Your inventory is empty!");
 		testInventory.addItem(testItem);
 		assertEquals(testPlayer.checkInventory(testInventory), "testItem ");
+	}
+	
+	@Test
+	public void testCheckRoom() {
+		assertEquals(testPlayer.checkRoom(room), "A test room");
 	}
 }

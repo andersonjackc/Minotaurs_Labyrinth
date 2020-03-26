@@ -109,6 +109,10 @@ public class Player extends Actor {
 		String Message = item.getName() + " is worth " + item.getValue() + " Gold";
 		return Message;
 	}
+	public String checkRoom(Room room) {
+		String Message = room.getDescription();
+		return Message;
+	}
 	
 	public String checkInventory(Inventory inventory) {
 		String Message = "";
