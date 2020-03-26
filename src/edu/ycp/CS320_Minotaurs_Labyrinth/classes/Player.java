@@ -102,10 +102,9 @@ public class Player extends Actor {
 		return Message;
 	}
 	
-	public String checkValue() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO - implement");
-
+	public String checkValue(Item item) {
+		String Message = item.getName() + " is worth " + item.getValue() + " Gold";
+		return Message;
 	}
 	public String checkInventory() {
 		// TODO Auto-generated method stub

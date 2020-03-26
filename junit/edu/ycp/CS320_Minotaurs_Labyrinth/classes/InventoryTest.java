@@ -38,15 +38,15 @@ public class InventoryTest {
 	
 	@Test
 	public void testAddItem() {
-		Item potion = new Item("test", 1, false, false);
+		Item potion = new Item("test", 1, false, false, 0, null);
 		testInventory.addItem(potion);
 		assertEquals(potion, testInventory.getInventory().get(0));
 	}
 	
 	@Test
 	public void testRemoveItem() {
-		Item potion = new Item("test", 1, false, false);
-		Item sword = new Item("test2", 2, false, false);
+		Item potion = new Item("test", 1, false, false, 0, null);
+		Item sword = new Item("test2", 2, false, false, 0, null);
 		testInventory.addItem(potion);
 		testInventory.addItem(sword);
 		testInventory.removeItem(potion);

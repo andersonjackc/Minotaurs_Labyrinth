@@ -2,18 +2,20 @@ package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 public class Gear extends Item{
 	//attributes
-	private int atk, def, HP;
-	private String variety;
+	private int atk, def, HP, value;
+	private String variety, name;
 	private Boolean equipped;
 	
 	//methods
-	public Gear(int atk, int def, int HP, String variety, Boolean equipped, String description, int effect, Boolean flammable, Boolean lit) {
-		super(description, effect, flammable, lit);
+	public Gear(int atk, int def, int HP, String variety, Boolean equipped, String description, int effect, Boolean flammable, Boolean lit, int value, String name) {
+		super(description, effect, flammable, lit, value, name);
 		this.atk = atk;
 		this.def = def;
 		this.HP = HP;
 		this.variety = variety;
 		this.equipped = equipped;
+		this.value = value;
+		this.name = name;
 		}
 	
 	public int getAtk() {
