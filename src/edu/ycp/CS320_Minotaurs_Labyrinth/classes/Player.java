@@ -20,28 +20,42 @@ public class Player extends Actor {
 		// TODO Auto-generated method stub
 		
 	}
-	public void light() {
-		// TODO Auto-generated method stub
+	public void light(Item item) {
+		if(getInventory().getInventory().contains(item) && item.getFlammable() && item.getLit() == false) {
+			item.setLit(true);
+		}
 		
 	}
-	public void equip() {
-		// TODO Auto-generated method stub
+	public void equip(Gear gear) {
+		if(getInventory().getInventory().contains(gear) && gear.getEquipped() == false) {
+			gear.setEquipped(true);
+			int atk = getAtk() + gear.getAtk();
+			int def = getDef() + gear.getDef();
+			setAtk(atk);
+			setDef(def);
+		}
 		
 	}
-	public void unequip() {
-		// TODO Auto-generated method stub
+	public void unequip(Gear gear) {
+		if(getInventory().getInventory().contains(gear) && gear.getEquipped() == true) {
+			gear.setEquipped(false);
+			int atk = getAtk() - gear.getAtk();
+			int def = getDef() - gear.getDef();
+			setAtk(atk);
+			setDef(def);
+		}
 		
 	}
-	public void drop() {
-		// TODO Auto-generated method stub
+	public void drop(Item item) {
+		getInventory().removeItem(item);
 		
 	}
 	public void run() {
 		// TODO Auto-generated method stub
 		
 	}
-	public void take() {
-		// TODO Auto-generated method stub
+	public void take(Item item) {
+		getInventory().addItem(item);
 		
 	}
 	public void talk() {
@@ -52,8 +66,10 @@ public class Player extends Actor {
 		// TODO Auto-generated method stub
 		
 	}
-	public void use() {
-		// TODO Auto-generated method stub
+	public void use(Item item, Actor target) {
+		if(getInventory().getInventory().contains(item)) {
+			target.setHP(target.getHP()+item.getEffect());
+		}
 		
 	}
 	public void check() {
@@ -150,6 +166,10 @@ public class Player extends Actor {
 			return status;
 		}
 			
+		public Inventory getInventory() {
+			return inventory;
+		}
+		
 		//setters
 		public void setHP(int HP) {
 			this.HP = HP;
