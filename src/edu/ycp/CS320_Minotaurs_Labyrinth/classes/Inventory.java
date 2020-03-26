@@ -37,6 +37,9 @@ public class Inventory {
 	}
 	
 	public void removeItem(Item item) {
-		inventory.remove(item);
+		if(getInventory().contains(item)) {
+			inventory.remove(item);
+		}
 	}
+	
 }
