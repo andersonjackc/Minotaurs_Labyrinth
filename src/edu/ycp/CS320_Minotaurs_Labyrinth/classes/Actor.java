@@ -64,6 +64,8 @@ public abstract class Actor {
 		public abstract ArrayList<Ability> getAbilities();
 		
 		public abstract String getStatus();
+		
+		public abstract Inventory getInventory();
 			
 		//setters
 		public abstract void setHP(int HP);
