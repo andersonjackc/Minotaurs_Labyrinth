@@ -7,7 +7,7 @@ public class Gear extends Item{
 	private Boolean equipped;
 	
 	//methods
-	public Gear(int atk, int def, int HP, String variety, Boolean equipped, String status, String description, int effect, Boolean flammable, Boolean lit) {
+	public Gear(int atk, int def, int HP, String variety, Boolean equipped, String description, int effect, Boolean flammable, Boolean lit) {
 		super(description, effect, flammable, lit);
 		this.atk = atk;
 		this.def = def;
