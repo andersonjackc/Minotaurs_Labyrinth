@@ -106,10 +106,19 @@ public class Player extends Actor {
 		String Message = item.getName() + " is worth " + item.getValue() + " Gold";
 		return Message;
 	}
-	public String checkInventory() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO - implement");
-
+	
+	public String checkInventory(Inventory inventory) {
+		String Message = "";
+		if(inventory.getInventory().isEmpty() != true) {
+			for(Item item: inventory.getInventory()) {
+				Message+=item.getName();
+				Message+=" ";
+			}
+		}
+		else {
+			Message="Your inventory is empty!";
+		}
+		return Message;
 	}
 
 	@Override
