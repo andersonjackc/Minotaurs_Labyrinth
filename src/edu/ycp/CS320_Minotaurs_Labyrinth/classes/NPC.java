@@ -40,6 +40,10 @@ public class NPC extends Actor {
 		return name;
 	}
 	
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
 	public void printDescription(){
 		System.out.print(description);	
 	}
