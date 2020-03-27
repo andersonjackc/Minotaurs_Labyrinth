@@ -110,71 +110,71 @@ public class Player extends Actor {
 	}
 
 	//getters
-		public int getMaxHP() {
-			return maxHP;
-		}
+	public int getMaxHP() {
+		return maxHP;
+	}
 
-		public int getHP() {
-			return HP;
-		}
-		
-		public int getMaxResource() {
-			return maxResource;
-		}
-		
-		public int getResource() {
-			return resource;
-		}
-
-		public int getAtk() {
-			return atk;
-		}
-		
-		public int getDef() {
-			return def;
-		}
-		
-		public int getGold() {
-			return gold;
-		}
-
-		public int getXP() {
-			return XP;
-		}
-		
-		public ArrayList<Ability> getAbilities() {
-			return abilities;
-		}
-		
-		public String getStatus() {
-			return status;
-		}
-			
-		//setters
-		public void setHP(int HP) {
-			this.HP = HP;
-		}
-		
-		public void setResource(int resource) {
-			this.resource =  resource;
-		}
-
-		public void setAtk(int atk) {
-			this.atk = atk;
-		}
-		
-		public void setDef(int def) {
-			this.def = def;
-		}
-		
-		public void setGold(int gold) {
-			this.gold = gold;
-		}
-
-		public void setXP(int XP) {
-			this.XP = XP;
-		}
+	public int getHP() {
+		return HP;
+	}
 	
+	public int getMaxResource() {
+		return maxResource;
+	}
+	
+	public int getResource() {
+		return resource;
+	}
+
+	public int getAtk() {
+		return atk;
+	}
+	
+	public int getDef() {
+		return def;
+	}
+	
+	public int getGold() {
+		return gold;
+	}
+
+	public int getXP() {
+		return XP;
+	}
+	
+	public ArrayList<Ability> getAbilities() {
+		return abilities;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+		
+	//setters
+	public void setHP(int HP) {
+		this.HP = HP;
+	}
+	
+	public void setResource(int resource) {
+		this.resource =  resource;
+	}
+
+	public void setAtk(int atk) {
+		this.atk = atk;
+	}
+	
+	public void setDef(int def) {
+		this.def = def;
+	}
+	
+	public void setGold(int gold) {
+		this.gold = gold;
+	}
+
+	public void setXP(int XP) {
+		this.XP = XP;
+	}
+
 	
 
 }
