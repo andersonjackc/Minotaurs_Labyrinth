@@ -13,10 +13,14 @@ private Enemy testEnemy;
 ArrayList<Ability> abilities = null;
 ArrayList<Item> items = new ArrayList<Item>();
 Inventory i = new Inventory(0, 0, items);
+ArrayList<Item> Inv = new ArrayList<Item>();
+Inventory testRoomInv = new Inventory(100, 100, Inv);
+Room room = new Room("A test room", "test", testRoomInv);
+
 	@Before
 	public void setUp() {
 		
-		testEnemy = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, abilities, "test", "test", 1, "test", "test", i);
+		testEnemy = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, abilities, "test", "test", 1, "test", "test", i, room);
 		
 		Ability fireball;
 	}
