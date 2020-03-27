@@ -6,8 +6,8 @@ public class Player extends Actor {
 	
 	
 	public Player(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP,
-			ArrayList<Ability> abilities, String status, Inventory inventory) {
-		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory);
+			ArrayList<Ability> abilities, String status, Inventory inventory, Room currentRoom) {
+		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom);
 		
 	}
 	
@@ -200,6 +200,11 @@ public class Player extends Actor {
 		
 		return inventory;
 	}
+	
+	public Room getCurrentRoom() {
+		return currentRoom;
+	}
+	
 		
 	//setters
 	public void setHP(int HP) {
@@ -226,7 +231,9 @@ public class Player extends Actor {
 		this.XP = XP;
 	}
 
-
+	public void setCurrentRoom(Room currentRoom) {
+		this.currentRoom = currentRoom;
+	}
 	
 
 	
