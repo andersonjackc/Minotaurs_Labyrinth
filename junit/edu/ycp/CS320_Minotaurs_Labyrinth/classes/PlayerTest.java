@@ -97,4 +97,19 @@ public class PlayerTest {
 	public void testThro() {
 		fail("not implemented");
 	}
+	
+	@Test
+	public void testCrawl() {
+		fail("need to implement move and map first");
+	}
+	
+	@Test
+	public void testJump() {
+		fail("need to implement move and map first");
+	}
+	@Test
+	public void testTalk() {
+		assertEquals(testNPC.getDialogue(), testPlayer.talk(testNPC));
+	}
+	
 }

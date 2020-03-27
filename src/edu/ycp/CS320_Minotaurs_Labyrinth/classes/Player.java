@@ -13,13 +13,29 @@ public class Player extends Actor {
 	
 	
 	public void crawl() {
-		// TODO Auto-generated method stub
+		
+		String tmpStatus = this.status;
+		
+		this.status = "crawling";
+		
+		this.move();
+		
+		this.status = tmpStatus;
 		
 	}
+	
 	public void jump() {
-		// TODO Auto-generated method stub
+		
+		String tmpStatus = this.status;
+		
+		this.status = "jumping";
+		
+		this.move();
+		
+		this.status = tmpStatus;
 		
 	}
+	
 	public void light(Item item) {
 		if(getInventory().getInventory().contains(item) && item.getFlammable() && item.getLit() == false) {
 			item.setLit(true);
@@ -58,9 +74,8 @@ public class Player extends Actor {
 		getInventory().addItem(item);
 		
 	}
-	public void talk() {
-		// TODO Auto-generated method stub
-		
+	public String talk(NPC target) {
+		return target.getDialogue();
 	}
 	public void thro() {
 		// TODO Auto-generated method stub
