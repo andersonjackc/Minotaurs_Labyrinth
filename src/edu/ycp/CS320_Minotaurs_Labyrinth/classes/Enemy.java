@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Enemy extends NPC {
 	
 
-	public Enemy(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, String dialogue, int attitude, String description, String name, Inventory inventory) {
-		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, dialogue, attitude, description, name, inventory);
+	public Enemy(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, String dialogue, int attitude, String description, String name, Inventory inventory, Room currentRoom) {
+		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, dialogue, attitude, description, name, inventory, currentRoom);
 		
 	}
 
@@ -69,6 +69,11 @@ public class Enemy extends NPC {
 		public Inventory getInventory() {
 			return inventory;
 		}
+		
+		public Room getCurrentRoom() {
+			return currentRoom;
+		}
+		
 			
 		//setters
 		public void setHP(int HP) {
@@ -95,5 +100,8 @@ public class Enemy extends NPC {
 			this.XP = XP;
 		}
 	
+		public void setCurrentRoom(Room currentRoom) {
+			this.currentRoom = currentRoom;
+		}
 	
 }
