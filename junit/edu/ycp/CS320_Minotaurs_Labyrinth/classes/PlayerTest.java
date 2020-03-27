@@ -104,7 +104,7 @@ public class PlayerTest {
 	public void testDrop() {
 		testPlayer.take(testItem);
 		testPlayer.drop(testItem);
-		assertFalse(testPlayer.getInventory().getInventory().contains(testItem));
+		assertTrue(room.getInventory().getInventory().contains(testItem));
 	}
 	
 	@Test

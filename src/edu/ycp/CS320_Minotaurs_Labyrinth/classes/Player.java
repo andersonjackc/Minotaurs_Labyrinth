@@ -64,6 +64,7 @@ public class Player extends Actor {
 	}
 	public void drop(Item item) {
 		getInventory().removeItem(item);
+		getCurrentRoom().getInventory().addItem(item);
 		
 	}
 	public void run() {
