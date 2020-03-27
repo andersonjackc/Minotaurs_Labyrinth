@@ -26,7 +26,9 @@ public abstract class Actor {
 	
 	protected Inventory inventory;
 	
-	public Actor(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, Inventory inventory){
+	protected Room currentRoom;
+	
+	public Actor(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, Inventory inventory, Room currentRoom){
 		this.maxHP = maxHP;
 		this.HP = HP;
 		this.maxResource = maxResource;
@@ -38,6 +40,7 @@ public abstract class Actor {
 		this.abilities = abilities;
 		this.status = status;
 		this.inventory = inventory;
+		this.currentRoom = currentRoom;
 	}
 	
 	public abstract void basicAttack(Actor target);
@@ -66,7 +69,10 @@ public abstract class Actor {
 		public abstract String getStatus();
 		
 		public abstract Inventory getInventory();
-			
+
+		public abstract Room getCurrentRoom();
+
+		
 		//setters
 		public abstract void setHP(int HP);
 		
@@ -79,4 +85,6 @@ public abstract class Actor {
 		public abstract void setGold(int gold);
 
 		public abstract void setXP(int XP);
+		
+		public abstract void setCurrentRoom(Room currentRoom);
 }
