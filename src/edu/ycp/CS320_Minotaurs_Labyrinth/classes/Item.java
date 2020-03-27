@@ -2,6 +2,7 @@ package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 public class Item {
 //attributes
+	//add throwable
 protected String description, name;
 protected int effect, value;
 protected Boolean flammable, lit;
