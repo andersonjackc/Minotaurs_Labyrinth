@@ -10,11 +10,13 @@ public class PlayerTest {
 
 	//Set up a test Player obj
 	ArrayList<Item> Inv = new ArrayList<Item>();
+	Inventory testRoomInv = new Inventory(100, 100, Inv);
+	Room room = new Room("A test room", "test", testRoomInv);
 	Inventory testInv = new Inventory(100, 100, Inv);
-	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, testInv);
-	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 0, "A test NPC", "test", null);
+	
+	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, testInv, room);
+	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 0, "A test NPC", "test", null, room);
 	Item testItem = new Item("A test item", 5, true, false, 50, "testItem");
-	Room room = new Room("A test room");
 	ArrayList<Item> Inventory = new ArrayList<Item>();
 	Inventory testInventory = new Inventory(100, 100, Inventory);
 	Item testPotion = new Item("test", 10, false, false, 5, "health potion");
