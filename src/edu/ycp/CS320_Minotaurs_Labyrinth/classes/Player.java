@@ -145,7 +145,7 @@ public class Player extends Actor {
 		return maxHP;
 	}
 
-
+	
 	public int getHP() {
 		return HP;
 	}
@@ -181,6 +181,12 @@ public class Player extends Actor {
 	public String getStatus() {
 		return status;
 	}
+	
+	
+	public Inventory getInventory() {
+		
+		return inventory;
+	}
 		
 	//setters
 	public void setHP(int HP) {
@@ -208,11 +214,7 @@ public class Player extends Actor {
 	}
 
 
-	@Override
-	public Inventory getInventory() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	
 
