@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class Room {
 
 	private ArrayList<String> directions;
-	private String description;
-	
-	public Room(String description) {
+	private String description, status;
+	private Inventory inventory;
+	public Room(String description, String status, Inventory inventory) {
 		this.description = description;
+		this.status = status;
+		this.inventory = inventory;
 	}
 	
 	public ArrayList<String> getDirection() {
@@ -29,4 +31,15 @@ public class Room {
 		System.out.println(description);
 	}
 	
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }
