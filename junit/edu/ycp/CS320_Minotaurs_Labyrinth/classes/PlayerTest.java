@@ -92,4 +92,9 @@ public class PlayerTest {
 		testPlayer.drop(testItem);
 		assertFalse(testPlayer.getInventory().getInventory().contains(testItem));
 	}
+	
+	@Test
+	public void testThro() {
+		fail("not implemented");
+	}
 }
