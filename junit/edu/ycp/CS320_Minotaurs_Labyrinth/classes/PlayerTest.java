@@ -50,6 +50,18 @@ public class PlayerTest {
 	}
 	
 	@Test
+	public void testBarter() {
+		testNPC.setAttitude(100);
+		assertEquals(testPlayer.barter(testNPC, testItem), 15);
+		testNPC.setAttitude(80);
+		assertEquals(testPlayer.barter(testNPC, testItem), 10);
+		testNPC.setAttitude(60);
+		assertEquals(testPlayer.barter(testNPC, testItem), 5);
+		testNPC.setAttitude(40);
+		assertEquals(testPlayer.barter(testNPC, testItem), 0);
+	}
+	
+	@Test
 	public void testLight() {
 		testPlayer.take(testTorch);
 		testPlayer.light(testTorch);
