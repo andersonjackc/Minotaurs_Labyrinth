@@ -73,9 +73,22 @@ public class Player extends Actor {
 		
 	}
 
-	public void barter() {
-		// TODO Auto-generated method stub
-		
+	public int barter(NPC npc, Item item) {
+		int itemVal=item.getValue();
+		int priceOff = 0;
+		if(npc.getAttitude()==100) {
+			priceOff =(int) (itemVal*.3);
+		}
+		else if(npc.getAttitude()<100 && npc.getAttitude()>=80) {
+			priceOff=(int) (itemVal*.2);
+		}
+		else if(npc.getAttitude()<80 && npc.getAttitude()>=60) {
+			priceOff=(int) (itemVal*.1);
+		}
+		else {
+			priceOff=(int)(itemVal*0);
+		}
+		return priceOff;
 	}
 	public void leave() {
 		// TODO Auto-generated method stub
