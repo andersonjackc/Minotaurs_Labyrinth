@@ -67,7 +67,7 @@ public class Player extends Actor {
 		
 	}
 	public void run() {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method  stub
 		
 	}
 	public void take(Item item) {
