@@ -44,9 +44,9 @@ public class PlayerTest {
 	
 	@Test
 	public void testCheckInventory() {
-		assertEquals(testPlayer.checkInventory(testInventory), "Your inventory is empty!");
-		testInventory.addItem(testItem);
-		assertEquals(testPlayer.checkInventory(testInventory), "testItem ");
+		assertEquals(testPlayer.checkInventory(testPlayer.getInventory()), "Your inventory is empty!");
+		testPlayer.getInventory().addItem(testItem);
+		assertEquals(testPlayer.checkInventory(testPlayer.getInventory()), "testItem ");
 	}
 	
 	@Test
