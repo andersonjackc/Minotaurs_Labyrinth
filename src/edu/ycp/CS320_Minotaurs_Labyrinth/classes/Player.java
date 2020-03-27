@@ -6,8 +6,8 @@ public class Player extends Actor {
 	
 	
 	public Player(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP,
-			ArrayList<Ability> abilities, String status) {
-		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status);
+			ArrayList<Ability> abilities, String status, Inventory inventory) {
+		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory);
 		
 	}
 	
@@ -20,28 +20,42 @@ public class Player extends Actor {
 		// TODO Auto-generated method stub
 		
 	}
-	public void light() {
-		// TODO Auto-generated method stub
+	public void light(Item item) {
+		if(getInventory().getInventory().contains(item) && item.getFlammable() && item.getLit() == false) {
+			item.setLit(true);
+		}
 		
 	}
-	public void equip() {
-		// TODO Auto-generated method stub
+	public void equip(Gear gear) {
+		if(getInventory().getInventory().contains(gear) && gear.getEquipped() == false) {
+			gear.setEquipped(true);
+			int atk = getAtk() + gear.getAtk();
+			int def = getDef() + gear.getDef();
+			setAtk(atk);
+			setDef(def);
+		}
 		
 	}
-	public void unequip() {
-		// TODO Auto-generated method stub
+	public void unequip(Gear gear) {
+		if(getInventory().getInventory().contains(gear) && gear.getEquipped() == true) {
+			gear.setEquipped(false);
+			int atk = getAtk() - gear.getAtk();
+			int def = getDef() - gear.getDef();
+			setAtk(atk);
+			setDef(def);
+		}
 		
 	}
-	public void drop() {
-		// TODO Auto-generated method stub
+	public void drop(Item item) {
+		getInventory().removeItem(item);
 		
 	}
 	public void run() {
 		// TODO Auto-generated method stub
 		
 	}
-	public void take() {
-		// TODO Auto-generated method stub
+	public void take(Item item) {
+		getInventory().addItem(item);
 		
 	}
 	public void talk() {
@@ -52,13 +66,13 @@ public class Player extends Actor {
 		// TODO Auto-generated method stub
 		
 	}
-	public void use() {
-		// TODO Auto-generated method stub
+	public void use(Item item, Actor target) {
+		if(getInventory().getInventory().contains(item)) {
+			target.setHP(target.getHP()+item.getEffect());
+		}
 		
 	}
-	public void check() {
-		// TODO Auto-generated method stub	
-	}
+
 	public void barter() {
 		// TODO Auto-generated method stub
 		
@@ -77,24 +91,41 @@ public class Player extends Actor {
 
 	}
 	public String checkStats() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO - implement");
-
+		String Message = "You have: " + this.HP + " HP, " + this.resource + " Mana, " + this.atk + " Attack, " 
+				+ this.def + " Defense";
+		return Message;
 	}
-	public String checkNPC() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO - implement");
-
+	public String checkNPC(NPC npc) {
+		String Message = npc.getDescription();
+		return Message;
 	}
-	public String checkValue() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO - implement");
-
+	
+	public String checkItem(Item item) {
+		String Message = item.getDescription();
+		return Message;
 	}
-	public String checkInventory() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO - implement");
-
+	
+	public String checkValue(Item item) {
+		String Message = item.getName() + " is worth " + item.getValue() + " Gold";
+		return Message;
+	}
+	public String checkRoom(Room room) {
+		String Message = room.getDescription();
+		return Message;
+	}
+	
+	public String checkInventory(Inventory inventory) {
+		String Message = "";
+		if(inventory.getInventory().isEmpty() != true) {
+			for(Item item: inventory.getInventory()) {
+				Message+=item.getName();
+				Message+=" ";
+			}
+		}
+		else {
+			Message="Your inventory is empty!";
+		}
+		return Message;
 	}
 
 	@Override
@@ -113,6 +144,7 @@ public class Player extends Actor {
 	public int getMaxHP() {
 		return maxHP;
 	}
+
 
 	public int getHP() {
 		return HP;
@@ -173,6 +205,13 @@ public class Player extends Actor {
 
 	public void setXP(int XP) {
 		this.XP = XP;
+	}
+
+
+	@Override
+	public Inventory getInventory() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

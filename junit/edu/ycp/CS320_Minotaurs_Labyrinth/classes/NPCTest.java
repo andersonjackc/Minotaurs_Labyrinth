@@ -9,11 +9,13 @@ import org.junit.Test;
 
 public class NPCTest {
 private NPC testNPC;
-	
+ArrayList<Ability> abilities = null;
+ArrayList<Item> items = new ArrayList<Item>();
+Inventory i = new Inventory(0, 0, items);
 	@Before
 	public void setUp() {
-		ArrayList<Ability> abilities = null;
-		testNPC = new NPC(5, 5, 5, 5, 1, 5, 5, 5, abilities, "test", "test", 1, "test", "test");
+		
+		testNPC = new NPC(5, 5, 5, 5, 1, 5, 5, 5, abilities, "test", "test", 1, "test", "test", i);
 		Ability fireball;
 	}
 	@Test
@@ -66,6 +68,11 @@ private NPC testNPC;
 	public void testDialogueMethods() {
 		
 		assertEquals("test", testNPC.getDialogue());
+	}
+	@Test
+	public void testInventoryMethods() {
+		
+		assertEquals(i , testNPC.getInventory());
 	}
 	@Test
 	public void testAttitudeMethods() {

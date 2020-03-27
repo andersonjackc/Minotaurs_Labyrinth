@@ -10,11 +10,13 @@ import org.junit.Test;
 public class EnemyTest {
 
 private Enemy testEnemy;
-	
+ArrayList<Ability> abilities = null;
+ArrayList<Item> items = new ArrayList<Item>();
+Inventory i = new Inventory(0, 0, items);
 	@Before
 	public void setUp() {
-		ArrayList<Ability> abilities = null;
-		testEnemy = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, abilities, "test", "test", 1, "test", "test");
+		
+		testEnemy = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, abilities, "test", "test", 1, "test", "test", i);
 		
 		Ability fireball;
 	}
@@ -63,6 +65,11 @@ private Enemy testEnemy;
 	@Test
 	public void testAbilitiesMethods() {
 		fail("Not yet implemented");
+	}
+	@Test
+	public void testInventoryMethods() {
+		
+		assertEquals(i , testEnemy.getInventory());
 	}
 	@Test
 	public void testDialogueMethods() {

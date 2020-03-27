@@ -2,6 +2,8 @@ package edu.ycp.cs320.Minotaurs_Labyrinth.model;
 import java.util.ArrayList;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 public class Dialogue {
@@ -15,12 +17,14 @@ public class Dialogue {
 	public void initPlayers() {
 		//creates an instance of player
 		ArrayList<Ability> PlayerAbilities = new ArrayList<Ability>();
-		PlayerCharacter = new Player(1000, 20, 1000, 10, 2, 2, 50, 0, PlayerAbilities, "Normal");
+		ArrayList<Item> items = new ArrayList<Item>();
+		Inventory i = new Inventory(0, 0, items);
+		PlayerCharacter = new Player(1000, 20, 1000, 10, 2, 2, 50, 0, PlayerAbilities, "Normal", i);
 		
 		//creates an instance of enemy
 
 		ArrayList<Ability> VillagerAbilities = new ArrayList<Ability>();
-		villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 0, "An old man with tattered clothing", "Villager");
+		villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 0, "An old man with tattered clothing", "Villager", i);
 		
 
 

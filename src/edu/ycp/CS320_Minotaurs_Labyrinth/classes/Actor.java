@@ -24,7 +24,9 @@ public abstract class Actor {
 	
 	protected String status;
 	
-	public Actor(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status){
+	protected Inventory inventory;
+	
+	public Actor(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, Inventory inventory){
 		this.maxHP = maxHP;
 		this.HP = HP;
 		this.maxResource = maxResource;
@@ -35,7 +37,7 @@ public abstract class Actor {
 		this.XP = XP;
 		this.abilities = abilities;
 		this.status = status;
-		
+		this.inventory = inventory;
 	}
 	
 	public abstract void basicAttack(Actor target);
@@ -62,6 +64,8 @@ public abstract class Actor {
 		public abstract ArrayList<Ability> getAbilities();
 		
 		public abstract String getStatus();
+		
+		public abstract Inventory getInventory();
 			
 		//setters
 		public abstract void setHP(int HP);
