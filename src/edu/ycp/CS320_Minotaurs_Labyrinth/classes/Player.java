@@ -68,7 +68,7 @@ public class Player extends Actor {
 	}
 	public void run() {
 		// TODO Auto-generated method  stub
-		
+		throw new UnsupportedOperationException("TODO - implement");
 	}
 	public void take(Item item) {
 		getInventory().addItem(item);
@@ -79,7 +79,7 @@ public class Player extends Actor {
 	}
 	public void thro() {
 		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException("TODO - implement");
 	}
 	public void use(Item item, Actor target) {
 		if(getInventory().getInventory().contains(item)) {
@@ -107,11 +107,11 @@ public class Player extends Actor {
 	}
 	public void leave() {
 		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException("TODO - implement");
 	}
 	public void move() {
 		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException("TODO - implement");
 	}
 	public String checkMap() {
 		// TODO Auto-generated method stub
