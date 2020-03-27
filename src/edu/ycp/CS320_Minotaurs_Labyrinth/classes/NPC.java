@@ -10,9 +10,9 @@ public class NPC extends Actor {
 	protected String name;
 	
 	//methods
-	public NPC(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, String dialogue, int attitude, String description, String name, Inventory inventory) {
+	public NPC(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, String dialogue, int attitude, String description, String name, Inventory inventory, Room currentRoom) {
 		
-		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory);
+		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom);
 		
 		this.dialogue = dialogue;
 		this.attitude = attitude;
@@ -103,6 +103,10 @@ public class NPC extends Actor {
 	public String getStatus() {
 		return status;
 	}
+	
+	public Room getCurrentRoom() {
+		return currentRoom;
+	}
 		
 	//setters
 	public void setHP(int HP) {
@@ -127,5 +131,9 @@ public class NPC extends Actor {
 
 	public void setXP(int XP) {
 		this.XP = XP;
+	}
+	
+	public void setCurrentRoom(Room currentRoom) {
+		this.currentRoom = currentRoom;
 	}
 }
