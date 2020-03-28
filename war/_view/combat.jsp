@@ -17,7 +17,7 @@
 	}
 	<%--set error text to red--%>
 		.error {
-			color: red;
+			color: white;
 		}
 	body {
   		background-image: url('https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');

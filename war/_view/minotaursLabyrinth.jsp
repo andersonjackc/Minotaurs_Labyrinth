@@ -9,7 +9,7 @@
 		
 		<%--set error text to red--%>
 		.error {
-			color: red;
+			color: white;
 		}
 		<%--Movable rooms have a border--%>
 		td.Game {
