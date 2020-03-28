@@ -76,7 +76,12 @@ public abstract class Actor {
 		//setters
 		public abstract void setHP(int HP);
 		
+		public abstract void setMaxHP(int maxHP);
+		
 		public abstract void setResource(int resource);
+		
+		public abstract void setMaxResource(int maxResource);
+
 
 		public abstract void setAtk(int atk);
 		

@@ -261,8 +261,16 @@ public class Player extends Actor {
 		this.HP = HP;
 	}
 	
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
+	}
+	
 	public void setResource(int resource) {
 		this.resource =  resource;
+	}
+	
+	public void setMaxResource(int maxResource) {
+		this.maxResource = maxResource;
 	}
 
 	public void setAtk(int atk) {
