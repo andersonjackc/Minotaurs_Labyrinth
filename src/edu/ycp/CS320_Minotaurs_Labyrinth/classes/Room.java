@@ -7,10 +7,12 @@ public class Room {
 	private ArrayList<String> directions;
 	private String description, status;
 	private Inventory inventory;
-	public Room(String description, String status, Inventory inventory) {
+	private Obstacle obstacle;
+	public Room(String description, String status, Inventory inventory, Obstacle obstacle) {
 		this.description = description;
 		this.status = status;
 		this.inventory = inventory;
+		this.obstacle = obstacle;
 	}
 	
 	public ArrayList<String> getDirection() {
@@ -37,6 +39,10 @@ public class Room {
 	
 	public String getStatus() {
 		return status;
+	}
+	
+	public Obstacle getObstacle() {
+		return obstacle;
 	}
 	
 	public void setStatus(String status) {
