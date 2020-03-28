@@ -60,6 +60,8 @@ public class CombatServlet extends HttpServlet {
 		if (req.getParameter("textbox") != null && inputVal.equals("attack")){
 			model.playerAtk();
 			model.enemyAtk();
+		}else if(req.getParameter("textbox") != null && !(inputVal.equals("attack"))) {
+			model.setError("That command is not recognized!");
 		}
 		
 		// Forward to view to render the result HTML document

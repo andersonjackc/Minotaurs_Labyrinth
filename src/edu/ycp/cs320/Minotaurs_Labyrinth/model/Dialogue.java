@@ -14,6 +14,7 @@ public class Dialogue {
 	String NPCDesc;
 	String NPCResp;
 	String PlayerResp;
+	String errorMessage;
 	public void initPlayers() {
 		//creates an instance of player
 		ArrayList<Ability> PlayerAbilities = new ArrayList<Ability>();
@@ -50,5 +51,12 @@ public class Dialogue {
 		NPCResp = "The " + villager.getName() + " says " + villager.getDialogue();
 	}
 	
+	public String getError() {
+		return errorMessage;
+	}
+	
+	public void setError(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
 }
 
