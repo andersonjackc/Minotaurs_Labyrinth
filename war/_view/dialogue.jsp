@@ -31,7 +31,7 @@
 			<img class='enemy' src='https://cdn1.iconfinder.com/data/icons/avatar-flat-design-big-family/512/avatar_villager-512.png'>
 			<table class = "buttons">
 			<tr>
-				<td><input name="textbox"  type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
+				<td><input name="textbox" autocomplete="off"  type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
 			</tr>
 			<c:if test="${! empty game.NPCDesc}">
 				<tr><td>${game.NPCDesc}</td></tr>
