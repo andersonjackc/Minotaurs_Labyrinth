@@ -20,9 +20,9 @@ public class PlayerTest {
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
 
 	Item key = new Item("test", 1, true, false, true, 10, null, "misc", null);
-	Obstacle obs = new Obstacle("test", "jumping", key);
-
-
+	Obstacle obs = new Obstacle("test", "normal", key);
+	Obstacle obs1 = new Obstacle("test", "jumping", key);
+	Obstacle obs2 = new Obstacle("test", "crawling", key);
 	
 	Room room = new Room("A test room", "test", testRoomInv, obs);
 	Room room2 = new Room("A test room", "empty", testRoomInv, obs );
@@ -30,7 +30,7 @@ public class PlayerTest {
 	
 
 	
-	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, testInv, room);
+	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, "normal", testInv, room);
 	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 100, "A test NPC", "test", null, room);
 	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", null, null);
 	Item rope = new Item("rope", 0, true, false, true, 50, "rope", "misc", null);
@@ -158,8 +158,8 @@ public class PlayerTest {
 	@Test
 	public void testThroObs() {
 		testPlayer.take(rope);
-		testPlayer.throObs(obs, rope);
-		assertEquals("none", obs.getStatus());
+		testPlayer.throObs(obs1, rope);
+		assertEquals("none", obs1.getStatus());
 	}
 	@Test
 	public void testMove() {
