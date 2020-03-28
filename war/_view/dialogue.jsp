@@ -37,9 +37,17 @@
 			<c:if test="${! empty game.NPCResp}">
 				<tr><td>${game.NPCResp}</td></tr>
 			</c:if>
+			
+			<c:if test="${! empty game.attackmessage}">
+				<tr><td>${game.attackmessage}</td></tr>
+			</c:if>
+			<c:if test="${! empty game.defendmessage}">
+				<tr><td>${game.defendmessage}</td></tr>
+			</c:if>
 			<c:if test="${! empty game.error}">
 				<tr><td class="error">${game.error}</td></tr>
 			</c:if>
+			
 		</form>
 			
 		<%--used for persistence--%>

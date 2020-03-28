@@ -49,14 +49,19 @@ public class DialogueServlet extends HttpServlet {
 
 		//used to persist health
 		model.initPlayers();
-		
-
+		Integer playerHP = getInteger(req, "playerHP");
+		Integer enemyHP = getInteger(req, "enemyHP");
+		model.setPlayerHP(playerHP);
+		model.setEnemyHP(enemyHP);
 		model.getNPCDesc();
 		
 		String inputVal = getString(req, "textbox").toLowerCase();
 		
 		if (req.getParameter("textbox") != null && inputVal.equals("talk") ){
 			model.initResponses();
+		}else if (req.getParameter("textbox") != null && inputVal.equals("attack") ) {
+			model.playerAtk();
+			model.enemyAtk();
 		}else if(req.getParameter("textbox") != null && !(inputVal.equals("talk")) && !(inputVal.equals("leave"))) {
 			model.setError("That command is not recognized!");
 		}
@@ -68,6 +73,17 @@ public class DialogueServlet extends HttpServlet {
 			req.getRequestDispatcher("/_view/dialogue.jsp").forward(req, resp);
 		}
 		
+		// Forward to view to render the result HTML document
+		if(model.getEnemyHP() > 0) {
+			req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);
+		}else if(model.getEnemyHP() <= 0) {
+			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
+		}
+	}
+	
+	// gets an Integer from the Posted form data, for the given attribute name
+	private int getInteger(HttpServletRequest req, String name) {
+		return Integer.parseInt(req.getParameter(name));
 	}
 	
 	private String getString(HttpServletRequest req, String name) {

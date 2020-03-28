@@ -14,7 +14,7 @@ public class Dialogue {
 	String NPCDesc;
 	String NPCResp;
 	String PlayerResp;
-	String errorMessage;
+	String errorMessage, attackMessage, defendMessage;
 	public void initPlayers() {
 		//creates an instance of player
 		ArrayList<Ability> PlayerAbilities = new ArrayList<Ability>();
@@ -49,6 +49,39 @@ public class Dialogue {
 	public void initResponses() {
 		PlayerResp = "Greetings";
 		NPCResp = "The " + villager.getName() + " says " + villager.getDialogue();
+	}
+	
+	
+	public void enemyAtk() {
+		
+		villager.basicAttack(PlayerCharacter);
+		defendMessage = "Ogre did " + villager.getAtk() + " You now have " + PlayerCharacter.getHP();
+	
+	}
+	
+	public void playerAtk() {
+	
+		PlayerCharacter.basicAttack(villager);
+		attackMessage = "You did " + PlayerCharacter.getAtk() + " to " + villager.getName() + ", it now has " + villager.getHP() + " HP";
+		
+	}
+	public String getAttackmessage() {
+		return attackMessage;
+	}
+	public String getDefendmessage() {
+		return defendMessage;
+	}
+	public void setPlayerHP(int HP) {
+		PlayerCharacter.setHP(HP);
+	}
+	public int getPlayerHP() {
+		return PlayerCharacter.getHP();
+	}
+	public void setEnemyHP(int HP) {
+		villager.setHP(HP);
+	}
+	public int getEnemyHP() {
+		return villager.getHP();
 	}
 	
 	public String getError() {
