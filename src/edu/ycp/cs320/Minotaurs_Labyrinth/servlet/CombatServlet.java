@@ -53,11 +53,11 @@ public class CombatServlet extends HttpServlet {
 		Integer enemyHP = getInteger(req, "enemyHP");
 		model.setPlayerHP(playerHP);
 		model.setEnemyHP(enemyHP);
-
+		
 
 		String inputVal = getString(req, "Attack");
 		
-		if (req.getParameter("Attack") != null && inputVal == "Attack"){
+		if (req.getParameter("Attack") != null && inputVal.equals("Attack")){
 			model.playerAtk();
 			model.enemyAtk();
 		}

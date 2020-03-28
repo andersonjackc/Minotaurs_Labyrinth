@@ -9,7 +9,7 @@ public class Combat {
 	String defendMessage;
 	Enemy ogre;
 	Player PlayerCharacter;
-	
+	String inputVal;
 	public void initPlayers() {
 		//creates an instance of player
 		ArrayList<Ability> PlayerAbilities = new ArrayList<Ability>();
@@ -56,6 +56,14 @@ public class Combat {
 	}
 	public int getEnemyHP() {
 		return ogre.getHP();
+	}
+	
+	public void setInputVal(String inputVal) {
+		this.inputVal = inputVal;
+	}
+	
+	public String getInputVal() {
+		return inputVal;
 	}
 }
 

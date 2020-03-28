@@ -24,14 +24,14 @@
 			<table class = "buttons">
 			<tr>
 				<td></td>
-				<%-- <td><input type="Submit" name="Attack" value="Attack"></td>--%>
-				<td><input name="Attack" id="win980_input" class="Input LineInput" type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;"></td>
+				<td><input name="Attack"  type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value="${game.inputVal}"></td>
 			</tr>
+			
 			<c:if test="${! empty game.attackmessage}">
-				<div>${game.attackmessage}</div>
+				<tr><td>${game.attackmessage}</td></tr>
 			</c:if>
 			<c:if test="${! empty game.defendmessage}">
-				<div>${game.defendmessage}</div>
+				<tr><td>${game.defendmessage}</td></tr>
 			</c:if>
 		</form>
 		
