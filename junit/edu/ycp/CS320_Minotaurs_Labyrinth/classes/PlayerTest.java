@@ -163,7 +163,7 @@ public class PlayerTest {
 	public void testThroObs() {
 		testPlayer.take(rope);
 		testPlayer.throObs(obs1, rope);
-		assertEquals("none", obs1.getStatus());
+		assertEquals("normal", obs1.getStatus());
 	}
 	@Test
 	public void testMove() {

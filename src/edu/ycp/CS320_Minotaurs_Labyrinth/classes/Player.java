@@ -104,7 +104,7 @@ public class Player extends Actor {
 	public void throObs(Obstacle target, Item item) {
 		if(item.getThrowable()) {
 			if(item.getName().equals("rope") && target.getStatus().equals("jumping")) {
-				target.setStatus("none");
+				target.setStatus("normal");
 			}
 		}
 	}
