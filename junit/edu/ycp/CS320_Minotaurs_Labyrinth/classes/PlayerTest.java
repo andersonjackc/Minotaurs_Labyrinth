@@ -165,12 +165,14 @@ public class PlayerTest {
 	}
 	@Test
 	public void testCrawl() {
-		fail("need to implement move and map first");
+		testPlayer.crawl("North", testGameMap);
+		assertEquals(testPlayer.getCurrentRoom(), room2);
 	}
 	
 	@Test
 	public void testJump() {
-		fail("need to implement move and map first");
+		testPlayer.jump("North", testGameMap);
+		assertEquals(testPlayer.getCurrentRoom(), room2);
 	}
 	@Test
 	public void testTalk() {
