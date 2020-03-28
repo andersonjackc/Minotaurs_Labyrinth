@@ -1,6 +1,7 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Player extends Actor {
 	
@@ -110,12 +111,18 @@ public class Player extends Actor {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("TODO - implement");
 	}
+	
 	public void move(String direction, GameMap map) {
 		
+		LinkedList<Pair<Room, String>> adjRooms = map.getMap().get(this.currentRoom);
 		
-		throw new UnsupportedOperationException("TODO - implement");
-		
-		
+		for(Pair<Room, String> pair : adjRooms) {
+			
+			if(pair.getRight() == direction) {
+				
+				this.setCurrentRoom(pair.getLeft());
+			}
+		}
 	}
 	public String checkMap() {
 		// TODO Auto-generated method stub
