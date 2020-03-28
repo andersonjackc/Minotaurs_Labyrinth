@@ -16,6 +16,8 @@ public class GameMapTest {
 	Room room1, room2;
 	Inventory inventory;
 	LinkedList<Pair<Room, String>> rooms1, rooms2;
+	Item key = new Item("test", 1, true, false, 10, null);
+	Obstacle obs = new Obstacle("test", "jumping", key);
 	@Before
 	public void setUp() {
 		Map<Room, LinkedList<Pair<Room, String>>> testMap = new HashMap<Room, LinkedList<Pair<Room, String>>>();
@@ -23,8 +25,8 @@ public class GameMapTest {
 		
 		inventory = new Inventory(0, 0, null);
 		
-		room1 = new Room("A test room", "empty", inventory );
-		room2 = new Room("A test room", "empty", inventory );
+		room1 = new Room("A test room", "empty", inventory, obs );
+		room2 = new Room("A test room", "empty", inventory, obs );
 		
 		rooms1 = new LinkedList<Pair<Room, String>>();
 		rooms2 = new LinkedList<Pair<Room, String>>();

@@ -18,8 +18,10 @@ public class PlayerTest {
 	GameMap testGameMap;
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
-	Room room = new Room("A test room", "test", testRoomInv);
-	Room room2 = new Room("A test room", "empty", testRoomInv );
+	Item key = new Item("test", 1, true, false, 10, null);
+	Obstacle obs = new Obstacle("test", "jumping", key);
+	Room room = new Room("A test room", "test", testRoomInv, obs);
+	Room room2 = new Room("A test room", "empty", testRoomInv, obs );
 	Inventory testInv = new Inventory(100, 100, Inv);
 	
 	
