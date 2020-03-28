@@ -55,8 +55,9 @@ public class CombatServlet extends HttpServlet {
 		model.setEnemyHP(enemyHP);
 
 
+		String inputVal = getString(req, "Attack");
 		
-		if (req.getParameter("Attack") != null){
+		if (req.getParameter("Attack") != null && inputVal == "Attack"){
 			model.playerAtk();
 			model.enemyAtk();
 		}
@@ -74,5 +75,9 @@ public class CombatServlet extends HttpServlet {
 	// gets an Integer from the Posted form data, for the given attribute name
 	private int getInteger(HttpServletRequest req, String name) {
 		return Integer.parseInt(req.getParameter(name));
+	}
+	
+	private String getString(HttpServletRequest req, String name) {
+		return String.valueOf(req.getParameter(name));
 	}
 }
