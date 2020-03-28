@@ -25,7 +25,7 @@ public class Dialogue {
 		//creates an instance of enemy
 
 		ArrayList<Ability> VillagerAbilities = new ArrayList<Ability>();
-		villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 0, "An old man with tattered clothing", "Villager", i, null);
+		villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 100, "An old man with tattered clothing", "Villager", i, null);
 		
 
 
