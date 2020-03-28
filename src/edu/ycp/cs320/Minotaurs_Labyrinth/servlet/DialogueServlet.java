@@ -53,11 +53,13 @@ public class DialogueServlet extends HttpServlet {
 
 		model.getNPCDesc();
 		
-		if (req.getParameter("Greetings") != null){
+		String inputVal = getString(req, "textbox").toLowerCase();
+		
+		if (req.getParameter("textbox") != null && inputVal.equals("talk") ){
 			model.initResponses();
 		}
 		
-		if(req.getParameter("Leave") != null) {
+		if(req.getParameter("textbox") != null && inputVal.equals("leave")) {
 			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
 		}else {
 			// Forward to view to render the result HTML document
@@ -65,6 +67,9 @@ public class DialogueServlet extends HttpServlet {
 		}
 		
 	}
-
+	
+	private String getString(HttpServletRequest req, String name) {
+		return String.valueOf(req.getParameter(name));
+	}
 	
 }

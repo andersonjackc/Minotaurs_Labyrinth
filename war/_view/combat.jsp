@@ -24,7 +24,7 @@
 			<table class = "buttons">
 			<tr>
 				
-				<td><input name="Attack"  type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value="${game.inputVal}"></td>
+				<td><input name="textbox"  type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
 			</tr>
 			
 			<c:if test="${! empty game.attackmessage}">

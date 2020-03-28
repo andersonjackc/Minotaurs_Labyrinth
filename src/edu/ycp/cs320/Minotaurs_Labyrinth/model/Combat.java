@@ -58,12 +58,6 @@ public class Combat {
 		return ogre.getHP();
 	}
 	
-	public void setInputVal(String inputVal) {
-		this.inputVal = inputVal;
-	}
 	
-	public String getInputVal() {
-		return inputVal;
-	}
 }
 
