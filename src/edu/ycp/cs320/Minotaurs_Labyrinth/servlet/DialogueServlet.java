@@ -62,23 +62,21 @@ public class DialogueServlet extends HttpServlet {
 		}else if (req.getParameter("textbox") != null && inputVal.equals("attack") ) {
 			model.playerAtk();
 			model.enemyAtk();
-		}else if(req.getParameter("textbox") != null && !(inputVal.equals("talk")) && !(inputVal.equals("leave"))) {
+		}else if(req.getParameter("textbox") != null && !(inputVal.equals("talk")) && !(inputVal.equals("leave")) && !(inputVal.equals("attack"))) {
 			model.setError("That command is not recognized!");
 		}
 		
 		if(req.getParameter("textbox") != null && inputVal.equals("leave")) {
+			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
+		}else if(model.getEnemyHP() > 0) {
+			req.getRequestDispatcher("/_view/dialogue.jsp").forward(req, resp);
+		}else if(model.getEnemyHP() <= 0) {
 			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
 		}else {
 			// Forward to view to render the result HTML document
 			req.getRequestDispatcher("/_view/dialogue.jsp").forward(req, resp);
 		}
 		
-		// Forward to view to render the result HTML document
-		if(model.getEnemyHP() > 0) {
-			req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);
-		}else if(model.getEnemyHP() <= 0) {
-			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
-		}
 	}
 	
 	// gets an Integer from the Posted form data, for the given attribute name

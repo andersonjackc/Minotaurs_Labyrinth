@@ -65,7 +65,7 @@ public class CombatServlet extends HttpServlet {
 		}
 		
 		// Forward to view to render the result HTML document
-		 if(req.getParameter("textbox") != null && inputVal.equals("run")) {
+		if(req.getParameter("textbox") != null && inputVal.equals("run")) {
 			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
 		}else if(model.getEnemyHP() <= 0) {
 			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
