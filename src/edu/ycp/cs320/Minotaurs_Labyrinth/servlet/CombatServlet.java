@@ -60,15 +60,17 @@ public class CombatServlet extends HttpServlet {
 		if (req.getParameter("textbox") != null && inputVal.equals("attack")){
 			model.playerAtk();
 			model.enemyAtk();
-		}else if(req.getParameter("textbox") != null && !(inputVal.equals("attack"))) {
+		}else if(req.getParameter("textbox") != null && !(inputVal.equals("attack")) && !(inputVal.equals("run"))) {
 			model.setError("That command is not recognized!");
 		}
 		
 		// Forward to view to render the result HTML document
-		if(model.getEnemyHP() > 0) {
-			req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);
+		 if(req.getParameter("textbox") != null && inputVal.equals("run")) {
+			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
 		}else if(model.getEnemyHP() <= 0) {
 			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
+		}else if(model.getEnemyHP() > 0) {
+			req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);
 		}
 		
 		
