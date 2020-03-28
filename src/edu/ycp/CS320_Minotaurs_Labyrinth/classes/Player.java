@@ -78,9 +78,35 @@ public class Player extends Actor {
 	public String talk(NPC target) {
 		return target.getDialogue();
 	}
-	public void thro() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO - implement");
+	public void throNPCItem(NPC target, Item item) {
+		if(item.getThrowable()) {
+			if(item.getVariety().equals("potion")) {
+				item.addEffect(target);
+			}
+			
+			else if(item.getVariety().equals("misc")) {
+				target.setAttitude(target.getAttitude() - 10);
+			}
+			else if(item.getVariety().equals("harmmisc")) {
+				target.setHP(getHP() - 1);
+				target.setAttitude(target.getAttitude() - 10);
+			}
+		}
+		
+	}
+	public void throNPCGear(NPC target, Gear gear) {
+		if(gear.getThrowable()){
+			target.setHP(target.getHP() - gear.getAtk());
+			target.setAttitude(target.getAttitude() - 20);
+		}
+		
+	}
+	public void throObs(Obstacle target, Item item) {
+		if(item.getThrowable()) {
+			if(item.getName().equals("rope") && target.getStatus().equals("jumping")) {
+				target.setStatus("none");
+			}
+		}
 	}
 	public void use(Item item, Actor target) {
 		if(getInventory().getInventory().contains(item)) {

@@ -28,7 +28,7 @@
 		}
 		<%-- move buttons to middle of map--%>
 		table.buttons{
-			margin-left: 120px;
+			margin-left: 0px;
 		}
 		</style>
 		<%-- script to make 0's blank and the player a *--%>
@@ -105,13 +105,7 @@
 		
 		<table class = "buttons">
 			<tr>
-				<td></td>
-				<td><input type="Submit" name="North" value="North"></td>
-			</tr>
-			<tr>
-				<td><input type="Submit" name="West" value="West"></td>
-				<td><input type="Submit" name="South" value="South"></td>
-				<td><input type="Submit" name="East" value="East"></td>
+				<td><input name="textbox"  type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
 				<%--used for persistence--%>
 				<input name="xLoc" type="hidden" value="${game.posX}" />
 				<input name="yLoc" type="hidden" value="${game.posY}" />

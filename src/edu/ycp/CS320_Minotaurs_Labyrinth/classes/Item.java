@@ -63,9 +63,9 @@ public void printDescription(){
 	System.out.print(description);	
 }
 
-public void addEffect() throws Exception {
-	
-	 throw new Exception("TODO ");
+public void addEffect(Actor target)  {
+	target.setHP(target.getHP() + getEffect());
+	 
 }
 
 }
