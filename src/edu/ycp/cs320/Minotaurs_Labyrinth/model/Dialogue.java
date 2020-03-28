@@ -55,7 +55,7 @@ public class Dialogue {
 	public void enemyAtk() {
 		
 		villager.basicAttack(PlayerCharacter);
-		defendMessage = "Ogre did " + villager.getAtk() + " You now have " + PlayerCharacter.getHP();
+		defendMessage = "Villager did " + villager.getAtk() + " You now have " + PlayerCharacter.getHP();
 	
 	}
 	
