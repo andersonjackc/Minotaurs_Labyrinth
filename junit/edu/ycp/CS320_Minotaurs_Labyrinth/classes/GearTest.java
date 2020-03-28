@@ -9,7 +9,7 @@ public class GearTest {
 	Gear testGear;
 	@Before
 	public void setUp() {
-		testGear = new Gear(5, 5, 5, "chestplate", false, "a simple iron chestplate", 5, false, false, false, 0, null);
+		testGear = new Gear(5, 5, 5, "chestplate", false, "a simple iron chestplate", 5, false, false, false, 0, null, null);
 	}
 	@Test
 	public void testAtkMethods() {

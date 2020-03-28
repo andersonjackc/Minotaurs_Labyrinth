@@ -12,7 +12,7 @@ private Item testItem;
 	@Before
 	public void setUp() {
 		
-		testItem = new Item("test", 1, true, false, true, 10, "testItem", "test");
+		testItem = new Item("test", 1, true, false, true, 10, "testItem", "test", null);
 		
 	}
 	

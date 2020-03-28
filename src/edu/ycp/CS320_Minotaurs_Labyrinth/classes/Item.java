@@ -3,13 +3,13 @@ package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 public class Item {
 //attributes
 	//add throwable
-protected String description, name, variety;
+protected String description, name, variety, affectedstat;
 protected int effect, value;
 protected Boolean flammable, lit, throwable;
 
 
 //methods
-public Item(String description, int effect, Boolean flammable,  Boolean lit, Boolean throwable, int value, String name, String variety) {
+public Item(String description, int effect, Boolean flammable,  Boolean lit, Boolean throwable, int value, String name, String variety, String affectedstat) {
 	this.description = description;
 	this.effect = effect;
 	this.flammable = flammable;
@@ -18,12 +18,19 @@ public Item(String description, int effect, Boolean flammable,  Boolean lit, Boo
 	this.value = value;
 	this.name=name;
 	this.variety = variety;
+	this.affectedstat = affectedstat;
 }
 public String getName() {
 	return name;
 }
 public String getVariety() {
 	return variety;
+}
+public String getAffectedStat() {
+	return affectedstat;
+}
+public void setAffectedStat(String affectedstat) {
+	this.affectedstat = affectedstat;
 }
 public void setName(String name) {
 	this.name=name;
@@ -64,6 +71,7 @@ public void printDescription(){
 }
 
 public void addEffect(Actor target)  {
+	
 	target.setHP(target.getHP() + getEffect());
 	 
 }
