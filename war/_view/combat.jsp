@@ -13,7 +13,7 @@
 	}
 	<%-- move buttons to middle of map--%>
 	table.buttons{
-			margin-left: 120px;
+			margin-left: 0px;
 	}
 	</style>
 	<body>
@@ -24,7 +24,8 @@
 			<table class = "buttons">
 			<tr>
 				<td></td>
-				<td><input type="Submit" name="Attack" value="Attack"></td>
+				<%-- <td><input type="Submit" name="Attack" value="Attack"></td>--%>
+				<td><input name="Attack" id="win980_input" class="Input LineInput" type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;"></td>
 			</tr>
 			<c:if test="${! empty game.attackmessage}">
 				<div>${game.attackmessage}</div>
@@ -33,6 +34,7 @@
 				<div>${game.defendmessage}</div>
 			</c:if>
 		</form>
+		
 		<%--used for persistence--%>
 		<input name="playerHP" type="hidden" value="${game.playerHP}" />
 		
