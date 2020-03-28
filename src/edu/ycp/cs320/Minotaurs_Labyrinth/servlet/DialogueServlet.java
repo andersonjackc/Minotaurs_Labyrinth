@@ -49,8 +49,10 @@ public class DialogueServlet extends HttpServlet {
 
 		//used to persist health
 		model.initPlayers();
-		
-
+		Integer playerHP = getInteger(req, "playerHP");
+		Integer enemyHP = getInteger(req, "enemyHP");
+		model.setPlayerHP(playerHP);
+		model.setEnemyHP(enemyHP);
 		model.getNPCDesc();
 		
 		String inputVal = getString(req, "textbox").toLowerCase();
@@ -67,7 +69,11 @@ public class DialogueServlet extends HttpServlet {
 			// Forward to view to render the result HTML document
 			req.getRequestDispatcher("/_view/dialogue.jsp").forward(req, resp);
 		}
-		
+	}
+	
+	// gets an Integer from the Posted form data, for the given attribute name
+	private int getInteger(HttpServletRequest req, String name) {
+		return Integer.parseInt(req.getParameter(name));
 	}
 	
 	private String getString(HttpServletRequest req, String name) {
