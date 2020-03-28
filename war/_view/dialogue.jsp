@@ -18,6 +18,11 @@
 	.error {
 			color: red;
 		}
+	body {
+  			background-image: url('https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  			background-size: cover;
+ 			background-repeat: no-repeat;
+	}
 	</style>
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/dialogue" method="post">
