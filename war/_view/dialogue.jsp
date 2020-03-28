@@ -15,6 +15,9 @@
 	table.buttons{
 			margin-left: 0px;
 	}
+	.error {
+			color: red;
+		}
 	</style>
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/dialogue" method="post">
@@ -33,6 +36,9 @@
 			</c:if>
 			<c:if test="${! empty game.NPCResp}">
 				<tr><td>${game.NPCResp}</td></tr>
+			</c:if>
+			<c:if test="${! empty game.error}">
+				<tr><td class="error">${game.error}</td></tr>
 			</c:if>
 		</form>
 			

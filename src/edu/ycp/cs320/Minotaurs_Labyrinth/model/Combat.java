@@ -10,6 +10,7 @@ public class Combat {
 	Enemy ogre;
 	Player PlayerCharacter;
 	String inputVal;
+	String errorMessage;
 	public void initPlayers() {
 		//creates an instance of player
 		ArrayList<Ability> PlayerAbilities = new ArrayList<Ability>();
@@ -58,6 +59,12 @@ public class Combat {
 		return ogre.getHP();
 	}
 	
+	public String getError() {
+		return errorMessage;
+	}
 	
+	public void setError(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
 }
 

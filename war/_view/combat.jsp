@@ -15,6 +15,10 @@
 	table.buttons{
 			margin-left: 0px;
 	}
+	<%--set error text to red--%>
+		.error {
+			color: red;
+		}
 	</style>
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/combat" method="post">
@@ -32,6 +36,9 @@
 			</c:if>
 			<c:if test="${! empty game.defendmessage}">
 				<tr><td>${game.defendmessage}</td></tr>
+			</c:if>
+			<c:if test="${! empty game.error}">
+				<tr><td class="error">${game.error}</td></tr>
 			</c:if>
 		</form>
 		

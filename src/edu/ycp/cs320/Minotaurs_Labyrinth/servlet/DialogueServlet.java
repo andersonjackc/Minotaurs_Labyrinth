@@ -57,6 +57,8 @@ public class DialogueServlet extends HttpServlet {
 		
 		if (req.getParameter("textbox") != null && inputVal.equals("talk") ){
 			model.initResponses();
+		}else if(req.getParameter("textbox") != null && !(inputVal.equals("talk")) && !(inputVal.equals("leave"))) {
+			model.setError("That command is not recognized!");
 		}
 		
 		if(req.getParameter("textbox") != null && inputVal.equals("leave")) {
