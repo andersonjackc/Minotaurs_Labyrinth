@@ -143,8 +143,7 @@ public class Player extends Actor {
 		
 		for(Pair<Room, String> pair : adjRooms) {
 			
-			if(pair.getRight() == direction) {
-				
+			if(pair.getRight() == direction && pair.getLeft().getObstacle().checkStatus(this)) {
 				this.setCurrentRoom(pair.getLeft());
 			}
 		}

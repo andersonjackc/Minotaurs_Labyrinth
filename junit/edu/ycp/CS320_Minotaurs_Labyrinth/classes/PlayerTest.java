@@ -19,13 +19,13 @@ public class PlayerTest {
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
 	Item key = new Item("test", 1, true, false, false, 10, null, null);
-	Obstacle obs = new Obstacle("test", "jumping", key);
+	Obstacle obs = new Obstacle("test", "normal", key);
 	Room room = new Room("A test room", "test", testRoomInv, obs);
 	Room room2 = new Room("A test room", "empty", testRoomInv, obs );
 	Inventory testInv = new Inventory(100, 100, Inv);
 	
 	
-	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, testInv, room);
+	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, "normal", testInv, room);
 	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 0, "A test NPC", "test", null, room);
 	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", null);
 	ArrayList<Item> Inventory = new ArrayList<Item>();
