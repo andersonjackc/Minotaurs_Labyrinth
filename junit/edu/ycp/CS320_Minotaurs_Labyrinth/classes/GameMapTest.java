@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -14,7 +16,7 @@ public class GameMapTest {
 	Room room;
 	@Before
 	public void setUp() {
-		Map<Room, LinkedList<Room>> testMap = null;
+		Map<Room, LinkedList<Pair<Room, String>>> testMap = null;
 		testGameMap = new GameMap(testMap);
 		
 	}

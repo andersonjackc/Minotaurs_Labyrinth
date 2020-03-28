@@ -12,25 +12,25 @@ public class Player extends Actor {
 	}
 	
 	
-	public void crawl() {
+	public void crawl(String direction, GameMap map) {
 		
 		String tmpStatus = this.status;
 		
 		this.status = "crawling";
 		
-		this.move();
+		this.move(direction, map);
 		
 		this.status = tmpStatus;
 		
 	}
 	
-	public void jump() {
+	public void jump(String direction, GameMap map) {
 		
 		String tmpStatus = this.status;
 		
 		this.status = "jumping";
 		
-		this.move();
+		this.move(direction, map);
 		
 		this.status = tmpStatus;
 		
@@ -110,9 +110,12 @@ public class Player extends Actor {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("TODO - implement");
 	}
-	public void move() {
-		// TODO Auto-generated method stub
+	public void move(String direction, GameMap map) {
+		
+		
 		throw new UnsupportedOperationException("TODO - implement");
+		
+		
 	}
 	public String checkMap() {
 		// TODO Auto-generated method stub
