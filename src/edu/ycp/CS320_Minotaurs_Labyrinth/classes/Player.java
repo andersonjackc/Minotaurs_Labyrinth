@@ -28,7 +28,7 @@ public class Player extends Actor {
 		
 		String tmpStatus = getStatus();
 		
-		setStatus("Jumping");
+		setStatus("jumping");
 		
 		this.move(direction, map);
 		

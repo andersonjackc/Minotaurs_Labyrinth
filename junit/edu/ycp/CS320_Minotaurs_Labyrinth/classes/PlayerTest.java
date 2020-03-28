@@ -26,6 +26,8 @@ public class PlayerTest {
 	
 	Room room = new Room("A test room", "test", testRoomInv, obs);
 	Room room2 = new Room("A test room", "empty", testRoomInv, obs );
+	Room room3 = new Room("A test room", "empty", testRoomInv, obs1 );
+	Room room4 = new Room("A test room", "empty", testRoomInv, obs2 );
 	Inventory testInv = new Inventory(100, 100, Inv);
 	
 
@@ -48,6 +50,8 @@ public class PlayerTest {
 		rooms1 = new LinkedList<Pair<Room, String>>();
 		rooms2 = new LinkedList<Pair<Room, String>>();
 		rooms1.add(new Pair<Room, String>(room2, "North"));
+		rooms1.add(new Pair<Room, String>(room3, "East"));
+		rooms1.add(new Pair<Room, String>(room4, "West"));
 		rooms2.add(new Pair<Room, String>(room, "South"));
 		testGameMap.addRoom(room, rooms1);
 		testGameMap.addRoom(room2, rooms2);
@@ -168,14 +172,14 @@ public class PlayerTest {
 	}
 	@Test
 	public void testCrawl() {
-		testPlayer.crawl("North", testGameMap);
-		assertEquals(testPlayer.getCurrentRoom(), room2);
+		testPlayer.crawl("West", testGameMap);
+		assertEquals(testPlayer.getCurrentRoom(), room4);
 	}
 	
 	@Test
 	public void testJump() {
-		testPlayer.jump("North", testGameMap);
-		assertEquals(testPlayer.getCurrentRoom(), room2);
+		testPlayer.jump("East", testGameMap);
+		assertEquals(testPlayer.getCurrentRoom(), room3);
 	}
 	@Test
 	public void testTalk() {
