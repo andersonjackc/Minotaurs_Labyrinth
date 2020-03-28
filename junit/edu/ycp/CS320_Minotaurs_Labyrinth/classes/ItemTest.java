@@ -57,6 +57,11 @@ private Item testItem;
 	}
 	
 	@Test
+	public void testItemValue() {
+		assertEquals(testItem.getValue(), 10);
+	}
+	
+	@Test
 	public void testPrintDescription() {
 		fail("Not yet implemented");
 		
