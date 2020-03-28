@@ -52,28 +52,23 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		Integer yLoc = getInteger(req, "yLoc");
 		model.setPosition(xLoc, yLoc);
 		
+		String inputVal = getString(req, "textbox").toLowerCase();
+		
 		//check for command, call the move method
-		if (req.getParameter("North") != null || req.getParameter("South") != null 
-				|| req.getParameter("West") != null || req.getParameter("East") != null) {
-				if(req.getParameter("North") != null) {
-					System.out.println("check");
-					model.moveNorth();
-				}
-				if(req.getParameter("South") != null) {
-					System.out.println("check");
-					model.moveSouth();
-				}
-				if(req.getParameter("West") != null) {
-					model.moveWest();
-				}
-				if(req.getParameter("East") != null) {
-					model.moveEast();
-				}
+		
+		if(req.getParameter("textbox") != null && inputVal.equals("north")) {
+			model.moveNorth();
+		}else if(req.getParameter("textbox") != null && inputVal.equals("south")) {
+			model.moveSouth();
+		}else if(req.getParameter("textbox") != null && inputVal.equals("west")) {
+			model.moveWest();
+		}else if(req.getParameter("textbox") != null && inputVal.equals("east")) {
+			model.moveEast();
+		}else if(req.getParameter("textbox") != null && !(inputVal.equals("north")) && !(inputVal.equals("south")) && !(inputVal.equals("east") && !(inputVal.equals("west")))) {
+			model.setError("That command is not recognized!");
 		}
 		
-		//Enemy target = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, OgreAbilities, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre");
-		
-		if(model.getMap()[0][1] == 1/* && model.isEnemyAlive(target)*/ ) {
+		if(model.getMap()[0][1] == 1 ) {
 			 resp.sendRedirect(req.getContextPath() + "/combat");
 		}else if(model.getMap()[1][0] == 1) {
 			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
@@ -89,5 +84,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 	// gets an Integer from the Posted form data, for the given attribute name
 	private int getInteger(HttpServletRequest req, String name) {
 		return Integer.parseInt(req.getParameter(name));
+	}
+	
+	private String getString(HttpServletRequest req, String name) {
+		return String.valueOf(req.getParameter(name));
 	}
 }

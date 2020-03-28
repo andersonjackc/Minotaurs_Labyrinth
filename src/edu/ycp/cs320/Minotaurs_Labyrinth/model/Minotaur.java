@@ -74,6 +74,11 @@ public class Minotaur {
 		return errorMessage;
 	}
 	
+	public void setError(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+	
+	
 	public String getMessage() {
 		return message;
 	}
