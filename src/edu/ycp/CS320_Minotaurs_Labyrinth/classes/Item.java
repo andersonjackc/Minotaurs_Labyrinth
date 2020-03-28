@@ -5,14 +5,15 @@ public class Item {
 	//add throwable
 protected String description, name;
 protected int effect, value;
-protected Boolean flammable, lit;
+protected Boolean flammable, lit, throwable;
 
 //methods
-public Item(String description, int effect, Boolean flammable,  Boolean lit, int value, String name) {
+public Item(String description, int effect, Boolean flammable,  Boolean lit, Boolean throwable, int value, String name) {
 	this.description = description;
 	this.effect = effect;
 	this.flammable = flammable;
 	this.lit = lit;
+	this.throwable = throwable;
 	this.value = value;
 	this.name=name;
 }
@@ -24,6 +25,9 @@ public void setName(String name) {
 }
 public int getValue() {
 	return value;
+}
+public Boolean getThrowable() {
+	return throwable;
 }
 public void setValue(int value) {
 	this.value=value;

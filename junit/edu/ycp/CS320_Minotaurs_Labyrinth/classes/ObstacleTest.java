@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 public class ObstacleTest {
-	Item key = new Item("test", 1, true, false, 10, null);
-	Item key2 = new Item("test", 1, true, false, 10, null);
+	Item key = new Item("test", 1, true, false, false, 10, null);
+	Item key2 = new Item("test", 1, true, false, false, 10, null);
 	Obstacle obs = new Obstacle("test", "jumping", key);
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testInv = new Inventory(100, 100, Inv);

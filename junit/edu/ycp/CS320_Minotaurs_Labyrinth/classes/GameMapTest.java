@@ -16,7 +16,7 @@ public class GameMapTest {
 	Room room1, room2;
 	Inventory inventory;
 	LinkedList<Pair<Room, String>> rooms1, rooms2;
-	Item key = new Item("test", 1, true, false, 10, null);
+	Item key = new Item("test", 1, true, false, false, 10, null);
 	Obstacle obs = new Obstacle("test", "jumping", key);
 	@Before
 	public void setUp() {

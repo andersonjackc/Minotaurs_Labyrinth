@@ -12,7 +12,7 @@ private Item testItem;
 	@Before
 	public void setUp() {
 		
-		testItem = new Item("test", 1, true, false, 10, null);
+		testItem = new Item("test", 1, true, false, true, 10, null);
 		
 	}
 	
@@ -38,6 +38,11 @@ private Item testItem;
 	public void testLitMethods() {
 		testItem.setLit(true);
 		assertTrue(testItem.getLit());
+	}
+	
+	@Test
+	public void testThrowableMethods() {
+		assertTrue(testItem.getThrowable());
 	}
 	
 	@Test
