@@ -13,7 +13,7 @@
 	}
 	<%-- move buttons to middle of map--%>
 	table.buttons{
-			margin-left: 120px;
+			margin-left: 0px;
 	}
 	</style>
 	<body>
@@ -23,18 +23,16 @@
 			<img class='enemy' src='https://cdn1.iconfinder.com/data/icons/avatar-flat-design-big-family/512/avatar_villager-512.png'>
 			<table class = "buttons">
 			<tr>
-				<td></td>
-				<td><input type="Submit" name="Greetings" value="Greetings"></td>
-				<td><input type="Submit" name="Leave" value="Leave"></td>
+				<td><input name="textbox"  type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
 			</tr>
 			<c:if test="${! empty game.NPCDesc}">
-				<div>${game.NPCDesc}</div>
+				<tr><td>${game.NPCDesc}</td></tr>
 			</c:if>
 			<c:if test="${! empty game.playerResp}">
-				<div>${game.playerResp}</div>
+				<tr><td>${game.playerResp}</td></tr>
 			</c:if>
 			<c:if test="${! empty game.NPCResp}">
-				<div>${game.NPCResp}</div>
+				<tr><td>${game.NPCResp}</td></tr>
 			</c:if>
 		</form>
 			

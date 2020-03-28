@@ -55,9 +55,9 @@ public class CombatServlet extends HttpServlet {
 		model.setEnemyHP(enemyHP);
 		
 
-		String inputVal = getString(req, "Attack");
+		String inputVal = getString(req, "textbox").toLowerCase();
 		
-		if (req.getParameter("Attack") != null && inputVal.equals("Attack")){
+		if (req.getParameter("textbox") != null && inputVal.equals("attack")){
 			model.playerAtk();
 			model.enemyAtk();
 		}
