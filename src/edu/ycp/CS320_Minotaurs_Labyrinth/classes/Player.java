@@ -15,25 +15,24 @@ public class Player extends Actor {
 	
 	public void crawl(String direction, GameMap map) {
 		
-		String tmpStatus = this.status;
+		String tmpStatus = getStatus();
 		
-		this.status = "crawling";
+		setStatus("crawling");
 		
 		this.move(direction, map);
 		
-		this.status = tmpStatus;
-		
+		setStatus(tmpStatus);		
 	}
 	
 	public void jump(String direction, GameMap map) {
 		
-		String tmpStatus = this.status;
+		String tmpStatus = getStatus();
 		
-		this.status = "jumping";
+		setStatus("Jumping");
 		
 		this.move(direction, map);
 		
-		this.status = tmpStatus;
+		setStatus(tmpStatus);
 		
 	}
 	
@@ -261,6 +260,9 @@ public class Player extends Actor {
 		this.currentRoom = currentRoom;
 	}
 	
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	
 
