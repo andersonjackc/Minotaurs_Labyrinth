@@ -96,7 +96,7 @@ Room room = new Room("A test room", "test", testRoomInv, obs);
 	}
 	@Test
 	public void testPrintDescription(){
-		fail("Not yet implemented");	
+		assertEquals(testNPC.getDescription(), "test");	
 	}
 	@Test
 	public void testPrintResponses(){

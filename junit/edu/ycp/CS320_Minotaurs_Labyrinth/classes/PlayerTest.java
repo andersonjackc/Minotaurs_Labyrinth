@@ -20,17 +20,19 @@ public class PlayerTest {
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
 
 	Item key = new Item("test", 1, true, false, true, 10, null, "misc", null);
-	Obstacle obs = new Obstacle("test", "jumping", key);
-
-
+	Obstacle obs = new Obstacle("test", "normal", key);
+	Obstacle obs1 = new Obstacle("test", "jumping", key);
+	Obstacle obs2 = new Obstacle("test", "crawling", key);
 	
 	Room room = new Room("A test room", "test", testRoomInv, obs);
 	Room room2 = new Room("A test room", "empty", testRoomInv, obs );
+	Room room3 = new Room("A test room", "empty", testRoomInv, obs1 );
+	Room room4 = new Room("A test room", "empty", testRoomInv, obs2 );
 	Inventory testInv = new Inventory(100, 100, Inv);
 	
 
 	
-	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, testInv, room);
+	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, "normal", testInv, room);
 	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 100, "A test NPC", "test", null, room);
 	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", null, null);
 	Item rope = new Item("rope", 0, true, false, true, 50, "rope", "misc", null);
@@ -48,6 +50,8 @@ public class PlayerTest {
 		rooms1 = new LinkedList<Pair<Room, String>>();
 		rooms2 = new LinkedList<Pair<Room, String>>();
 		rooms1.add(new Pair<Room, String>(room2, "North"));
+		rooms1.add(new Pair<Room, String>(room3, "East"));
+		rooms1.add(new Pair<Room, String>(room4, "West"));
 		rooms2.add(new Pair<Room, String>(room, "South"));
 		testGameMap.addRoom(room, rooms1);
 		testGameMap.addRoom(room2, rooms2);
@@ -158,8 +162,8 @@ public class PlayerTest {
 	@Test
 	public void testThroObs() {
 		testPlayer.take(rope);
-		testPlayer.throObs(obs, rope);
-		assertEquals("none", obs.getStatus());
+		testPlayer.throObs(obs1, rope);
+		assertEquals("normal", obs1.getStatus());
 	}
 	@Test
 	public void testMove() {
@@ -168,12 +172,14 @@ public class PlayerTest {
 	}
 	@Test
 	public void testCrawl() {
-		fail("need to implement move and map first");
+		testPlayer.crawl("West", testGameMap);
+		assertEquals(testPlayer.getCurrentRoom(), room4);
 	}
 	
 	@Test
 	public void testJump() {
-		fail("need to implement move and map first");
+		testPlayer.jump("East", testGameMap);
+		assertEquals(testPlayer.getCurrentRoom(), room3);
 	}
 	@Test
 	public void testTalk() {
