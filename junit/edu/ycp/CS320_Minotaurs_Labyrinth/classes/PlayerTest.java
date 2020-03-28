@@ -18,7 +18,7 @@ public class PlayerTest {
 	GameMap testGameMap;
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
-	Item key = new Item("test", 1, true, false, false, 10, null);
+	Item key = new Item("test", 1, true, false, false, 10, null, null);
 	Obstacle obs = new Obstacle("test", "jumping", key);
 	Room room = new Room("A test room", "test", testRoomInv, obs);
 	Room room2 = new Room("A test room", "empty", testRoomInv, obs );
@@ -27,11 +27,11 @@ public class PlayerTest {
 	
 	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, testInv, room);
 	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 0, "A test NPC", "test", null, room);
-	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem");
+	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", null);
 	ArrayList<Item> Inventory = new ArrayList<Item>();
 	Inventory testInventory = new Inventory(100, 100, Inventory);
-	Item testPotion = new Item("test", 10, false, false, false, 5, "health potion");
-	Item testTorch = new Item("test", 0, true, false, false, 1, "torch");
+	Item testPotion = new Item("test", 10, false, false, false, 5, "health potion", null);
+	Item testTorch = new Item("test", 0, true, false, false, 1, "torch", null);
 	Gear testSword = new Gear(5, 0 , 0, "sword", false, "test", 0, false, false, false, 5, "sword");
 
 	@Before

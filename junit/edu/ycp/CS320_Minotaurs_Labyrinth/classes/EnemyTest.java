@@ -15,7 +15,7 @@ ArrayList<Item> items = new ArrayList<Item>();
 Inventory i = new Inventory(0, 0, items);
 ArrayList<Item> Inv = new ArrayList<Item>();
 Inventory testRoomInv = new Inventory(100, 100, Inv);
-Item key = new Item("test", 1, true, false, false, 10, null);
+Item key = new Item("test", 1, true, false, false, 10, null, null);
 Obstacle obs = new Obstacle("test", "jumping", key);
 Room room = new Room("A test room", "test", testRoomInv, obs);
 
