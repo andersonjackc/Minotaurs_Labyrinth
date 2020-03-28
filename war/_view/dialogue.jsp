@@ -42,5 +42,9 @@
 			</c:if>
 		</form>
 			
+		<%--used for persistence--%>
+		<input name="playerHP" type="hidden" value="${game.playerHP}" />
+		
+		<input name="enemyHP" type="hidden" value="${game.enemyHP}" />
 	</body>
 </html>
