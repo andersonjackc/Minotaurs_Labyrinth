@@ -71,9 +71,29 @@ public void printDescription(){
 }
 
 public void addEffect(Actor target)  {
-	
+	if(getAffectedStat().equals("HP")) {
 	target.setHP(target.getHP() + getEffect());
-	 
+	} 
+	else if(getAffectedStat().equals("maxHP")) {
+		target.setMaxHP(target.getMaxHP() + getEffect());
+
+	}
+	else if(getAffectedStat().equals("resource")) {
+		target.setResource(target.getResource() + getEffect());
+
+	}
+	else if(getAffectedStat().equals("maxResource")) {
+		target.setMaxResource(target.getMaxResource() + getEffect());
+
+	}
+	else if(getAffectedStat().equals("atk")) {
+		target.setAtk(target.getAtk() + getEffect());
+
+	}
+	else if(getAffectedStat().equals("def")) {
+		target.setDef(target.getDef() + getEffect());
+
+	}
 }
 
 }
