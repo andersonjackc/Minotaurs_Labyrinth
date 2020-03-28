@@ -72,6 +72,13 @@ public class DialogueServlet extends HttpServlet {
 			// Forward to view to render the result HTML document
 			req.getRequestDispatcher("/_view/dialogue.jsp").forward(req, resp);
 		}
+		
+		// Forward to view to render the result HTML document
+		if(model.getEnemyHP() > 0) {
+			req.getRequestDispatcher("/_view/combat.jsp").forward(req, resp);
+		}else if(model.getEnemyHP() <= 0) {
+			resp.sendRedirect(req.getContextPath() + "/minotaursLabyrinth");
+		}
 	}
 	
 	// gets an Integer from the Posted form data, for the given attribute name
