@@ -23,7 +23,7 @@
 			<img class='enemy' src='https://cdn.pixabay.com/photo/2013/07/13/01/23/troll-155646_1280.png'>
 			<table class = "buttons">
 			<tr>
-				<td></td>
+				
 				<td><input name="Attack"  type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value="${game.inputVal}"></td>
 			</tr>
 			
