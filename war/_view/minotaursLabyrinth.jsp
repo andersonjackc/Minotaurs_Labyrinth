@@ -25,10 +25,16 @@
 			width: 400px;
 			height: 400px;
 			text-align: center;
+			background-color: white;
 		}
 		<%-- move buttons to middle of map--%>
 		table.buttons{
 			margin-left: 0px;
+		}
+		body {
+  			background-image: url('https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  			background-size: cover;
+ 			background-repeat: no-repeat;
 		}
 		</style>
 		<%-- script to make 0's blank and the player a *--%>
@@ -79,7 +85,6 @@
 	</head>
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
-			
 			<%--draws the map--%>
 			<table class="table">
 				<tr>
@@ -99,10 +104,7 @@
 					
 					<td class="Corner"></td>	
 				</tr>
-				<tr>
-				</tr>
 		</table>
-		
 		<table class = "buttons">
 			<tr>
 				<td><input name="textbox"  type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
