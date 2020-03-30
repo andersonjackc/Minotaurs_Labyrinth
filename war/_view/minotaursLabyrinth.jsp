@@ -39,7 +39,7 @@
 		
 		</form>
 		</br>
-<<<<<<< HEAD
+
 		<table>
 			<c:if test="${! empty game.attackmessage}">
 				<tr><td>${game.attackmessage}</td></tr>
@@ -48,11 +48,9 @@
 				<tr><td>${game.defendmessage}</td></tr>
 			</c:if>
 		</table>
+
 		
-		<input name="location"  value="${game.roomPosition}" />
-=======
-		
->>>>>>> refs/remotes/origin/master
+
 		<div id="Empty"></div>
 		<div class="Message">${game.roomDescription}</div>
 		<div class="Message">${game.message}</div>
