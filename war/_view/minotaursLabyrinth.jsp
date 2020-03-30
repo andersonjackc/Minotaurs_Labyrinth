@@ -35,6 +35,9 @@
 				
 			</tr>
 			<input name="location" type="hidden" value="${game.roomPosition}" />
+			<input name="playerHP" type="hidden" value="${game.playerHP}" />
+		
+			<input name="enemyHP" type="hidden" value="${game.enemyHP}" />
 		</table>
 		
 		</form>
@@ -47,6 +50,8 @@
 			<c:if test="${! empty game.defendmessage}">
 				<tr><td>${game.defendmessage}</td></tr>
 			</c:if>
+			<%--used for persistence--%>
+		
 		</table>
 
 		
@@ -57,9 +62,6 @@
 		<%--error message based on what error--%>
 		<div class="error">${game.error}</div>
 		
-		<%--used for persistence--%>
-		<input name="playerHP" type="hidden" value="${game.playerHP}" />
 		
-		<input name="enemyHP" type="hidden" value="${game.enemyHP}" />
 	</body>
 </html>
