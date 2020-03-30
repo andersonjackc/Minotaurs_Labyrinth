@@ -14,7 +14,7 @@ public class ObstacleTest {
 	Inventory testInv = new Inventory(100, 100, Inv);
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
 	Room room = new Room("A test room", "test", testRoomInv, obs);
-	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, testInv, room);
+	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, testInv, room, false);
 	
 	@Test
 	public void testDescriptionMethods() {

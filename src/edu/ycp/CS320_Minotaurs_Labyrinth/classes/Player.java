@@ -7,8 +7,8 @@ public class Player extends Actor {
 	
 	
 	public Player(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP,
-			ArrayList<Ability> abilities, String status, Inventory inventory, Room currentRoom) {
-		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom);
+			ArrayList<Ability> abilities, String status, Inventory inventory, Room currentRoom, boolean isDead) {
+		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom, isDead);
 		
 	}
 	

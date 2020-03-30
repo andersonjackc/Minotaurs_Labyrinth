@@ -20,12 +20,12 @@ public class Dialogue {
 		ArrayList<Ability> PlayerAbilities = new ArrayList<Ability>();
 		ArrayList<Item> items = new ArrayList<Item>();
 		Inventory i = new Inventory(0, 0, items);
-		PlayerCharacter = new Player(1000, 20, 1000, 10, 2, 2, 50, 0, PlayerAbilities, "Normal", i, null);
+		PlayerCharacter = new Player(1000, 20, 1000, 10, 2, 2, 50, 0, PlayerAbilities, "Normal", i, null, false);
 		
 		//creates an instance of enemy
 
 		ArrayList<Ability> VillagerAbilities = new ArrayList<Ability>();
-		villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 100, "An old man with tattered clothing", "Villager", i, null);
+		villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 100, "An old man with tattered clothing", "Villager", i, null, false);
 		
 
 

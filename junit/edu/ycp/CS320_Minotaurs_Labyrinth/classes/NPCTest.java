@@ -21,7 +21,7 @@ Room room = new Room("A test room", "test", testRoomInv, obs);
 	@Before
 	public void setUp() {
 		
-		testNPC = new NPC(5, 5, 5, 5, 1, 5, 5, 5, abilities, "test", "test", 1, "test", "test", i, room);
+		testNPC = new NPC(5, 5, 5, 5, 1, 5, 5, 5, abilities, "test", "test", 1, "test", "test", i, room, false);
 		Ability fireball;
 	}
 	@Test

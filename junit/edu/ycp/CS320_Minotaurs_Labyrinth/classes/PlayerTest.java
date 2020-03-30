@@ -31,8 +31,8 @@ public class PlayerTest {
 	
 
 	
-	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 2, 3, null, "normal", testInv, room);
-	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 100, "A test NPC", "test", null, room);
+	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 2, 3, null, "normal", testInv, room, false);
+	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 100, "A test NPC", "test", null, room, false);
 	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", null, null);
 	Item rope = new Item("rope", 0, true, false, true, 50, "rope", "misc", null);
 

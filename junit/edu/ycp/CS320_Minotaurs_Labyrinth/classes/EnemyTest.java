@@ -22,7 +22,7 @@ Room room = new Room("A test room", "test", testRoomInv, obs);
 	@Before
 	public void setUp() {
 		
-		testEnemy = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, abilities, "test", "test", 1, "test", "test", i, room);
+		testEnemy = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, abilities, "test", "test", 1, "test", "test", i, room, false);
 		
 		Ability fireball;
 	}

@@ -73,10 +73,10 @@ public class Minotaur {
 	
 	//currently sets player to middle of the map
 	public void initPlayer() {
-		player = new Player(1000, 20, 0, 0, 2, 0, 0, 0, null, "normal", inv, centerRoom);
+		player = new Player(1000, 20, 0, 0, 2, 0, 0, 0, null, "normal", inv, centerRoom, false);
 		roomPosition = 4;
 		
-		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, null, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, northRoom);
+		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, null, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, northRoom, false);
 
 	}
 	

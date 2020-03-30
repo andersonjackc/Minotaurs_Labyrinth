@@ -28,7 +28,7 @@ public abstract class Actor {
 	
 	protected Room currentRoom;
 	
-	public Actor(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, Inventory inventory, Room currentRoom){
+	public Actor(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, Inventory inventory, Room currentRoom, boolean isDead){
 		this.maxHP = maxHP;
 		this.HP = HP;
 		this.maxResource = maxResource;

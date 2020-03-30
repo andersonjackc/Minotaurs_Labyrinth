@@ -27,7 +27,7 @@ private Player testPlayer;
 		testAtkPotion = new Item("test", 1, true, false, true, 10, "testItem", "test", "atk");
 		testDefPotion = new Item("test", 1, true, false, true, 10, "testItem", "test", "def");
 
-		testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, null);
+		testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, null, false);
 	}
 	
 	@Test
