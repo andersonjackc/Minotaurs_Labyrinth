@@ -186,4 +186,12 @@ public class PlayerTest {
 		assertEquals(testNPC.getDialogue(), testPlayer.talk(testNPC));
 	}
 	
+	@Test
+	public void testGetMaxHP() {
+		assertEquals(testPlayer.getMaxHP(), 1000);
+	}
+	@Test
+	public void testGetHP() {
+		assertEquals(testPlayer.getHP(), 100);
+	}	
 }
