@@ -41,11 +41,12 @@ public class Minotaur {
 		obs = new Obstacle("No obstacle", "normal", requirement);
 		obs2 = new Obstacle("No obstacle", "locked", requirement);
 		
-		centerRoom = new Room("This is the center room.", "Starting Room", inv, obs);
-		northRoom = new Room("This is the north room.", "Combat room", inv, obs);
-		southRoom = new Room("This is the south room.", "Dialogue room", inv, obs);
-		eastRoom = new Room("This is the east room.", "Locked room", inv, obs2);
-		westRoom = new Room("This is the west room.", "Empty room", inv, obs);
+		centerRoom = new Room("You enter a small stone room there are four doorways at each cardinal direction.", "Starting Room", inv, obs);
+		northRoom = new Room("You enter a small stone room, the stench of ogre is unbearable. The only exit is the way you entered.", "Combat room", inv, obs);
+		southRoom = new Room("You enter a small stone room, it seems someone or something has been living here. The only exit is the way you entered.", "Dialogue room", inv, obs);
+		eastRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.", "Locked room", inv, obs2);
+		westRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.", "Empty room", inv, obs);
+
 		
 		adjCent = new Room[4];
 		adjNorth = new Room[4];
