@@ -45,5 +45,10 @@ public class ObstacleTest {
 		testPlayer.setStatus("jumping");
 		assertTrue(obs.checkStatus(testPlayer));
 	}
+	@Test
+	public void testCheckStatusFalse() {
+		testPlayer.setStatus("normal");
+		assertFalse(obs.checkStatus(testPlayer));
+	}
 
 }
