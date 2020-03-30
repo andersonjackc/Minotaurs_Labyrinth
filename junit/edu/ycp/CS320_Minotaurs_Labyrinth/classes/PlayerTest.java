@@ -31,7 +31,7 @@ public class PlayerTest {
 	
 
 	
-	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, "normal", testInv, room);
+	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 2, 3, null, "normal", testInv, room);
 	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 100, "A test NPC", "test", null, room);
 	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", null, null);
 	Item rope = new Item("rope", 0, true, false, true, 50, "rope", "misc", null);
@@ -185,4 +185,49 @@ public class PlayerTest {
 		assertEquals(testNPC.getDialogue(), testPlayer.talk(testNPC));
 	}
 	
+	@Test
+	public void testGetMaxHP() {
+		testPlayer.setMaxHP(1);
+		assertEquals(testPlayer.getMaxHP(), 1);
+	}
+	@Test
+	public void testGetHP() {
+		testPlayer.setHP(1);
+		assertEquals(testPlayer.getHP(), 1);
+	}
+	@Test
+	public void testGetMaxResource() {
+		testPlayer.setMaxResource(1);
+		assertEquals(testPlayer.getMaxResource(), 1);
+	}
+	@Test
+	public void testGetResource() {
+		testPlayer.setResource(1);
+		assertEquals(testPlayer.getResource(), 1);
+	}
+	@Test
+	public void testGetAtk() {
+		testPlayer.setAtk(1);
+		assertEquals(testPlayer.getAtk(), 1);
+	}
+	@Test
+	public void testGetDef() {
+		testPlayer.setDef(1);
+		assertEquals(testPlayer.getDef(), 1);
+	}
+	@Test
+	public void testGetGold() {
+		testPlayer.setGold(1);
+		assertEquals(testPlayer.getGold(), 1);
+	}
+	@Test
+	public void testGetXP() {
+		testPlayer.setXP(1);
+		assertEquals(testPlayer.getXP(), 1);
+	}
+	@Test
+	public void testGetStatus() {
+		testPlayer.setStatus("test");
+		assertEquals(testPlayer.getStatus(), "test");
+	}
 }
