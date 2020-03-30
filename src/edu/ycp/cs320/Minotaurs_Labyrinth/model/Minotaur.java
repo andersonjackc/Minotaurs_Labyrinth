@@ -89,7 +89,6 @@ public class Minotaur {
 	}
 	
 	public int getRoomPosition() {
-		System.out.println(roomPosition);
 		return roomPosition;
 	}
 	

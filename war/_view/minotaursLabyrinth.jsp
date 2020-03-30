@@ -32,6 +32,7 @@
 		<table class = "textbox">
 			<tr>
 				<td><input name="textbox" autocomplete="off" type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
+				<input name="location" type="hidden" value="${game.roomPosition}" />
 			</tr>
 		</table>
 		
@@ -43,7 +44,7 @@
 		<div class="Message">${game.message}</div>
 		<%--error message based on what error--%>
 		<div class="error">${game.error}</div>
-		<input name="location" type="hidden" value="${game.roomPosition}" />
+		
 		
 	</body>
 </html>

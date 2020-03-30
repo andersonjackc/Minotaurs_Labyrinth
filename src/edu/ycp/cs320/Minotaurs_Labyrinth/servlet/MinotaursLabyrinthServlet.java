@@ -51,9 +51,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		String inputVal = getString(req, "textbox").toLowerCase();
 		
-		Integer location = getInteger(req, "textbox");
+		Integer location = getInteger(req, "location");
 		
-
+		
 		
 		if(location==0) {
 			model.getPlayer().setCurrentRoom(model.getNorthRoom());
