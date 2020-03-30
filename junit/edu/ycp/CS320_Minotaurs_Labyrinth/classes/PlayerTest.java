@@ -31,7 +31,7 @@ public class PlayerTest {
 	
 
 	
-	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, "normal", testInv, room);
+	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 2, 3, null, "normal", testInv, room);
 	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 100, "A test NPC", "test", null, room);
 	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", null, null);
 	Item rope = new Item("rope", 0, true, false, true, 50, "rope", "misc", null);
@@ -208,5 +208,17 @@ public class PlayerTest {
 	@Test
 	public void testGetDef() {
 		assertEquals(testPlayer.getDef(), 5);
+	}
+	@Test
+	public void testGetGold() {
+		assertEquals(testPlayer.getGold(), 2);
+	}
+	@Test
+	public void testGetXP() {
+		assertEquals(testPlayer.getXP(), 3);
+	}
+	@Test
+	public void testGetStatus() {
+		assertEquals(testPlayer.getStatus(), "normal");
 	}
 }
