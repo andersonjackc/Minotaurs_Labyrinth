@@ -201,4 +201,12 @@ public class PlayerTest {
 	public void testGetResource() {
 		assertEquals(testPlayer.getResource(), 50);
 	}
+	@Test
+	public void testGetAtk() {
+		assertEquals(testPlayer.getAtk(), 10);
+	}
+	@Test
+	public void testGetDef() {
+		assertEquals(testPlayer.getDef(), 5);
+	}
 }
