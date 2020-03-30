@@ -187,38 +187,47 @@ public class PlayerTest {
 	
 	@Test
 	public void testGetMaxHP() {
-		assertEquals(testPlayer.getMaxHP(), 1000);
+		testPlayer.setMaxHP(1);
+		assertEquals(testPlayer.getMaxHP(), 1);
 	}
 	@Test
 	public void testGetHP() {
-		assertEquals(testPlayer.getHP(), 100);
+		testPlayer.setHP(1);
+		assertEquals(testPlayer.getHP(), 1);
 	}
 	@Test
 	public void testGetMaxResource() {
-		assertEquals(testPlayer.getMaxResource(), 200);
+		testPlayer.setMaxResource(1);
+		assertEquals(testPlayer.getMaxResource(), 1);
 	}
 	@Test
 	public void testGetResource() {
-		assertEquals(testPlayer.getResource(), 50);
+		testPlayer.setResource(1);
+		assertEquals(testPlayer.getResource(), 1);
 	}
 	@Test
 	public void testGetAtk() {
-		assertEquals(testPlayer.getAtk(), 10);
+		testPlayer.setAtk(1);
+		assertEquals(testPlayer.getAtk(), 1);
 	}
 	@Test
 	public void testGetDef() {
-		assertEquals(testPlayer.getDef(), 5);
+		testPlayer.setDef(1);
+		assertEquals(testPlayer.getDef(), 1);
 	}
 	@Test
 	public void testGetGold() {
-		assertEquals(testPlayer.getGold(), 2);
+		testPlayer.setGold(1);
+		assertEquals(testPlayer.getGold(), 1);
 	}
 	@Test
 	public void testGetXP() {
-		assertEquals(testPlayer.getXP(), 3);
+		testPlayer.setXP(1);
+		assertEquals(testPlayer.getXP(), 1);
 	}
 	@Test
 	public void testGetStatus() {
-		assertEquals(testPlayer.getStatus(), "normal");
+		testPlayer.setStatus("test");
+		assertEquals(testPlayer.getStatus(), "test");
 	}
 }
