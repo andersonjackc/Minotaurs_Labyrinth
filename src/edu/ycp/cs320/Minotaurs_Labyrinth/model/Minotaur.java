@@ -21,7 +21,7 @@ public class Minotaur {
 	Inventory inv;
 	Item requirement;
 	ArrayList<Item> inventory;
-	Obstacle obs;
+	Obstacle obs, obs2;
 	String errorMessage;
 	String message;
 	Player player;
@@ -39,12 +39,13 @@ public class Minotaur {
 		requirement = new Item("Key", 0, true, true, true, 0, "Key", "test", "test");
 		inv = new Inventory(0, 0, inventory);
 		obs = new Obstacle("No obstacle", "normal", requirement);
+		obs2 = new Obstacle("No obstacle", "locked", requirement);
 		
 		centerRoom = new Room("This is the center room.", "Starting Room", inv, obs);
 		northRoom = new Room("This is the north room.", "Combat room", inv, obs);
 		southRoom = new Room("This is the south room.", "Dialogue room", inv, obs);
-		eastRoom = new Room("This is the east room.", "Empty room", inv, obs);
-		westRoom = new Room("This is the west room.", "Locked room", inv, obs);
+		eastRoom = new Room("This is the east room.", "Locked room", inv, obs2);
+		westRoom = new Room("This is the west room.", "Empty room", inv, obs);
 		
 		adjCent = new Room[4];
 		adjNorth = new Room[4];

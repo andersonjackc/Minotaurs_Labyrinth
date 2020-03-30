@@ -179,6 +179,13 @@ public class PlayerTest {
 	public void testJump() {
 		testPlayer.jump("east", testGameMap);
 		assertEquals(testPlayer.getCurrentRoom(), room3);
+		
+	}
+	
+	@Test
+	public void testObstacle() {
+		testPlayer.move("east", testGameMap);
+		assertNotEquals(testPlayer.getCurrentRoom(), room3);
 	}
 	@Test
 	public void testTalk() {
