@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
+
 import edu.ycp.cs320.Minotaurs_Labyrinth.controller.MinotaursLabyrinthController;
 import edu.ycp.cs320.Minotaurs_Labyrinth.model.Minotaur;
 
@@ -44,41 +44,57 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		//model, controller and attribute for jsp setup
 		Minotaur model = new Minotaur();
 		MinotaursLabyrinthController controller = new MinotaursLabyrinthController();
+		model.initMap();
+		model.initPlayer();
 		controller.setModel(model);
 		req.setAttribute("game", model);
 		
-		//used to persist x and y location on our sample map
-		Integer xLoc = getInteger(req, "xLoc");
-		Integer yLoc = getInteger(req, "yLoc");
-		model.setPosition(xLoc, yLoc);
-		
 		String inputVal = getString(req, "textbox").toLowerCase();
 		
+		Integer location = getInteger(req, "textbox");
+		
+
+		
+		if(location==0) {
+			model.getPlayer().setCurrentRoom(model.getNorthRoom());
+		}else if(location==1) {
+			model.getPlayer().setCurrentRoom(model.getSouthRoom());
+		}else if(location==2) {
+			model.getPlayer().setCurrentRoom(model.getEastRoom());
+		}else if(location==3) {
+			model.getPlayer().setCurrentRoom(model.getWestRoom());
+		}else if(location==4) {
+			model.getPlayer().setCurrentRoom(model.getCenterRoom());
+		}
 		//check for command, call the move method
 		
 		if(req.getParameter("textbox") != null && inputVal.equals("north")) {
-			model.moveNorth();
+			model.getPlayer().move(inputVal, model.getMap());
 		}else if(req.getParameter("textbox") != null && inputVal.equals("south")) {
-			model.moveSouth();
+			model.getPlayer().move(inputVal, model.getMap());
 		}else if(req.getParameter("textbox") != null && inputVal.equals("west")) {
-			model.moveWest();
+			model.getPlayer().move(inputVal, model.getMap());
 		}else if(req.getParameter("textbox") != null && inputVal.equals("east")) {
-			model.moveEast();
+			model.getPlayer().move(inputVal, model.getMap());
 		}else if(req.getParameter("textbox") != null && !(inputVal.equals("north")) && !(inputVal.equals("south")) && !(inputVal.equals("east") && !(inputVal.equals("west")))) {
 			model.setError("That command is not recognized!");
 		}
 		
-		if(model.getMap()[0][1] == 1 ) {
-			 resp.sendRedirect(req.getContextPath() + "/combat");
-		}else if(model.getMap()[1][0] == 1) {
-			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
-		}else if(model.getMap()[1][2] == 1) {
-			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
-		}else if(model.getMap()[2][1] == 1) {
-			 resp.sendRedirect(req.getContextPath() + "/dialogue");
-		}else {
-			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+		if(model.getPlayer().getCurrentRoom() == model.getNorthRoom()) {
+			model.setRoomPosition(0);
+		}else if(model.getPlayer().getCurrentRoom() == model.getSouthRoom()) {
+			model.setRoomPosition(1);
+		}else if(model.getPlayer().getCurrentRoom() == model.getEastRoom()) {
+			model.setRoomPosition(2);
+		}else if(model.getPlayer().getCurrentRoom() == model.getWestRoom()) {
+			model.setRoomPosition(3);
+		}else if(model.getPlayer().getCurrentRoom() == model.getCenterRoom()) {
+			model.setRoomPosition(4);
 		}
+		
+		
+		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+		
 	}
 
 	// gets an Integer from the Posted form data, for the given attribute name
