@@ -32,12 +32,14 @@
 		<table class = "textbox">
 			<tr>
 				<td><input name="textbox" autocomplete="off" type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
-				<input name="location" type="hidden" value="${game.roomPosition}" />
+				
 			</tr>
+			<input name="location" type="hidden" value="${game.roomPosition}" />
 		</table>
 		
 		</form>
 		</br>
+<<<<<<< HEAD
 		<table>
 			<c:if test="${! empty game.attackmessage}">
 				<tr><td>${game.attackmessage}</td></tr>
@@ -48,6 +50,9 @@
 		</table>
 		
 		<input name="location"  value="${game.roomPosition}" />
+=======
+		
+>>>>>>> refs/remotes/origin/master
 		<div id="Empty"></div>
 		<div class="Message">${game.roomDescription}</div>
 		<div class="Message">${game.message}</div>
