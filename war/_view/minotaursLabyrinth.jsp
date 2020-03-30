@@ -39,13 +39,29 @@
 		
 		</form>
 		</br>
+<<<<<<< HEAD
+		<table>
+			<c:if test="${! empty game.attackmessage}">
+				<tr><td>${game.attackmessage}</td></tr>
+			</c:if>
+			<c:if test="${! empty game.defendmessage}">
+				<tr><td>${game.defendmessage}</td></tr>
+			</c:if>
+		</table>
 		
+		<input name="location"  value="${game.roomPosition}" />
+=======
+		
+>>>>>>> refs/remotes/origin/master
 		<div id="Empty"></div>
 		<div class="Message">${game.roomDescription}</div>
 		<div class="Message">${game.message}</div>
 		<%--error message based on what error--%>
 		<div class="error">${game.error}</div>
 		
+		<%--used for persistence--%>
+		<input name="playerHP" type="hidden" value="${game.playerHP}" />
 		
+		<input name="enemyHP" type="hidden" value="${game.enemyHP}" />
 	</body>
 </html>
