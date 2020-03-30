@@ -94,7 +94,7 @@ public class Minotaur {
 	}
 	
 	public void setRoomPosition(int roomPosition) {
-		System.out.println(roomPosition);
+		
 		this.roomPosition = roomPosition;
 	}
 	
