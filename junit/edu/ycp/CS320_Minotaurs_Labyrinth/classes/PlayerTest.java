@@ -192,5 +192,13 @@ public class PlayerTest {
 	@Test
 	public void testGetHP() {
 		assertEquals(testPlayer.getHP(), 100);
-	}	
+	}
+	@Test
+	public void testGetMaxResource() {
+		assertEquals(testPlayer.getMaxResource(), 200);
+	}
+	@Test
+	public void testGetResource() {
+		assertEquals(testPlayer.getResource(), 50);
+	}
 }
