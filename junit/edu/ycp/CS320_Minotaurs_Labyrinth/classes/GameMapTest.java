@@ -5,9 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 public class GameMapTest {
@@ -15,12 +14,12 @@ public class GameMapTest {
 	GameMap testGameMap;
 	Room room1, room2;
 	Inventory inventory;
-	LinkedList<Pair<Room, String>> rooms1, rooms2;
+	Room[] rooms1, rooms2;
 	Item key = new Item("test", 1, true, false, false, 10, null, null, null);
 	Obstacle obs = new Obstacle("test", "jumping", key);
 	@Before
 	public void setUp() {
-		Map<Room, LinkedList<Pair<Room, String>>> testMap = new HashMap<Room, LinkedList<Pair<Room, String>>>();
+		Map<Room, Room[]> testMap = new HashMap<Room, Room[]>();
 		testGameMap = new GameMap(testMap);
 		
 		inventory = new Inventory(0, 0, null);
@@ -28,29 +27,24 @@ public class GameMapTest {
 		room1 = new Room("A test room", "empty", inventory, obs );
 		room2 = new Room("A test room", "empty", inventory, obs );
 		
-		rooms1 = new LinkedList<Pair<Room, String>>();
-		rooms2 = new LinkedList<Pair<Room, String>>();
-		rooms1.add(new Pair<Room, String>(room2, "North"));
-		rooms2.add(new Pair<Room, String>(room1, "South"));
+		rooms1 = new Room[4];
+		rooms2 = new Room[4];
+		rooms1[0] = room2;
+		rooms2[1] = room1;
+		
 		testGameMap.addRoom(room1, rooms1);
 		testGameMap.addRoom(room2, rooms2);
 	}
 	@Test
 	public void testGameMap() {
 		
-		Map<Room, LinkedList<Pair<Room, String>>> testMap = testGameMap.getMap();
+		Map<Room, Room[]> testMap = testGameMap.getMap();
 		
-		LinkedList<Pair<Room, String>> testRoomList = testMap.get(room1);
-		String checkString = "";
+		Room[] testRoomArray = testMap.get(room1);
 		
-		for(Pair<Room, String> pair : testRoomList) {
-			
-			if(pair.getRight() == "North") {
-				checkString = pair.getRight();
-			}
-		}
-		
-		assertEquals(checkString, "North");
+	
+		assertEquals(testRoomArray[0], room2);
+		assertEquals(testRoomArray[1], null);
 		
 	}
 

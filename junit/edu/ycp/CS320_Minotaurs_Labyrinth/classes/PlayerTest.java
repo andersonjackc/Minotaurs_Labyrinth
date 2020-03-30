@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 import org.junit.Before;
@@ -14,7 +13,7 @@ public class PlayerTest {
 	
 	
 	//Set up a test Player obj
-	LinkedList<Pair<Room, String>> rooms1, rooms2;
+	Room[] rooms1, rooms2;
 	GameMap testGameMap;
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
@@ -45,14 +44,14 @@ public class PlayerTest {
 
 	@Before
 	public void setUp() {
-		Map<Room, LinkedList<Pair<Room, String>>> testMap = new HashMap<Room, LinkedList<Pair<Room, String>>>();
+		Map<Room, Room[]> testMap = new HashMap<Room, Room[]>();
 		testGameMap = new GameMap(testMap);
-		rooms1 = new LinkedList<Pair<Room, String>>();
-		rooms2 = new LinkedList<Pair<Room, String>>();
-		rooms1.add(new Pair<Room, String>(room2, "North"));
-		rooms1.add(new Pair<Room, String>(room3, "East"));
-		rooms1.add(new Pair<Room, String>(room4, "West"));
-		rooms2.add(new Pair<Room, String>(room, "South"));
+		rooms1 = new Room[4];
+		rooms2 = new Room[4];
+		rooms1[0] = room2;
+		rooms1[2] = room3;
+		rooms1[3] = room4;
+		rooms2[1] = room;
 		testGameMap.addRoom(room, rooms1);
 		testGameMap.addRoom(room2, rooms2);
 	}
@@ -167,18 +166,18 @@ public class PlayerTest {
 	}
 	@Test
 	public void testMove() {
-		testPlayer.move("North", testGameMap);
+		testPlayer.move("north", testGameMap);
 		assertEquals(testPlayer.getCurrentRoom(), room2);
 	}
 	@Test
 	public void testCrawl() {
-		testPlayer.crawl("West", testGameMap);
+		testPlayer.crawl("west", testGameMap);
 		assertEquals(testPlayer.getCurrentRoom(), room4);
 	}
 	
 	@Test
 	public void testJump() {
-		testPlayer.jump("East", testGameMap);
+		testPlayer.jump("east", testGameMap);
 		assertEquals(testPlayer.getCurrentRoom(), room3);
 	}
 	@Test
