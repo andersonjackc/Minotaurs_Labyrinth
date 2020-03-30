@@ -53,6 +53,10 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		Integer location = getInteger(req, "location");
 		
+		Integer playerHP = getInteger(req, "playerHP");
+		Integer enemyHP = getInteger(req, "enemyHP");
+		model.setPlayerHP(playerHP);
+		model.setEnemyHP(enemyHP);
 		
 		
 		if(location==0) {
@@ -67,8 +71,10 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			model.getPlayer().setCurrentRoom(model.getCenterRoom());
 		}
 		//check for command, call the move method
-		
-		if(req.getParameter("textbox") != null && inputVal.equals("north")) {
+		if (req.getParameter("textbox") != null && inputVal.equals("attack")){
+			model.playerAtk();
+			model.enemyAtk();
+		}else if(req.getParameter("textbox") != null && inputVal.equals("north")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 		}else if(req.getParameter("textbox") != null && inputVal.equals("south")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));

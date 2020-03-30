@@ -26,6 +26,9 @@ public class Minotaur {
 	String message;
 	Player player;
 	int roomPosition;
+	String attackMessage;
+	String defendMessage;
+	Enemy ogre;
 	//fills map w/ 0 for empty, 1 for player, 3 for non-enterable room
 	public void initMap() {
 		
@@ -70,6 +73,9 @@ public class Minotaur {
 	public void initPlayer() {
 		player = new Player(1000, 20, 0, 0, 2, 0, 0, 0, null, "normal", inv, centerRoom);
 		roomPosition = 4;
+		
+		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, null, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, northRoom);
+
 	}
 	
 	public Player getPlayer() {
@@ -137,5 +143,36 @@ public class Minotaur {
 		}else{
 			return true;
 		}
+	}
+	public void enemyAtk() {
+		
+		ogre.basicAttack(player);
+		defendMessage = "Ogre did " + ogre.getAtk() + " You now have " + player.getHP();
+	
+	}
+	
+	public void playerAtk() {
+	
+		player.basicAttack(ogre);
+		attackMessage = "You did " + player.getAtk() + " to " + ogre.getName() + ", it now has " + ogre.getHP() + " HP";
+		
+	}
+	public String getAttackmessage() {
+		return attackMessage;
+	}
+	public String getDefendmessage() {
+		return defendMessage;
+	}
+	public void setPlayerHP(int HP) {
+		player.setHP(HP);
+	}
+	public int getPlayerHP() {
+		return player.getHP();
+	}
+	public void setEnemyHP(int HP) {
+		ogre.setHP(HP);
+	}
+	public int getEnemyHP() {
+		return ogre.getHP();
 	}
 }
