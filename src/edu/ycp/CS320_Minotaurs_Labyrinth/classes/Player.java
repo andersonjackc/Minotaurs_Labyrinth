@@ -139,14 +139,27 @@ public class Player extends Actor {
 	
 	public void move(String direction, GameMap map) {
 		
-		LinkedList<Pair<Room, String>> adjRooms = map.getMap().get(this.currentRoom);
+		Room[] adjRooms = map.getMap().get(this.currentRoom);
 		
-		for(Pair<Room, String> pair : adjRooms) {
-			
-			if(pair.getRight() == direction && (pair.getLeft().getObstacle().checkStatus(this) || pair.getLeft().getObstacle().getStatus().equals("normal"))) {
-				this.setCurrentRoom(pair.getLeft());
+		
+		if(direction.equals("north") || direction.equals("n")) {
+			if(adjRooms[0]!=null){
+				this.currentRoom = adjRooms[0];
+			}
+		}else if(direction.equals("south") || direction.equals("s")) {
+			if(adjRooms[1]!=null){
+				this.currentRoom = adjRooms[1];
+			}
+		}else if(direction.equals("east") || direction.equals("e")) {
+			if(adjRooms[2]!=null){
+				this.currentRoom = adjRooms[2];
+			}
+		}else if(direction.equals("west") || direction.equals("w")) {
+			if(adjRooms[3]!=null){
+				this.currentRoom = adjRooms[3];
 			}
 		}
+		
 	}
 	public String checkMap() {
 		// TODO Auto-generated method stub

@@ -107,7 +107,7 @@
 		</table>
 		<table class = "buttons">
 			<tr>
-				<td><input name="textbox"  type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
+				<td><input name="textbox" autocomplete="off" type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
 				<%--used for persistence--%>
 				<input name="xLoc" type="hidden" value="${game.posX}" />
 				<input name="yLoc" type="hidden" value="${game.posY}" />
