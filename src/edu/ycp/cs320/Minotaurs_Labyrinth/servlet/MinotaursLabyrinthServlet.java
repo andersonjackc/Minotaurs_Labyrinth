@@ -69,13 +69,13 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		//check for command, call the move method
 		
 		if(req.getParameter("textbox") != null && inputVal.equals("north")) {
-			model.getPlayer().move(inputVal, model.getMap());
+			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 		}else if(req.getParameter("textbox") != null && inputVal.equals("south")) {
-			model.getPlayer().move(inputVal, model.getMap());
+			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 		}else if(req.getParameter("textbox") != null && inputVal.equals("west")) {
-			model.getPlayer().move(inputVal, model.getMap());
+			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 		}else if(req.getParameter("textbox") != null && inputVal.equals("east")) {
-			model.getPlayer().move(inputVal, model.getMap());
+			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 		}else if(req.getParameter("textbox") != null && !(inputVal.equals("north")) && !(inputVal.equals("south")) && !(inputVal.equals("east") && !(inputVal.equals("west")))) {
 			model.setError("That command is not recognized!");
 		}

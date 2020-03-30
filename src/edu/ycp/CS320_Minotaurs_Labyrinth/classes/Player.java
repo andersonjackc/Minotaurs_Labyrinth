@@ -137,7 +137,7 @@ public class Player extends Actor {
 		throw new UnsupportedOperationException("TODO - implement");
 	}
 	
-	public void move(String direction, GameMap map) {
+	public String move(String direction, GameMap map) {
 		
 		Room[] adjRooms = map.getMap().get(this.currentRoom);
 		
@@ -145,20 +145,30 @@ public class Player extends Actor {
 		if(direction.equals("north") || direction.equals("n")) {
 			if(adjRooms[0]!=null){
 				this.currentRoom = adjRooms[0];
+			}else {
+				return "You can't move in that direction";
 			}
 		}else if(direction.equals("south") || direction.equals("s")) {
 			if(adjRooms[1]!=null){
 				this.currentRoom = adjRooms[1];
+			}else {
+				return "You can't move in that direction";
 			}
 		}else if(direction.equals("east") || direction.equals("e")) {
 			if(adjRooms[2]!=null){
 				this.currentRoom = adjRooms[2];
+			}else {
+				return "You can't move in that direction";
 			}
 		}else if(direction.equals("west") || direction.equals("w")) {
 			if(adjRooms[3]!=null){
 				this.currentRoom = adjRooms[3];
+			}else {
+				return "You can't move in that direction";
 			}
 		}
+		
+		return "";
 		
 	}
 	public String checkMap() {
