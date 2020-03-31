@@ -19,6 +19,14 @@
   			background-size: cover;
  			background-repeat: no-repeat;
 		}
+		div.zeus{
+			position: absolute;
+			right: 0%;
+		}
+		div.hera{
+			position: absolute;
+			left: 0%;
+		}
 		div.textbox{
 			margin: 0;
     		position: absolute;
@@ -53,6 +61,12 @@
 	</head>
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
+		<div class="zeus">
+		<img src="https://cdn.pixabay.com/photo/2013/07/12/13/24/mythology-146988_960_720.png">
+		</div>
+		<div class="hera">
+		<img src="https://cdn.pixabay.com/photo/2013/07/12/13/23/hera-146932_960_720.png">
+		</div>
 		<div id="gameText" class="gameText">
 		<table>
 		<c:forEach items="${outputstrings}" var="strings">

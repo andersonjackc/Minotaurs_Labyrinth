@@ -102,7 +102,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				model.playerAtkVillager();
 				model.enemyAtkVillager();
 			}
-		}else if(req.getParameter("textbox") != null && inputVal.equals("talk")) {
+		}else if(req.getParameter("textbox") != null && inputVal.equals("talk") && model.getPlayer().getCurrentRoom() == model.getSouthRoom()) {
 			if(!(model.getVillager().getIsDead())) {
 				model.initResponses();
 			}else {
