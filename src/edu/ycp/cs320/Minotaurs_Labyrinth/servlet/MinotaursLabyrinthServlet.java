@@ -90,8 +90,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			}else if (model.getPlayer().getCurrentRoom() == model.getSouthRoom()) {
 				model.playerAtkVillager();
 				model.enemyAtkVillager();
-			}else {
-				model.setError("This is an invalid command for this room");
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("talk")) {
 			model.initResponses();
