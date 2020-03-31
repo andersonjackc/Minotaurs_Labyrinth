@@ -106,10 +106,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			model.initResponses();
 		}else if(req.getParameter("textbox") != null && inputVal.equals("north")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
-			//System.out.println(model.getPlayer().move(inputVal, model.getMap()));
-			System.out.println(model.getError());
 			if(model.getError().equals("")) {
-				System.out.print("hi");
 				model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("south")) {
