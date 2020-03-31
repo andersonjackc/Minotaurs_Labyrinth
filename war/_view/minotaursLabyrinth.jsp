@@ -34,47 +34,29 @@
 		div.gameText{
 			margin: 0;
     		position: absolute;
-    		top: 50%;
+    		top: 70%;
     		left: 50%;
     		margin-right: -50%;
     		transform: translate(-50%, -50%);
     		text-align: center;
+    		overflow:auto;
+    		height: 200px;
 		}
 		</style>		
 	</head>
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
-			
+		<div class="gameText">
 		<table>
-		
 		<c:forEach items="${outputstrings}" var="strings">
 			        <tr>
 			            <td name="output">${strings}</td>	
 			             <input name="test" type="hidden" value="${strings}" />         
 			        </tr>
 			    </c:forEach>
-			    </table>
-		<div class="gameText">
-		<table>
-			<c:if test="${! empty game.playerResp}">
-				<tr><td>${game.playerResp}</td></tr>
-			</c:if>
-			<c:if test="${! empty game.NPCResp}">
-				<tr><td>${game.NPCResp}</td></tr>
-			</c:if>
-			<c:if test="${! empty game.attackmessage}">
-				<tr><td>${game.attackmessage}</td></tr>
-			</c:if>
-			<c:if test="${! empty game.defendmessage}">
-				<tr><td>${game.defendmessage}</td></tr>
-			</c:if>		
 		</table>
-
-		<div id="Empty"></div>
-		<div class="Message">${game.roomDescription}</div>
-		<div class="Message">${game.message}</div>
-		<div class="error">${game.error}</div>
 		</div>
+		
 		<div class="textbox">
 		<table class = "textbox">
 			<tr>
