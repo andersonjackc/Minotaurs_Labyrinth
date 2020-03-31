@@ -29,6 +29,7 @@ public class Minotaur {
 	String attackMessage;
 	String defendMessage;
 	Enemy ogre;
+	int enemyDeadVal;
 	//fills map w/ 0 for empty, 1 for player, 3 for non-enterable room
 	public void initMap() {
 		
@@ -77,11 +78,15 @@ public class Minotaur {
 		roomPosition = 4;
 		
 		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, null, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, northRoom, false);
-
+		enemyDeadVal = 0;
 	}
 	
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public Enemy getEnemy() {
+		return ogre;
 	}
 	
 	public Room getRoom() {
@@ -147,17 +152,21 @@ public class Minotaur {
 		}
 	}
 	public void enemyAtk() {
-		
-		ogre.basicAttack(player);
-		defendMessage = "Ogre did " + ogre.getAtk() + " You now have " + player.getHP();
-	
+		if(!ogre.getIsDead()) {
+			ogre.basicAttack(player);
+			defendMessage = "Ogre did " + ogre.getAtk() + " You now have " + player.getHP();
+		}
 	}
 	
 	public void playerAtk() {
-	
-		player.basicAttack(ogre);
-		attackMessage = "You did " + player.getAtk() + " to " + ogre.getName() + ", it now has " + ogre.getHP() + " HP";
-		
+		if(!ogre.getIsDead()) {
+			player.basicAttack(ogre);
+			attackMessage = "You did " + player.getAtk() + " to " + ogre.getName() + ", it now has " + ogre.getHP() + " HP";
+		}
+		if(ogre.getIsDead()) {
+			message = "Ogre is dead!";
+			enemyDeadVal=1;
+		}
 	}
 	public String getAttackmessage() {
 		return attackMessage;
@@ -177,4 +186,13 @@ public class Minotaur {
 	public int getEnemyHP() {
 		return ogre.getHP();
 	}
+	
+	public int getEnemyDead() {
+		return enemyDeadVal;
+	}
+	
+	public void setEnemyDead(int enemyDeadVal) {
+		this.enemyDeadVal = enemyDeadVal;
+	}
+	
 }

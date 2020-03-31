@@ -56,6 +56,9 @@ public class NPC extends Actor {
 	public void basicAttack(Actor target) {
 		target.setHP(target.getHP() - getAtk()); 
 		
+		if(target.getHP()<=0) {
+			target.setIsDead(true);
+		}
 	}
 	
 	@Override
@@ -107,6 +110,10 @@ public class NPC extends Actor {
 	public Room getCurrentRoom() {
 		return currentRoom;
 	}
+	
+	public Boolean getIsDead() {
+		return isDead;
+	}
 		
 	//setters
 	public void setHP(int HP) {
@@ -143,5 +150,9 @@ public class NPC extends Actor {
 	
 	public void setCurrentRoom(Room currentRoom) {
 		this.currentRoom = currentRoom;
+	}
+	
+	public void setIsDead(Boolean isDead) {
+		this.isDead = isDead;
 	}
 }

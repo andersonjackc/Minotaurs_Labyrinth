@@ -1,7 +1,7 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+
 
 public class Player extends Actor {
 	
@@ -226,6 +226,9 @@ public class Player extends Actor {
 	public void basicAttack(Actor target) {
 		target.setHP((target.getHP() - getAtk())); 
 		
+		if(target.getHP()<=0) {
+			target.setIsDead(true);
+		}
 	}
 
 	@Override
@@ -286,6 +289,10 @@ public class Player extends Actor {
 		return currentRoom;
 	}
 	
+	public Boolean getIsDead() {
+		return isDead;
+	}
+	
 		
 	//setters
 	public void setHP(int HP) {
@@ -328,6 +335,10 @@ public class Player extends Actor {
 		this.status = status;
 	}
 
-	
+	public void setIsDead(Boolean isDead) {
+		this.isDead = isDead;
+	}
 
+
+	
 }

@@ -28,6 +28,8 @@ public abstract class Actor {
 	
 	protected Room currentRoom;
 	
+	protected Boolean isDead;
+	
 	public Actor(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, Inventory inventory, Room currentRoom, boolean isDead){
 		this.maxHP = maxHP;
 		this.HP = HP;
@@ -41,6 +43,7 @@ public abstract class Actor {
 		this.status = status;
 		this.inventory = inventory;
 		this.currentRoom = currentRoom;
+		this.isDead = isDead;
 	}
 	
 	public abstract void basicAttack(Actor target);
@@ -48,48 +51,50 @@ public abstract class Actor {
 	public abstract void cast(Actor target, Ability spell);
 	
 	//getters
-		public abstract int getMaxHP();
+	public abstract int getMaxHP();
 
-		public abstract int getHP(); 
-		
-		public abstract int getMaxResource(); 
-		
-		public abstract int getResource();
+	public abstract int getHP(); 
+	
+	public abstract int getMaxResource(); 
+	
+	public abstract int getResource();
 
-		public abstract int getAtk();
-		
-		public abstract int getDef();
-		
-		public abstract int getGold();
+	public abstract int getAtk();
+	
+	public abstract int getDef();
+	
+	public abstract int getGold();
 
-		public abstract int getXP();
-		
-		public abstract ArrayList<Ability> getAbilities();
-		
-		public abstract String getStatus();
-		
-		public abstract Inventory getInventory();
+	public abstract int getXP();
+	
+	public abstract ArrayList<Ability> getAbilities();
+	
+	public abstract String getStatus();
+	
+	public abstract Inventory getInventory();
 
-		public abstract Room getCurrentRoom();
+	public abstract Room getCurrentRoom();
 
-		
-		//setters
-		public abstract void setHP(int HP);
-		
-		public abstract void setMaxHP(int maxHP);
-		
-		public abstract void setResource(int resource);
-		
-		public abstract void setMaxResource(int maxResource);
+	public abstract Boolean getIsDead();
+	//setters
+	public abstract void setHP(int HP);
+	
+	public abstract void setMaxHP(int maxHP);
+	
+	public abstract void setResource(int resource);
+	
+	public abstract void setMaxResource(int maxResource);
 
 
-		public abstract void setAtk(int atk);
-		
-		public abstract void setDef(int def);
-		
-		public abstract void setGold(int gold);
+	public abstract void setAtk(int atk);
+	
+	public abstract void setDef(int def);
+	
+	public abstract void setGold(int gold);
 
-		public abstract void setXP(int XP);
-		
-		public abstract void setCurrentRoom(Room currentRoom);
+	public abstract void setXP(int XP);
+	
+	public abstract void setCurrentRoom(Room currentRoom);
+	
+	public abstract void setIsDead(Boolean isDead);
 }
