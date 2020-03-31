@@ -81,12 +81,6 @@ private Player testPlayer;
 	}
 	
 	@Test
-	public void testPrintDescription() {
-		fail("Not yet implemented");
-		
-	}
-	
-	@Test
 	public void testAddEffect() {
 		testHPPotion.addEffect(testPlayer);
 		assertEquals(101, testPlayer.getHP());
