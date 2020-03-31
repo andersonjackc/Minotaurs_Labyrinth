@@ -55,8 +55,14 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		Integer playerHP = getInteger(req, "playerHP");
 		Integer enemyHP = getInteger(req, "enemyHP");
+		Integer ogreIsDead = getInteger(req, "enemyIsDead");
 		model.setPlayerHP(playerHP);
 		model.setEnemyHP(enemyHP);
+		model.setEnemyDead(ogreIsDead);
+		
+		if(model.getEnemyDead()==1) {
+			model.getEnemy().setIsDead(true);
+		}
 		
 		
 		if(location==0) {

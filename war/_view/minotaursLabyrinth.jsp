@@ -19,6 +19,7 @@
 			text-align: center;
 			background-color: white;
 		}
+	
 		body {
   			background-image: url('https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
   			background-size: cover;
@@ -36,7 +37,7 @@
 			</tr>
 			<input name="location" type="hidden" value="${game.roomPosition}" />
 			<input name="playerHP" type="hidden" value="${game.playerHP}" />
-		
+			<input name="enemyIsDead" type="hidden" value="${game.enemyDead}" />
 			<input name="enemyHP" type="hidden" value="${game.enemyHP}" />
 		</table>
 		
