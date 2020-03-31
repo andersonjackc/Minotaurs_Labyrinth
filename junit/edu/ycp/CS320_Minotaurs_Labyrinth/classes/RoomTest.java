@@ -10,7 +10,7 @@ public class RoomTest {
 	Obstacle obs = new Obstacle("test", "normal", null);
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
-	Room room = new Room("A test room", "test", testRoomInv, obs);
+	Room room = new Room("A test room", testRoomInv, obs);
 
 	@Test
 	public void testDirectionMethods() {
@@ -36,13 +36,6 @@ public class RoomTest {
 	@Test
 	public void testObstacleMethods() {
 		assertEquals(obs, room.getObstacle());
-		
-	}
-	
-	@Test
-	public void testStatusMethods() {
-		room.setStatus("jumping");
-		assertEquals("jumping", room.getStatus());
 		
 	}
 
