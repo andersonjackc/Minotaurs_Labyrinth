@@ -53,7 +53,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		ArrayList<String> emptyList = new ArrayList<String>();
 		model.setOutputStrings(emptyList);
-		//model.setOutputStrings((ArrayList<String>)req.getAttribute("outputstrings")); 
 		String[] test = req.getParameterValues("test");
 		for(String s: test) {
 			
@@ -107,6 +106,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			model.initResponses();
 		}else if(req.getParameter("textbox") != null && inputVal.equals("north")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
+			System.out.println(model.getPlayer().move(inputVal, model.getMap()));
+
+			if(model.getPlayer().move(inputVal, model.getMap()).equals("")) {
+				System.out.print("hi");
+				model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("south")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 		}else if(req.getParameter("textbox") != null && inputVal.equals("west")) {
@@ -114,25 +119,24 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		}else if(req.getParameter("textbox") != null && inputVal.equals("east")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 		}else if(req.getParameter("textbox") != null && !(inputVal.equals("north")) && !(inputVal.equals("south")) && !(inputVal.equals("east") && !(inputVal.equals("west")))) {
-			model.setError("That command is not recognized!");
 			model.getOutputStrings().add("That command is not recognized!");
 		}
 		
 		if(model.getPlayer().getCurrentRoom() == model.getNorthRoom()) {
 			model.setRoomPosition(0);
-			model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+			//model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
 		}else if(model.getPlayer().getCurrentRoom() == model.getSouthRoom()) {
 			model.setRoomPosition(1);
-			model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+			//model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
 		}else if(model.getPlayer().getCurrentRoom() == model.getEastRoom()) {
 			model.setRoomPosition(2);
-			model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+			//model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
 		}else if(model.getPlayer().getCurrentRoom() == model.getWestRoom()) {
 			model.setRoomPosition(3);
-			model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+			//model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
 		}else if(model.getPlayer().getCurrentRoom() == model.getCenterRoom()) {
 			model.setRoomPosition(4);
-			model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+			//model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
 		}
 		
 		req.setAttribute("outputstrings", model.getOutputStrings());
