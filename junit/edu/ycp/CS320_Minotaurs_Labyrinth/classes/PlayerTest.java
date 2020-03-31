@@ -23,10 +23,10 @@ public class PlayerTest {
 	Obstacle obs1 = new Obstacle("test", "jumping", key);
 	Obstacle obs2 = new Obstacle("test", "crawling", key);
 	
-	Room room = new Room("A test room", "test", testRoomInv, obs);
-	Room room2 = new Room("A test room", "empty", testRoomInv, obs );
-	Room room3 = new Room("A test room", "empty", testRoomInv, obs1 );
-	Room room4 = new Room("A test room", "empty", testRoomInv, obs2 );
+	Room room = new Room("A test room", testRoomInv, obs);
+	Room room2 = new Room("A test room", testRoomInv, obs );
+	Room room3 = new Room("A test room", testRoomInv, obs1 );
+	Room room4 = new Room("A test room", testRoomInv, obs2 );
 	Inventory testInv = new Inventory(100, 100, Inv);
 	
 
@@ -237,4 +237,10 @@ public class PlayerTest {
 		testPlayer.setStatus("test");
 		assertEquals(testPlayer.getStatus(), "test");
 	}
+	@Test
+	public void testIsDeadMethods() {
+		testPlayer.setIsDead(true);
+		assertTrue(testPlayer.getIsDead());
+	}
+	
 }
