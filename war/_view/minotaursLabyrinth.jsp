@@ -34,13 +34,14 @@
 		div.gameText{
 			margin: 0;
     		position: absolute;
-    		top: 80%;
+    		top: 45%;
     		left: 50%;
     		margin-right: -50%;
     		transform: translate(-50%, -50%);
     		text-align: center;
     		overflow:auto;
-    		height: 1000px;
+    		height: 600px;
+    		bottom: 0;
 		}
 		</style>		
 	</head>
