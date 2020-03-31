@@ -106,18 +106,24 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			model.initResponses();
 		}else if(req.getParameter("textbox") != null && inputVal.equals("north")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
-			System.out.println(model.getPlayer().move(inputVal, model.getMap()));
-
-			if(model.getPlayer().move(inputVal, model.getMap()).equals("")) {
-				System.out.print("hi");
+			if(model.getError().equals("")) {
 				model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("south")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
+			if(model.getError().equals("")) {
+				model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("west")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
+			if(model.getError().equals("")) {
+				model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("east")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
+			if(model.getError().equals("")) {
+				model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+			}
 		}else if(req.getParameter("textbox") != null && !(inputVal.equals("north")) && !(inputVal.equals("south")) && !(inputVal.equals("east") && !(inputVal.equals("west")))) {
 			model.getOutputStrings().add("That command is not recognized!");
 		}
