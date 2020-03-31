@@ -105,6 +105,10 @@ public class Minotaur {
 		return ogre;
 	}
 	
+	public NPC getVillager() {
+		return villager;
+	}
+	
 	public Room getRoom() {
 		return player.getCurrentRoom();
 	}
@@ -185,10 +189,10 @@ public class Minotaur {
 		}
 	}
 	public void enemyAtkVillager() {
-		
+		if(!ogre.getIsDead()) {
 		villager.basicAttack(player);
 		defendMessage = "Villager did " + villager.getAtk() + " You now have " + player.getHP();
-	
+		}
 	}
 	
 	public void playerAtkVillager() {
@@ -233,7 +237,7 @@ public class Minotaur {
 		this.enemyDeadVal = enemyDeadVal;
 	}
 	public int getVillagerDead() {
-		return enemyDeadVal;
+		return villagerDeadVal;
 	}
 	
 	public void setVillagerDead(int villagerDeadVal) {

@@ -69,6 +69,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		if(model.getEnemyDead()==1) {
 			model.getEnemy().setIsDead(true);
 		}
+		if(model.getVillagerDead()==1) {
+			model.getVillager().setIsDead(true);
+		}
 		
 		
 		if(location==0) {
