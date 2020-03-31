@@ -41,7 +41,7 @@
     		text-align: center;
     		overflow:auto;
     		height: 600px;
-    		bottom: 0px;
+    		bottom: 0;
 		}
 		</style>		
 	</head>
