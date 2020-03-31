@@ -95,14 +95,6 @@ Room room = new Room("A test room", testRoomInv, obs);
 		assertEquals("test", testEnemy.getName());
 	}
 	@Test
-	public void testPrintDescription(){
-		fail("Not yet implemented");	
-	}
-	@Test
-	public void testPrintResponses(){
-		fail("Not yet implemented");	
-	}
-	@Test
 	public void testBasicAttack() {
 		testEnemy.setAtk(1);
 		testEnemy.setHP(5);
