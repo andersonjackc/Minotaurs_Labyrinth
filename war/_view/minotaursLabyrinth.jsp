@@ -11,18 +11,7 @@
 		.error {
 			color: white;
 		}
-<<<<<<< HEAD
-=======
-		<%-- set size, align all text--%>
-		table.table{
-			table-layout: fixed;
-			width: 400px;
-			height: 400px;
-			text-align: center;
-			background-color: white;
-		}
-	
->>>>>>> refs/remotes/origin/master
+
 		body {
   			background-image: url('https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
   			background-size: cover;
@@ -53,24 +42,8 @@
 	</head>
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
-<<<<<<< HEAD
-					
-=======
 			
-		<table class = "textbox">
-			<tr>
-				<td><input name="textbox" autocomplete="off" type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
-				
-			</tr>
-			<input name="location" type="hidden" value="${game.roomPosition}" />
-			<input name="playerHP" type="hidden" value="${game.playerHP}" />
-			<input name="enemyIsDead" type="hidden" value="${game.enemyDead}" />
-			<input name="enemyHP" type="hidden" value="${game.enemyHP}" />
-		</table>
 		
-		</form>
->>>>>>> refs/remotes/origin/master
-		</br>
 		<div class="gameText">
 		<table>
 			<c:if test="${! empty game.attackmessage}">
@@ -93,7 +66,7 @@
 			</tr>
 			<input name="location" type="hidden" value="${game.roomPosition}" />
 			<input name="playerHP" type="hidden" value="${game.playerHP}" />
-		
+			<input name="enemyIsDead" type="hidden" value="${game.enemyDead}" />
 			<input name="enemyHP" type="hidden" value="${game.enemyHP}" />
 		</table>
 		</div>
