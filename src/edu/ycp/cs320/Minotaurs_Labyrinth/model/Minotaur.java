@@ -114,6 +114,7 @@ public class Minotaur {
 	}
 	
 	public String getRoomDescription() {
+		outputstrings.add(player.getCurrentRoom().getDescription());
 		return player.getCurrentRoom().getDescription();
 	}
 	
@@ -156,6 +157,7 @@ public class Minotaur {
 	}
 	
 	public void setError(String errorMessage) {
+		outputstrings.add(errorMessage);
 		this.errorMessage = errorMessage;
 	}
 	
@@ -175,6 +177,7 @@ public class Minotaur {
 		if(!ogre.getIsDead()) {
 			ogre.basicAttack(player);
 			defendMessage = "Ogre did " + ogre.getAtk() + " You now have " + player.getHP();
+			outputstrings.add(defendMessage);
 		}
 	}
 	
@@ -182,9 +185,11 @@ public class Minotaur {
 		if(!ogre.getIsDead()) {
 			player.basicAttack(ogre);
 			attackMessage = "You did " + player.getAtk() + " to " + ogre.getName() + ", it now has " + ogre.getHP() + " HP";
+			outputstrings.add(attackMessage);
 		}
 		if(ogre.getIsDead()) {
 			message = "Ogre is dead!";
+			outputstrings.add(message);
 			enemyDeadVal=1;
 		}
 	}
@@ -192,6 +197,7 @@ public class Minotaur {
 		if(!ogre.getIsDead()) {
 		villager.basicAttack(player);
 		defendMessage = "Villager did " + villager.getAtk() + " You now have " + player.getHP();
+		outputstrings.add(defendMessage);
 		}
 	}
 	
@@ -199,9 +205,11 @@ public class Minotaur {
 		if(!villager.getIsDead()) {
 			player.basicAttack(villager);
 			attackMessage = "You did " + player.getAtk() + " to " + villager.getName() + ", it now has " + villager.getHP() + " HP";
+			outputstrings.add(attackMessage);
 		}
 		if(villager.getIsDead()) {
 			message = "Villager is dead";
+			outputstrings.add(message);
 			villagerDeadVal = 1;
 		}
 	}
@@ -253,16 +261,19 @@ public class Minotaur {
 	
 	public String getNPCDesc() {
 		NPCDesc = "You see before you " + villager.getDescription();
+		outputstrings.add(NPCDesc);
 		return NPCDesc;
 	}
 	public String getNPCResp() {
-		
 		return NPCResp;
 	}
 	
 	public void initResponses() {
 		PlayerResp = "Greetings";
+		outputstrings.add(PlayerResp);
 		NPCResp = "The " + villager.getName() + " says " + villager.getDialogue();
+		outputstrings.add(NPCResp);
+
 	}
 	public String getPlayerResp() {
 		
