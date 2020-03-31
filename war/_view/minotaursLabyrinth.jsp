@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import ="java.util.ArrayList"%>
+<%@ page import ="java.util.List"%>
 
 <html>
 	<head>
@@ -44,11 +46,14 @@
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
 			
 		<table>
+		<% ArrayList<String> list = new ArrayList<String>();%>
+		<% list = game.getOutputStrings();%>
 		<c:forEach items="${outputstrings}" var="strings">
 			        <tr class="output">
 			            <td class="output">${strings}</td>	            
 			        </tr>
 			    </c:forEach>
+			  <% 	request.setAttribute("outputstrings", list);%>
 			    </table>
 		<div class="gameText">
 		<table>
