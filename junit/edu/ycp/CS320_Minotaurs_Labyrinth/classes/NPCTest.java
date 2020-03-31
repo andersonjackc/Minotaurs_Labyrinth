@@ -95,14 +95,6 @@ Room room = new Room("A test room", testRoomInv, obs);
 		assertEquals("test", testNPC.getName());
 	}
 	@Test
-	public void testPrintDescription(){
-		assertEquals(testNPC.getDescription(), "test");	
-	}
-	@Test
-	public void testPrintResponses(){
-		fail("Not yet implemented");	
-	}
-	@Test
 	public void testBasicAttack() {
 		testNPC.setAtk(1);
 		testNPC.setHP(5);
