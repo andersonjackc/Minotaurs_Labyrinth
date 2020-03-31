@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.GameMap;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
@@ -31,7 +33,13 @@ public class Minotaur {
 	String defendMessage;
 	Enemy ogre;
 	int enemyDeadVal;
+	int villagerDeadVal;
+	String NPCDesc;
+	String NPCResp;
+	NPC villager;
 	ArrayList<String> outputstrings;
+	String PlayerResp;
+
 	//fills map w/ 0 for empty, 1 for player, 3 for non-enterable room
 	public void initMap() {
 		
@@ -46,7 +54,7 @@ public class Minotaur {
 		
 		centerRoom = new Room("You enter a small stone room there are four doorways at each cardinal direction.", "Starting Room", inv, obs);
 		northRoom = new Room("You enter a small stone room, the stench of ogre is unbearable. The only exit is the way you entered.", "Combat room", inv, obs);
-		southRoom = new Room("You enter a small stone room, it seems someone or something has been living here. The only exit is the way you entered.", "Dialogue room", inv, obs);
+		southRoom = new Room("You enter a small stone room, a villager stands before you. The only exit is the way you entered.", "Dialogue room", inv, obs);
 		eastRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.", "Locked room", inv, obs2);
 		westRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.", "Empty room", inv, obs);
 
@@ -83,6 +91,10 @@ public class Minotaur {
 		
 		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, null, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, northRoom, false);
 		enemyDeadVal = 0;
+		
+		ArrayList<Ability> VillagerAbilities = new ArrayList<Ability>();
+		villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 100, "An old man with tattered clothing", "Villager", inv, southRoom, false);
+		villagerDeadVal = 0;
 	}
 	
 	public Player getPlayer() {
@@ -91,6 +103,10 @@ public class Minotaur {
 	
 	public Enemy getEnemy() {
 		return ogre;
+	}
+	
+	public NPC getVillager() {
+		return villager;
 	}
 	
 	public Room getRoom() {
@@ -172,6 +188,23 @@ public class Minotaur {
 			enemyDeadVal=1;
 		}
 	}
+	public void enemyAtkVillager() {
+		if(!ogre.getIsDead()) {
+		villager.basicAttack(player);
+		defendMessage = "Villager did " + villager.getAtk() + " You now have " + player.getHP();
+		}
+	}
+	
+	public void playerAtkVillager() {
+		if(!villager.getIsDead()) {
+			player.basicAttack(villager);
+			attackMessage = "You did " + player.getAtk() + " to " + villager.getName() + ", it now has " + villager.getHP() + " HP";
+		}
+		if(villager.getIsDead()) {
+			message = "Villager is dead";
+			villagerDeadVal = 1;
+		}
+	}
 	public String getAttackmessage() {
 		return attackMessage;
 	}
@@ -190,7 +223,12 @@ public class Minotaur {
 	public int getEnemyHP() {
 		return ogre.getHP();
 	}
-	
+	public int getVillagerHP() {
+		return villager.getHP();
+	}
+	public void setVillagerHP(int HP) {
+		villager.setHP(HP);
+	}
 	public int getEnemyDead() {
 		return enemyDeadVal;
 	}
@@ -198,12 +236,36 @@ public class Minotaur {
 	public void setEnemyDead(int enemyDeadVal) {
 		this.enemyDeadVal = enemyDeadVal;
 	}
+	public int getVillagerDead() {
+		return villagerDeadVal;
+	}
 	
+	public void setVillagerDead(int villagerDeadVal) {
+		this.villagerDeadVal = villagerDeadVal;
+	}
 	public ArrayList<String> getOutputStrings(){
 		return outputstrings;
 	}
 	
 	public void setOutputStrings(ArrayList<String> outputstrings) {
 		this.outputstrings = outputstrings;
+	}
+	
+	public String getNPCDesc() {
+		NPCDesc = "You see before you " + villager.getDescription();
+		return NPCDesc;
+	}
+	public String getNPCResp() {
+		
+		return NPCResp;
+	}
+	
+	public void initResponses() {
+		PlayerResp = "Greetings";
+		NPCResp = "The " + villager.getName() + " says " + villager.getDialogue();
+	}
+	public String getPlayerResp() {
+		
+		return PlayerResp;
 	}
 }

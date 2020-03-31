@@ -27,6 +27,9 @@ public class Room {
 	public String getDescription() {
 		return description;
 	}
+	public void setDescription(String description) {
+		this.description=description;
+	}
 
 	public void printDescription() {
 		//For now just printing in terminal, will adapt to game later

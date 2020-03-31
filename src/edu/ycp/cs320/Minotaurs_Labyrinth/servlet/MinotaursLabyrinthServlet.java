@@ -65,13 +65,21 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		Integer playerHP = getInteger(req, "playerHP");
 		Integer enemyHP = getInteger(req, "enemyHP");
+		Integer villagerHP = getInteger(req, "villagerHP");
 		Integer ogreIsDead = getInteger(req, "enemyIsDead");
+		Integer villagerIsDead = getInteger(req, "villagerIsDead");
 		model.setPlayerHP(playerHP);
 		model.setEnemyHP(enemyHP);
+		model.setVillagerHP(villagerHP);
 		model.setEnemyDead(ogreIsDead);
+		model.setVillagerDead(villagerIsDead);
+
 		
 		if(model.getEnemyDead()==1) {
 			model.getEnemy().setIsDead(true);
+		}
+		if(model.getVillagerDead()==1) {
+			model.getVillager().setIsDead(true);
 		}
 		
 		
@@ -88,8 +96,15 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		}
 		//check for command, call the move method
 		if (req.getParameter("textbox") != null && inputVal.equals("attack")){
+			if(model.getPlayer().getCurrentRoom() == model.getNorthRoom()) {
 			model.playerAtk();
 			model.enemyAtk();
+			}else if (model.getPlayer().getCurrentRoom() == model.getSouthRoom()) {
+				model.playerAtkVillager();
+				model.enemyAtkVillager();
+			}
+		}else if(req.getParameter("textbox") != null && inputVal.equals("talk")) {
+			model.initResponses();
 		}else if(req.getParameter("textbox") != null && inputVal.equals("north")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 		}else if(req.getParameter("textbox") != null && inputVal.equals("south")) {
