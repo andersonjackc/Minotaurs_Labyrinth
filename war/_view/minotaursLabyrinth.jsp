@@ -43,7 +43,13 @@
     		height: 600px;
     		bottom: 0;
 		}
-		</style>		
+		</style>	
+		<script>
+			function scrollBarFunction(){
+			var objDiv = document.getElementById("gameText");
+			objDiv.scrollTop = objDiv.scrollHeight;
+			}
+		</script>	
 	</head>
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
@@ -57,7 +63,9 @@
 			    </c:forEach>
 		</table>
 		</div>
-		
+		<script>
+			scrollBarFunction();
+		</script>
 		<div class="textbox">
 		<table class = "textbox">
 			<tr>
