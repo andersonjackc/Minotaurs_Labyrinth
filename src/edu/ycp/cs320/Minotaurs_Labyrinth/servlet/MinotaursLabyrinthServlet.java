@@ -1,6 +1,8 @@
 package edu.ycp.cs320.Minotaurs_Labyrinth.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,8 +31,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		controller.initModel();
 
 		//set attribute name for jsp
-		req.setAttribute("game", model);		
-
+		req.setAttribute("game", model);
+		req.setAttribute("outputstrings", model.getOutputStrings());
+		
 		// call JSP to generate empty form
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
 	}
@@ -48,9 +51,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.initPlayer();
 		controller.setModel(model);
 		req.setAttribute("game", model);
-		
+		req.setAttribute("outputstrings", model.getOutputStrings());
+		model.setOutputStrings((ArrayList<String>)req.getAttribute("outputstrings")); 
 		String inputVal = getString(req, "textbox").toLowerCase();
-		
 		Integer location = getInteger(req, "location");
 		
 		Integer playerHP = getInteger(req, "playerHP");
