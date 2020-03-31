@@ -24,8 +24,8 @@ public class GameMapTest {
 		
 		inventory = new Inventory(0, 0, null);
 		
-		room1 = new Room("A test room", "empty", inventory, obs );
-		room2 = new Room("A test room", "empty", inventory, obs );
+		room1 = new Room("A test room", inventory, obs );
+		room2 = new Room("A test room", inventory, obs );
 		
 		rooms1 = new Room[4];
 		rooms2 = new Room[4];
