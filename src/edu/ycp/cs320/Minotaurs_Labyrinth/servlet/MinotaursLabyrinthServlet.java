@@ -130,19 +130,14 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		if(model.getPlayer().getCurrentRoom() == model.getNorthRoom()) {
 			model.setRoomPosition(0);
-			//model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
 		}else if(model.getPlayer().getCurrentRoom() == model.getSouthRoom()) {
 			model.setRoomPosition(1);
-			//model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
 		}else if(model.getPlayer().getCurrentRoom() == model.getEastRoom()) {
 			model.setRoomPosition(2);
-			//model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
 		}else if(model.getPlayer().getCurrentRoom() == model.getWestRoom()) {
 			model.setRoomPosition(3);
-			//model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
 		}else if(model.getPlayer().getCurrentRoom() == model.getCenterRoom()) {
 			model.setRoomPosition(4);
-			//model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
 		}
 		
 		req.setAttribute("outputstrings", model.getOutputStrings());
