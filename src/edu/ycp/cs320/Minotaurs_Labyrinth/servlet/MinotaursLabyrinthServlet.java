@@ -1,13 +1,12 @@
 package edu.ycp.cs320.Minotaurs_Labyrinth.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import edu.ycp.cs320.Minotaurs_Labyrinth.controller.MinotaursLabyrinthController;
 import edu.ycp.cs320.Minotaurs_Labyrinth.model.Minotaur;
@@ -31,11 +30,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 
 		//set attribute name for jsp
 		req.setAttribute("game", model);		
-
+		req.setAttribute("outputstrings", model.getOutputStrings());
 		// call JSP to generate empty form
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -49,9 +49,18 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.initPlayer();
 		controller.setModel(model);
 		req.setAttribute("game", model);
+		req.setAttribute("outputstrings", model.getOutputStrings());
 		
+		ArrayList<String> emptyList = new ArrayList<String>();
+		model.setOutputStrings(emptyList);
+		//model.setOutputStrings((ArrayList<String>)req.getAttribute("outputstrings")); 
+		String[] test = req.getParameterValues("test");
+		for(String s: test) {
+			
+			model.getOutputStrings().add(s);
+		}
 		String inputVal = getString(req, "textbox").toLowerCase();
-		
+		model.getOutputStrings().add(inputVal);
 		Integer location = getInteger(req, "location");
 		
 		Integer playerHP = getInteger(req, "playerHP");
@@ -91,6 +100,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 		}else if(req.getParameter("textbox") != null && !(inputVal.equals("north")) && !(inputVal.equals("south")) && !(inputVal.equals("east") && !(inputVal.equals("west")))) {
 			model.setError("That command is not recognized!");
+			model.getOutputStrings().add("That command is not recognized!");
 		}
 		
 		if(model.getPlayer().getCurrentRoom() == model.getNorthRoom()) {
@@ -105,7 +115,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			model.setRoomPosition(4);
 		}
 		
-		
+		req.setAttribute("outputstrings", model.getOutputStrings());
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
 		
 	}

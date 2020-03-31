@@ -46,12 +46,13 @@
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
 			
 		<table>
+		
 		<c:forEach items="${outputstrings}" var="strings">
-			        <tr class="output">
-			            <td class="output">${strings}</td>	            
+			        <tr>
+			            <td name="output">${strings}</td>	
+			             <input name="test" type="hidden" value="${strings}" />         
 			        </tr>
 			    </c:forEach>
-			  
 			    </table>
 		<div class="gameText">
 		<table>

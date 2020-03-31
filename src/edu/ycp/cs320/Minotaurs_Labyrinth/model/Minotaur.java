@@ -51,8 +51,8 @@ public class Minotaur {
 		westRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.", "Empty room", inv, obs);
 
 		outputstrings = new ArrayList<String>();
-		outputstrings.add("123");
-		outputstrings.add("456");
+		outputstrings.add("");
+		//outputstrings.add("456");
 		adjCent = new Room[4];
 		adjNorth = new Room[4];
 		adjSouth = new Room[4];
