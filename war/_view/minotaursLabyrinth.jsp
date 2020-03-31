@@ -55,6 +55,12 @@
 			    </table>
 		<div class="gameText">
 		<table>
+			<c:if test="${! empty game.playerResp}">
+				<tr><td>${game.playerResp}</td></tr>
+			</c:if>
+			<c:if test="${! empty game.NPCResp}">
+				<tr><td>${game.NPCResp}</td></tr>
+			</c:if>
 			<c:if test="${! empty game.attackmessage}">
 				<tr><td>${game.attackmessage}</td></tr>
 			</c:if>
@@ -76,7 +82,10 @@
 			<input name="location" type="hidden" value="${game.roomPosition}" />
 			<input name="playerHP" type="hidden" value="${game.playerHP}" />
 			<input name="enemyIsDead" type="hidden" value="${game.enemyDead}" />
+			<input name="villagerIsDead" type="hidden" value="${game.villagerDead}" />
 			<input name="enemyHP" type="hidden" value="${game.enemyHP}" />
+			<input name="villagerHP" type="hidden" value="${game.villagerHP}" />
+
 		</table>
 		</div>
 	</form>

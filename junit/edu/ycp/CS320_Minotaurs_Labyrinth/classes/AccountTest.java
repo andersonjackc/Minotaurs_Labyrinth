@@ -33,6 +33,4 @@ public class AccountTest {
 		
 		assertEquals("password123", testAccount.getPassword());
 	}
-	
-
 }
