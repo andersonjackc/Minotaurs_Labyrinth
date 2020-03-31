@@ -16,7 +16,7 @@ ArrayList<Item> Inv = new ArrayList<Item>();
 Inventory testRoomInv = new Inventory(100, 100, Inv);
 Item key = new Item("test", 1, true, false, false, 10, null, null, null);
 Obstacle obs = new Obstacle("test", "jumping", key);
-Room room = new Room("A test room", "test", testRoomInv, obs);
+Room room = new Room("A test room", testRoomInv, obs);
 
 	@Before
 	public void setUp() {
@@ -113,5 +113,10 @@ Room room = new Room("A test room", "test", testRoomInv, obs);
 	public void testCast() {
 		fail("Not yet implemented");
 		
+	}
+	@Test
+	public void testIsDeadMethods() {
+		testNPC.setIsDead(true);
+		assertTrue(testNPC.getIsDead());
 	}
 }
