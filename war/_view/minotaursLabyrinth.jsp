@@ -63,6 +63,7 @@
 			    </c:forEach>
 			    <script>
 					scrollBarFunction();
+					
 				</script>
 		</table>
 		</div>
@@ -70,7 +71,7 @@
 		<div class="textbox">
 		<table class = "textbox">
 			<tr>
-				<td><input name="textbox" autocomplete="off" type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
+				<td><input id="textbox" name="textbox" autofocus autocomplete="off" type="text" maxlength="256" autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
 			</tr>
 			<input name="location" type="hidden" value="${game.roomPosition}" />
 			<input name="playerHP" type="hidden" value="${game.playerHP}" />
