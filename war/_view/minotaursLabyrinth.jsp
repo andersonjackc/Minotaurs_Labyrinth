@@ -53,7 +53,7 @@
 	</head>
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
-		<div class="gameText">
+		<div id="gameText" class="gameText">
 		<table>
 		<c:forEach items="${outputstrings}" var="strings">
 			        <tr>
@@ -61,11 +61,12 @@
 			             <input name="test" type="hidden" value="${strings}" />         
 			        </tr>
 			    </c:forEach>
+			    <script>
+					scrollBarFunction();
+				</script>
 		</table>
 		</div>
-		<script>
-			scrollBarFunction();
-		</script>
+		
 		<div class="textbox">
 		<table class = "textbox">
 			<tr>
