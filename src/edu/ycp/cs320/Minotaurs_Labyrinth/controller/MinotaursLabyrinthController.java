@@ -9,7 +9,7 @@ public class MinotaursLabyrinthController {
 	public void setModel(Minotaur model) {
 		this.model = model;
 	}
-	//commit
+	
 	//fills the map with 0 for empty, 1 for player,  3 for unmovable
 	public void initModel() {
 		model.initMap();
