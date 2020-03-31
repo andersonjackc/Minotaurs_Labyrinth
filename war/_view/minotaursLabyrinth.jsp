@@ -43,7 +43,13 @@
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
 			
-		
+		<table>
+		<c:forEach items="${outputstrings}" var="strings">
+			        <tr class="output">
+			            <td class="output">${strings}</td>	            
+			        </tr>
+			    </c:forEach>
+			    </table>
 		<div class="gameText">
 		<table>
 			<c:if test="${! empty game.attackmessage}">
