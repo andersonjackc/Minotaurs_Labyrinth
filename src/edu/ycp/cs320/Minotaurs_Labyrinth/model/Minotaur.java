@@ -2,6 +2,7 @@ package edu.ycp.cs320.Minotaurs_Labyrinth.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
@@ -30,6 +31,7 @@ public class Minotaur {
 	String defendMessage;
 	Enemy ogre;
 	int enemyDeadVal;
+	ArrayList<String> outputstrings;
 	//fills map w/ 0 for empty, 1 for player, 3 for non-enterable room
 	public void initMap() {
 		
@@ -48,7 +50,9 @@ public class Minotaur {
 		eastRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.", "Locked room", inv, obs2);
 		westRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.", "Empty room", inv, obs);
 
-		
+		outputstrings = new ArrayList<String>();
+		outputstrings.add("123");
+		outputstrings.add("456");
 		adjCent = new Room[4];
 		adjNorth = new Room[4];
 		adjSouth = new Room[4];
@@ -195,4 +199,11 @@ public class Minotaur {
 		this.enemyDeadVal = enemyDeadVal;
 	}
 	
+	public ArrayList<String> getOutputStrings(){
+		return outputstrings;
+	}
+	
+	public void setOutputStrings(ArrayList<String> outputstrings) {
+		this.outputstrings = outputstrings;
+	}
 }
