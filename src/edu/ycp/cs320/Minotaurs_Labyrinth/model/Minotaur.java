@@ -52,11 +52,11 @@ public class Minotaur {
 		obs = new Obstacle("No obstacle", "normal", requirement);
 		obs2 = new Obstacle("No obstacle", "locked", requirement);
 		
-		centerRoom = new Room("You enter a small stone room there are four doorways at each cardinal direction.", "Starting Room", inv, obs);
-		northRoom = new Room("You enter a small stone room, the stench of ogre is unbearable. The only exit is the way you entered.", "Combat room", inv, obs);
-		southRoom = new Room("You enter a small stone room, a villager stands before you. The only exit is the way you entered.", "Dialogue room", inv, obs);
-		eastRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.", "Locked room", inv, obs2);
-		westRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.", "Empty room", inv, obs);
+		centerRoom = new Room("You enter a small stone room there are four doorways at each cardinal direction.", inv, obs);
+		northRoom = new Room("You enter a small stone room, the stench of ogre is unbearable. The only exit is the way you entered.", inv, obs);
+		southRoom = new Room("You enter a small stone room, a villager stands before you. The only exit is the way you entered.", inv, obs);
+		eastRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.",  inv, obs2);
+		westRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.",  inv, obs);
 
 		outputstrings = new ArrayList<String>();
 		outputstrings.add("You enter a small stone room there are four doorways at each cardinal direction.");
