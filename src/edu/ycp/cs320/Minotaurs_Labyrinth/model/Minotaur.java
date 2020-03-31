@@ -59,7 +59,7 @@ public class Minotaur {
 		westRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.", "Empty room", inv, obs);
 
 		outputstrings = new ArrayList<String>();
-		outputstrings.add("");
+		outputstrings.add("You enter a small stone room there are four doorways at each cardinal direction.");
 		//outputstrings.add("456");
 		adjCent = new Room[4];
 		adjNorth = new Room[4];
@@ -114,7 +114,7 @@ public class Minotaur {
 	}
 	
 	public String getRoomDescription() {
-		outputstrings.add(player.getCurrentRoom().getDescription());
+		
 		return player.getCurrentRoom().getDescription();
 	}
 	
@@ -194,7 +194,7 @@ public class Minotaur {
 		}
 	}
 	public void enemyAtkVillager() {
-		if(!ogre.getIsDead()) {
+		if(!villager.getIsDead()) {
 		villager.basicAttack(player);
 		defendMessage = "Villager did " + villager.getAtk() + " You now have " + player.getHP();
 		outputstrings.add(defendMessage);
