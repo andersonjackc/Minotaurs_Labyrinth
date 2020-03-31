@@ -51,6 +51,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		req.setAttribute("game", model);
 		req.setAttribute("outputstrings", model.getOutputStrings());
 		
+		//Create an empty list and fill it with the various interactions/descriptions
 		ArrayList<String> emptyList = new ArrayList<String>();
 		model.setOutputStrings(emptyList);
 		String[] test = req.getParameterValues("test");
@@ -60,13 +61,16 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		}
 		String inputVal = getString(req, "textbox").toLowerCase();
 		model.getOutputStrings().add(inputVal);
-		Integer location = getInteger(req, "location");
 		
+		//grab the hidden persistence values
+		Integer location = getInteger(req, "location");
 		Integer playerHP = getInteger(req, "playerHP");
 		Integer enemyHP = getInteger(req, "enemyHP");
 		Integer villagerHP = getInteger(req, "villagerHP");
 		Integer ogreIsDead = getInteger(req, "enemyIsDead");
 		Integer villagerIsDead = getInteger(req, "villagerIsDead");
+		
+		//pass the persistence information to the model
 		model.setPlayerHP(playerHP);
 		model.setEnemyHP(enemyHP);
 		model.setVillagerHP(villagerHP);
@@ -74,6 +78,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setVillagerDead(villagerIsDead);
 
 		
+		//Set ogre/villager to dead if they have 0 hp or less
 		if(model.getEnemyDead()==1) {
 			model.getEnemy().setIsDead(true);
 		}
@@ -81,7 +86,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			model.getVillager().setIsDead(true);
 		}
 		
-		
+		//Use persisted hidden player position value to keep them there upon post
 		if(location==0) {
 			model.getPlayer().setCurrentRoom(model.getNorthRoom());
 		}else if(location==1) {
@@ -93,7 +98,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		}else if(location==4) {
 			model.getPlayer().setCurrentRoom(model.getCenterRoom());
 		}
-		//check for command, call the move method
+		
+		//Checks that textbox isnt empty, if it isnt empty check for our commands
+		//if the player enters an unrecognized command, we set the error message
 		if (req.getParameter("textbox") != null && inputVal.equals("attack")){
 			if(model.getPlayer().getCurrentRoom() == model.getNorthRoom()) {
 			model.playerAtk();
@@ -132,6 +139,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			model.getOutputStrings().add("That command is not recognized!");
 		}
 		
+		//Used to persist player location
 		if(model.getPlayer().getCurrentRoom() == model.getNorthRoom()) {
 			model.setRoomPosition(0);
 		}else if(model.getPlayer().getCurrentRoom() == model.getSouthRoom()) {
@@ -144,7 +152,10 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			model.setRoomPosition(4);
 		}
 		
+		//sets our outputstrings value, which is used to persist our past decisions
 		req.setAttribute("outputstrings", model.getOutputStrings());
+		
+		//re-post
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
 		
 	}

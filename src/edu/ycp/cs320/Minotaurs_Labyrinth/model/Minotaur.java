@@ -40,7 +40,7 @@ public class Minotaur {
 	ArrayList<String> outputstrings;
 	String PlayerResp;
 
-	//fills map w/ 0 for empty, 1 for player, 3 for non-enterable room
+	//Creates the map and rooms
 	public void initMap() {
 		
 		Map<Room, Room[]> gameMap = new HashMap<Room, Room[]>();
@@ -84,7 +84,7 @@ public class Minotaur {
 		map.addRoom(westRoom, adjWest);
 	}
 	
-	//currently sets player to middle of the map
+	//Creates the actors
 	public void initPlayer() {
 		player = new Player(1000, 20, 0, 0, 2, 0, 0, 0, null, "normal", inv, centerRoom, false);
 		roomPosition = 4;
@@ -151,7 +151,6 @@ public class Minotaur {
 		return westRoom;
 	}
 	
-	//prints what type of error it is
 	public String getError() {
 		return errorMessage;
 	}
@@ -166,6 +165,7 @@ public class Minotaur {
 		return message;
 	}
 	
+	//Returns a boolean if the target is alive
 	public Boolean isEnemyAlive(Enemy target) {
 		if(target.getHP() <= 0) {
 			return false;
@@ -173,6 +173,8 @@ public class Minotaur {
 			return true;
 		}
 	}
+	
+	//Ogre attacking Player (NOT GENERIC)
 	public void enemyAtk() {
 		if(!ogre.getIsDead()) {
 			ogre.basicAttack(player);
@@ -181,6 +183,7 @@ public class Minotaur {
 		}
 	}
 	
+	//Player attacking Ogre (NOT GENERIC)
 	public void playerAtk() {
 		if(!ogre.getIsDead()) {
 			player.basicAttack(ogre);
@@ -193,6 +196,8 @@ public class Minotaur {
 			enemyDeadVal=1;
 		}
 	}
+	
+	//Villager attacking Player (NOT GENERIC)
 	public void enemyAtkVillager() {
 		if(!villager.getIsDead()) {
 		villager.basicAttack(player);
@@ -201,6 +206,7 @@ public class Minotaur {
 		}
 	}
 	
+	//Player attacking Villager (NOT GENERIC)
 	public void playerAtkVillager() {
 		if(!villager.getIsDead()) {
 			player.basicAttack(villager);
@@ -268,6 +274,7 @@ public class Minotaur {
 		return NPCResp;
 	}
 	
+	//Fills in player response, adds responses to output strings
 	public void initResponses() {
 		PlayerResp = "Greetings";
 		outputstrings.add(PlayerResp);
