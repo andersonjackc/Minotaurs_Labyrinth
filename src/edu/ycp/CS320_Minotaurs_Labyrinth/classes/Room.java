@@ -5,12 +5,11 @@ import java.util.ArrayList;
 public class Room {
 
 	private ArrayList<String> directions;
-	private String description, status;
+	private String description;
 	private Inventory inventory;
 	private Obstacle obstacle;
-	public Room(String description, String status, Inventory inventory, Obstacle obstacle) {
+	public Room(String description, Inventory inventory, Obstacle obstacle) {
 		this.description = description;
-		this.status = status;
 		this.inventory = inventory;
 		this.obstacle = obstacle;
 	}
@@ -40,15 +39,7 @@ public class Room {
 		return inventory;
 	}
 	
-	public String getStatus() {
-		return status;
-	}
-	
 	public Obstacle getObstacle() {
 		return obstacle;
 	}
-	
-	public void setStatus(String status) {
-		this.status = status;
 	}
-}
