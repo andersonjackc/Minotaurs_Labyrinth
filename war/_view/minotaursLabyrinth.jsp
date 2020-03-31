@@ -46,14 +46,12 @@
 		<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
 			
 		<table>
-		<% ArrayList<String> list = new ArrayList<String>();%>
-		<% list = game.getOutputStrings();%>
 		<c:forEach items="${outputstrings}" var="strings">
 			        <tr class="output">
 			            <td class="output">${strings}</td>	            
 			        </tr>
 			    </c:forEach>
-			  <% 	request.setAttribute("outputstrings", list);%>
+			  
 			    </table>
 		<div class="gameText">
 		<table>
