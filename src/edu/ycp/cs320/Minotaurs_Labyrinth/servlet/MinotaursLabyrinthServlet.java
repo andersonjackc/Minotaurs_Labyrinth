@@ -103,7 +103,11 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				model.enemyAtkVillager();
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("talk")) {
-			model.initResponses();
+			if(!(model.getVillager().getIsDead())) {
+				model.initResponses();
+			}else {
+				model.getOutputStrings().add("You killed the villager you monster!");
+			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("north")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 			if(model.getError().equals("")) {
