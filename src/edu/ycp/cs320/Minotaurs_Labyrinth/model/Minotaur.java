@@ -178,7 +178,7 @@ public class Minotaur {
 	public void enemyAtk() {
 		if(!ogre.getIsDead()) {
 			ogre.basicAttack(player);
-			defendMessage = "Ogre did " + ogre.getAtk() + " You now have " + player.getHP();
+			defendMessage = "Ogre did " + ogre.getAtk() + " You now have " + player.getHP() + " HP";
 			outputstrings.add(defendMessage);
 		}
 	}
