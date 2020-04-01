@@ -201,7 +201,7 @@ public class Minotaur {
 	public void enemyAtkVillager() {
 		if(!villager.getIsDead()) {
 		villager.basicAttack(player);
-		defendMessage = "Villager did " + villager.getAtk() + " You now have " + player.getHP();
+		defendMessage = "Villager did " + villager.getAtk() + " You now have " + player.getHP() +" HP";
 		outputstrings.add(defendMessage);
 		}
 	}
