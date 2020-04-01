@@ -50,6 +50,7 @@
     		overflow:auto;
     		height: 600px;
     		bottom: 0;
+    		font-size: 19px;
 		}
 		</style>	
 		<script>
