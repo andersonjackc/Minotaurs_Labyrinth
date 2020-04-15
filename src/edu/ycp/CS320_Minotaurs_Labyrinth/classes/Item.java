@@ -2,7 +2,7 @@ package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 public class Item {
 //attributes
-	//add throwable
+	
 protected String description, name, variety, affectedstat;
 protected int effect, value;
 protected Boolean flammable, lit, throwable;
@@ -73,6 +73,9 @@ public void printDescription(){
 public void addEffect(Actor target)  {
 	if(getAffectedStat().equals("HP")) {
 	target.setHP(target.getHP() + getEffect());
+	if(target.getHP()<=0) {
+		target.setIsDead(true);
+	}
 	} 
 	else if(getAffectedStat().equals("maxHP")) {
 		target.setMaxHP(target.getMaxHP() + getEffect());
