@@ -72,8 +72,8 @@
 		<table>
 		<c:forEach items="${outputstrings}" var="strings">
 			        <tr>
-			            <td name="output">${strings}</td>	
-			             <input name="test" type="hidden" value="${strings}" />         
+			            <td name="output">${strings.message}</td>	
+			             <input name="test" type="hidden" value="${strings.message}" />         
 			        </tr>
 			    </c:forEach>
 			    <script>

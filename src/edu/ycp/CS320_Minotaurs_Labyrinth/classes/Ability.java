@@ -14,6 +14,7 @@ public class Ability {
 		this.effect = effect;
 		this.cost = cost;
 		
+
 	}
 	
 	public String getName() {
