@@ -63,7 +63,10 @@ public class NPC extends Actor {
 	
 	@Override
 	public void cast(Actor target, Ability spell) {
-		
+		if(abilities.contains(spell) && spell.getCost() <= resource) {
+			spell.addEffect(target);
+			setResource(getResource()-spell.getCost());
+			}
 		
 	}
 	//getters
