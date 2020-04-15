@@ -47,10 +47,10 @@ public class Minotaur {
 		
 		map = new GameMap(gameMap);
 		
-		requirement = new Item("Key", 0, true, true, true, 0, "Key", "test", "test");
+		requirement = new Item("Key", 0, false, false, true, 0, "Key", "test", "test");
 		inv = new Inventory(0, 0, inventory);
-		obs = new Obstacle("No obstacle", "normal", requirement);
-		obs2 = new Obstacle("No obstacle", "locked", requirement);
+		obs = new Obstacle("No obstacle", "normal", null);
+		obs2 = new Obstacle("The room is locked", "locked", requirement);
 		
 		centerRoom = new Room("You enter a small stone room there are four doorways at each cardinal direction.", inv, obs);
 		northRoom = new Room("You enter a small stone room, the stench of ogre is unbearable. The only exit is the way you entered.", inv, obs);
@@ -71,6 +71,7 @@ public class Minotaur {
 		adjCent[1] = southRoom;
 		adjCent[2] = eastRoom;
 		adjCent[3] = westRoom;
+		
 		
 		adjNorth[1] = centerRoom;
 		adjSouth[0] = centerRoom;

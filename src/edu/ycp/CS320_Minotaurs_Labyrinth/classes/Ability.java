@@ -11,8 +11,6 @@ public class Ability {
 		this.description = description;
 		this.variety = variety;
 		this.effect = effect;
-		
-		
 	}
 
 
