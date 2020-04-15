@@ -8,11 +8,6 @@
 	<head>
 		<title>Minotaur's Labyrinth</title>
 		<style type="text/css">
-		
-		<%--set error text to red--%>
-		.error {
-			color: white;
-		}
 
 		body {
   			background-image: url('https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
@@ -52,6 +47,12 @@
     		bottom: 0;
     		font-size: 19px;
 		}
+		tr.userCommands{
+			color: white;
+
+		}
+		tr.systemResponses{
+		}
 		</style>	
 		<script>
 			function scrollBarFunction(){
@@ -71,10 +72,21 @@
 		<div id="gameText" class="gameText">
 		<table>
 		<c:forEach items="${outputstrings}" var="strings">
-			        <tr>
+				<c:if test="${strings.playerAction == 1}"> 
+			        <tr class="userCommands">
 			            <td name="output">${strings.message}</td>	
-			             <input name="test" type="hidden" value="${strings.message}" />         
 			        </tr>
+			    </c:if>
+			    
+				<c:if test="${strings.playerAction == 0}"> 
+			        <tr class = "systemResponses">
+			            <td name="output">${strings.message}</td>	
+			        </tr>
+			    </c:if>
+			    
+			    <input name="test" type="hidden" value="${strings.message}" />
+			    <input name="playerAction" type="hidden" value="${strings.playerAction}" />
+
 			    </c:forEach>
 			    <script>
 					scrollBarFunction();
