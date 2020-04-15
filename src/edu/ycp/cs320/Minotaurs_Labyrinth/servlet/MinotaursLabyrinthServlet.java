@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.cs320.Minotaurs_Labyrinth.controller.MinotaursLabyrinthController;
 import edu.ycp.cs320.Minotaurs_Labyrinth.model.Minotaur;
 
@@ -52,15 +53,16 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		req.setAttribute("outputstrings", model.getOutputStrings());
 		
 		//Create an empty list and fill it with the various interactions/descriptions
-		ArrayList<String> emptyList = new ArrayList<String>();
+		ArrayList<Message> emptyList = new ArrayList<Message>();
 		model.setOutputStrings(emptyList);
 		String[] test = req.getParameterValues("test");
 		for(String s: test) {
-			
-			model.getOutputStrings().add(s);
+			Message<String, Integer> newMsg = new Message<String, Integer>(s, 0);
+			model.getOutputStrings().add(newMsg);
 		}
 		String inputVal = getString(req, "textbox").toLowerCase();
-		model.getOutputStrings().add(inputVal);
+		Message<String, Integer> input = new Message<String, Integer>(inputVal, 1);
+		model.getOutputStrings().add(input);
 		
 		//grab the hidden persistence values
 		Integer location = getInteger(req, "location");
@@ -113,30 +115,36 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			if(!(model.getVillager().getIsDead())) {
 				model.initResponses();
 			}else {
-				model.getOutputStrings().add("You killed the villager you monster!");
+				Message<String, Integer> msg = new Message<String, Integer>("You killed the villager you monster!", 0);
+				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("north")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 			if(model.getError().equals("")) {
-				model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+				Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
+				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("south")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 			if(model.getError().equals("")) {
-				model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+				Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
+				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("west")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 			if(model.getError().equals("")) {
-				model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+				Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
+				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("east")) {
 			model.setError(model.getPlayer().move(inputVal, model.getMap()));
 			if(model.getError().equals("")) {
-				model.getOutputStrings().add(model.getPlayer().getCurrentRoom().getDescription());
+				Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
+				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && !(inputVal.equals("north")) && !(inputVal.equals("south")) && !(inputVal.equals("east") && !(inputVal.equals("west")))) {
-			model.getOutputStrings().add("That command is not recognized!");
+			Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
+			model.getOutputStrings().add(msg);
 		}
 		
 		//Used to persist player location

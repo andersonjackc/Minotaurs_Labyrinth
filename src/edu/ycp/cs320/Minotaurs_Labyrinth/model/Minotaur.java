@@ -10,6 +10,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.GameMap;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
@@ -37,7 +38,7 @@ public class Minotaur {
 	String NPCDesc;
 	String NPCResp;
 	NPC villager;
-	ArrayList<String> outputstrings;
+	ArrayList<Message> outputstrings;
 	String PlayerResp;
 
 	//Creates the map and rooms
@@ -58,8 +59,9 @@ public class Minotaur {
 		eastRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.",  inv, obs2);
 		westRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.",  inv, obs);
 
-		outputstrings = new ArrayList<String>();
-		outputstrings.add("You enter a small stone room there are four doorways at each cardinal direction.");
+		outputstrings = new ArrayList<Message>();
+		Message<String, Integer> initialMessage = new Message<String, Integer>("You enter a small stone room there are four doorways at each cardinal direction.", 0);
+		outputstrings.add(initialMessage);
 		//outputstrings.add("456");
 		adjCent = new Room[4];
 		adjNorth = new Room[4];
@@ -157,7 +159,8 @@ public class Minotaur {
 	}
 	
 	public void setError(String errorMessage) {
-		outputstrings.add(errorMessage);
+		Message<String, Integer> error = new Message<String, Integer>(errorMessage, 0);
+		outputstrings.add(error);
 		this.errorMessage = errorMessage;
 	}
 	
@@ -180,7 +183,8 @@ public class Minotaur {
 		if(!ogre.getIsDead()) {
 			ogre.basicAttack(player);
 			defendMessage = "Ogre did " + ogre.getAtk() + " You now have " + player.getHP() + " HP";
-			outputstrings.add(defendMessage);
+			Message<String, Integer> defendMsg = new Message<String, Integer>(defendMessage, 0);
+			outputstrings.add(defendMsg);
 		}
 	}
 	
@@ -189,11 +193,13 @@ public class Minotaur {
 		if(!ogre.getIsDead()) {
 			player.basicAttack(ogre);
 			attackMessage = "You did " + player.getAtk() + " to " + ogre.getName() + ", it now has " + ogre.getHP() + " HP";
-			outputstrings.add(attackMessage);
+			Message<String, Integer> atkMsg = new Message<String, Integer>(attackMessage, 0);
+			outputstrings.add(atkMsg);
 		}
 		if(ogre.getIsDead()) {
 			message = "Ogre is dead!";
-			outputstrings.add(message);
+			Message<String, Integer> deadMsg = new Message<String, Integer>(message, 0);
+			outputstrings.add(deadMsg);
 			enemyDeadVal=1;
 		}
 	}
@@ -203,7 +209,8 @@ public class Minotaur {
 		if(!villager.getIsDead()) {
 		villager.basicAttack(player);
 		defendMessage = "Villager did " + villager.getAtk() + " You now have " + player.getHP() +" HP";
-		outputstrings.add(defendMessage);
+		Message<String, Integer> defendMsg = new Message<String, Integer>(defendMessage, 0);
+		outputstrings.add(defendMsg);
 		}
 	}
 	
@@ -212,11 +219,13 @@ public class Minotaur {
 		if(!villager.getIsDead()) {
 			player.basicAttack(villager);
 			attackMessage = "You did " + player.getAtk() + " to " + villager.getName() + ", it now has " + villager.getHP() + " HP";
-			outputstrings.add(attackMessage);
+			Message<String, Integer> atkMsg = new Message<String, Integer>(attackMessage, 0);
+			outputstrings.add(atkMsg);
 		}
 		if(villager.getIsDead()) {
 			message = "Villager is dead";
-			outputstrings.add(message);
+			Message<String, Integer> deadMsg = new Message<String, Integer>(message, 0);
+			outputstrings.add(deadMsg);
 			villagerDeadVal = 1;
 		}
 	}
@@ -258,17 +267,18 @@ public class Minotaur {
 	public void setVillagerDead(int villagerDeadVal) {
 		this.villagerDeadVal = villagerDeadVal;
 	}
-	public ArrayList<String> getOutputStrings(){
+	public ArrayList<Message> getOutputStrings(){
 		return outputstrings;
 	}
 	
-	public void setOutputStrings(ArrayList<String> outputstrings) {
+	public void setOutputStrings(ArrayList<Message> outputstrings) {
 		this.outputstrings = outputstrings;
 	}
 	
 	public String getNPCDesc() {
 		NPCDesc = "You see before you " + villager.getDescription();
-		outputstrings.add(NPCDesc);
+		Message<String, Integer> descMessage = new Message<String, Integer>(NPCDesc, 0);
+		outputstrings.add(descMessage);
 		return NPCDesc;
 	}
 	public String getNPCResp() {
@@ -278,9 +288,11 @@ public class Minotaur {
 	//Fills in player response, adds responses to output strings
 	public void initResponses() {
 		PlayerResp = "Greetings";
-		outputstrings.add(PlayerResp);
+		Message<String, Integer> respMsg = new Message<String, Integer>(PlayerResp, 0);
+		outputstrings.add(respMsg);
 		NPCResp = "The " + villager.getName() + " says " + villager.getDialogue();
-		outputstrings.add(NPCResp);
+		Message<String, Integer> npcrespMsg = new Message<String, Integer>(NPCResp, 0);
+		outputstrings.add(npcrespMsg);
 
 	}
 	
