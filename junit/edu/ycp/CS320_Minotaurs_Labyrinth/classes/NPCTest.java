@@ -9,7 +9,8 @@ import org.junit.Test;
 
 public class NPCTest {
 private NPC testNPC;
-ArrayList<Ability> abilities = null;
+Ability testMaxHPSpell = new Ability("test", "test ability", "test", "maxHP", 5, 5);
+ArrayList<Ability> abilities = new ArrayList<Ability>();
 ArrayList<Item> items = new ArrayList<Item>();
 Inventory i = new Inventory(0, 0, items);
 ArrayList<Item> Inv = new ArrayList<Item>();
@@ -20,9 +21,9 @@ Room room = new Room("A test room", testRoomInv, obs);
 
 	@Before
 	public void setUp() {
-		
+		abilities.add(testMaxHPSpell);
 		testNPC = new NPC(5, 5, 5, 5, 1, 5, 5, 5, abilities, "test", "test", 1, "test", "test", i, room, false);
-		Ability fireball;
+		
 	}
 	@Test
 	public void testMaxHPMethods() {
@@ -103,9 +104,12 @@ Room room = new Room("A test room", testRoomInv, obs);
 	}
 	@Test
 	public void testCast() {
-		fail("Not yet implemented");
-		
+		testNPC.cast(testNPC, testMaxHPSpell);
+		assertEquals(10, testNPC.getMaxHP());
+		assertEquals(0, testNPC.getResource());
+
 	}
+	
 	@Test
 	public void testIsDeadMethods() {
 		testNPC.setIsDead(true);

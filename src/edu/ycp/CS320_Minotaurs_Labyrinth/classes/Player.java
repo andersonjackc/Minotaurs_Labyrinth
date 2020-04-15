@@ -240,8 +240,11 @@ public class Player extends Actor {
 	}
 
 	@Override
-	public void cast(Actor target, Ability spell) {
-		// TODO Auto-generated method stub
+	public void cast(Actor target, Ability spell) { 
+		if(abilities.contains(spell) && spell.getCost() <= resource) {
+		spell.addEffect(target);
+		setResource(getResource()-spell.getCost());
+		}
 		
 	}
 

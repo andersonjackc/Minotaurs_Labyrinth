@@ -10,7 +10,8 @@ import org.junit.Test;
 public class EnemyTest {
 
 private Enemy testEnemy;
-ArrayList<Ability> abilities = null;
+Ability testMaxHPSpell = new Ability("test", "test ability", "test", "maxHP", 5, 5);
+ArrayList<Ability> abilities = new ArrayList<Ability>();
 ArrayList<Item> items = new ArrayList<Item>();
 Inventory i = new Inventory(0, 0, items);
 ArrayList<Item> Inv = new ArrayList<Item>();
@@ -21,10 +22,10 @@ Room room = new Room("A test room", testRoomInv, obs);
 
 	@Before
 	public void setUp() {
-		
+		abilities.add(testMaxHPSpell);
 		testEnemy = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, abilities, "test", "test", 1, "test", "test", i, room, false);
 		
-		Ability fireball;
+		
 	}
 	@Test
 	public void testMaxHPMethods() {
@@ -103,8 +104,9 @@ Room room = new Room("A test room", testRoomInv, obs);
 	}
 	@Test
 	public void testCast() {
-		fail("Not yet implemented");
-		
+		testEnemy.cast(testEnemy, testMaxHPSpell);
+		assertEquals(10, testEnemy.getMaxHP());
+		assertEquals(0, testEnemy.getResource());
 	}
 	@Test
 	public void testRollForAction() {

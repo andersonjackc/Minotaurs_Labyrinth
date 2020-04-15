@@ -13,10 +13,15 @@ public class PlayerTest {
 	
 	
 	//Set up a test Player obj
+	
 	Room[] rooms1, rooms2;
 	GameMap testGameMap;
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
+	Ability testMaxHPSpell = new Ability("test", "test ability", "test", "maxHP", 5, 5);
+	ArrayList<Ability> abilities = new ArrayList<Ability>();
+	
+	
 
 	Item key = new Item("test", 1, true, false, true, 10, null, "misc", null);
 	Obstacle obs = new Obstacle("test", "normal", key);
@@ -31,7 +36,7 @@ public class PlayerTest {
 	
 
 	
-	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 2, 3, null, "normal", testInv, room, false);
+	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "normal", testInv, room, false);
 	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 100, "A test NPC", "test", null, room, false);
 	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", null, null);
 	Item rope = new Item("rope", 0, true, false, true, 50, "rope", "misc", null);
@@ -54,6 +59,8 @@ public class PlayerTest {
 		rooms2[1] = room;
 		testGameMap.addRoom(room, rooms1);
 		testGameMap.addRoom(room2, rooms2);
+		abilities.add(testMaxHPSpell);
+		
 	}
 	
 	
@@ -241,6 +248,13 @@ public class PlayerTest {
 	public void testIsDeadMethods() {
 		testPlayer.setIsDead(true);
 		assertTrue(testPlayer.getIsDead());
+	}
+	@Test
+	public void testCast() {
+		testPlayer.cast(testPlayer, testMaxHPSpell);
+		assertEquals(1005, testPlayer.getMaxHP());
+		assertEquals(45, testPlayer.getResource());
+
 	}
 	
 }
