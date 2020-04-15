@@ -56,9 +56,20 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		ArrayList<Message> emptyList = new ArrayList<Message>();
 		model.setOutputStrings(emptyList);
 		String[] test = req.getParameterValues("test");
+		String[] playerAction = req.getParameterValues("playerAction");
+		
+		int tempCount1 = 0;
+		int tempCount2 = 0;
 		for(String s: test) {
-			Message<String, Integer> newMsg = new Message<String, Integer>(s, 0);
-			model.getOutputStrings().add(newMsg);
+			tempCount1++;
+			tempCount2 = 0;
+			for(String x : playerAction) {
+				tempCount2++;
+				if(tempCount1 == tempCount2) {
+					Message<String, Integer> newMsg = new Message<String, Integer>(s, Integer.parseInt(x));
+					model.getOutputStrings().add(newMsg);
+				}
+			}
 		}
 		String inputVal = getString(req, "textbox").toLowerCase();
 		Message<String, Integer> input = new Message<String, Integer>(inputVal, 1);
@@ -143,7 +154,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && !(inputVal.equals("north")) && !(inputVal.equals("south")) && !(inputVal.equals("east") && !(inputVal.equals("west")))) {
-			Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
+			Message<String, Integer> msg = new Message<String, Integer>("Unrecognized Command!", 0);
 			model.getOutputStrings().add(msg);
 		}
 		
