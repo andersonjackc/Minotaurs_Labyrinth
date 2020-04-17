@@ -20,18 +20,20 @@ public class PlayerTest {
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
 	Ability testMaxHPSpell = new Ability("test", "test ability", "test", "maxHP", 5, 5);
 	ArrayList<Ability> abilities = new ArrayList<Ability>();
-	
-	
+	HashMap<String, Integer> testRoomMap1;
+	HashMap<String, Integer> testRoomMap2;
+	HashMap<String, Integer> testRoomMap3;
+	HashMap<String, Integer> testRoomMap4;
 
 	Item key = new Item("test", 1, true, false, true, 10, null, "misc", null);
 	Obstacle obs = new Obstacle("test", "normal", key);
 	Obstacle obs1 = new Obstacle("test", "jumping", key);
 	Obstacle obs2 = new Obstacle("test", "crawling", key);
 	
-	Room room = new Room("A test room", testRoomInv, obs);
-	Room room2 = new Room("A test room", testRoomInv, obs );
-	Room room3 = new Room("A test room", testRoomInv, obs1 );
-	Room room4 = new Room("A test room", testRoomInv, obs2 );
+	Room room = new Room("A test room", testRoomInv, obs, testRoomMap1, 1, false);
+	Room room2 = new Room("A test room", testRoomInv, obs, testRoomMap2, 2, false );
+	Room room3 = new Room("A test room", testRoomInv, obs1, testRoomMap3, 3, false );
+	Room room4 = new Room("A test room", testRoomInv, obs2, testRoomMap4, 4, false );
 	Inventory testInv = new Inventory(100, 100, Inv);
 	
 
