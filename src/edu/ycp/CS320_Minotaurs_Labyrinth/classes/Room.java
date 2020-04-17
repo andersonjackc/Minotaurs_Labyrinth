@@ -1,6 +1,7 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Room {
 
@@ -8,14 +9,20 @@ public class Room {
 	private String description;
 	private Inventory inventory;
 	private Obstacle obstacle;
-	public Room(String description, Inventory inventory, Obstacle obstacle) {
+	private HashMap<String, Integer> roomMap;
+	private int roomID;
+	private boolean isFound;
+	
+	public Room(String description, Inventory inventory, Obstacle obstacle, HashMap<String, Integer> roomMap, int roomID, boolean isFound) {
 		this.description = description;
 		this.inventory = inventory;
 		this.obstacle = obstacle;
+		this.roomMap = roomMap;
+		this.roomID = roomID;
+		this.isFound = isFound;
 	}
 	
 	public ArrayList<String> getDirection() {
-		
 		return directions;
 	}
 	
@@ -30,13 +37,33 @@ public class Room {
 		this.description=description;
 	}
 
-	public void printDescription() {
-		//For now just printing in terminal, will adapt to game later
-		System.out.println(description);
+	public void setRoomMap(HashMap<String, Integer> roomMap) {
+		this.roomMap=roomMap;
+	}
+	
+	public void setRoomId(int roomID) {
+		this.roomID=roomID;
+	}
+	
+	public void setIsFound(boolean isFound) {
+		this.isFound = isFound;
 	}
 	
 	public Inventory getInventory() {
 		return inventory;
+	}
+	
+	public HashMap<String, Integer> getRoomMap() {
+		return roomMap;
+	}
+	
+	public int getRoomId() {
+		return roomID;
+	}
+	
+	
+	public boolean getIsFound() {
+		return isFound;
 	}
 	
 	public Obstacle getObstacle() {
