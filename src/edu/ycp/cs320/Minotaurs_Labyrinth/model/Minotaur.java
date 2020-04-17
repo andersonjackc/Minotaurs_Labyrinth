@@ -3,11 +3,8 @@ package edu.ycp.cs320.Minotaurs_Labyrinth.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import java.util.Map;
-
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
-import edu.ycp.CS320_Minotaurs_Labyrinth.classes.GameMap;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
@@ -43,11 +40,7 @@ public class Minotaur {
 
 	//Creates the map and rooms
 	public void initMap() {
-		
-		Map<Room, Room[]> gameMap = new HashMap<Room, Room[]>();
-		
-		
-		
+				
 		requirement = new Item("Key", 0, false, false, true, 0, "Key", "test", "test");
 		inv = new Inventory(0, 0, inventory);
 		obs = new Obstacle("No obstacle", "normal", null);

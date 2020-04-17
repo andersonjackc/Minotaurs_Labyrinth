@@ -1,5 +1,6 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
+@SuppressWarnings("hiding")
 public class Message<String, Int> {
 	private int playerAction;
 	private String message;
