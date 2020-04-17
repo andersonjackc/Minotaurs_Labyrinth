@@ -53,7 +53,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		req.setAttribute("outputstrings", model.getOutputStrings());
 		
 		//Create an empty list and fill it with the various interactions/descriptions
-		ArrayList<Message> emptyList = new ArrayList<Message>();
+		ArrayList<Message<String, Integer>> emptyList = new ArrayList<Message<String, Integer>>();
 		model.setOutputStrings(emptyList);
 		String[] test = req.getParameterValues("test");
 		String[] playerAction = req.getParameterValues("playerAction");
@@ -71,10 +71,10 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				}
 			}
 		}
-		String inputVal = getString(req, "textbox").toLowerCase();
+		String inputVal = getString(req, "textbox");
 		Message<String, Integer> input = new Message<String, Integer>(inputVal, 1);
 		model.getOutputStrings().add(input);
-		
+		inputVal = inputVal.toLowerCase();
 		//grab the hidden persistence values
 		Integer location = getInteger(req, "location");
 		Integer playerHP = getInteger(req, "playerHP");
@@ -130,25 +130,25 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("north")) {
-			model.setError(model.getPlayer().move(inputVal, model.getMap()));
+			model.setError(model.getPlayer().move(inputVal));
 			if(model.getError().equals("")) {
 				Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
 				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("south")) {
-			model.setError(model.getPlayer().move(inputVal, model.getMap()));
+			model.setError(model.getPlayer().move(inputVal));
 			if(model.getError().equals("")) {
 				Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
 				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("west")) {
-			model.setError(model.getPlayer().move(inputVal, model.getMap()));
+			model.setError(model.getPlayer().move(inputVal));
 			if(model.getError().equals("")) {
 				Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
 				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("east")) {
-			model.setError(model.getPlayer().move(inputVal, model.getMap()));
+			model.setError(model.getPlayer().move(inputVal));
 			if(model.getError().equals("")) {
 				Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
 				model.getOutputStrings().add(msg);

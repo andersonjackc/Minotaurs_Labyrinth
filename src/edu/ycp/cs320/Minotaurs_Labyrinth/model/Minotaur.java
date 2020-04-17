@@ -19,9 +19,9 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 public class Minotaur {
 	
 	
-	GameMap map;
+	
 	Room centerRoom, northRoom, southRoom, eastRoom, westRoom;
-	Room[] adjCent, adjNorth, adjSouth, adjEast, adjWest;
+	HashMap<String, Room> centerRoomMap, northRoomMap, southRoomMap, eastRoomMap, westRoomMap;
 	Inventory inv;
 	Item requirement;
 	ArrayList<Item> inventory;
@@ -38,7 +38,7 @@ public class Minotaur {
 	String NPCDesc;
 	String NPCResp;
 	NPC villager;
-	ArrayList<Message> outputstrings;
+	ArrayList<Message<String, Integer>> outputstrings;
 	String PlayerResp;
 
 	//Creates the map and rooms
@@ -46,45 +46,42 @@ public class Minotaur {
 		
 		Map<Room, Room[]> gameMap = new HashMap<Room, Room[]>();
 		
-		map = new GameMap(gameMap);
+		
 		
 		requirement = new Item("Key", 0, false, false, true, 0, "Key", "test", "test");
 		inv = new Inventory(0, 0, inventory);
 		obs = new Obstacle("No obstacle", "normal", null);
 		obs2 = new Obstacle("The room is locked", "locked", requirement);
 		
-		centerRoom = new Room("You enter a small stone room there are four doorways at each cardinal direction.", inv, obs);
-		northRoom = new Room("You enter a small stone room, the stench of ogre is unbearable. The only exit is the way you entered.", inv, obs);
-		southRoom = new Room("You enter a small stone room, a villager stands before you. The only exit is the way you entered.", inv, obs);
-		eastRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.",  inv, obs2);
-		westRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.",  inv, obs);
+		
+		centerRoomMap = new HashMap<String, Room>();
+		northRoomMap = new HashMap<String, Room>();
+		southRoomMap = new HashMap<String, Room>();
+		eastRoomMap = new HashMap<String, Room>();
+		westRoomMap = new HashMap<String, Room>();
+		
+		centerRoom = new Room("You enter a small stone room there are four doorways at each cardinal direction.", inv, obs, centerRoomMap, true);
+		northRoom = new Room("You enter a small stone room, the stench of ogre is unbearable. The only exit is the way you entered.", inv, obs, northRoomMap, false);
+		southRoom = new Room("You enter a small stone room, a villager stands before you. The only exit is the way you entered.", inv, obs, southRoomMap, false);
+		eastRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.",  inv, obs2, eastRoomMap, false);
+		westRoom = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.",  inv, obs, westRoomMap, false);
 
-		outputstrings = new ArrayList<Message>();
+		outputstrings = new ArrayList<Message<String, Integer>>();
 		Message<String, Integer> initialMessage = new Message<String, Integer>("You enter a small stone room there are four doorways at each cardinal direction.", 0);
 		outputstrings.add(initialMessage);
-		//outputstrings.add("456");
-		adjCent = new Room[4];
-		adjNorth = new Room[4];
-		adjSouth = new Room[4];
-		adjEast = new Room[4];
-		adjWest = new Room[4];
-		
-		adjCent[0] = northRoom;
-		adjCent[1] = southRoom;
-		adjCent[2] = eastRoom;
-		adjCent[3] = westRoom;
 		
 		
-		adjNorth[1] = centerRoom;
-		adjSouth[0] = centerRoom;
-		adjEast[3] = centerRoom;
-		adjWest[2] = centerRoom;
+		centerRoomMap.put("north", northRoom);
+		centerRoomMap.put("south", southRoom);
+		centerRoomMap.put("east", eastRoom);
+		centerRoomMap.put("west", westRoom);
 		
-		map.addRoom(centerRoom, adjCent);
-		map.addRoom(northRoom, adjNorth);
-		map.addRoom(southRoom, adjSouth);
-		map.addRoom(eastRoom, adjEast);
-		map.addRoom(westRoom, adjWest);
+		northRoomMap.put("south", centerRoom);
+		southRoomMap.put("north", centerRoom);
+		eastRoomMap.put("west", centerRoom);
+		westRoomMap.put("east", centerRoom);
+		
+		
 	}
 	
 	//Creates the actors
@@ -119,10 +116,6 @@ public class Minotaur {
 	public String getRoomDescription() {
 		
 		return player.getCurrentRoom().getDescription();
-	}
-	
-	public GameMap getMap(){
-		return map;
 	}
 	
 	public int getRoomPosition() {
@@ -267,11 +260,11 @@ public class Minotaur {
 	public void setVillagerDead(int villagerDeadVal) {
 		this.villagerDeadVal = villagerDeadVal;
 	}
-	public ArrayList<Message> getOutputStrings(){
+	public ArrayList<Message<String, Integer>> getOutputStrings(){
 		return outputstrings;
 	}
 	
-	public void setOutputStrings(ArrayList<Message> outputstrings) {
+	public void setOutputStrings(ArrayList<Message<String, Integer>> outputstrings) {
 		this.outputstrings = outputstrings;
 	}
 	
