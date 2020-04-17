@@ -2,8 +2,7 @@ package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 public class Gear extends Item{
 	//attributes
-	private int atk, def, HP, value;
-	private String name;
+	private int atk, def, HP;
 	private Boolean equipped;
 	
 	//methods
@@ -15,8 +14,9 @@ public class Gear extends Item{
 		this.equipped = equipped;
 		this.value = value;
 		this.name = name;
-		}
+	}
 	
+	//getters
 	public int getAtk() {
 		return atk;
 	}
@@ -37,6 +37,7 @@ public class Gear extends Item{
 		return equipped;
 	}
 	
+	//setters
 	public void setEquipped(Boolean equipped) {
 		this.equipped = equipped;
 	}

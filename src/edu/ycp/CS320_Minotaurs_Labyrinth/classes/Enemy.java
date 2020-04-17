@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Enemy extends NPC {
 	
-
+	//methods
 	public Enemy(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, String dialogue, int attitude, String description, String name, Inventory inventory, Room currentRoom, boolean isDead) {
 		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, dialogue, attitude, description, name, inventory, currentRoom, isDead);
 		
@@ -14,7 +14,6 @@ public class Enemy extends NPC {
 		throw new Exception("TODO ");
 	}
 
-	@Override
 	public void basicAttack(Actor target) {
 		target.setHP((target.getHP() - getAtk())); 
 		
@@ -23,14 +22,13 @@ public class Enemy extends NPC {
 		}
 	}
 	
-	@Override
 	public void cast(Actor target, Ability spell) {
 		if(abilities.contains(spell) && spell.getCost() <= resource) {
 			spell.addEffect(target);
 			setResource(getResource()-spell.getCost());
 			}
-		
 	}
+	
 	//getters
 	public int getMaxHP() {
 		return maxHP;

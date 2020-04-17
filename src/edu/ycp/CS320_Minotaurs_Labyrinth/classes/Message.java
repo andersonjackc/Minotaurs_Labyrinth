@@ -9,19 +9,23 @@ public class Message<String, Int> {
 		this.playerAction = playerAction;
 	}
 	
-	public void setMessage(String message) {
-		this.message = message;
+	//getters
+	public int getPlayerAction() {
+		return playerAction;
 	}
 	
 	public String getMessage() {
 		return message;
 	}
 	
+	//setters
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
 	public void setPlayerAction(int setPlayerAction) {
 		this.playerAction = setPlayerAction;
 	}
 	
-	public int getPlayerAction() {
-		return playerAction;
-	}
+	
 }

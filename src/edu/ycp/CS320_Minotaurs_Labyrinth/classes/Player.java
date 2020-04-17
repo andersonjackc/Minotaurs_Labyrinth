@@ -6,13 +6,12 @@ import java.util.HashMap;
 
 public class Player extends Actor {
 	
-	
+	//methods
 	public Player(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP,
 			ArrayList<Ability> abilities, String status, Inventory inventory, Room currentRoom, boolean isDead) {
 		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom, isDead);
 		
 	}
-	
 	
 	public void crawl(String direction) {
 		
@@ -43,6 +42,7 @@ public class Player extends Actor {
 		}
 		
 	}
+	
 	public void equip(Gear gear) {
 		if(getInventory().getInventory().contains(gear) && gear.getEquipped() == false) {
 			gear.setEquipped(true);
@@ -53,6 +53,7 @@ public class Player extends Actor {
 		}
 		
 	}
+	
 	public void unequip(Gear gear) {
 		if(getInventory().getInventory().contains(gear) && gear.getEquipped() == true) {
 			gear.setEquipped(false);
@@ -63,22 +64,27 @@ public class Player extends Actor {
 		}
 		
 	}
+	
 	public void drop(Item item) {
 		getInventory().removeItem(item);
 		getCurrentRoom().getInventory().addItem(item);
 		
 	}
+	
 	public void run() {
 		// TODO Auto-generated method  stub
 		throw new UnsupportedOperationException("TODO - implement");
 	}
+	
 	public void take(Item item) {
 		getInventory().addItem(item);
 		
 	}
+	
 	public String talk(NPC target) {
 		return target.getDialogue();
 	}
+	
 	public void throNPCItem(NPC target, Item item) {
 		if(item.getThrowable()) {
 			if(item.getVariety().equals("potion")) {
@@ -95,6 +101,7 @@ public class Player extends Actor {
 		}
 		
 	}
+	
 	public void throNPCGear(NPC target, Gear gear) {
 		if(gear.getThrowable()){
 			target.setHP(target.getHP() - gear.getAtk());
@@ -102,6 +109,7 @@ public class Player extends Actor {
 		}
 		
 	}
+	
 	public void throObs(Obstacle target, Item item) {
 		if(item.getThrowable()) {
 			if(item.getName().equals("rope") && target.getStatus().equals("jumping")) {
@@ -109,6 +117,7 @@ public class Player extends Actor {
 			}
 		}
 	}
+	
 	public void use(Item item, Actor target) {
 		if(getInventory().getInventory().contains(item)) {
 			target.setHP(target.getHP()+item.getEffect());
@@ -133,6 +142,7 @@ public class Player extends Actor {
 		}
 		return priceOff;
 	}
+	
 	public void leave() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("TODO - implement");
@@ -157,16 +167,19 @@ public class Player extends Actor {
 		return "";
 		
 	}
+	
 	public String checkMap() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("TODO - implement");
 
 	}
+	
 	public String checkStats() {
 		String Message = "You have: " + this.HP + " HP, " + this.resource + " Mana, " + this.atk + " Attack, " 
 				+ this.def + " Defense";
 		return Message;
 	}
+	
 	public String checkNPC(NPC npc) {
 		String Message = npc.getDescription();
 		return Message;
@@ -181,6 +194,7 @@ public class Player extends Actor {
 		String Message = item.getName() + " is worth " + item.getValue() + " Gold";
 		return Message;
 	}
+	
 	public String checkRoom(Room room) {
 		String Message = room.getDescription();
 		return Message;
@@ -200,7 +214,6 @@ public class Player extends Actor {
 		return Message;
 	}
 
-	@Override
 	public void basicAttack(Actor target) {
 		target.setHP((target.getHP() - getAtk())); 
 		
@@ -209,7 +222,6 @@ public class Player extends Actor {
 		}
 	}
 
-	@Override
 	public void cast(Actor target, Ability spell) { 
 		if(abilities.contains(spell) && spell.getCost() <= resource) {
 		spell.addEffect(target);
@@ -223,7 +235,6 @@ public class Player extends Actor {
 		return maxHP;
 	}
 
-	
 	public int getHP() {
 		return HP;
 	}
@@ -259,7 +270,6 @@ public class Player extends Actor {
 	public String getStatus() {
 		return status;
 	}
-	
 	
 	public Inventory getInventory() {
 		

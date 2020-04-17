@@ -40,6 +40,7 @@ public class Obstacle {
 	public Item getRequirement() {
 		return requirement;
 	}
+	
 	//setters
 	public void setDescription(String description) {
 		this.description = description;

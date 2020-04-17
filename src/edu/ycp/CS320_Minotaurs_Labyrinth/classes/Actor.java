@@ -76,6 +76,7 @@ public abstract class Actor {
 	public abstract Room getCurrentRoom();
 
 	public abstract Boolean getIsDead();
+	
 	//setters
 	public abstract void setHP(int HP);
 	
@@ -84,7 +85,6 @@ public abstract class Actor {
 	public abstract void setResource(int resource);
 	
 	public abstract void setMaxResource(int maxResource);
-
 
 	public abstract void setAtk(int atk);
 	
