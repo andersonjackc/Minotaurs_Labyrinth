@@ -1,6 +1,7 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Player extends Actor {
@@ -13,24 +14,24 @@ public class Player extends Actor {
 	}
 	
 	
-	public void crawl(String direction, GameMap map) {
+	public void crawl(String direction) {
 		
 		String tmpStatus = getStatus();
 		
 		setStatus("crawling");
 		
-		this.move(direction, map);
+		this.move(direction);
 		
 		setStatus(tmpStatus);		
 	}
 	
-	public void jump(String direction, GameMap map) {
+	public void jump(String direction) {
 		
 		String tmpStatus = getStatus();
 		
 		setStatus("jumping");
 		
-		this.move(direction, map);
+		this.move(direction);
 		
 		setStatus(tmpStatus);
 		
@@ -137,12 +138,24 @@ public class Player extends Actor {
 		throw new UnsupportedOperationException("TODO - implement");
 	}
 	
-	public String move(String direction, GameMap map) {
+	public String move(String direction) {
 		
-		Room[] adjRooms = map.getMap().get(this.currentRoom);
+		HashMap<String, Room> roomMap = this.currentRoom.getRoomMap();
+		Room newRoom = roomMap.get(direction);
 		
+		if(roomMap.containsKey(direction)){
+			if(newRoom.getObstacle().checkStatus(this) || newRoom.getObstacle().getStatus().contentEquals("normal")){
+				this.currentRoom = roomMap.get(direction);
+			}else if(!newRoom.getObstacle().checkStatus(this)) {
+				return "There is an obstacle in that direction!";
+			}
+		}else {
+			return "You can't move in that direction!";
+		}
 		
-		if(direction.equals("north") || direction.equals("n")) {
+		return "";
+		
+		/*if(direction.equals("north") || direction.equals("n")) {
 			if(adjRooms[0]!=null) {
 				if((adjRooms[0].getObstacle().checkStatus(this) || adjRooms[0].getObstacle().getStatus().equals("normal"))){
 					this.currentRoom = adjRooms[0];
@@ -182,9 +195,9 @@ public class Player extends Actor {
 			}else {
 				return "You can't move in that direction!";
 			}
-		}
+		}*/
 			
-		return "";
+		
 		
 	}
 	public String checkMap() {
