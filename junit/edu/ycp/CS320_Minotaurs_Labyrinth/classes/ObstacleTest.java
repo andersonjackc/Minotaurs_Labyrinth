@@ -3,6 +3,7 @@ package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Test;
 
@@ -13,7 +14,8 @@ public class ObstacleTest {
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testInv = new Inventory(100, 100, Inv);
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
-	Room room = new Room("A test room", testRoomInv, obs);
+	HashMap<String, Integer> testMap;
+	Room room = new Room("A test room", testRoomInv, obs, testMap, 1, false);
 	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, testInv, room, false);
 	
 	@Test

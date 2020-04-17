@@ -15,6 +15,7 @@ public class GameMapTest {
 	Room room1, room2;
 	Inventory inventory;
 	Room[] rooms1, rooms2;
+	HashMap<String, Integer> testRoomMap1, testRoomMap2;
 	Item key = new Item("test", 1, true, false, false, 10, null, null, null);
 	Obstacle obs = new Obstacle("test", "jumping", key);
 	@Before
@@ -23,9 +24,8 @@ public class GameMapTest {
 		testGameMap = new GameMap(testMap);
 		
 		inventory = new Inventory(0, 0, null);
-		
-		room1 = new Room("A test room", inventory, obs );
-		room2 = new Room("A test room", inventory, obs );
+		room1 = new Room("A test room", inventory, obs, testRoomMap1, 1, false);
+		room2 = new Room("A test room", inventory, obs, testRoomMap2, 2, false);
 		
 		rooms1 = new Room[4];
 		rooms2 = new Room[4];
