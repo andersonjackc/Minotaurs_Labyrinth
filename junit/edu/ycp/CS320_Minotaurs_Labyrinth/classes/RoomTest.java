@@ -11,8 +11,8 @@ public class RoomTest {
 	Obstacle obs = new Obstacle("test", "normal", null);
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
-	HashMap<String, Integer> testMap;
-	Room room = new Room("A test room", testRoomInv, obs, null, 1, false);
+	HashMap<String, Room> testMap;
+	Room room = new Room("A test room", testRoomInv, obs, testMap, false);
 
 	
 	@Test
@@ -39,13 +39,7 @@ public class RoomTest {
 		assertEquals(testMap, room.getRoomMap());
 		
 	}
-	@Test
-	public void testRooomIDMethods() {
-		
-		room.setRoomId(2);
-		assertEquals(2, room.getRoomId());
-		
-	}
+
 	@Test
 	public void testIsFoundMethods() {
 		
