@@ -3,6 +3,7 @@ package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,8 @@ ArrayList<Item> Inv = new ArrayList<Item>();
 Inventory testRoomInv = new Inventory(100, 100, Inv);
 Item key = new Item("test", 1, true, false, false, 10, null, null, null);
 Obstacle obs = new Obstacle("test", "jumping", key);
-Room room = new Room("A test room", testRoomInv, obs);
+HashMap<String, Integer> testMap;
+Room room = new Room("A test room", testRoomInv, obs, testMap, 1, false);
 
 	@Before
 	public void setUp() {
@@ -69,7 +71,7 @@ Room room = new Room("A test room", testRoomInv, obs);
 	}
 	@Test
 	public void testAbilitiesMethods() {
-		fail("Not yet implemented");
+		assertEquals(abilities, testNPC.getAbilities());
 	}
 	@Test
 	public void testDialogueMethods() {
