@@ -18,9 +18,28 @@ public class Room {
 		this.isFound = isFound;
 	}
 	
+	public HashMap<String, Room> getRoomMap() {
+		return roomMap;
+	}
+	
+	//getters
 	public String getDescription() {
 		return description;
 	}
+	
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
+	public boolean getIsFound() {
+		return isFound;
+	}
+	
+	public Obstacle getObstacle() {
+		return obstacle;
+	}
+	
+	//setters
 	public void setDescription(String description) {
 		this.description=description;
 	}
@@ -31,22 +50,5 @@ public class Room {
 	
 	public void setIsFound(boolean isFound) {
 		this.isFound = isFound;
-	}
-	
-	public Inventory getInventory() {
-		return inventory;
-	}
-	
-	public HashMap<String, Room> getRoomMap() {
-		return roomMap;
-	}
-	
-	
-	public boolean getIsFound() {
-		return isFound;
-	}
-	
-	public Obstacle getObstacle() {
-		return obstacle;
 	}
 	}

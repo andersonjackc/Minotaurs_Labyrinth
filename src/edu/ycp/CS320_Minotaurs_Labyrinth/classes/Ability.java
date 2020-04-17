@@ -17,6 +17,36 @@ public class Ability {
 
 	}
 	
+	public void addEffect(Actor target) {
+	    if(getAffectedStat().equals("HP")) {
+	    	target.setHP(target.getHP() + getEffect());
+	    	if(target.getHP()<=0) {
+				target.setIsDead(true);
+			}
+		} 
+		else if(getAffectedStat().equals("maxHP")) {
+			target.setMaxHP(target.getMaxHP() + getEffect());
+
+		}
+		else if(getAffectedStat().equals("resource")) {
+			target.setResource(target.getResource() + getEffect());
+
+		}
+		else if(getAffectedStat().equals("maxResource")) {
+			target.setMaxResource(target.getMaxResource() + getEffect());
+
+		}
+		else if(getAffectedStat().equals("atk")) {
+			target.setAtk(target.getAtk() + getEffect());
+
+		}
+		else if(getAffectedStat().equals("def")) {
+			target.setDef(target.getDef() + getEffect());
+
+		}
+	}
+	
+	//getters
 	public String getName() {
 		return name;
 	}
@@ -41,36 +71,4 @@ public class Ability {
 		return cost;
 	}
 	
-	public void addEffect(Actor target) {
-		    if(getAffectedStat().equals("HP")) {
-		    	target.setHP(target.getHP() + getEffect());
-		    	if(target.getHP()<=0) {
-					target.setIsDead(true);
-				}
-			} 
-			else if(getAffectedStat().equals("maxHP")) {
-				target.setMaxHP(target.getMaxHP() + getEffect());
-
-			}
-			else if(getAffectedStat().equals("resource")) {
-				target.setResource(target.getResource() + getEffect());
-
-			}
-			else if(getAffectedStat().equals("maxResource")) {
-				target.setMaxResource(target.getMaxResource() + getEffect());
-
-			}
-			else if(getAffectedStat().equals("atk")) {
-				target.setAtk(target.getAtk() + getEffect());
-
-			}
-			else if(getAffectedStat().equals("def")) {
-				target.setDef(target.getDef() + getEffect());
-
-			}
-	}
-
-
-
-
 }

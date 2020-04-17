@@ -15,18 +15,6 @@ public class Inventory {
 		this.inventory = inventory;
 	}
 	
-	public int getMaxStorage() {
-		return maxStorage;
-	}
-	
-	public int getMaxQuant() {
-		return maxQuant;
-	}
-	
-	public ArrayList<Item> getInventory() {
-		return inventory;
-	}
-	
 	public void addItem(Item item) {
 		if(inventory.size() == maxStorage) {
 			// print some error saying inventory is full
@@ -41,5 +29,19 @@ public class Inventory {
 			inventory.remove(item);
 		}
 	}
+	
+	//getters
+	public int getMaxStorage() {
+		return maxStorage;
+	}
+	
+	public int getMaxQuant() {
+		return maxQuant;
+	}
+	
+	public ArrayList<Item> getInventory() {
+		return inventory;
+	}
+	
 	
 }

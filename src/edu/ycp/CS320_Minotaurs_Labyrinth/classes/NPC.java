@@ -20,39 +20,6 @@ public class NPC extends Actor {
 		this.name = name;
 	}
 	
-	public String getDialogue() {
-		return dialogue;
-	}
-
-	public int getAttitude() {
-		return attitude;
-	}
-	
-	public void setAttitude(int attitude) {
-		this.attitude = attitude;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-
-	public String getName() {
-		return name;
-	}
-	
-	public Inventory getInventory() {
-		return inventory;
-	}
-	
-	public void printDescription(){
-		System.out.print(description);	
-	}
-	
-	public void printResponses(){
-		System.out.print(dialogue);	
-	}
-	
-	@Override
 	public void basicAttack(Actor target) {
 		target.setHP(target.getHP() - getAtk()); 
 		
@@ -61,7 +28,6 @@ public class NPC extends Actor {
 		}
 	}
 	
-	@Override
 	public void cast(Actor target, Ability spell) {
 		if(abilities.contains(spell) && spell.getCost() <= resource) {
 			spell.addEffect(target);
@@ -117,7 +83,27 @@ public class NPC extends Actor {
 	public Boolean getIsDead() {
 		return isDead;
 	}
-		
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
+	public String getDialogue() {
+		return dialogue;
+	}
+
+	public int getAttitude() {
+		return attitude;
+	}
+			
 	//setters
 	public void setHP(int HP) {
 		this.HP = HP;
@@ -157,5 +143,9 @@ public class NPC extends Actor {
 	
 	public void setIsDead(Boolean isDead) {
 		this.isDead = isDead;
+	}
+	
+	public void setAttitude(int attitude) {
+		this.attitude = attitude;
 	}
 }
