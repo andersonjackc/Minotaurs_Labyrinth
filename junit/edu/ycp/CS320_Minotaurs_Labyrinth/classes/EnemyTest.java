@@ -19,8 +19,8 @@ ArrayList<Item> Inv = new ArrayList<Item>();
 Inventory testRoomInv = new Inventory(100, 100, Inv);
 Item key = new Item("test", 1, true, false, false, 10, null, null, null);
 Obstacle obs = new Obstacle("test", "jumping", key);
-HashMap<String, Integer> testMap;
-Room room = new Room("A test room", testRoomInv, obs, testMap, 1, false);
+HashMap<String, Room> testMap;
+Room room = new Room("A test room", testRoomInv, obs, testMap, false);
 
 	@Before
 	public void setUp() {

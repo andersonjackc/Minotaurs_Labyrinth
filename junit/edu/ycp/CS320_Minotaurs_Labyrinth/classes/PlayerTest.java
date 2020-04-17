@@ -14,31 +14,28 @@ public class PlayerTest {
 	
 	//Set up a test Player obj
 	
-	Room[] rooms1, rooms2;
-	GameMap testGameMap;
+	Player testPlayer;
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
 	Ability testMaxHPSpell = new Ability("test", "test ability", "test", "maxHP", 5, 5);
 	ArrayList<Ability> abilities = new ArrayList<Ability>();
-	HashMap<String, Integer> testRoomMap1;
-	HashMap<String, Integer> testRoomMap2;
-	HashMap<String, Integer> testRoomMap3;
-	HashMap<String, Integer> testRoomMap4;
+	HashMap<String, Room> testRoomMap1;
+	HashMap<String, Room> testRoomMap2;
+	HashMap<String, Room> testRoomMap3;
+	HashMap<String, Room> testRoomMap4;
 
 	Item key = new Item("test", 1, true, false, true, 10, null, "misc", null);
 	Obstacle obs = new Obstacle("test", "normal", key);
 	Obstacle obs1 = new Obstacle("test", "jumping", key);
 	Obstacle obs2 = new Obstacle("test", "crawling", key);
+	Room room, room2, room3, room4;
 	
-	Room room = new Room("A test room", testRoomInv, obs, testRoomMap1, 1, false);
-	Room room2 = new Room("A test room", testRoomInv, obs, testRoomMap2, 2, false );
-	Room room3 = new Room("A test room", testRoomInv, obs1, testRoomMap3, 3, false );
-	Room room4 = new Room("A test room", testRoomInv, obs2, testRoomMap4, 4, false );
+	
 	Inventory testInv = new Inventory(100, 100, Inv);
 	
 
 	
-	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "normal", testInv, room, false);
+	
 	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 100, "A test NPC", "test", null, room, false);
 	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", null, null);
 	Item rope = new Item("rope", 0, true, false, true, 50, "rope", "misc", null);
@@ -51,17 +48,21 @@ public class PlayerTest {
 
 	@Before
 	public void setUp() {
-		Map<Room, Room[]> testMap = new HashMap<Room, Room[]>();
-		testGameMap = new GameMap(testMap);
-		rooms1 = new Room[4];
-		rooms2 = new Room[4];
-		rooms1[0] = room2;
-		rooms1[2] = room3;
-		rooms1[3] = room4;
-		rooms2[1] = room;
-		testGameMap.addRoom(room, rooms1);
-		testGameMap.addRoom(room2, rooms2);
+		testRoomMap1 = new HashMap<String, Room>();
+		testRoomMap2 = new HashMap<String, Room>();
+		testRoomMap3 = new HashMap<String, Room>();
+		testRoomMap4 = new HashMap<String, Room>();
+		room = new Room("A test room", testRoomInv, obs, testRoomMap1,  false);
+		room2 = new Room("A test room", testRoomInv, obs, testRoomMap2,  false );
+		room3 = new Room("A test room", testRoomInv, obs1, testRoomMap3,  false );
+		room4 = new Room("A test room", testRoomInv, obs2, testRoomMap4, false );
+		testRoomMap1.put("north", room2);
+		testRoomMap1.put("east", room3);
+		testRoomMap1.put("west", room4);
+		testRoomMap2.put("south", room);
 		abilities.add(testMaxHPSpell);
+		testPlayer = new Player(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "normal", testInv, room, false);
+		
 		
 	}
 	
@@ -175,25 +176,25 @@ public class PlayerTest {
 	}
 	@Test
 	public void testMove() {
-		testPlayer.move("north", testGameMap);
+		testPlayer.move("north");
 		assertEquals(testPlayer.getCurrentRoom(), room2);
 	}
 	@Test
 	public void testCrawl() {
-		testPlayer.crawl("west", testGameMap);
+		testPlayer.crawl("west");
 		assertEquals(testPlayer.getCurrentRoom(), room4);
 	}
 	
 	@Test
 	public void testJump() {
-		testPlayer.jump("east", testGameMap);
+		testPlayer.jump("east");
 		assertEquals(testPlayer.getCurrentRoom(), room3);
 		
 	}
 	
 	@Test
 	public void testObstacle() {
-		testPlayer.move("east", testGameMap);
+		testPlayer.move("east");
 		assertNotEquals(testPlayer.getCurrentRoom(), room3);
 	}
 	@Test

@@ -141,9 +141,10 @@ public class Player extends Actor {
 	public String move(String direction) {
 		
 		HashMap<String, Room> roomMap = this.currentRoom.getRoomMap();
-		Room newRoom = roomMap.get(direction);
+		
 		
 		if(roomMap.containsKey(direction)){
+			Room newRoom = roomMap.get(direction);
 			if(newRoom.getObstacle().checkStatus(this) || newRoom.getObstacle().getStatus().contentEquals("normal")){
 				this.currentRoom = roomMap.get(direction);
 			}else if(!newRoom.getObstacle().checkStatus(this)) {
@@ -154,50 +155,6 @@ public class Player extends Actor {
 		}
 		
 		return "";
-		
-		/*if(direction.equals("north") || direction.equals("n")) {
-			if(adjRooms[0]!=null) {
-				if((adjRooms[0].getObstacle().checkStatus(this) || adjRooms[0].getObstacle().getStatus().equals("normal"))){
-					this.currentRoom = adjRooms[0];
-				}else if(!adjRooms[0].getObstacle().checkStatus(this)){
-					return "There is an obstacle in that direction!";
-				}
-			}else {
-				return "You can't move in that direction!";
-			}
-		}else if(direction.equals("south") || direction.equals("s")) {
-			if(adjRooms[1]!=null) {
-				if((adjRooms[1].getObstacle().checkStatus(this) || adjRooms[1].getObstacle().getStatus().equals("normal"))){
-					this.currentRoom = adjRooms[1];
-				}else if(!adjRooms[1].getObstacle().checkStatus(this)){
-					return "There is an obstacle in that direction!";
-				}
-			}else {
-				return "You can't move in that direction!";
-			}
-		}else if(direction.equals("east") || direction.equals("e")) {
-			if(adjRooms[2]!=null) {
-				if((adjRooms[2].getObstacle().checkStatus(this) || adjRooms[2].getObstacle().getStatus().equals("normal"))){
-					this.currentRoom = adjRooms[2];
-				}else if(!adjRooms[2].getObstacle().checkStatus(this)){
-					return "There is an obstacle in that direction!";
-				}
-			}else {
-				return "You can't move in that direction!";
-			}
-		}else if(direction.equals("west") || direction.equals("w")) {
-			if(adjRooms[3]!=null) {
-				if(adjRooms[3]!=null && (adjRooms[3].getObstacle().checkStatus(this) || adjRooms[3].getObstacle().getStatus().equals("normal"))){
-					this.currentRoom = adjRooms[3];
-				}else if(!adjRooms[3].getObstacle().checkStatus(this)){
-					return "There is an obstacle in that direction!";
-				}
-			}else {
-				return "You can't move in that direction!";
-			}
-		}*/
-			
-		
 		
 	}
 	public String checkMap() {
