@@ -146,7 +146,11 @@ public class Player extends Actor {
 		if(roomMap.containsKey(direction)){
 			Room newRoom = roomMap.get(direction);
 			if(newRoom.getObstacle().checkStatus(this) || newRoom.getObstacle().getStatus().contentEquals("normal")){
+				if(newRoom.getIsFound()==false) {
+					newRoom.setIsFound(true);
+				}
 				this.currentRoom = roomMap.get(direction);
+				
 			}else if(!newRoom.getObstacle().checkStatus(this)) {
 				return "There is an obstacle in that direction!";
 			}
