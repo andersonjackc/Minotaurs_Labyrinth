@@ -46,6 +46,7 @@ public abstract class Actor {
 		this.inventory = inventory;
 		this.currentRoom = currentRoom;
 		this.isDead = isDead;
+		this.name = name;
 	}
 	
 	public abstract String basicAttack(Actor target);
