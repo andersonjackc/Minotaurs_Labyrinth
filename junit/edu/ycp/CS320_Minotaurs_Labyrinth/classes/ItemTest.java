@@ -27,25 +27,25 @@ private Player testPlayer;
 		testAtkPotion = new Item("test", 1, true, false, true, 10, "testItem", "test", "atk");
 		testDefPotion = new Item("test", 1, true, false, true, 10, "testItem", "test", "def");
 
-		testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, null, false);
+		testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, null, false, "test");
 	}
 	
 	@Test
 	public void testDescriptionMethods() {
-		
-		assertEquals("test", testItem.getDescription());
+		testItem.setDescription("test1");
+		assertEquals("test1", testItem.getDescription());
 	}
 	
 	@Test
 	public void testEffectMethods() {
-		
-		assertEquals(1, testItem.getEffect());
+		testItem.setEffect(2);
+		assertEquals(2, testItem.getEffect());
 	}
 	
 	@Test
 	public void testFlammableMethods() {
-		
-		assertTrue(testItem.getFlammable());
+		testItem.setFlammable(false);
+		assertFalse(testItem.getFlammable());
 	}
 	
 	@Test
@@ -56,7 +56,8 @@ private Player testPlayer;
 	
 	@Test
 	public void testThrowableMethods() {
-		assertTrue(testItem.getThrowable());
+		testItem.setThrowable(false);
+		assertFalse(testItem.getThrowable());
 	}
 	
 	@Test
@@ -67,17 +68,14 @@ private Player testPlayer;
 	
 	@Test
 	public void testVarietyMethods() {
-		assertEquals("test", testItem.getVariety());
+		testItem.setVariety("test1");
+		assertEquals("test1", testItem.getVariety());
 	}
 	
 	@Test
 	public void testItemValue() {
-		assertEquals(testItem.getValue(), 10);
-	}
-	
-	@Test
-	public void testItemName() {
-		assertEquals(testItem.getName(), "testItem");
+		testItem.setValue(5);
+		assertEquals(testItem.getValue(), 5);
 	}
 	
 	@Test

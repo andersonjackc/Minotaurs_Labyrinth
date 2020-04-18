@@ -59,7 +59,7 @@ public class PlayerTest {
 		testRoomMap1.put("west", room4);
 		testRoomMap2.put("south", room);
 		abilities.add(testMaxHPSpell);
-		testPlayer = new Player(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "normal", testInv, room, false);
+		testPlayer = new Player(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "normal", testInv, room, false, "test");
 		
 		
 	}
@@ -249,6 +249,11 @@ public class PlayerTest {
 	public void testIsDeadMethods() {
 		testPlayer.setIsDead(true);
 		assertTrue(testPlayer.getIsDead());
+	}
+	@Test
+	public void testNameMethods() {
+		testPlayer.setName("test1");
+		assertEquals("test1", testPlayer.getName());
 	}
 	@Test
 	public void testCast() {

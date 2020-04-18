@@ -29,39 +29,98 @@ public class Gear extends Item{
 		return HP;
 	}
 	
-	public String getVariety() {
-		return variety;
-	}
-	
 	public Boolean getEquipped() {
 		return equipped;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
+	public String getVariety() {
+		return variety;
+	}
+	
+	public String getAffectedStat() {
+		return affectedstat;
+	}
+	
+	public int getValue() {
+		return value;
+	}
+	
+	public Boolean getThrowable() {
+		return throwable;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public int getEffect() {
+		return effect;
+	}
+
+	public Boolean getFlammable() {
+		return flammable;
+	}
+
+	public Boolean getLit() {
+		return lit;
+	}
+		
 	//setters
 	public void setAtk(int atk) {
 		this.atk = atk;
 	}
 	
 	public void setDef(int def) {
-		this.def = def;
+		this.def =  def;
 	}
 	
 	public void setHP(int HP) {
 		this.HP = HP;
 	}
 	
-	public void setVariety(String variety) {
-		this.variety = variety;
-	}
 	public void setEquipped(Boolean equipped) {
 		this.equipped = equipped;
 	}
 	
+	public void setAffectedStat(String affectedstat) {
+		this.affectedstat = affectedstat;
+	}
+		
+	public void setName(String name) {
+		this.name=name;
+	}
+		
+	public void setValue(int value) {
+		this.value=value;
+	}
 
+	public void setLit(Boolean lit) {
+		if(getFlammable()) {
+			this.lit = lit;
+		}
+	}
+	
+	public void setVariety(String variety) {
+		this.variety = variety;
+	}
+	
+	public void setThrowable(Boolean throwable) {
+		this.throwable = throwable;
+	}
 
-
-
-
-
-
+	public void setDescription(String description) {
+		this.description = description;
+	}
+		
+	public void setEffect(int effect) {
+		this.effect = effect;
+	}
+		
+	public void setFlammable(Boolean flammable) {
+		this.flammable = flammable;
+	}
 }

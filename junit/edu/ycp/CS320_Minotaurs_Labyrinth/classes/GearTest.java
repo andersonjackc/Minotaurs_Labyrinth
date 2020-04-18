@@ -13,25 +13,26 @@ public class GearTest {
 	}
 	@Test
 	public void testAtkMethods() {
-		assertEquals(5, testGear.getAtk());
+		testGear.setAtk(6);
+		assertEquals(6, testGear.getAtk());
 	}
 	
 	@Test
 	public void testDefMethods() {
-		
-		assertEquals(5, testGear.getDef());
+		testGear.setDef(6);
+		assertEquals(6, testGear.getDef());
 	}
 	
 	@Test
 	public void testHPMethods() {
-		
-		assertEquals(5, testGear.getHP());
+		testGear.setHP(6);
+		assertEquals(6, testGear.getHP());
 	}
 	
 	@Test
 	public void testFlammableMethods() {
-		
-		assertFalse(testGear.getFlammable());
+		testGear.setFlammable(true);
+		assertTrue(testGear.getFlammable());
 	}
 	
 	@Test
@@ -42,8 +43,8 @@ public class GearTest {
 	
 	@Test
 	public void testVarietyMethods() {
-		
-		assertEquals("chestplate", testGear.getVariety());
+		testGear.setVariety("helmet");
+		assertEquals("helmet", testGear.getVariety());
 	}
 	
 	
