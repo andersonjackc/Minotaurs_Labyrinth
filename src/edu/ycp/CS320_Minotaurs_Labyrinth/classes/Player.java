@@ -218,12 +218,17 @@ public class Player extends Actor {
 		return Message;
 	}
 
-	public void basicAttack(Actor target) {
+	public String basicAttack(Actor target) {
 		target.setHP((target.getHP() - getAtk())); 
 		
-		if(target.getHP()<=0) {
+		if(target.getHP()<=0 || target.getIsDead()) {
 			target.setIsDead(true);
+			
+			return target.getName() + " is dead.";
+			
 		}
+		
+		return "You did " + this.getAtk() + " to " + target.getName() + ", it now has " + target.getHP() + " HP.";
 	}
 
 	public void cast(Actor target, Ability spell) { 
@@ -286,6 +291,10 @@ public class Player extends Actor {
 	
 	public Boolean getIsDead() {
 		return isDead;
+	}
+	
+	public String getName() {
+		return "Player";
 	}
 	
 		

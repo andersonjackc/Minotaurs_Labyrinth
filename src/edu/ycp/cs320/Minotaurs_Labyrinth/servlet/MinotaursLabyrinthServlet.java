@@ -72,9 +72,11 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			}
 		}
 		String inputVal = getString(req, "textbox");
+		String[] inputs;
 		Message<String, Integer> input = new Message<String, Integer>(inputVal, 1);
 		model.getOutputStrings().add(input);
 		inputVal = inputVal.toLowerCase();
+		inputs = inputVal.split(" ");
 		//grab the hidden persistence values
 		Integer location = getInteger(req, "location");
 		Integer playerHP = getInteger(req, "playerHP");
@@ -106,13 +108,20 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		//Checks that textbox isnt empty, if it isnt empty check for our commands
 		//if the player enters an unrecognized command, we set the error message
-		if (req.getParameter("textbox") != null && inputVal.equals("attack")){
-			if(model.getPlayer().getCurrentRoom() == model.getRoomByRoomId(2)) {
-				model.playerAtk();
-				model.enemyAtk();
-			}else if (model.getPlayer().getCurrentRoom() == model.getRoomByRoomId(3)) {
-				model.playerAtkVillager();
-				model.enemyAtkVillager();
+		if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
+			if(inputs.length>1 && model.getTargets().get(inputs[1])!=null && model.getPlayer().getCurrentRoom() == model.getTargets().get(inputs[1]).getCurrentRoom() && !inputs[1].equals("player")) {
+				String atkMsg = model.getPlayer().basicAttack(model.getTargets().get(inputs[1]));
+				String enemyAtkMsg = model.getTargets().get(inputs[1]).basicAttack(model.getPlayer());
+				Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 0);
+				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 0);
+				model.getOutputStrings().add(msg);
+				model.getOutputStrings().add(msg2);
+			}else if(inputs.length<=1){
+				Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
+				model.getOutputStrings().add(msg);
+			}else{
+				Message<String, Integer> msg = new Message<String, Integer>("You can't attack " + inputs[1] + "!", 0);
+				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("talk") && model.getPlayer().getCurrentRoom() == model.getRoomByRoomId(3)) {
 			if(!(model.getVillager().getIsDead())) {

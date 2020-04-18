@@ -14,12 +14,16 @@ public class Enemy extends NPC {
 		throw new Exception("TODO ");
 	}
 
-	public void basicAttack(Actor target) {
+	public String basicAttack(Actor target) {
 		target.setHP((target.getHP() - getAtk())); 
 		
-		if(target.getHP()<=0) {
+		if(target.getHP()<=0 || target.getIsDead()) {
 			target.setIsDead(true);
+			
+			return "You are dead.";
 		}
+		
+		return this.name + " did " + this.getAtk() + " to " + target.getName() + ", you now have " + target.getHP() + " HP.";
 	}
 	
 	public void cast(Actor target, Ability spell) {
