@@ -12,7 +12,6 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
-import edu.ycp.cs320.booksdb.model.BookAuthor;
 import edu.ycp.cs320.booksdb.persist.ReadCSV;
 
 public class InitialData {
@@ -336,8 +335,10 @@ public class InitialData {
 				}else {
 					enemy.setIsDead(true);
 				}
+				
+				enemyList.add(enemy);
 			
-				}
+			}
 				
 			
 			System.out.println("enemyList loaded from CSV file");			
