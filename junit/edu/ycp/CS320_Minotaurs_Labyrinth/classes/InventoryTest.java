@@ -11,6 +11,7 @@ public class InventoryTest {
 
 	Inventory testInventory;
 	ArrayList<Item> inventory = new ArrayList<Item>();
+	ArrayList<Item> inventory2 = new ArrayList<Item>();
 	@Before
 	public void setUp() {
 		
@@ -19,21 +20,21 @@ public class InventoryTest {
 	}
 	@Test
 	public void testMaxStorageMethods() {
-		
-		assertEquals(5, testInventory.getMaxStorage());
+		testInventory.setMaxStorage(6);
+		assertEquals(6, testInventory.getMaxStorage());
 	}
 	
 	@Test
 	public void testMaxQuantMethods() {
-		
-		assertEquals(5, testInventory.getMaxQuant());
+		testInventory.setMaxQuant(6);
+		assertEquals(6, testInventory.getMaxQuant());
 	}
 	
 	@Test
 	public void testInventoryMethods() {
 		
-		
-		assertEquals(inventory, testInventory.getInventory());
+		testInventory.setInventory(inventory2);
+		assertEquals(inventory2, testInventory.getInventory());
 	}
 	
 	@Test

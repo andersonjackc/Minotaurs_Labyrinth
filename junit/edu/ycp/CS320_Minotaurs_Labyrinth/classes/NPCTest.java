@@ -12,8 +12,10 @@ public class NPCTest {
 private NPC testNPC;
 Ability testMaxHPSpell = new Ability("test", "test ability", "test", "maxHP", 5, 5);
 ArrayList<Ability> abilities = new ArrayList<Ability>();
+ArrayList<Ability> abilities2 = new ArrayList<Ability>();
 ArrayList<Item> items = new ArrayList<Item>();
 Inventory i = new Inventory(0, 0, items);
+Inventory inv = new Inventory(0, 0, items);
 ArrayList<Item> Inv = new ArrayList<Item>();
 Inventory testRoomInv = new Inventory(100, 100, Inv);
 Item key = new Item("test", 1, true, false, false, 10, null, null, null);
@@ -29,8 +31,8 @@ Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 	}
 	@Test
 	public void testMaxHPMethods() {
-		
-		assertEquals(5, testNPC.getMaxHP());
+		testNPC.setMaxHP(6);
+		assertEquals(6, testNPC.getMaxHP());
 		
 	}
 	@Test
@@ -40,8 +42,8 @@ Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 	}
 	@Test
 	public void testMaxResourceMethods() {
-		
-		assertEquals(5, testNPC.getMaxResource());
+		testNPC.setMaxResource(6);
+		assertEquals(6, testNPC.getMaxResource());
 		
 	}
 	@Test
@@ -71,17 +73,18 @@ Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 	}
 	@Test
 	public void testAbilitiesMethods() {
-		assertEquals(abilities, testNPC.getAbilities());
+		testNPC.setAbilities(abilities2);
+		assertEquals(abilities2, testNPC.getAbilities());
 	}
 	@Test
 	public void testDialogueMethods() {
-		
-		assertEquals("test", testNPC.getDialogue());
+		testNPC.setDialogue("test1");
+		assertEquals("test1", testNPC.getDialogue());
 	}
 	@Test
 	public void testInventoryMethods() {
-		
-		assertEquals(i , testNPC.getInventory());
+		testNPC.setInventory(inv);
+		assertEquals(inv , testNPC.getInventory());
 	}
 	@Test
 	public void testAttitudeMethods() {
@@ -90,12 +93,13 @@ Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 	}
 	@Test
 	public void testDescriptionMethods() {
-		
-		assertEquals("test", testNPC.getDescription());
+		testNPC.setDescription("test1");
+		assertEquals("test1", testNPC.getDescription());
 	}
 	@Test
 	public void testNameMethods() {
-		assertEquals("test", testNPC.getName());
+		testNPC.setName("test1");
+		assertEquals("test1", testNPC.getName());
 	}
 	@Test
 	public void testBasicAttack() {

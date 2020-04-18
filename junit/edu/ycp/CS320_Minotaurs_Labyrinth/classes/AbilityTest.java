@@ -20,32 +20,38 @@ public class AbilityTest {
 		testMaxResSpell = new Ability("test", "test ability", "test", "maxResource", 5, 5);
 		testAtkSpell = new Ability("test", "test ability", "test", "atk", 5, 5);
 		testDefSpell = new Ability("test", "test ability", "test", "def", 5, 5);
-		testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, null, false);
+		testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, null, false, "test");
 	}
 	
 	@Test
 	public void testNameMethods() {
-		assertEquals("test", testAbility.getName());
+		testAbility.setName("test1");
+		assertEquals("test1", testAbility.getName());
 	}
 	@Test
 	public void testDescriptionMethods() {
-		assertEquals("test ability", testAbility.getDescription());
+		testAbility.setDescription("test ability1");
+		assertEquals("test ability1", testAbility.getDescription());
 		}
 	@Test
 	public void testVarietyMethods() {
-		assertEquals("test", testAbility.getVariety());
+		testAbility.setVariety("test1");
+		assertEquals("test1", testAbility.getVariety());
 	}
 	@Test
 	public void testAffectedStatMethods() {
-		assertEquals("HP", testAbility.getAffectedStat());
+		testAbility.setAffectedStat("maxHP");
+		assertEquals("maxHP", testAbility.getAffectedStat());
 	}
 	@Test
 	public void testEffectMethods() {
-		assertEquals(5, testAbility.getEffect());
+		testAbility.setEffect(6);
+		assertEquals(6, testAbility.getEffect());
 	}
 	@Test
 	public void testCostMethods() {
-		assertEquals(5, testAbility.getCost());
+		testAbility.setCost(6);
+		assertEquals(6, testAbility.getCost());
 	}
 	@Test
 	public void testAddEffect() {

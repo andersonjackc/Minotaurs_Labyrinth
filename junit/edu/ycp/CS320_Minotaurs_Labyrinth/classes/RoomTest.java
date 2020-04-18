@@ -9,27 +9,32 @@ import org.junit.Test;
 
 public class RoomTest {
 	Obstacle obs = new Obstacle("test", "normal", null);
+	Obstacle obs2 = new Obstacle("test", "normal", null);
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
+	Inventory testInv = new Inventory(100, 100, Inv);
 	HashMap<String, Room> testMap;
 	Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 
 	
 	@Test
 	public void testDescriptionMethods() {
-		assertEquals("A test room", room.getDescription());
+		room.setDescription("test");
+		assertEquals("test", room.getDescription());
 		
 	}
 	
 	@Test
 	public void testInventoryMethods() {
-		assertEquals(testRoomInv, room.getInventory());
+		room.setInventory(testInv);
+		assertEquals(testInv, room.getInventory());
 		
 	}
 	
 	@Test
 	public void testObstacleMethods() {
-		assertEquals(obs, room.getObstacle());
+		room.setObstacle(obs2);
+		assertEquals(obs2, room.getObstacle());
 		
 	}
 	@Test
@@ -50,7 +55,8 @@ public class RoomTest {
 	
 	@Test
 	public void testRoomIdMethods() {
-		assertEquals(1, room.getRoomId());
+		room.setRoomId(2);
+		assertEquals(2, room.getRoomId());
 	}
 
 }
