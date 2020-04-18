@@ -9,7 +9,7 @@
 <head>
 	<title>Minotaur's Labyrinth</title>
 	<style>
-		<%@ include file="minotaursStyles.css"%>
+		<%@include file="minotaursStyles.css"%>
 	</style>
 	<script>
 		<%@include file = "minotaursFunctions.js" %>

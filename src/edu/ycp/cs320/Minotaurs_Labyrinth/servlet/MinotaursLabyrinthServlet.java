@@ -100,29 +100,21 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		}
 		
 		//Use persisted hidden player position value to keep them there upon post
-		if(location==0) {
-			model.getPlayer().setCurrentRoom(model.getNorthRoom());
-		}else if(location==1) {
-			model.getPlayer().setCurrentRoom(model.getSouthRoom());
-		}else if(location==2) {
-			model.getPlayer().setCurrentRoom(model.getEastRoom());
-		}else if(location==3) {
-			model.getPlayer().setCurrentRoom(model.getWestRoom());
-		}else if(location==4) {
-			model.getPlayer().setCurrentRoom(model.getCenterRoom());
-		}
+		//System.out.println(location);
+		//System.out.println(model.getRoomByRoomId(location).getDescription());
+		model.getPlayer().setCurrentRoom(model.getRoomByRoomId(location));
 		
 		//Checks that textbox isnt empty, if it isnt empty check for our commands
 		//if the player enters an unrecognized command, we set the error message
 		if (req.getParameter("textbox") != null && inputVal.equals("attack")){
-			if(model.getPlayer().getCurrentRoom() == model.getNorthRoom()) {
-			model.playerAtk();
-			model.enemyAtk();
-			}else if (model.getPlayer().getCurrentRoom() == model.getSouthRoom()) {
+			if(model.getPlayer().getCurrentRoom() == model.getRoomByRoomId(2)) {
+				model.playerAtk();
+				model.enemyAtk();
+			}else if (model.getPlayer().getCurrentRoom() == model.getRoomByRoomId(3)) {
 				model.playerAtkVillager();
 				model.enemyAtkVillager();
 			}
-		}else if(req.getParameter("textbox") != null && inputVal.equals("talk") && model.getPlayer().getCurrentRoom() == model.getSouthRoom()) {
+		}else if(req.getParameter("textbox") != null && inputVal.equals("talk") && model.getPlayer().getCurrentRoom() == model.getRoomByRoomId(3)) {
 			if(!(model.getVillager().getIsDead())) {
 				model.initResponses();
 			}else {
@@ -159,17 +151,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		}
 		
 		//Used to persist player location
-		if(model.getPlayer().getCurrentRoom() == model.getNorthRoom()) {
-			model.setRoomPosition(0);
-		}else if(model.getPlayer().getCurrentRoom() == model.getSouthRoom()) {
-			model.setRoomPosition(1);
-		}else if(model.getPlayer().getCurrentRoom() == model.getEastRoom()) {
-			model.setRoomPosition(2);
-		}else if(model.getPlayer().getCurrentRoom() == model.getWestRoom()) {
-			model.setRoomPosition(3);
-		}else if(model.getPlayer().getCurrentRoom() == model.getCenterRoom()) {
-			model.setRoomPosition(4);
-		}
+		//System.out.println(model.getPlayer().getCurrentRoom().getRoomId());
+		model.setRoomPosition(model.getPlayer().getCurrentRoom().getRoomId());
 		
 		//sets our outputstrings value, which is used to persist our past decisions
 		req.setAttribute("outputstrings", model.getOutputStrings());
