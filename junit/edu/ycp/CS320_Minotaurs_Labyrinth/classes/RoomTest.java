@@ -12,7 +12,7 @@ public class RoomTest {
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
 	HashMap<String, Room> testMap;
-	Room room = new Room("A test room", testRoomInv, obs, testMap, false);
+	Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 
 	
 	@Test
@@ -46,6 +46,11 @@ public class RoomTest {
 		room.setIsFound(true);
 		assertTrue(room.getIsFound());
 		
+	}
+	
+	@Test
+	public void testRoomIdMethods() {
+		assertEquals(1, room.getRoomId());
 	}
 
 }

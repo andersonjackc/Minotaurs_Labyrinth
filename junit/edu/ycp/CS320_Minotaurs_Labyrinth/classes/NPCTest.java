@@ -19,7 +19,7 @@ Inventory testRoomInv = new Inventory(100, 100, Inv);
 Item key = new Item("test", 1, true, false, false, 10, null, null, null);
 Obstacle obs = new Obstacle("test", "jumping", key);
 HashMap<String, Room> testMap;
-Room room = new Room("A test room", testRoomInv, obs, testMap, false);
+Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 
 	@Before
 	public void setUp() {
