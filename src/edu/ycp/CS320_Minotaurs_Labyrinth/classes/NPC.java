@@ -167,4 +167,16 @@ public class NPC extends Actor {
 		this.inventory = inventory;
 		
 	}
+	
+	public void setDialogue(String dialogue) {
+		this.dialogue = dialogue;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 }
