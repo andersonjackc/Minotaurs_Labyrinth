@@ -314,7 +314,7 @@ public class Minotaur {
 	//Creates the actors
 	public void initPlayer() {
 		targets = new HashMap<String, Actor>();
-		player = new Player(1000, 20, 0, 0, 2, 0, 0, 0, null, "normal", inv, room1, false);
+		player = new Player(1000, 20, 0, 0, 2, 0, 0, 0, null, "normal", inv, room1, false, "player");
 		roomPosition = 1;
 		targets.put("player", player);
 		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, null, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, room2, false);
