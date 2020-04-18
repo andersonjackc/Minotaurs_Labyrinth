@@ -1,0 +1,44 @@
+
+	body {
+		background-image: url('https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+	div.zeus{
+		position: absolute;
+		right: 0%;
+	}
+	div.hera{
+		position: absolute;
+		left: 0%;
+	}
+	div.textbox{
+		margin: 0;
+		position: absolute;
+		top: 90%;
+		left: 50%;
+		margin-right: -50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+		border-style: solid;
+		border-color: brown;
+		background-color: brown;
+	}
+	div.gameText{
+		margin: 0;
+		position: absolute;
+		top: 45%;
+		left: 50%;
+		margin-right: -50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+		overflow:auto;
+		height: 600px;
+		bottom: 0;
+		font-size: 19px;
+	}
+	tr.userCommands{
+		color: white;
+
+	}
+	
