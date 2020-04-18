@@ -7,7 +7,6 @@ public class NPC extends Actor {
 	protected String dialogue;
 	protected int attitude;
 	protected String description;
-	protected String name;
 	
 	//methods
 	public NPC(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, String dialogue, int attitude, String description, String name, Inventory inventory, Room currentRoom, boolean isDead) {
