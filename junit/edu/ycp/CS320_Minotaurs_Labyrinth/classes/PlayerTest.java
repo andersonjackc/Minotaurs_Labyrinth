@@ -50,10 +50,10 @@ public class PlayerTest {
 		testRoomMap2 = new HashMap<String, Room>();
 		testRoomMap3 = new HashMap<String, Room>();
 		testRoomMap4 = new HashMap<String, Room>();
-		room = new Room("A test room", testRoomInv, obs, testRoomMap1,  false);
-		room2 = new Room("A test room", testRoomInv, obs, testRoomMap2,  false );
-		room3 = new Room("A test room", testRoomInv, obs1, testRoomMap3,  false );
-		room4 = new Room("A test room", testRoomInv, obs2, testRoomMap4, false );
+		room = new Room("A test room", testRoomInv, obs, testRoomMap1,  false, 1);
+		room2 = new Room("A test room", testRoomInv, obs, testRoomMap2,  false, 1);
+		room3 = new Room("A test room", testRoomInv, obs1, testRoomMap3,  false, 1);
+		room4 = new Room("A test room", testRoomInv, obs2, testRoomMap4, false, 1);
 		testRoomMap1.put("north", room2);
 		testRoomMap1.put("east", room3);
 		testRoomMap1.put("west", room4);

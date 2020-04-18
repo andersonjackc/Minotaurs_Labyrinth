@@ -15,7 +15,7 @@ public class ObstacleTest {
 	Inventory testInv = new Inventory(100, 100, Inv);
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
 	HashMap<String, Room> testMap;
-	Room room = new Room("A test room", testRoomInv, obs, testMap,  false);
+	Room room = new Room("A test room", testRoomInv, obs, testMap,  false, 1);
 	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, testInv, room, false);
 	
 	@Test
