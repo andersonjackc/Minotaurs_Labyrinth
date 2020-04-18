@@ -24,13 +24,15 @@ public abstract class Actor {
 	
 	protected String status;
 	
+	protected String name;
+	
 	protected Inventory inventory;
 	
 	protected Room currentRoom;
 	
 	protected Boolean isDead;
 	
-	public Actor(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, Inventory inventory, Room currentRoom, boolean isDead){
+	public Actor(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, Inventory inventory, Room currentRoom, boolean isDead, String name){
 		this.maxHP = maxHP;
 		this.HP = HP;
 		this.maxResource = maxResource;

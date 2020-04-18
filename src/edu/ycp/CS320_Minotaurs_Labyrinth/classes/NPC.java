@@ -12,12 +12,11 @@ public class NPC extends Actor {
 	//methods
 	public NPC(int maxHP, int HP, int maxResource, int resource, int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, String dialogue, int attitude, String description, String name, Inventory inventory, Room currentRoom, boolean isDead) {
 		
-		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom, isDead);
+		super(maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom, isDead, name);
 		
 		this.dialogue = dialogue;
 		this.attitude = attitude;
 		this.description = description;
-		this.name = name;
 	}
 	
 	public String basicAttack(Actor target) {
