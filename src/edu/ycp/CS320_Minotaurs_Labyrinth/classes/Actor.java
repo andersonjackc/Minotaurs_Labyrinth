@@ -46,7 +46,7 @@ public abstract class Actor {
 		this.isDead = isDead;
 	}
 	
-	public abstract void basicAttack(Actor target);
+	public abstract String basicAttack(Actor target);
 	
 	public abstract void cast(Actor target, Ability spell);
 	
@@ -76,6 +76,8 @@ public abstract class Actor {
 	public abstract Room getCurrentRoom();
 
 	public abstract Boolean getIsDead();
+	
+	public abstract String getName();
 	
 	//setters
 	public abstract void setHP(int HP);

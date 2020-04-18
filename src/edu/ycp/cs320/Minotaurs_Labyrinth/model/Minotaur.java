@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Actor;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
@@ -15,7 +16,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 
 public class Minotaur {
 	
-	
+	HashMap<String, Actor> targets;
 	Room[] roomArray;
 	Room room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15, room16, room17, room18, room19, room20, room21, room22, room23, room24, room25, room26, room27, room28, room29, room30, room31, room32, room33, room34, room35, room36, room37, room38, room39, room40, room41, room42;
 	HashMap<String, Room> roomMap1, roomMap2, roomMap3, roomMap4, roomMap5, roomMap6, roomMap7, roomMap8, roomMap9, roomMap10, roomMap11, roomMap12, roomMap13, roomMap14, roomMap15, roomMap16, roomMap17, roomMap18, roomMap19, roomMap20, roomMap21, roomMap22, roomMap23, roomMap24, roomMap25, roomMap26, roomMap27, roomMap28, roomMap29, roomMap30, roomMap31, roomMap32, roomMap33, roomMap34, roomMap35, roomMap36, roomMap37, roomMap38, roomMap39, roomMap40, roomMap41, roomMap42;
@@ -312,15 +313,17 @@ public class Minotaur {
 	
 	//Creates the actors
 	public void initPlayer() {
+		targets = new HashMap<String, Actor>();
 		player = new Player(1000, 20, 0, 0, 2, 0, 0, 0, null, "normal", inv, room1, false);
 		roomPosition = 1;
-		
+		targets.put("player", player);
 		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, null, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, room2, false);
 		enemyDeadVal = 0;
-		
+		targets.put("ogre", ogre);
 		ArrayList<Ability> VillagerAbilities = new ArrayList<Ability>();
 		villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 100, "An old man with tattered clothing", "Villager", inv, room3, false);
 		villagerDeadVal = 0;
+		targets.put("villager", villager);
 	}
 	
 	public Player getPlayer() {
@@ -388,47 +391,7 @@ public class Minotaur {
 		}
 	}
 	
-	//Player attacking Ogre (NOT GENERIC)
-	public void playerAtk() {
-		if(!ogre.getIsDead()) {
-			player.basicAttack(ogre);
-			attackMessage = "You did " + player.getAtk() + " to " + ogre.getName() + ", it now has " + ogre.getHP() + " HP";
-			Message<String, Integer> atkMsg = new Message<String, Integer>(attackMessage, 0);
-			outputstrings.add(atkMsg);
-		}
-		if(ogre.getIsDead()) {
-			message = "Ogre is dead!";
-			Message<String, Integer> deadMsg = new Message<String, Integer>(message, 0);
-			outputstrings.add(deadMsg);
-			enemyDeadVal=1;
-		}
-	}
-	
-	//Villager attacking Player (NOT GENERIC)
-	public void enemyAtkVillager() {
-		if(!villager.getIsDead()) {
-		villager.basicAttack(player);
-		defendMessage = "Villager did " + villager.getAtk() + " You now have " + player.getHP() +" HP";
-		Message<String, Integer> defendMsg = new Message<String, Integer>(defendMessage, 0);
-		outputstrings.add(defendMsg);
-		}
-	}
-	
-	//Player attacking Villager (NOT GENERIC)
-	public void playerAtkVillager() {
-		if(!villager.getIsDead()) {
-			player.basicAttack(villager);
-			attackMessage = "You did " + player.getAtk() + " to " + villager.getName() + ", it now has " + villager.getHP() + " HP";
-			Message<String, Integer> atkMsg = new Message<String, Integer>(attackMessage, 0);
-			outputstrings.add(atkMsg);
-		}
-		if(villager.getIsDead()) {
-			message = "Villager is dead";
-			Message<String, Integer> deadMsg = new Message<String, Integer>(message, 0);
-			outputstrings.add(deadMsg);
-			villagerDeadVal = 1;
-		}
-	}
+
 	public String getAttackmessage() {
 		return attackMessage;
 	}
@@ -504,6 +467,10 @@ public class Minotaur {
 	public Room getRoomByRoomId(int roomID) {
 		//System.out.println(roomID);
 		return roomArray[roomID];
+	}
+	
+	public HashMap<String, Actor> getTargets(){
+		return targets;
 	}
 	
 }
