@@ -80,13 +80,13 @@ public abstract class Actor {
 	public abstract String getName();
 	
 	//setters
-	public abstract void setHP(int HP);
-	
 	public abstract void setMaxHP(int maxHP);
+
+	public abstract void setHP(int HP); 
+	
+	public abstract void setMaxResource(int maxResource); 
 	
 	public abstract void setResource(int resource);
-	
-	public abstract void setMaxResource(int maxResource);
 
 	public abstract void setAtk(int atk);
 	
@@ -96,7 +96,12 @@ public abstract class Actor {
 
 	public abstract void setXP(int XP);
 	
-	public abstract void setCurrentRoom(Room currentRoom);
+	public abstract void setAbilities(ArrayList<Ability> abilities);
 	
-	public abstract void setIsDead(Boolean isDead);
-}
+	public abstract void setStatus(String status);
+	
+	public abstract void setInventory(Inventory inventory);
+
+	public abstract void setCurrentRoom(Room currentRoom);
+
+	public abstract void setIsDead(Boolean isDead);}

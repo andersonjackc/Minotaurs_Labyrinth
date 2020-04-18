@@ -43,5 +43,17 @@ public class Inventory {
 		return inventory;
 	}
 	
+	//setters
+	public void setMaxStorage(int maxStorage) {
+		this.maxStorage = maxStorage;
+	}
+		
+	public void setMaxQuant(int maxQuant) {
+		this.maxQuant = maxQuant;
+	}
+		
+	public void setInventory(ArrayList<Item> inventory) {
+		this.inventory = inventory;
+	}
 	
 }

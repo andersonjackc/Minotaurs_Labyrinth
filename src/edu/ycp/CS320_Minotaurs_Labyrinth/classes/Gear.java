@@ -38,6 +38,21 @@ public class Gear extends Item{
 	}
 	
 	//setters
+	public void setAtk(int atk) {
+		this.atk = atk;
+	}
+	
+	public void setDef(int def) {
+		this.def = def;
+	}
+	
+	public void setHP(int HP) {
+		this.HP = HP;
+	}
+	
+	public void setVariety(String variety) {
+		this.variety = variety;
+	}
 	public void setEquipped(Boolean equipped) {
 		this.equipped = equipped;
 	}

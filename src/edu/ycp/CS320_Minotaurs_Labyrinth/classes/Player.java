@@ -343,6 +343,18 @@ public class Player extends Actor {
 		this.isDead = isDead;
 	}
 
+	@Override
+	public void setAbilities(ArrayList<Ability> abilities) {
+		this.abilities = abilities;
+		
+	}
+
+	@Override
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+		
+	}
+
 
 	
 }

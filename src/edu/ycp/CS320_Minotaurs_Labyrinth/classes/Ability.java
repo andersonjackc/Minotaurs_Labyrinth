@@ -71,4 +71,28 @@ public class Ability {
 		return cost;
 	}
 	
+	//setters
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public void setVariety(String variety) {
+		this.variety = variety;
+	}
+	
+	public void setAffectedStat(String affectedstat) {
+		this.affectedstat = affectedstat;
+	}
+	
+	public void setEffect(int effect) {
+		this.effect = effect;
+	}
+	
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
 }

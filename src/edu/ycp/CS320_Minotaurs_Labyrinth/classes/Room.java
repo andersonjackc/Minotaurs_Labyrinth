@@ -63,4 +63,12 @@ public class Room {
 		this.roomID = roomID;
 	}
 	
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+	
+	public void setObstacle(Obstacle obstacle) {
+		this.obstacle = obstacle;
+	}
+	
 	}
