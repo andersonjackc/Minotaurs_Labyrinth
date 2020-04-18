@@ -105,5 +105,24 @@ public class Item {
 			this.lit = lit;
 		}
 	}
+	
+	public void setVariety(String variety) {
+		this.variety = variety;
+	}
+	
+	public void setThrowable(Boolean throwable) {
+		this.throwable = throwable;
+	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public void setEffect(int effect) {
+		this.effect = effect;
+	}
+	
+	public void setFlammable(Boolean flammable) {
+		this.flammable = flammable;
+	}
 }

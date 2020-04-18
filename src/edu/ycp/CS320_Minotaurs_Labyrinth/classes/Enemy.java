@@ -123,4 +123,22 @@ public class Enemy extends NPC {
 		this.isDead = isDead;
 	}
 	
+	public void setAttitude(int attitude) {
+		this.attitude = attitude;
+	}
+
+	public void setAbilities(ArrayList<Ability> abilities) {
+		this.abilities = abilities;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+		
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+		
+	}
+	
 }
