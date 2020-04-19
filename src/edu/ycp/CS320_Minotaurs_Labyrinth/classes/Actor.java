@@ -51,7 +51,7 @@ public abstract class Actor {
 	
 	public abstract String basicAttack(Actor target);
 	
-	public abstract void cast(Actor target, Ability spell);
+	public abstract String cast(Actor target, Ability spell);
 	
 	//getters
 	public abstract int getMaxHP();
