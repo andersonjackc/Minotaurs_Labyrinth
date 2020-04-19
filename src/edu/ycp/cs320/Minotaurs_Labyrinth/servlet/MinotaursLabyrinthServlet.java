@@ -120,7 +120,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
 				model.getOutputStrings().add(msg);
 			}else{
-				Message<String, Integer> msg = new Message<String, Integer>("You can't attack " + inputs[1] + "!", 0);
+				Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
 				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("talk") && model.getPlayer().getCurrentRoom() == model.getRoomByRoomId(3)) {
