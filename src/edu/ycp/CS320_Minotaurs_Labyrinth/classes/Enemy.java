@@ -15,6 +15,7 @@ public class Enemy extends NPC {
 	}
 
 	public String basicAttack(Actor target) {
+		if(!this.isDead) {
 		target.setHP((target.getHP() - getAtk())); 
 		
 		if(target.getHP()<=0 || target.getIsDead()) {
@@ -24,13 +25,24 @@ public class Enemy extends NPC {
 		}
 		
 		return this.name + " did " + this.getAtk() + " to " + target.getName() + ", you now have " + target.getHP() + " HP.";
+		}
+		return "";
 	}
 	
-	public void cast(Actor target, Ability spell) {
+	public String cast(Actor target, Ability spell) {
+		if(!this.isDead) {
 		if(abilities.contains(spell) && spell.getCost() <= resource) {
 			spell.addEffect(target);
 			setResource(getResource()-spell.getCost());
+			if(target.getHP()<=0) {
+				target.setIsDead(true);
+				
+				return "You are dead.";
 			}
+			return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getHP() + " " + spell.getAffectedStat();
+		}
+		}
+		return "";
 	}
 	
 	//getters
