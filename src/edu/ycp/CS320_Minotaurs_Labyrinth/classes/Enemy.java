@@ -1,6 +1,7 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Enemy extends NPC {
 	
@@ -10,8 +11,19 @@ public class Enemy extends NPC {
 		
 	}
 
-	public void rollForAction() throws Exception {
-		throw new Exception("TODO ");
+	public String rollForAction(Actor target) {
+		
+		Random rand = new Random();
+		int action = rand.nextInt(2);
+		if(action == 0) {
+			return basicAttack(target);
+		}
+		else if(action == 1){
+			int spellchoice = rand.nextInt(this.abilities.size());
+			return cast(target, this.abilities.get(spellchoice));
+		}
+		return "";
+		
 	}
 
 	public String basicAttack(Actor target) {

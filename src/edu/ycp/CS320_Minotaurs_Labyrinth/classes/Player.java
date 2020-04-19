@@ -244,7 +244,7 @@ public class Player extends Actor {
 			return target.getName() + " is dead.";
 			
 		}
-		return "You cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getHP() + " " + spell.getAffectedStat();
+		return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getHP() + " " + spell.getAffectedStat();
 		}
 		if(spell.getCost() > this.resource) {
 		return "You don't have enough resource to cast " + spell.getName();

@@ -1,6 +1,7 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class NPC extends Actor {
 	//attributes
@@ -16,6 +17,21 @@ public class NPC extends Actor {
 		this.dialogue = dialogue;
 		this.attitude = attitude;
 		this.description = description;
+	}
+	
+	public String rollForAction(Actor target) {
+		
+		Random rand = new Random();
+		int action = rand.nextInt(2);
+		if(action == 0) {
+			return basicAttack(target);
+		}
+		else if(action == 1){
+			int spellchoice = rand.nextInt(this.abilities.size());
+			return cast(target, this.abilities.get(spellchoice));
+		}
+		return "";
+		
 	}
 	
 	public String basicAttack(Actor target) {
