@@ -7,8 +7,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 import edu.ycp.cs320.booksdb.model.Author;
 import edu.ycp.cs320.booksdb.model.Book;
 import edu.ycp.cs320.booksdb.model.BookAuthor;
@@ -445,48 +454,77 @@ public class DerbyDatabase implements IDatabase {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
-				List<Author> authorList;
-				List<Book> bookList;
-				List<BookAuthor> bookAuthorList;
+				List<Ability> Abilities;
+				List<ArrayList<Ability>> AbilitiesList;
+				List<Inventory> InventoryList;
+				List<Item> Items;
+				List<ArrayList<Item>> ItemList;
+				List<Room> Rooms;
+				List<Obstacle> Obstacles;
+				List<HashMap<String, Room>> Maps;
+				List<Enemy> Enemies;
+				List<Player> Players;
+				List<NPC> NPCs;
 				
 				try {
-					authorList     = InitialData.getAuthors();
-					bookList       = InitialData.getBooks();
-					bookAuthorList = InitialData.getBookAuthors();					
+					
+					Abilities      = InitialData.getAbilities();
+					AbilitiesList  = InitialData.getAbilitiesList();
+					InventoryList  = InitialData.getInventory();
+					Items          = InitialData.getItems();
+					ItemList       = InitialData.getItemList();
+					Rooms          = InitialData.getRooms();
+					Obstacles      = InitialData.getObstacles();
+					Maps           = InitialData.getMaps();
+					Enemies        = InitialData.getEnemies();
+					Players        = InitialData.getPlayers();
+					NPCs           = InitialData.getNPCs();
+					
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
 
-				PreparedStatement insertAuthor     = null;
-				PreparedStatement insertBook       = null;
-				PreparedStatement insertBookAuthor = null;
+				PreparedStatement insertAbilities   = null;
+				PreparedStatement insertAbilitiesList   = null;
+				PreparedStatement insertInventoryList   = null;
+				PreparedStatement insertItems   = null;
+				PreparedStatement insertItemList   = null;
+				PreparedStatement insertRooms   = null;
+				PreparedStatement insertObstacles   = null;
+				PreparedStatement insertMaps   = null;
+				PreparedStatement insertEnemies   = null;
+				PreparedStatement insertPlayers   = null;
+				PreparedStatement insertNPCs   = null;
 
 				try {
 					// must completely populate Authors table before populating BookAuthors table because of primary keys
-					insertAuthor = conn.prepareStatement("insert into authors (lastname, firstname) values (?, ?)");
-					for (Author author : authorList) {
+					insertAbilities = conn.prepareStatement("insert into ability (name, description, variety, affectedstat, effect, cost) values (?, ?, ?, ?, ?, ?)");
+					for (Ability ability : Abilities) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
-						insertAuthor.setString(1, author.getLastname());
-						insertAuthor.setString(2, author.getFirstname());
-						insertAuthor.addBatch();
+						insertAbilities.setString(1, ability.getName());
+						insertAbilities.setString(2, ability.getDescription());
+						insertAbilities.setString(3, ability.getVariety());
+						insertAbilities.setString(4, ability.getAffectedStat());
+						insertAbilities.setInt(5, ability.getEffect());
+						insertAbilities.setInt(6, ability.getCost());
+						insertAbilities.addBatch();
 					}
-					insertAuthor.executeBatch();
+					insertAbilities.executeBatch();
 					
-					System.out.println("Authors table populated");
+					System.out.println("Abilities table populated");
 					
 					// must completely populate Books table before populating BookAuthors table because of primary keys
-					insertBook = conn.prepareStatement("insert into books (title, isbn, published) values (?, ?, ?)");
-					for (Book book : bookList) {
+					insertAbilitiesList = conn.prepareStatement("insert into abilitieslist (ability1, ability2, ability3, ability4, ability5) values (?, ?, ?, ?, ?)");
+					for (ArrayList<Ability> ability : AbilitiesList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 //						insertBook.setInt(1, book.getAuthorId());	// this is now in the BookAuthors table
-						insertBook.setString(1, book.getTitle());
-						insertBook.setString(2, book.getIsbn());
-						insertBook.setInt(3, book.getPublished());
-						insertBook.addBatch();
+						for(int i=0; i<=5; i++) {
+						insertAbilitiesList.setString(i, ability.get(i).getName());
+						}
 					}
-					insertBook.executeBatch();
+					insertAbilitiesList.executeBatch();
 					
-					System.out.println("Books table populated");					
+					System.out.println("AbilitiesList table populated");					
 					
 					// must wait until all Books and all Authors are inserted into tables before creating BookAuthor table
 					// since this table consists entirely of foreign keys, with constraints applied
