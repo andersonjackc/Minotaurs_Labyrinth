@@ -556,7 +556,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Players table populated");	
 					
-					insertEnemies = conn.prepareStatement("insert into players (maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom, isDead, name) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertEnemies = conn.prepareStatement("insert into enemies (maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom, isDead, name) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Enemy enemy : Enemies) {
 						insertEnemies.setInt(1, enemy.getMaxHP());
 						insertEnemies.setInt(2, enemy.getHP());
@@ -582,7 +582,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Enemies table populated");		
 					
-					insertNPCs = conn.prepareStatement("insert into players (maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom, isDead, name) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertNPCs = conn.prepareStatement("insert into npcs (maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom, isDead, name) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (NPC npc : NPCs) {
 						insertNPCs.setInt(1, npc.getMaxHP());
 						insertNPCs.setInt(2, npc.getHP());
@@ -637,7 +637,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("NPC table populated");	
 					
-					insertItemList = conn.prepareStatement("insert into ability (item1, "
+					insertItemList = conn.prepareStatement("insert into itemlist (item1, "
 							+ "item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, "
 							+ "item13, item14, item15, item16, item17, item18, item19, item20, item21, item22, "
 							+ "item23, item24, item25, item26, item27, item28, item29, item30, item31, item32, item33, "
@@ -655,6 +655,26 @@ public class DerbyDatabase implements IDatabase {
 					insertItemList.executeBatch();
 					
 					System.out.println("ItemList table populated");
+					
+					insertRooms = conn.prepareStatement("insert into room (description, inventory, obstacle, roomMap, isFound) values (?, ?, ?, ?, ?)");
+					for (Room room : Rooms) {
+//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
+						insertRooms.setString(1, room.getDescription());
+						insertRooms.setInt(2, InventoryIDbyList(room.getInventory(), InventoryList));
+						insertRooms.setInt(3, ObstacleIDbyList(room.getObstacle(), Obstacles));
+						insertRooms.setInt(4, room.getRoomId());
+						if(room.getIsFound()) {
+							insertRooms.setInt(5, 1);
+						}else {
+							insertRooms.setInt(5, 0);
+						}
+						insertRooms.addBatch();
+					}
+					insertRooms.executeBatch();
+					
+					System.out.println("Rooms table populated");
+					
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertBook);
@@ -690,6 +710,16 @@ public class DerbyDatabase implements IDatabase {
 	public static int InventoryIDbyList(Inventory Inner, List<Inventory> Outer) {
 		int count=0;
 		for(Inventory arr : Outer) {
+			count++;
+			if (arr.equals(Inner)) {
+				return count;
+			}
+		}
+		return 0;
+	}
+	public static int ObstacleIDbyList(Obstacle Inner, List<Obstacle> Outer) {
+		int count=0;
+		for(Obstacle arr : Outer) {
 			count++;
 			if (arr.equals(Inner)) {
 				return count;
