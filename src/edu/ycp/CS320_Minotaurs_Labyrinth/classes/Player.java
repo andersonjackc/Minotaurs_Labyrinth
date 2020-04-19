@@ -223,7 +223,7 @@ public class Player extends Actor {
 		
 		if(target.getHP()<=0 || target.getIsDead()) {
 			target.setIsDead(true);
-			
+			System.out.println(target.getIsDead());
 			return target.getName() + " is dead.";
 			
 		}
