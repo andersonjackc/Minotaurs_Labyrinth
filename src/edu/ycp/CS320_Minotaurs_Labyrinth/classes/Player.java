@@ -152,23 +152,26 @@ public class Player extends Actor {
 		
 		HashMap<String, Room> roomMap = this.currentRoom.getRoomMap();
 		
-		
-		if(roomMap.containsKey(direction)){
-			Room newRoom = roomMap.get(direction);
-			if(newRoom.getObstacle().checkStatus(this) || newRoom.getObstacle().getStatus().contentEquals("normal")){
-				if(newRoom.getIsFound()==false) {
-					newRoom.setIsFound(true);
+		if(!this.isDead) {
+			if(roomMap.containsKey(direction)){
+				Room newRoom = roomMap.get(direction);
+				if(newRoom.getObstacle().checkStatus(this) || newRoom.getObstacle().getStatus().contentEquals("normal")){
+					if(newRoom.getIsFound()==false) {
+						newRoom.setIsFound(true);
+					}
+					this.currentRoom = roomMap.get(direction);
+					
+				}else if(!newRoom.getObstacle().checkStatus(this)) {
+					return "There is an obstacle in that direction!";
 				}
-				this.currentRoom = roomMap.get(direction);
-				
-			}else if(!newRoom.getObstacle().checkStatus(this)) {
-				return "There is an obstacle in that direction!";
+			}else {
+				return "You can't move in that direction!";
 			}
+			
+			return "";
 		}else {
-			return "You can't move in that direction!";
+			return "You are dead!";
 		}
-		
-		return "";
 		
 	}
 	
@@ -244,7 +247,7 @@ public class Player extends Actor {
 			return target.getName() + " is dead.";
 			
 		}
-		return "You cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getHP() + " " + spell.getAffectedStat();
+		return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getHP() + " " + spell.getAffectedStat();
 		}
 		if(spell.getCost() > this.resource) {
 		return "You don't have enough resource to cast " + spell.getName();

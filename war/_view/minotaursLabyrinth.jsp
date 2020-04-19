@@ -73,6 +73,7 @@
 				<input name="playerResource" type="hidden" value="${game.playerResource}" />
 				<input name="enemyIsDead" type="hidden" value="${game.enemyDead}" />
 				<input name="villagerIsDead" type="hidden" value="${game.villagerDead}" />
+				<input name="playerIsDead" type="hidden" value="${game.playerIsDead}" />
 				<input name="enemyHP" type="hidden" value="${game.enemyHP}" />
 				<input name="villagerHP" type="hidden" value="${game.villagerHP}" />
 
