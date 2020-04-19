@@ -204,6 +204,9 @@ public class InitialData {
 				Iterator<String> i = tuple.iterator();
 				Room room = new Room(null, null, null, null, false, 0);
 				
+				
+				room.setRoomId(Integer.parseInt(i.next()));
+				
 				room.setDescription(i.next());
 				
 				List<Inventory> tmpList = getInventory();
@@ -221,8 +224,6 @@ public class InitialData {
 				}else {
 					room.setIsFound(true);	
 				}
-				
-				room.setRoomId(Integer.parseInt(i.next()));
 				
 				roomList.add(room);
 			}

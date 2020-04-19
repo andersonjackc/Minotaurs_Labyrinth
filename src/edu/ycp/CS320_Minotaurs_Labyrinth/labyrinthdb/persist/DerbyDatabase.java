@@ -116,49 +116,325 @@ public class DerbyDatabase implements IDatabase {
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt1 = null;
 				PreparedStatement stmt2 = null;
-				PreparedStatement stmt3 = null;				
+				PreparedStatement stmt3 = null;
+				PreparedStatement stmt4 = null;	
+				PreparedStatement stmt5 = null;	
+				PreparedStatement stmt6 = null;	
+				PreparedStatement stmt7 = null;	
+				PreparedStatement stmt8 = null;	
+				PreparedStatement stmt9 = null;	
+				PreparedStatement stmt10 = null;	
+				PreparedStatement stmt11 = null;	
+				PreparedStatement stmt12 = null;	
+				PreparedStatement stmt13 = null;	
+				PreparedStatement stmt14 = null;	
+				
 			
 				try {
 					stmt1 = conn.prepareStatement(
-						"create table authors (" +
-						"	author_id integer primary key " +
+						"create table ability (" +
+						"	ability_id integer primary key " +
 						"		generated always as identity (start with 1, increment by 1), " +									
-						"	lastname varchar(40)," +
-						"	firstname varchar(40)" +
+						"	name varchar(40)," +
+						"	description varchar(7999)" +
+						"	variety varchar(40)" +
+						"	affectedStat varchar(40)" +
+						"	effect integer" +
+						"	cost integer" +
 						")"
 					);	
 					stmt1.executeUpdate();
 					
-					System.out.println("Authors table created");
+					System.out.println("Ability table created");
 					
 					stmt2 = conn.prepareStatement(
-							"create table books (" +
-							"	book_id integer primary key " +
+							"create table abilityList (" +
+							"	abilityList_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-//							"	author_id integer constraint author_id references authors, " +  	// this is now in the BookAuthors table
-							"	title varchar(70)," +
-							"	isbn varchar(15)," +
-							"   published integer" +
+							"	ability1 integer" +
+							"	ability2 integer" +
+							"	ability3 integer" +
+							"	ability4 integer" +
+							"	ability5 integer" +
 							")"
 					);
 					stmt2.executeUpdate();
 					
-					System.out.println("Books table created");					
+					System.out.println("abilityList table created");					
 					
 					stmt3 = conn.prepareStatement(
-							"create table bookAuthors (" +
-							"	book_id   integer constraint book_id references books, " +
-							"	author_id integer constraint author_id references authors " +
+							"create table account (" +
+							"	account_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	username varchar(40)" +
+							"	password varchar(40)" +
 							")"
 					);
 					stmt3.executeUpdate();
 					
-					System.out.println("BookAuthors table created");					
-										
+					System.out.println("account table created");
+					
+					stmt4 = conn.prepareStatement(
+							"create table enemy (" +
+							"	enemy_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	maxHP integer" +
+							"	HP integer" +
+							"	maxResource integer" +
+							"	resource integer" +
+							"	atk integer" +
+							"	def integer" +
+							"	gold integer" +
+							"	XP integer" +
+							"	abilities integer" +
+							"	status varchar(40)" +
+							"	dialogue varchar(7999)" +
+							"	attitude integer" +
+							"	description varchar(7999)" +
+							"	name varchar(40)" +
+							"	inventory integer" +
+							"	currentRoom integer" +
+							"	isDead integer" +
+							")"
+					);
+					stmt4.executeUpdate();
+					
+					System.out.println("enemy table created");
+					
+					stmt5 = conn.prepareStatement(
+							"create table gear (" +
+							"	gear_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	atk integer" +
+							"	def integer" +
+							"	HP integer" +
+							"	variety varchar(40)" +
+							"	equipped integer" +
+							"	description varchar(7999)" +
+							"	effect integer" +
+							"	flammable integer" +
+							"	lit integer" +
+							"	throwable integer" +
+							"	value integer" +
+							"	name varchar(40)" +
+							"	affectedStat varchar(40)" +
+							")"
+					);
+					stmt5.executeUpdate();
+					
+					System.out.println("gear table created");
+					
+					stmt6 = conn.prepareStatement(
+							"create table inventory (" +
+							"	inventory_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	maxStorage integer" +
+							"	maxQuant integer" +
+							"	inventory integer" +
+							")"
+					);
+					stmt6.executeUpdate();
+					
+					System.out.println("inventory table created");
+					
+					stmt7 = conn.prepareStatement(
+							"create table item (" +
+							"	item integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	description varchar(7999)" +
+							"	effect integer" +
+							"	flammable integer" +
+							"	lit integer" +
+							"	throwable integer" +
+							"	value integer" +
+							"	name varchar(40)" +
+							"	variety varchar(40)" +
+							"	affectedStat varchar(40)" +
+							")"
+					);
+					stmt7.executeUpdate();
+					
+					System.out.println("item table created");
+					
+					stmt8 = conn.prepareStatement(
+							"create table itemList (" +
+							"	itemList_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	item1 integer" +
+							"	item2 integer" +
+							"	item3 integer" +
+							"	item4 integer" +
+							"	item5 integer" +
+							"	item6 integer" +
+							"	item7 integer" +
+							"	item8 integer" +
+							"	item9 integer" +
+							"	item10 integer" +
+							"	item11 integer" +
+							"	item12 integer" +
+							"	item13 integer" +
+							"	item14 integer" +
+							"	item15 integer" +
+							"	item16 integer" +
+							"	item17 integer" +
+							"	item18 integer" +
+							"	item19 integer" +
+							"	item20 integer" +
+							"	item21 integer" +
+							"	item22 integer" +
+							"	item23 integer" +
+							"	item24 integer" +
+							"	item25 integer" +
+							"	item26 integer" +
+							"	item27 integer" +
+							"	item28 integer" +
+							"	item29 integer" +
+							"	item30 integer" +
+							"	item31 integer" +
+							"	item32 integer" +
+							"	item33 integer" +
+							"	item34 integer" +
+							"	item35 integer" +
+							"	item36 integer" +
+							"	item37 integer" +
+							"	item38 integer" +
+							"	item39 integer" +
+							"	item40 integer" +
+							"	item41 integer" +
+							"	item42 integer" +
+							"	item43 integer" +
+							"	item44 integer" +
+							"	item45 integer" +
+							"	item46 integer" +
+							"	item47 integer" +
+							"	item48 integer" +
+							"	item49 integer" +
+							"	item50 integer" +
+							")"
+					);
+					stmt8.executeUpdate();
+					
+					System.out.println("itemList table created");
+					
+					stmt9 = conn.prepareStatement(
+							"create table NPC (" +
+							"	NPC_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	maxHP integer" +
+							"	HP integer" +
+							"	maxResource integer" +
+							"	resource integer" +
+							"	atk integer" +
+							"	def integer" +
+							"	gold integer" +
+							"	XP integer" +
+							"	abilities integer" +
+							"	status varchar(40)" +
+							"	dialogue varchar(7999)" +
+							"	attitude integer" +
+							"	description varchar(7999)" +
+							"	name varchar(40)" +
+							"	inventory integer" +
+							"	currentRoom integer" +
+							"	isDead integer" +
+							")"
+					);
+					stmt9.executeUpdate();
+					
+					System.out.println("NPC table created");
+					
+					stmt10 = conn.prepareStatement(
+							"create table obstacle (" +
+							"	obstacle_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	description varchar(7999)" +
+							"	status varchar(40)" +
+							"	requirement integer" +
+							")"
+					);
+					stmt10.executeUpdate();
+					
+					System.out.println("obstacle table created");
+								
+					
+					stmt11 = conn.prepareStatement(
+							"create table player (" +
+							"	player_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	maxHP integer" +
+							"	HP integer" +
+							"	maxResource integer" +
+							"	resource integer" +
+							"	atk integer" +
+							"	def integer" +
+							"	gold integer" +
+							"	XP integer" +
+							"	abilities integer" +
+							"	status varchar(40)" +
+							"	inventory integer" +
+							"	currentRoom integer" +
+							"	isDead integer" +
+							"	name varchar(40)" +
+							")"
+					);
+					stmt11.executeUpdate();
+					
+					System.out.println("player table created");
+					
+					stmt12 = conn.prepareStatement(
+							"create table room (" +
+							"	room_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	description varchar(7999)" +
+							"	inventory integer" +
+							"	obstacle integer" +
+							"	roomMap integer," +
+							"	roomMap integer," +
+							"	isFound integer," +
+							"	roomMap integer," +
+							")"
+					);
+					stmt12.executeUpdate();
+					
+					System.out.println("room table created");
+					
+					stmt13 = conn.prepareStatement(
+							"create table roomMap (" +
+							"	roomId integer," +
+							"	direction varchar(40)," +
+							"	mappedRoomId integer," +
+							")"
+					);
+					stmt13.executeUpdate();
+					
+					System.out.println("roomMap table created");
+					
+					stmt14 = conn.prepareStatement(
+							"create table textHistory (" +
+							"	message varchar(7999)," +
+							"	playerAction integer," +
+							")"
+					);
+					stmt14.executeUpdate();
+					
+					System.out.println("textHistory table created");
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
 					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(stmt3);
+					DBUtil.closeQuietly(stmt4);
+					DBUtil.closeQuietly(stmt5);
+					DBUtil.closeQuietly(stmt6);
+					DBUtil.closeQuietly(stmt7);
+					DBUtil.closeQuietly(stmt8);
+					DBUtil.closeQuietly(stmt9);
+					DBUtil.closeQuietly(stmt10);
+					DBUtil.closeQuietly(stmt11);
+					DBUtil.closeQuietly(stmt12);
+					DBUtil.closeQuietly(stmt13);
+					DBUtil.closeQuietly(stmt14);
 				}
 			}
 		});
