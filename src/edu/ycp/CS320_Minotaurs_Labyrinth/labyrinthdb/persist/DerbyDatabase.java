@@ -521,6 +521,8 @@ public class DerbyDatabase implements IDatabase {
 						for(int i=0; i<=5; i++) {
 						insertAbilitiesList.setString(i, ability.get(i).getName());
 						}
+						insertAbilitiesList.addBatch();
+
 					}
 					insertAbilitiesList.executeBatch();
 					
@@ -538,12 +540,17 @@ public class DerbyDatabase implements IDatabase {
 						insertPlayers.setInt(6, player.getDef());
 						insertPlayers.setInt(7, player.getGold());
 						insertPlayers.setInt(8, player.getXP());
-						insertPlayers.setInt(9, player.getAbilities());
+						insertPlayers.setInt(9, AbilityIDbyList(player.getAbilities(), AbilitiesList));
 						insertPlayers.setString(10, player.getStatus());
-						insertPlayers.setString(11, player.getInventory());
-						insertPlayers.setString(12, player.getCurrentRoom());
-						insertPlayers.setBoolean(13, player.getIsDead());
+						insertPlayers.setInt(11, InventoryIDbyList(player.getInventory(), InventoryList));
+						insertPlayers.setInt(12, player.getCurrentRoom().getRoomId());
+						if(player.getIsDead()) {
+						insertItems.setInt(13, 1);
+						}else{
+						insertItems.setInt(13, 0);
+						}
 						insertPlayers.setString(14, player.getName());
+						insertPlayers.addBatch();
 					}
 					insertPlayers.executeBatch();	
 					
@@ -559,12 +566,17 @@ public class DerbyDatabase implements IDatabase {
 						insertEnemies.setInt(6, enemy.getDef());
 						insertEnemies.setInt(7, enemy.getGold());
 						insertEnemies.setInt(8, enemy.getXP());
-						insertEnemies.setInt(9, enemy.getAbilities());
+						insertEnemies.setInt(9, AbilityIDbyList(enemy.getAbilities(), AbilitiesList));
 						insertEnemies.setString(10, enemy.getStatus());
-						insertEnemies.setString(11, enemy.getInventory());
-						insertEnemies.setString(12, enemy.getCurrentRoom());
-						insertEnemies.setBoolean(13, enemy.getIsDead());
+						insertEnemies.setInt(11, InventoryIDbyList(enemy.getInventory(), InventoryList));
+						insertEnemies.setInt(12, enemy.getCurrentRoom().getRoomId());
+						if(enemy.getIsDead()) {
+						insertItems.setInt(13, 1);
+						}else{
+						insertItems.setInt(13, 0);
+						}
 						insertEnemies.setString(14, enemy.getName());
+						insertEnemies.addBatch();
 					}
 					insertEnemies.executeBatch();	
 					
@@ -580,17 +592,72 @@ public class DerbyDatabase implements IDatabase {
 						insertNPCs.setInt(6, npc.getDef());
 						insertNPCs.setInt(7, npc.getGold());
 						insertNPCs.setInt(8, npc.getXP());
-						insertNPCs.setInt(9, npc.getAbilities());
+						insertNPCs.setInt(9, AbilityIDbyList(npc.getAbilities(), AbilitiesList));
 						insertNPCs.setString(10, npc.getStatus());
-						insertNPCs.setString(11, npc.getInventory());
-						insertNPCs.setString(12, npc.getCurrentRoom());
-						insertNPCs.setBoolean(13, npc.getIsDead());
+						insertNPCs.setInt(11, InventoryIDbyList(npc.getInventory(), InventoryList));
+						insertNPCs.setInt(12, npc.getCurrentRoom().getRoomId());
+						if(npc.getIsDead()) {
+						insertNPCs.setInt(13, 1);
+						}else{
+						insertNPCs.setInt(13, 0);
+						}
 						insertNPCs.setString(14, npc.getName());
+					}
+					insertNPCs.executeBatch();	
+					
+					System.out.println("NPC table populated");		
+
+					insertItems = conn.prepareStatement("insert into items (description, effect, flammable, lit, throwable, value, name, variety, affectedstat) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					for (Item item : Items) {
+						insertItems.setString(1, item.getDescription());
+						insertItems.setInt(2, item.getEffect());
+						if(item.getFlammable()) {
+						insertItems.setInt(3, 1);
+						}else{
+						insertItems.setInt(3, 0);
+						}
+						if(item.getLit()) {
+						insertItems.setInt(4, 1);
+						}else{
+						insertItems.setInt(4, 0);
+						}
+						if(item.getThrowable()) {
+						insertItems.setInt(5, 1);
+						}else{
+						insertItems.setInt(5, 0);
+						}
+						insertItems.setInt(6, item.getValue());
+						insertItems.setString(7, item.getName());
+						insertItems.setInt(8, item.getValue());
+						insertItems.setString(9, item.getVariety());
+						insertItems.setString(10, item.getAffectedStat());
+						insertItems.addBatch();
 					}
 					insertEnemies.executeBatch();	
 					
-					System.out.println("NPC table populated");		
+					System.out.println("NPC table populated");	
 					
+					insertItemList = conn.prepareStatement("insert into ability (item1, "
+							+ "item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, "
+							+ "item13, item14, item15, item16, item17, item18, item19, item20, item21, item22, "
+							+ "item23, item24, item25, item26, item27, item28, item29, item30, item31, item32, item33, "
+							+ "item35, item36, item37, item38, item39, item40, item41, item42, item43, item44, item45, "
+							+ "item46, item47, item48, item49, item50) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
+							+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
+							+ "?, ?, ?, ?, ?, ?, ?)");
+					for (Ability ability : Abilities) {
+//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
+						insertAbilities.setString(1, ability.getName());
+						insertAbilities.setString(2, ability.getDescription());
+						insertAbilities.setString(3, ability.getVariety());
+						insertAbilities.setString(4, ability.getAffectedStat());
+						insertAbilities.setInt(5, ability.getEffect());
+						insertAbilities.setInt(6, ability.getCost());
+						insertAbilities.addBatch();
+					}
+					insertAbilities.executeBatch();
+					
+					System.out.println("Abilities table populated");
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertBook);
@@ -611,5 +678,26 @@ public class DerbyDatabase implements IDatabase {
 		db.loadInitialData();
 		
 		System.out.println("Library DB successfully initialized!");
+	}
+	
+	public static int AbilityIDbyList(ArrayList<Ability> Inner, List<ArrayList<Ability>> Outer) {
+		int count=0;
+		for(ArrayList<Ability> arr : Outer) {
+			count++;
+			if (arr.equals(Inner)) {
+				return count;
+			}
+		}
+		return 0;
+	}
+	public static int InventoryIDbyList(Inventory Inner, List<Inventory> Outer) {
+		int count=0;
+		for(Inventory arr : Outer) {
+			count++;
+			if (arr.equals(Inner)) {
+				return count;
+			}
+		}
+		return 0;
 	}
 }
