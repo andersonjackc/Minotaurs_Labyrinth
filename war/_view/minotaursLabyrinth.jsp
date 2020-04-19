@@ -27,6 +27,13 @@
 		<div id="gameText" class="gameText">
 			<table>
 				<c:forEach items="${outputstrings}" var="strings">
+				
+					<c:if test="${strings.playerAction == 2}">
+						<tr class="attackCommands">
+							<td name="output">${strings.message}</td>
+						</tr>
+					</c:if>
+					
 					<c:if test="${strings.playerAction == 1}">
 						<tr class="userCommands">
 							<td name="output">${strings.message}</td>
