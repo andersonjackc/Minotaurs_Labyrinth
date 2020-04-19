@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.cs320.Minotaurs_Labyrinth.controller.MinotaursLabyrinthController;
 import edu.ycp.cs320.Minotaurs_Labyrinth.model.Minotaur;
@@ -80,6 +81,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		//grab the hidden persistence values
 		Integer location = getInteger(req, "location");
 		Integer playerHP = getInteger(req, "playerHP");
+		Integer playerResource = getInteger(req, "playerResource");
 		Integer enemyHP = getInteger(req, "enemyHP");
 		Integer villagerHP = getInteger(req, "villagerHP");
 		Integer ogreIsDead = getInteger(req, "enemyIsDead");
@@ -87,6 +89,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		//pass the persistence information to the model
 		model.setPlayerHP(playerHP);
+		model.setPlayerResource(playerResource);
 		model.setEnemyHP(enemyHP);
 		model.setVillagerHP(villagerHP);
 		model.setEnemyDead(ogreIsDead);
@@ -109,7 +112,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		//Checks that textbox isnt empty, if it isnt empty check for our commands
 		//if the player enters an unrecognized command, we set the error message
 		if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
-			if(inputs.length>1 && model.getTargets().get(inputs[1])!=null && model.getPlayer().getCurrentRoom() == model.getTargets().get(inputs[1]).getCurrentRoom() && !inputs[1].equals("player")) {
+			if(inputs.length <= 2 && inputs.length > 1 && model.getTargets().get(inputs[1])!=null && model.getPlayer().getCurrentRoom() == model.getTargets().get(inputs[1]).getCurrentRoom() && !inputs[1].equals("player")) {
 				String atkMsg = model.getPlayer().basicAttack(model.getTargets().get(inputs[1]));
 				String enemyAtkMsg = model.getTargets().get(inputs[1]).basicAttack(model.getPlayer());
 				Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
@@ -118,6 +121,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				model.getOutputStrings().add(msg2);
 			}else if(inputs.length<=1){
 				Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
+				model.getOutputStrings().add(msg);
+			}else if(inputs.length > 2) {
+				Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
 				model.getOutputStrings().add(msg);
 			}else{
 				Message<String, Integer> msg = new Message<String, Integer>("You can't attack " + inputs[1] + "!", 0);
@@ -128,6 +134,33 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				model.initResponses();
 			}else {
 				Message<String, Integer> msg = new Message<String, Integer>("You killed the villager you monster!", 0);
+				model.getOutputStrings().add(msg);
+			}
+		}
+		else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
+			if(inputs.length <= 3 && inputs.length > 2 && model.getTargets().get(inputs[2]) != null && model.getPlayer().getCurrentRoom() == model.getTargets().get(inputs[2]).getCurrentRoom() && containsAbility(model.getPlayer().getAbilities(), inputs[1])) {
+				String castMsg = model.getPlayer().cast(model.getTargets().get(inputs[2]), getAbilitybyString(model.getPlayer().getAbilities(), inputs[1]));
+				if(!inputs[2].equals(model.getPlayer().getName())) {
+				String enemyAtkMsg = model.getTargets().get(inputs[2]).basicAttack(model.getPlayer());
+				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
+				model.getOutputStrings().add(msg2);
+				}
+				Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
+				model.getOutputStrings().add(msg);
+			}else if(inputs.length<=1){
+				Message<String, Integer> msg = new Message<String, Integer>("You must specify a spell or ability!", 0);
+				model.getOutputStrings().add(msg);
+			}else if(inputs.length<=2){
+				Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
+				model.getOutputStrings().add(msg);
+			}else if(!containsAbility(model.getPlayer().getAbilities(), inputs[1])) {
+				Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid spell!", 0);
+				model.getOutputStrings().add(msg);
+			}else if(inputs.length > 3) {
+				Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
+				model.getOutputStrings().add(msg);
+			}else{
+				Message<String, Integer> msg = new Message<String, Integer>(inputs[2] + " is an invalid target!", 0);
 				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("north")) {
@@ -170,7 +203,26 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
 		
 	}
-
+	
+	//helper method
+	public Ability getAbilitybyString(ArrayList<Ability> abilities, String name) {
+		for(int i = 0; i < abilities.size(); i++) {
+			if(abilities.get(i).getName().equals(name)) {
+				return abilities.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public Boolean containsAbility(ArrayList<Ability> abilities, String name) {
+		for(int i = 0; i < abilities.size(); i++) {
+			if(abilities.get(i).getName().equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	// gets an Integer from the Posted form data, for the given attribute name
 	private int getInteger(HttpServletRequest req, String name) {
 		return Integer.parseInt(req.getParameter(name));
