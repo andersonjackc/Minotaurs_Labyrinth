@@ -674,12 +674,48 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Rooms table populated");
 					
+					insertObstacles = conn.prepareStatement("insert into obstacle (String description, String status, Item requirement) values (?, ?, ?)");
+					for (Obstacle obstacle : Obstacles) {
+//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
+						insertObstacles.setString(1, obstacle.getDescription());
+						insertObstacles.setString(2, obstacle.getStatus());
+						insertObstacles.setInt(3, ItemIDbyList(obstacle.getRequirement(), Items));
+
+						insertObstacles.addBatch();
+					}
+					insertObstacles.executeBatch();
+					
+					System.out.println("Obstacles table populated");
+					
+					insertMaps = conn.prepareStatement("insert into maps (roomId, direction, mappedRoomId) values (?, ?, ?)");
+					int counter=0;
+					for (HashMap<String, Room> map : Maps) {
+						counter++;
+						String[] keys = (String[]) map.keySet().toArray();
+						for(int i=0; i<=map.keySet().size(); i++) {
+						insertMaps.setInt(1, counter);
+						insertMaps.setString(2, keys[i]);
+						insertMaps.setInt(3, map.get(keys[i]).getRoomId());
+						insertMaps.addBatch();
+						}
+					}
+					insertMaps.executeBatch();
+
+					System.out.println("Maps table populated");
 					
 					return true;
 				} finally {
-					DBUtil.closeQuietly(insertBook);
-					DBUtil.closeQuietly(insertAuthor);
-					DBUtil.closeQuietly(insertBookAuthor);					
+					DBUtil.closeQuietly(insertAbilities);
+					DBUtil.closeQuietly(insertAbilitiesList);
+					DBUtil.closeQuietly(insertInventoryList);	
+					DBUtil.closeQuietly(insertItems);
+					DBUtil.closeQuietly(insertItemList);
+					DBUtil.closeQuietly(insertRooms);
+					DBUtil.closeQuietly(insertObstacles);
+					DBUtil.closeQuietly(insertMaps);
+					DBUtil.closeQuietly(insertEnemies);
+					DBUtil.closeQuietly(insertPlayers);
+					DBUtil.closeQuietly(insertNPCs);
 				}
 			}
 		});
@@ -720,6 +756,16 @@ public class DerbyDatabase implements IDatabase {
 	public static int ObstacleIDbyList(Obstacle Inner, List<Obstacle> Outer) {
 		int count=0;
 		for(Obstacle arr : Outer) {
+			count++;
+			if (arr.equals(Inner)) {
+				return count;
+			}
+		}
+		return 0;
+	}
+	public static int ItemIDbyList(Item Inner, List<Item> Outer) {
+		int count=0;
+		for(Item arr : Outer) {
 			count++;
 			if (arr.equals(Inner)) {
 				return count;
