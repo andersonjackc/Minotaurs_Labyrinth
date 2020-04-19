@@ -35,6 +35,7 @@ public class Minotaur {
 	Enemy ogre;
 	int enemyDeadVal;
 	int villagerDeadVal;
+	int playerDeadVal;
 	String NPCDesc;
 	String NPCResp;
 	NPC villager;
@@ -323,6 +324,7 @@ public class Minotaur {
 		abilities.add(heal);
 		player = new Player(1000, 20, 1000, 20, 2, 0, 0, 0, abilities, "normal", inv, room1, false, "player");
 		roomPosition = 1;
+		playerDeadVal = 0;
 		targets.put("player", player);
 		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, null, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, room2, false);
 		enemyDeadVal = 0;
@@ -336,6 +338,14 @@ public class Minotaur {
 	
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public void setPlayerIsDead(int playerDeadVal) {
+		this.playerDeadVal = playerDeadVal;
+	}
+	
+	public int getPlayerIsDead() {
+		return playerDeadVal;
 	}
 	
 	public Enemy getEnemy() {

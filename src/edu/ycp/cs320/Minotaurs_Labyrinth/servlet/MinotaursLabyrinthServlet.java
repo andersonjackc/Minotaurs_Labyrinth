@@ -86,6 +86,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		Integer villagerHP = getInteger(req, "villagerHP");
 		Integer ogreIsDead = getInteger(req, "enemyIsDead");
 		Integer villagerIsDead = getInteger(req, "villagerIsDead");
+		Integer playerIsDead = getInteger(req, "playerIsDead");
 		
 		//pass the persistence information to the model
 		model.setPlayerHP(playerHP);
@@ -94,6 +95,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setVillagerHP(villagerHP);
 		model.setEnemyDead(ogreIsDead);
 		model.setVillagerDead(villagerIsDead);
+		model.setPlayerIsDead(playerIsDead);
 
 		
 		//Set ogre/villager to dead if they have 0 hp or less
@@ -102,6 +104,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		}
 		if(model.getVillagerDead()==1) {
 			model.getVillager().setIsDead(true);
+		}
+		if(model.getPlayerIsDead()==1) {
+			model.getPlayer().setIsDead(true);
 		}
 		
 		//Use persisted hidden player position value to keep them there upon post
@@ -123,7 +128,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					}
 				}
 				String enemyAtkMsg = model.getTargets().get(inputs[1]).basicAttack(model.getPlayer());
-				
+				if(model.getPlayer().getIsDead()) {
+					model.setPlayerIsDead(1);
+				}
 				Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
 				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
 				model.getOutputStrings().add(msg);
@@ -139,19 +146,34 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("talk") && model.getPlayer().getCurrentRoom() == model.getRoomByRoomId(3)) {
-			if(!(model.getVillager().getIsDead())) {
-				System.out.println(model.getVillager().getIsDead());
+			if(!(model.getVillager().getIsDead()) && !(model.getPlayer().getIsDead())) {
 				model.initResponses();
-			}else {
+			}else if(!(model.getPlayer().getIsDead())) {
 				Message<String, Integer> msg = new Message<String, Integer>("You killed the villager you monster!", 0);
+				model.getOutputStrings().add(msg);
+			}else {
+				Message<String, Integer> msg = new Message<String, Integer>("You are dead!", 0);
 				model.getOutputStrings().add(msg);
 			}
 		}
 		else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
 			if(inputs.length <= 3 && inputs.length > 2 && model.getTargets().get(inputs[2]) != null && model.getPlayer().getCurrentRoom() == model.getTargets().get(inputs[2]).getCurrentRoom() && containsAbility(model.getPlayer().getAbilities(), inputs[1])) {
 				String castMsg = model.getPlayer().cast(model.getTargets().get(inputs[2]), getAbilitybyString(model.getPlayer().getAbilities(), inputs[1]));
+				if(castMsg.equals(model.getTargets().get(inputs[2]).getName() + " is dead.")) {
+					if(model.getTargets().get(inputs[2]).getName().equals("Villager")) {
+						model.setVillagerDead(1);
+						
+					}else if(model.getTargets().get(inputs[2]).getName().equals("ogre")) {
+						model.setEnemyDead(1);
+					}else if(model.getTargets().get(inputs[2]).getName().equals("player")) {
+						model.setPlayerIsDead(1);
+					}
+				}
 				if(!inputs[2].equals(model.getPlayer().getName())) {
 				String enemyAtkMsg = model.getTargets().get(inputs[2]).basicAttack(model.getPlayer());
+				if(model.getPlayer().getIsDead()) {
+					model.setPlayerIsDead(1);
+				}
 				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
 				model.getOutputStrings().add(msg2);
 				}
