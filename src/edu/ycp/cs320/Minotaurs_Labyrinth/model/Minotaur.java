@@ -23,6 +23,8 @@ public class Minotaur {
 	Inventory inv;
 	Item requirement;
 	ArrayList<Item> inventory;
+	ArrayList<Ability> abilities;
+	Ability fireball, heal;
 	Obstacle obs, obs2;
 	String errorMessage;
 	String message;
@@ -314,7 +316,12 @@ public class Minotaur {
 	//Creates the actors
 	public void initPlayer() {
 		targets = new HashMap<String, Actor>();
-		player = new Player(1000, 20, 0, 0, 2, 0, 0, 0, null, "normal", inv, room1, false, "player");
+		fireball = new Ability("fireball", "a flaming ball of death and destruction", "damage", "HP", -10, 10);
+		heal = new Ability("heal", "a rejuvenating spell", "healing", "HP", 5, 5);
+		abilities = new ArrayList<Ability>();
+		abilities.add(fireball);
+		abilities.add(heal);
+		player = new Player(1000, 20, 1000, 20, 2, 0, 0, 0, abilities, "normal", inv, room1, false, "player");
 		roomPosition = 1;
 		targets.put("player", player);
 		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, null, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, room2, false);
@@ -380,18 +387,7 @@ public class Minotaur {
 		}else{
 			return true;
 		}
-	}
-	
-	//Ogre attacking Player (NOT GENERIC)
-	public void enemyAtk() {
-		if(!ogre.getIsDead()) {
-			ogre.basicAttack(player);
-			defendMessage = "Ogre did " + ogre.getAtk() + " You now have " + player.getHP() + " HP";
-			Message<String, Integer> defendMsg = new Message<String, Integer>(defendMessage, 0);
-			outputstrings.add(defendMsg);
-		}
-	}
-	
+	}	
 
 	public String getAttackmessage() {
 		return attackMessage;
@@ -401,6 +397,12 @@ public class Minotaur {
 	}
 	public void setPlayerHP(int HP) {
 		player.setHP(HP);
+	}
+	public void setPlayerResource(int resource) {
+		player.setResource(resource);
+	}
+	public int getPlayerResource() {
+		return player.getResource();
 	}
 	public int getPlayerHP() {
 		return player.getHP();
