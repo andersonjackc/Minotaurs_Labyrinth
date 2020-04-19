@@ -175,11 +175,11 @@ public class InitialData {
 				}
 				Iterator<String> i = tuple.iterator();
 				ArrayList<Item> items = new ArrayList<Item>();
-				List<Item> tmpList = getItems();
+				ArrayList<Item> tmpList = (ArrayList<Item>) getItems();
 				i.next();
 				while(i.hasNext()) {
 					
-					items.add(tmpList.get(Integer.parseInt(i.next())-1));
+					items.add(getItembyString(tmpList, i.next()));
 				}
 				
 				itemList2.add(items);
@@ -455,6 +455,14 @@ public class InitialData {
         for(int i = 0; i < abilities.size(); i++) {
             if(abilities.get(i).getName().equals(name)) {
                 return abilities.get(i);
+            }
+        }
+        return null;
+    }
+	public static Item getItembyString(ArrayList<Item> Item, String name) {
+        for(int i = 0; i < Item.size(); i++) {
+            if(Item.get(i).getName().equals(name)) {
+                return Item.get(i);
             }
         }
         return null;

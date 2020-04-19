@@ -645,19 +645,16 @@ public class DerbyDatabase implements IDatabase {
 							+ "item46, item47, item48, item49, item50) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
 							+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
 							+ "?, ?, ?, ?, ?, ?, ?)");
-					for (Ability ability : Abilities) {
+					for (List<Item> items : ItemList) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
-						insertAbilities.setString(1, ability.getName());
-						insertAbilities.setString(2, ability.getDescription());
-						insertAbilities.setString(3, ability.getVariety());
-						insertAbilities.setString(4, ability.getAffectedStat());
-						insertAbilities.setInt(5, ability.getEffect());
-						insertAbilities.setInt(6, ability.getCost());
-						insertAbilities.addBatch();
+						for(int i=0; i<=49; i++) {
+						insertItemList.setString(i, items.get(i).getName());
+						}
+						insertItemList.addBatch();
 					}
-					insertAbilities.executeBatch();
+					insertItemList.executeBatch();
 					
-					System.out.println("Abilities table populated");
+					System.out.println("ItemList table populated");
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertBook);
