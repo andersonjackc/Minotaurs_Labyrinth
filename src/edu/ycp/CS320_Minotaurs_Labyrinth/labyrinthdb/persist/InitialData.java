@@ -12,7 +12,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
-import edu.ycp.cs320.booksdb.persist.ReadCSV;
+import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.ReadCSV;
 
 public class InitialData {
 

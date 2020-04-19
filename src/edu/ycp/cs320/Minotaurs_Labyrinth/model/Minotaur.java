@@ -324,6 +324,7 @@ public class Minotaur {
 		villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 100, "An old man with tattered clothing", "Villager", inv, room3, false);
 		villagerDeadVal = 0;
 		targets.put("villager", villager);
+	
 	}
 	
 	public Player getPlayer() {
