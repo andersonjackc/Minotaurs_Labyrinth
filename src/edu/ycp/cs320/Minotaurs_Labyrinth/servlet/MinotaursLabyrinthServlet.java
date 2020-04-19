@@ -112,8 +112,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			if(inputs.length>1 && model.getTargets().get(inputs[1])!=null && model.getPlayer().getCurrentRoom() == model.getTargets().get(inputs[1]).getCurrentRoom() && !inputs[1].equals("player")) {
 				String atkMsg = model.getPlayer().basicAttack(model.getTargets().get(inputs[1]));
 				String enemyAtkMsg = model.getTargets().get(inputs[1]).basicAttack(model.getPlayer());
-				Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 0);
-				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 0);
+				Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
+				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
 				model.getOutputStrings().add(msg);
 				model.getOutputStrings().add(msg2);
 			}else if(inputs.length<=1){
