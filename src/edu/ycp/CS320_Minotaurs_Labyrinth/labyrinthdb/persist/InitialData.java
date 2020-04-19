@@ -30,7 +30,7 @@ public class InitialData {
 				}
 				Iterator<String> i = tuple.iterator();
 				Ability ability = new Ability(null, null, null, null, 0, 0);
-				
+				i.next();
 				ability.setName(i.next());
 				ability.setDescription(i.next());
 				ability.setVariety(i.next());
@@ -60,10 +60,11 @@ public class InitialData {
 				}
 				Iterator<String> i = tuple.iterator();
 				ArrayList<Ability> abilities = new ArrayList<Ability>();
-				List<Ability> tmpList = getAbilities();
+				ArrayList<Ability> tmpList = (ArrayList<Ability>)getAbilities();
+				i.next();
 				while(i.hasNext()) {
 					
-					abilities.add(tmpList.get(Integer.parseInt(i.next())-1));
+					abilities.add(getAbilitybyString(tmpList, i.next()));
 				}
 				
 				abilityList2.add(abilities);
@@ -90,6 +91,7 @@ public class InitialData {
 				}
 				Iterator<String> i = tuple.iterator();
 				Inventory inventory = new Inventory(0, 0, null);
+				i.next();
 				inventory.setMaxStorage(Integer.parseInt(i.next()));
 				inventory.setMaxQuant(Integer.parseInt(i.next()));
 				List<ArrayList<Item>> tmpList = getItemList();
@@ -120,7 +122,7 @@ public class InitialData {
 				}
 				Iterator<String> i = tuple.iterator();
 				Item item = new Item(null, 0, null, null, null, 0, null, null, null);
-				
+				i.next();
 				item.setDescription(i.next());
 				item.setEffect(Integer.parseInt(i.next()));
 				
@@ -174,6 +176,7 @@ public class InitialData {
 				Iterator<String> i = tuple.iterator();
 				ArrayList<Item> items = new ArrayList<Item>();
 				List<Item> tmpList = getItems();
+				i.next();
 				while(i.hasNext()) {
 					
 					items.add(tmpList.get(Integer.parseInt(i.next())-1));
@@ -204,6 +207,9 @@ public class InitialData {
 				Iterator<String> i = tuple.iterator();
 				Room room = new Room(null, null, null, null, false, 0);
 				
+				
+				room.setRoomId(Integer.parseInt(i.next()));
+				
 				room.setDescription(i.next());
 				
 				List<Inventory> tmpList = getInventory();
@@ -221,8 +227,6 @@ public class InitialData {
 				}else {
 					room.setIsFound(true);	
 				}
-				
-				room.setRoomId(Integer.parseInt(i.next()));
 				
 				roomList.add(room);
 			}
@@ -247,7 +251,7 @@ public class InitialData {
 				}
 				Iterator<String> i = tuple.iterator();
 				Obstacle obstacle = new Obstacle(null, null, null);
-				
+				i.next();
 				obstacle.setDescription(i.next());
 				
 				obstacle.setStatus(i.next());
@@ -310,7 +314,7 @@ public class InitialData {
 				}
 				Iterator<String> i = tuple.iterator();
 				Enemy enemy = new Enemy(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, 0, null, null, null, null, false);
-				
+				i.next();
 				enemy.setMaxHP(Integer.parseInt(i.next()));
 				enemy.setHP(Integer.parseInt(i.next()));
 				enemy.setMaxResource(Integer.parseInt(i.next()));
@@ -361,6 +365,7 @@ public class InitialData {
 			}
 			Iterator<String> i = tuple.iterator();
 			Player player = new Player(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, false, null);
+			i.next();
 			player.setMaxHP(Integer.parseInt(i.next()));
 			player.setHP(Integer.parseInt(i.next()));
 			player.setMaxResource(Integer.parseInt(i.next()));
@@ -383,11 +388,6 @@ public class InitialData {
 			}
 			player.setName(i.next());
 
-			
-
-			
-
-			
 			playerList.add(player);
 		
 		}
@@ -411,7 +411,7 @@ public class InitialData {
 				}
 				Iterator<String> i = tuple.iterator();
 				NPC npc = new NPC(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, 0, null, null, null, null, false);
-				
+				i.next();
 				npc.setMaxHP(Integer.parseInt(i.next()));
 				npc.setHP(Integer.parseInt(i.next()));
 				npc.setMaxResource(Integer.parseInt(i.next()));
@@ -450,5 +450,14 @@ public class InitialData {
 			readNPCs.close();
 		}
 	}
+
+	public static Ability getAbilitybyString(ArrayList<Ability> abilities, String name) {
+        for(int i = 0; i < abilities.size(); i++) {
+            if(abilities.get(i).getName().equals(name)) {
+                return abilities.get(i);
+            }
+        }
+        return null;
+    }
 }
 

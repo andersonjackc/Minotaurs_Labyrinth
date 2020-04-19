@@ -7,8 +7,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 import edu.ycp.cs320.booksdb.model.Author;
 import edu.ycp.cs320.booksdb.model.Book;
 import edu.ycp.cs320.booksdb.model.BookAuthor;
@@ -116,49 +125,325 @@ public class DerbyDatabase implements IDatabase {
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt1 = null;
 				PreparedStatement stmt2 = null;
-				PreparedStatement stmt3 = null;				
+				PreparedStatement stmt3 = null;
+				PreparedStatement stmt4 = null;	
+				PreparedStatement stmt5 = null;	
+				PreparedStatement stmt6 = null;	
+				PreparedStatement stmt7 = null;	
+				PreparedStatement stmt8 = null;	
+				PreparedStatement stmt9 = null;	
+				PreparedStatement stmt10 = null;	
+				PreparedStatement stmt11 = null;	
+				PreparedStatement stmt12 = null;	
+				PreparedStatement stmt13 = null;	
+				PreparedStatement stmt14 = null;	
+				
 			
 				try {
 					stmt1 = conn.prepareStatement(
-						"create table authors (" +
-						"	author_id integer primary key " +
+						"create table ability (" +
+						"	ability_id integer primary key " +
 						"		generated always as identity (start with 1, increment by 1), " +									
-						"	lastname varchar(40)," +
-						"	firstname varchar(40)" +
+						"	name varchar(40)," +
+						"	description varchar(7999)," +
+						"	variety varchar(40)," +
+						"	affectedStat varchar(40)," +
+						"	effect integer," +
+						"	cost integer" +
 						")"
 					);	
 					stmt1.executeUpdate();
 					
-					System.out.println("Authors table created");
+					System.out.println("Ability table created");
 					
 					stmt2 = conn.prepareStatement(
-							"create table books (" +
-							"	book_id integer primary key " +
+							"create table abilityList (" +
+							"	abilityList_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-//							"	author_id integer constraint author_id references authors, " +  	// this is now in the BookAuthors table
-							"	title varchar(70)," +
-							"	isbn varchar(15)," +
-							"   published integer" +
+							"	ability1 integer," +
+							"	ability2 integer," +
+							"	ability3 integer," +
+							"	ability4 integer," +
+							"	ability5 integer," +
 							")"
 					);
 					stmt2.executeUpdate();
 					
-					System.out.println("Books table created");					
+					System.out.println("abilityList table created");					
 					
 					stmt3 = conn.prepareStatement(
-							"create table bookAuthors (" +
-							"	book_id   integer constraint book_id references books, " +
-							"	author_id integer constraint author_id references authors " +
+							"create table account (" +
+							"	account_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	username varchar(40)," +
+							"	password varchar(40)" +
 							")"
 					);
 					stmt3.executeUpdate();
 					
-					System.out.println("BookAuthors table created");					
-										
+					System.out.println("account table created");
+					
+					stmt4 = conn.prepareStatement(
+							"create table enemy (" +
+							"	enemy_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	maxHP integer," +
+							"	HP integer," +
+							"	maxResource integer," +
+							"	resource integer," +
+							"	atk integer," +
+							"	def integer," +
+							"	gold integer," +
+							"	XP integer," +
+							"	abilities integer," +
+							"	status varchar(40)," +
+							"	dialogue varchar(7999)," +
+							"	attitude integer," +
+							"	description varchar(7999)," +
+							"	name varchar(40)," +
+							"	inventory integer," +
+							"	currentRoom integer," +
+							"	isDead integer" +
+							")"
+					);
+					stmt4.executeUpdate();
+					
+					System.out.println("enemy table created");
+					
+					stmt5 = conn.prepareStatement(
+							"create table gear (" +
+							"	gear_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	atk integer," +
+							"	def integer," +
+							"	HP integer," +
+							"	variety varchar(40)," +
+							"	equipped integer," +
+							"	description varchar(7999)," +
+							"	effect integer," +
+							"	flammable integer," +
+							"	lit integer," +
+							"	throwable integer," +
+							"	value integer," +
+							"	name varchar(40)," +
+							"	affectedStat varchar(40)" +
+							")"
+					);
+					stmt5.executeUpdate();
+					
+					System.out.println("gear table created");
+					
+					stmt6 = conn.prepareStatement(
+							"create table inventory (" +
+							"	inventory_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	maxStorage integer," +
+							"	maxQuant integer," +
+							"	inventory integer" +
+							")"
+					);
+					stmt6.executeUpdate();
+					
+					System.out.println("inventory table created");
+					
+					stmt7 = conn.prepareStatement(
+							"create table item (" +
+							"	item integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	description varchar(7999)," +
+							"	effect integer," +
+							"	flammable integer," +
+							"	lit integer," +
+							"	throwable integer," +
+							"	value integer," +
+							"	name varchar(40)," +
+							"	variety varchar(40)," +
+							"	affectedStat varchar(40)" +
+							")"
+					);
+					stmt7.executeUpdate();
+					
+					System.out.println("item table created");
+					
+					stmt8 = conn.prepareStatement(
+							"create table itemList (" +
+							"	itemList_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	item1 integer," +
+							"	item2 integer," +
+							"	item3 integer," +
+							"	item4 integer," +
+							"	item5 integer," +
+							"	item6 integer," +
+							"	item7 integer," +
+							"	item8 integer," +
+							"	item9 integer," +
+							"	item10 integer," +
+							"	item11 integer," +
+							"	item12 integer," +
+							"	item13 integer," +
+							"	item14 integer," +
+							"	item15 integer," +
+							"	item16 integer," +
+							"	item17 integer," +
+							"	item18 integer," +
+							"	item19 integer," +
+							"	item20 integer," +
+							"	item21 integer," +
+							"	item22 integer," +
+							"	item23 integer," +
+							"	item24 integer," +
+							"	item25 integer," +
+							"	item26 integer," +
+							"	item27 integer," +
+							"	item28 integer," +
+							"	item29 integer," +
+							"	item30 integer," +
+							"	item31 integer," +
+							"	item32 integer," +
+							"	item33 integer," +
+							"	item34 integer," +
+							"	item35 integer," +
+							"	item36 integer," +
+							"	item37 integer," +
+							"	item38 integer," +
+							"	item39 integer," +
+							"	item40 integer," +
+							"	item41 integer," +
+							"	item42 integer," +
+							"	item43 integer," +
+							"	item44 integer," +
+							"	item45 integer," +
+							"	item46 integer," +
+							"	item47 integer," +
+							"	item48 integer," +
+							"	item49 integer," +
+							"	item50 integer," +
+							")"
+					);
+					stmt8.executeUpdate();
+					
+					System.out.println("itemList table created");
+					
+					stmt9 = conn.prepareStatement(
+							"create table NPC (" +
+							"	NPC_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	maxHP integer," +
+							"	HP integer," +
+							"	maxResource integer," +
+							"	resource integer," +
+							"	atk integer," +
+							"	def integer," +
+							"	gold integer," +
+							"	XP integer," +
+							"	abilities integer," +
+							"	status varchar(40)," +
+							"	dialogue varchar(7999)," +
+							"	attitude integer," +
+							"	description varchar(7999)," +
+							"	name varchar(40)," +
+							"	inventory integer," +
+							"	currentRoom integer," +
+							"	isDead integer," +
+							")"
+					);
+					stmt9.executeUpdate();
+					
+					System.out.println("NPC table created");
+					
+					stmt10 = conn.prepareStatement(
+							"create table obstacle (" +
+							"	obstacle_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	description varchar(7999)," +
+							"	status varchar(40)," +
+							"	requirement integer" +
+							")"
+					);
+					stmt10.executeUpdate();
+					
+					System.out.println("obstacle table created");
+								
+					
+					stmt11 = conn.prepareStatement(
+							"create table player (" +
+							"	player_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	maxHP integer," +
+							"	HP integer," +
+							"	maxResource integer," +
+							"	resource integer," +
+							"	atk integer," +
+							"	def integer," +
+							"	gold integer," +
+							"	XP integer," +
+							"	abilities integer," +
+							"	status varchar(40)," +
+							"	inventory integer," +
+							"	currentRoom integer," +
+							"	isDead integer," +
+							"	name varchar(40)" +
+							")"
+					);
+					stmt11.executeUpdate();
+					
+					System.out.println("player table created");
+					
+					stmt12 = conn.prepareStatement(
+							"create table room (" +
+							"	room_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +
+							"	description varchar(7999)," +
+							"	inventory integer," +
+							"	obstacle integer," +
+							"	roomMap integer," +
+							"	roomMap integer," +
+							"	isFound integer," +
+							"	roomMap integer" +
+							")"
+					);
+					stmt12.executeUpdate();
+					
+					System.out.println("room table created");
+					
+					stmt13 = conn.prepareStatement(
+							"create table roomMap (" +
+							"	roomId integer," +
+							"	direction varchar(40)," +
+							"	mappedRoomId integer" +
+							")"
+					);
+					stmt13.executeUpdate();
+					
+					System.out.println("roomMap table created");
+					
+					stmt14 = conn.prepareStatement(
+							"create table textHistory (" +
+							"	message varchar(7999)," +
+							"	playerAction integer" +
+							")"
+					);
+					stmt14.executeUpdate();
+					
+					System.out.println("textHistory table created");
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
 					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(stmt3);
+					DBUtil.closeQuietly(stmt4);
+					DBUtil.closeQuietly(stmt5);
+					DBUtil.closeQuietly(stmt6);
+					DBUtil.closeQuietly(stmt7);
+					DBUtil.closeQuietly(stmt8);
+					DBUtil.closeQuietly(stmt9);
+					DBUtil.closeQuietly(stmt10);
+					DBUtil.closeQuietly(stmt11);
+					DBUtil.closeQuietly(stmt12);
+					DBUtil.closeQuietly(stmt13);
+					DBUtil.closeQuietly(stmt14);
 				}
 			}
 		});
@@ -169,48 +454,77 @@ public class DerbyDatabase implements IDatabase {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
-				List<Author> authorList;
-				List<Book> bookList;
-				List<BookAuthor> bookAuthorList;
+				List<Ability> Abilities;
+				List<ArrayList<Ability>> AbilitiesList;
+				List<Inventory> InventoryList;
+				List<Item> Items;
+				List<ArrayList<Item>> ItemList;
+				List<Room> Rooms;
+				List<Obstacle> Obstacles;
+				List<HashMap<String, Room>> Maps;
+				List<Enemy> Enemies;
+				List<Player> Players;
+				List<NPC> NPCs;
 				
 				try {
-					authorList     = InitialData.getAuthors();
-					bookList       = InitialData.getBooks();
-					bookAuthorList = InitialData.getBookAuthors();					
+					
+					Abilities      = InitialData.getAbilities();
+					AbilitiesList  = InitialData.getAbilitiesList();
+					InventoryList  = InitialData.getInventory();
+					Items          = InitialData.getItems();
+					ItemList       = InitialData.getItemList();
+					Rooms          = InitialData.getRooms();
+					Obstacles      = InitialData.getObstacles();
+					Maps           = InitialData.getMaps();
+					Enemies        = InitialData.getEnemies();
+					Players        = InitialData.getPlayers();
+					NPCs           = InitialData.getNPCs();
+					
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
 
-				PreparedStatement insertAuthor     = null;
-				PreparedStatement insertBook       = null;
-				PreparedStatement insertBookAuthor = null;
+				PreparedStatement insertAbilities   = null;
+				PreparedStatement insertAbilitiesList   = null;
+				PreparedStatement insertInventoryList   = null;
+				PreparedStatement insertItems   = null;
+				PreparedStatement insertItemList   = null;
+				PreparedStatement insertRooms   = null;
+				PreparedStatement insertObstacles   = null;
+				PreparedStatement insertMaps   = null;
+				PreparedStatement insertEnemies   = null;
+				PreparedStatement insertPlayers   = null;
+				PreparedStatement insertNPCs   = null;
 
 				try {
 					// must completely populate Authors table before populating BookAuthors table because of primary keys
-					insertAuthor = conn.prepareStatement("insert into authors (lastname, firstname) values (?, ?)");
-					for (Author author : authorList) {
+					insertAbilities = conn.prepareStatement("insert into ability (name, description, variety, affectedstat, effect, cost) values (?, ?, ?, ?, ?, ?)");
+					for (Ability ability : Abilities) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
-						insertAuthor.setString(1, author.getLastname());
-						insertAuthor.setString(2, author.getFirstname());
-						insertAuthor.addBatch();
+						insertAbilities.setString(1, ability.getName());
+						insertAbilities.setString(2, ability.getDescription());
+						insertAbilities.setString(3, ability.getVariety());
+						insertAbilities.setString(4, ability.getAffectedStat());
+						insertAbilities.setInt(5, ability.getEffect());
+						insertAbilities.setInt(6, ability.getCost());
+						insertAbilities.addBatch();
 					}
-					insertAuthor.executeBatch();
+					insertAbilities.executeBatch();
 					
-					System.out.println("Authors table populated");
+					System.out.println("Abilities table populated");
 					
 					// must completely populate Books table before populating BookAuthors table because of primary keys
-					insertBook = conn.prepareStatement("insert into books (title, isbn, published) values (?, ?, ?)");
-					for (Book book : bookList) {
+					insertAbilitiesList = conn.prepareStatement("insert into abilitieslist (ability1, ability2, ability3, ability4, ability5) values (?, ?, ?, ?, ?)");
+					for (ArrayList<Ability> ability : AbilitiesList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 //						insertBook.setInt(1, book.getAuthorId());	// this is now in the BookAuthors table
-						insertBook.setString(1, book.getTitle());
-						insertBook.setString(2, book.getIsbn());
-						insertBook.setInt(3, book.getPublished());
-						insertBook.addBatch();
+						for(int i=0; i<=5; i++) {
+						insertAbilitiesList.setString(i, ability.get(i).getName());
+						}
 					}
-					insertBook.executeBatch();
+					insertAbilitiesList.executeBatch();
 					
-					System.out.println("Books table populated");					
+					System.out.println("AbilitiesList table populated");					
 					
 					// must wait until all Books and all Authors are inserted into tables before creating BookAuthor table
 					// since this table consists entirely of foreign keys, with constraints applied

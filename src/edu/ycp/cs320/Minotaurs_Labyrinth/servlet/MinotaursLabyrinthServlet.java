@@ -114,7 +114,16 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
 			if(inputs.length <= 2 && inputs.length > 1 && model.getTargets().get(inputs[1])!=null && model.getPlayer().getCurrentRoom() == model.getTargets().get(inputs[1]).getCurrentRoom() && !inputs[1].equals("player")) {
 				String atkMsg = model.getPlayer().basicAttack(model.getTargets().get(inputs[1]));
+				if(atkMsg.equals(model.getTargets().get(inputs[1]).getName() + " is dead.")) {
+					if(model.getTargets().get(inputs[1]).getName().equals("Villager")) {
+						model.setVillagerDead(1);
+						
+					}else if(model.getTargets().get(inputs[1]).getName().equals("ogre")) {
+						model.setEnemyDead(1);
+					}
+				}
 				String enemyAtkMsg = model.getTargets().get(inputs[1]).basicAttack(model.getPlayer());
+				
 				Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
 				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
 				model.getOutputStrings().add(msg);
@@ -126,11 +135,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
 				model.getOutputStrings().add(msg);
 			}else{
-				Message<String, Integer> msg = new Message<String, Integer>("You can't attack " + inputs[1] + "!", 0);
+				Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
 				model.getOutputStrings().add(msg);
 			}
 		}else if(req.getParameter("textbox") != null && inputVal.equals("talk") && model.getPlayer().getCurrentRoom() == model.getRoomByRoomId(3)) {
 			if(!(model.getVillager().getIsDead())) {
+				System.out.println(model.getVillager().getIsDead());
 				model.initResponses();
 			}else {
 				Message<String, Integer> msg = new Message<String, Integer>("You killed the villager you monster!", 0);
