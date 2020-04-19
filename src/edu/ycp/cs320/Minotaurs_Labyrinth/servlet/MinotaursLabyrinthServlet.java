@@ -112,7 +112,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			if(inputs.length>1 && model.getTargets().get(inputs[1])!=null && model.getPlayer().getCurrentRoom() == model.getTargets().get(inputs[1]).getCurrentRoom() && !inputs[1].equals("player")) {
 				String atkMsg = model.getPlayer().basicAttack(model.getTargets().get(inputs[1]));
 				if(atkMsg.equals(model.getTargets().get(inputs[1]).getName() + " is dead.")) {
-					System.out.println("I got here");
 					if(model.getTargets().get(inputs[1]).getName().equals("Villager")) {
 						model.setVillagerDead(1);
 						
