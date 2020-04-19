@@ -10,6 +10,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
@@ -398,5 +399,56 @@ public class InitialData {
 		readPlayers.close();
 	}
 }
+
+	public static List<NPC> getNPCs() throws IOException {
+		List<NPC> npcList = new ArrayList<NPC>();
+		ReadCSV readNPCs = new ReadCSV("NPC.csv");
+		try {
+			while (true) {
+				List<String> tuple = readNPCs.next();
+				if (tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				NPC npc = new NPC(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, 0, null, null, null, null, false);
+				
+				npc.setMaxHP(Integer.parseInt(i.next()));
+				npc.setHP(Integer.parseInt(i.next()));
+				npc.setMaxResource(Integer.parseInt(i.next()));
+				npc.setResource(Integer.parseInt(i.next()));
+				npc.setAtk(Integer.parseInt(i.next()));
+				npc.setDef(Integer.parseInt(i.next()));
+				npc.setGold(Integer.parseInt(i.next()));
+				npc.setXP(Integer.parseInt(i.next()));
+				List<ArrayList<Ability>> tmpList = getAbilitiesList();
+				npc.setAbilities(tmpList.get(Integer.parseInt(i.next())-1));
+				npc.setStatus(i.next());
+				npc.setDialogue(i.next());
+				npc.setAttitude(Integer.parseInt(i.next()));
+				npc.setDescription(i.next());
+				npc.setName(i.next());
+				List<Inventory> tmpList2 = getInventory();
+				npc.setInventory(tmpList2.get(Integer.parseInt(i.next())-1));
+				
+				List<Room> tmpList3 = getRooms();
+				npc.setCurrentRoom(tmpList3.get(Integer.parseInt(i.next())-1));
+				
+				if(Integer.parseInt(i.next())==0) {
+					npc.setIsDead(false);
+				}else {
+					npc.setIsDead(true);
+				}
+				
+				npcList.add(npc);
+			
+			}
+				
+			
+			System.out.println("enemyList loaded from CSV file");			
+			return npcList;
+		} finally {
+			readNPCs.close();
+		}
+	}
 }
 
