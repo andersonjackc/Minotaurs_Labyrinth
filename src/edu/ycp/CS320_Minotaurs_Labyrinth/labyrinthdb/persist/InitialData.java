@@ -60,11 +60,11 @@ public class InitialData {
 				}
 				Iterator<String> i = tuple.iterator();
 				ArrayList<Ability> abilities = new ArrayList<Ability>();
-				List<Ability> tmpList = getAbilities();
+				ArrayList<Ability> tmpList = (ArrayList<Ability>)getAbilities();
 				i.next();
 				while(i.hasNext()) {
 					
-					abilities.add(tmpList.get(Integer.parseInt(i.next())-1));
+					abilities.add(getAbilitybyString(tmpList, i.next()));
 				}
 				
 				abilityList2.add(abilities);
@@ -450,5 +450,14 @@ public class InitialData {
 			readNPCs.close();
 		}
 	}
+
+	public static Ability getAbilitybyString(ArrayList<Ability> abilities, String name) {
+        for(int i = 0; i < abilities.size(); i++) {
+            if(abilities.get(i).getName().equals(name)) {
+                return abilities.get(i);
+            }
+        }
+        return null;
+    }
 }
 
