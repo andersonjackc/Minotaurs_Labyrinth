@@ -219,6 +219,7 @@ public class Player extends Actor {
 	}
 
 	public String basicAttack(Actor target) {
+		if(!this.isDead) {
 		target.setHP((target.getHP() - getAtk())); 
 		
 		if(target.getHP()<=0 || target.getIsDead()) {
@@ -229,14 +230,28 @@ public class Player extends Actor {
 		}
 		
 		return "You did " + this.getAtk() + " to " + target.getName() + ", it now has " + target.getHP() + " HP.";
+		}
+		return "";
 	}
 
-	public void cast(Actor target, Ability spell) { 
-		if(abilities.contains(spell) && spell.getCost() <= resource) {
+	public String cast(Actor target, Ability spell) {
+		if(!this.isDead) {
+		if(abilities.contains(spell) && spell.getCost() <= this.resource) {
 		spell.addEffect(target);
 		setResource(getResource()-spell.getCost());
+		if(target.getHP()<=0 || target.getIsDead()) {
+			target.setIsDead(true);
+			
+			return target.getName() + " is dead.";
+			
 		}
-		
+		return "You cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getHP() + " " + spell.getAffectedStat();
+		}
+		if(spell.getCost() > this.resource) {
+		return "You don't have enough resource to cast " + spell.getName();
+		}
+		}
+		return "";
 	}
 
 	//getters
