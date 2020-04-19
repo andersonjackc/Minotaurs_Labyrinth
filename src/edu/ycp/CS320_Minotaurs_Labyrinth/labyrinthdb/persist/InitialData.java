@@ -11,6 +11,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.ReadCSV;
 
@@ -347,5 +348,55 @@ public class InitialData {
 			readEnemies.close();
 		}
 	}
+	
+	public static List<Player> getPlayers() throws IOException {
+	List<Player> playerList = new ArrayList<Player>();
+	ReadCSV readPlayers = new ReadCSV("Player.csv");
+	try {
+		while (true) {
+			List<String> tuple = readPlayers.next();
+			if (tuple == null) {
+				break;
+			}
+			Iterator<String> i = tuple.iterator();
+			Player player = new Player(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, false, null);
+			player.setMaxHP(Integer.parseInt(i.next()));
+			player.setHP(Integer.parseInt(i.next()));
+			player.setMaxResource(Integer.parseInt(i.next()));
+			player.setResource(Integer.parseInt(i.next()));
+			player.setAtk(Integer.parseInt(i.next()));
+			player.setDef(Integer.parseInt(i.next()));
+			player.setGold(Integer.parseInt(i.next()));
+			player.setXP(Integer.parseInt(i.next()));
+			List<ArrayList<Ability>> tmpList = getAbilitiesList();
+			player.setAbilities(tmpList.get(Integer.parseInt(i.next())-1));
+			player.setStatus(i.next());
+			List<Inventory> tmpList2 = getInventory();
+			player.setInventory(tmpList2.get(Integer.parseInt(i.next())-1));
+			List<Room> tmpList3 = getRooms();
+			player.setCurrentRoom(tmpList3.get(Integer.parseInt(i.next())-1));
+			if(Integer.parseInt(i.next())==0) {
+				player.setIsDead(false);
+			}else {
+				player.setIsDead(true);
+			}
+			player.setName(i.next());
+
+			
+
+			
+
+			
+			playerList.add(player);
+		
+		}
+			
+		
+		System.out.println("playerList loaded from CSV file");			
+		return playerList;
+	} finally {
+		readPlayers.close();
+	}
+}
 }
 
