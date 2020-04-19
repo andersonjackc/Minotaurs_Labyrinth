@@ -28,6 +28,11 @@
 			<table>
 				<c:forEach items="${outputstrings}" var="strings">
 				
+					<c:if test="${strings.playerAction == 3}">
+                        <tr class="castCommands">
+                            <td name="output">${strings.message}</td>
+                        </tr>
+                    </c:if>
 					<c:if test="${strings.playerAction == 2}">
 						<tr class="attackCommands">
 							<td name="output">${strings.message}</td>
@@ -65,6 +70,7 @@
 				</tr>
 				<input name="location" type="hidden" value="${game.roomPosition}" />
 				<input name="playerHP" type="hidden" value="${game.playerHP}" />
+				<input name="playerResource" type="hidden" value="${game.playerResource}" />
 				<input name="enemyIsDead" type="hidden" value="${game.enemyDead}" />
 				<input name="villagerIsDead" type="hidden" value="${game.villagerDead}" />
 				<input name="enemyHP" type="hidden" value="${game.enemyHP}" />
