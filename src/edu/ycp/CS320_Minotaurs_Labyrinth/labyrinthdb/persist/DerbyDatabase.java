@@ -136,10 +136,10 @@ public class DerbyDatabase implements IDatabase {
 						"	ability_id integer primary key " +
 						"		generated always as identity (start with 1, increment by 1), " +									
 						"	name varchar(40)," +
-						"	description varchar(7999)" +
-						"	variety varchar(40)" +
-						"	affectedStat varchar(40)" +
-						"	effect integer" +
+						"	description varchar(7999)," +
+						"	variety varchar(40)," +
+						"	affectedStat varchar(40)," +
+						"	effect integer," +
 						"	cost integer" +
 						")"
 					);	
@@ -151,11 +151,11 @@ public class DerbyDatabase implements IDatabase {
 							"create table abilityList (" +
 							"	abilityList_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	ability1 integer" +
-							"	ability2 integer" +
-							"	ability3 integer" +
-							"	ability4 integer" +
-							"	ability5 integer" +
+							"	ability1 integer," +
+							"	ability2 integer," +
+							"	ability3 integer," +
+							"	ability4 integer," +
+							"	ability5 integer," +
 							")"
 					);
 					stmt2.executeUpdate();
@@ -166,7 +166,7 @@ public class DerbyDatabase implements IDatabase {
 							"create table account (" +
 							"	account_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	username varchar(40)" +
+							"	username varchar(40)," +
 							"	password varchar(40)" +
 							")"
 					);
@@ -178,22 +178,22 @@ public class DerbyDatabase implements IDatabase {
 							"create table enemy (" +
 							"	enemy_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	maxHP integer" +
-							"	HP integer" +
-							"	maxResource integer" +
-							"	resource integer" +
-							"	atk integer" +
-							"	def integer" +
-							"	gold integer" +
-							"	XP integer" +
-							"	abilities integer" +
-							"	status varchar(40)" +
-							"	dialogue varchar(7999)" +
-							"	attitude integer" +
-							"	description varchar(7999)" +
-							"	name varchar(40)" +
-							"	inventory integer" +
-							"	currentRoom integer" +
+							"	maxHP integer," +
+							"	HP integer," +
+							"	maxResource integer," +
+							"	resource integer," +
+							"	atk integer," +
+							"	def integer," +
+							"	gold integer," +
+							"	XP integer," +
+							"	abilities integer," +
+							"	status varchar(40)," +
+							"	dialogue varchar(7999)," +
+							"	attitude integer," +
+							"	description varchar(7999)," +
+							"	name varchar(40)," +
+							"	inventory integer," +
+							"	currentRoom integer," +
 							"	isDead integer" +
 							")"
 					);
@@ -205,18 +205,18 @@ public class DerbyDatabase implements IDatabase {
 							"create table gear (" +
 							"	gear_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	atk integer" +
-							"	def integer" +
-							"	HP integer" +
-							"	variety varchar(40)" +
-							"	equipped integer" +
-							"	description varchar(7999)" +
-							"	effect integer" +
-							"	flammable integer" +
-							"	lit integer" +
-							"	throwable integer" +
-							"	value integer" +
-							"	name varchar(40)" +
+							"	atk integer," +
+							"	def integer," +
+							"	HP integer," +
+							"	variety varchar(40)," +
+							"	equipped integer," +
+							"	description varchar(7999)," +
+							"	effect integer," +
+							"	flammable integer," +
+							"	lit integer," +
+							"	throwable integer," +
+							"	value integer," +
+							"	name varchar(40)," +
 							"	affectedStat varchar(40)" +
 							")"
 					);
@@ -228,8 +228,8 @@ public class DerbyDatabase implements IDatabase {
 							"create table inventory (" +
 							"	inventory_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	maxStorage integer" +
-							"	maxQuant integer" +
+							"	maxStorage integer," +
+							"	maxQuant integer," +
 							"	inventory integer" +
 							")"
 					);
@@ -241,14 +241,14 @@ public class DerbyDatabase implements IDatabase {
 							"create table item (" +
 							"	item integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	description varchar(7999)" +
-							"	effect integer" +
-							"	flammable integer" +
-							"	lit integer" +
-							"	throwable integer" +
-							"	value integer" +
-							"	name varchar(40)" +
-							"	variety varchar(40)" +
+							"	description varchar(7999)," +
+							"	effect integer," +
+							"	flammable integer," +
+							"	lit integer," +
+							"	throwable integer," +
+							"	value integer," +
+							"	name varchar(40)," +
+							"	variety varchar(40)," +
 							"	affectedStat varchar(40)" +
 							")"
 					);
@@ -260,56 +260,56 @@ public class DerbyDatabase implements IDatabase {
 							"create table itemList (" +
 							"	itemList_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	item1 integer" +
-							"	item2 integer" +
-							"	item3 integer" +
-							"	item4 integer" +
-							"	item5 integer" +
-							"	item6 integer" +
-							"	item7 integer" +
-							"	item8 integer" +
-							"	item9 integer" +
-							"	item10 integer" +
-							"	item11 integer" +
-							"	item12 integer" +
-							"	item13 integer" +
-							"	item14 integer" +
-							"	item15 integer" +
-							"	item16 integer" +
-							"	item17 integer" +
-							"	item18 integer" +
-							"	item19 integer" +
-							"	item20 integer" +
-							"	item21 integer" +
-							"	item22 integer" +
-							"	item23 integer" +
-							"	item24 integer" +
-							"	item25 integer" +
-							"	item26 integer" +
-							"	item27 integer" +
-							"	item28 integer" +
-							"	item29 integer" +
-							"	item30 integer" +
-							"	item31 integer" +
-							"	item32 integer" +
-							"	item33 integer" +
-							"	item34 integer" +
-							"	item35 integer" +
-							"	item36 integer" +
-							"	item37 integer" +
-							"	item38 integer" +
-							"	item39 integer" +
-							"	item40 integer" +
-							"	item41 integer" +
-							"	item42 integer" +
-							"	item43 integer" +
-							"	item44 integer" +
-							"	item45 integer" +
-							"	item46 integer" +
-							"	item47 integer" +
-							"	item48 integer" +
-							"	item49 integer" +
-							"	item50 integer" +
+							"	item1 integer," +
+							"	item2 integer," +
+							"	item3 integer," +
+							"	item4 integer," +
+							"	item5 integer," +
+							"	item6 integer," +
+							"	item7 integer," +
+							"	item8 integer," +
+							"	item9 integer," +
+							"	item10 integer," +
+							"	item11 integer," +
+							"	item12 integer," +
+							"	item13 integer," +
+							"	item14 integer," +
+							"	item15 integer," +
+							"	item16 integer," +
+							"	item17 integer," +
+							"	item18 integer," +
+							"	item19 integer," +
+							"	item20 integer," +
+							"	item21 integer," +
+							"	item22 integer," +
+							"	item23 integer," +
+							"	item24 integer," +
+							"	item25 integer," +
+							"	item26 integer," +
+							"	item27 integer," +
+							"	item28 integer," +
+							"	item29 integer," +
+							"	item30 integer," +
+							"	item31 integer," +
+							"	item32 integer," +
+							"	item33 integer," +
+							"	item34 integer," +
+							"	item35 integer," +
+							"	item36 integer," +
+							"	item37 integer," +
+							"	item38 integer," +
+							"	item39 integer," +
+							"	item40 integer," +
+							"	item41 integer," +
+							"	item42 integer," +
+							"	item43 integer," +
+							"	item44 integer," +
+							"	item45 integer," +
+							"	item46 integer," +
+							"	item47 integer," +
+							"	item48 integer," +
+							"	item49 integer," +
+							"	item50 integer," +
 							")"
 					);
 					stmt8.executeUpdate();
@@ -320,23 +320,23 @@ public class DerbyDatabase implements IDatabase {
 							"create table NPC (" +
 							"	NPC_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	maxHP integer" +
-							"	HP integer" +
-							"	maxResource integer" +
-							"	resource integer" +
-							"	atk integer" +
-							"	def integer" +
-							"	gold integer" +
-							"	XP integer" +
-							"	abilities integer" +
-							"	status varchar(40)" +
-							"	dialogue varchar(7999)" +
-							"	attitude integer" +
-							"	description varchar(7999)" +
-							"	name varchar(40)" +
-							"	inventory integer" +
-							"	currentRoom integer" +
-							"	isDead integer" +
+							"	maxHP integer," +
+							"	HP integer," +
+							"	maxResource integer," +
+							"	resource integer," +
+							"	atk integer," +
+							"	def integer," +
+							"	gold integer," +
+							"	XP integer," +
+							"	abilities integer," +
+							"	status varchar(40)," +
+							"	dialogue varchar(7999)," +
+							"	attitude integer," +
+							"	description varchar(7999)," +
+							"	name varchar(40)," +
+							"	inventory integer," +
+							"	currentRoom integer," +
+							"	isDead integer," +
 							")"
 					);
 					stmt9.executeUpdate();
@@ -347,8 +347,8 @@ public class DerbyDatabase implements IDatabase {
 							"create table obstacle (" +
 							"	obstacle_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	description varchar(7999)" +
-							"	status varchar(40)" +
+							"	description varchar(7999)," +
+							"	status varchar(40)," +
 							"	requirement integer" +
 							")"
 					);
@@ -361,19 +361,19 @@ public class DerbyDatabase implements IDatabase {
 							"create table player (" +
 							"	player_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	maxHP integer" +
-							"	HP integer" +
-							"	maxResource integer" +
-							"	resource integer" +
-							"	atk integer" +
-							"	def integer" +
-							"	gold integer" +
-							"	XP integer" +
-							"	abilities integer" +
-							"	status varchar(40)" +
-							"	inventory integer" +
-							"	currentRoom integer" +
-							"	isDead integer" +
+							"	maxHP integer," +
+							"	HP integer," +
+							"	maxResource integer," +
+							"	resource integer," +
+							"	atk integer," +
+							"	def integer," +
+							"	gold integer," +
+							"	XP integer," +
+							"	abilities integer," +
+							"	status varchar(40)," +
+							"	inventory integer," +
+							"	currentRoom integer," +
+							"	isDead integer," +
 							"	name varchar(40)" +
 							")"
 					);
@@ -385,13 +385,13 @@ public class DerbyDatabase implements IDatabase {
 							"create table room (" +
 							"	room_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	description varchar(7999)" +
-							"	inventory integer" +
-							"	obstacle integer" +
+							"	description varchar(7999)," +
+							"	inventory integer," +
+							"	obstacle integer," +
 							"	roomMap integer," +
 							"	roomMap integer," +
 							"	isFound integer," +
-							"	roomMap integer," +
+							"	roomMap integer" +
 							")"
 					);
 					stmt12.executeUpdate();
@@ -402,7 +402,7 @@ public class DerbyDatabase implements IDatabase {
 							"create table roomMap (" +
 							"	roomId integer," +
 							"	direction varchar(40)," +
-							"	mappedRoomId integer," +
+							"	mappedRoomId integer" +
 							")"
 					);
 					stmt13.executeUpdate();
@@ -412,7 +412,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt14 = conn.prepareStatement(
 							"create table textHistory (" +
 							"	message varchar(7999)," +
-							"	playerAction integer," +
+							"	playerAction integer" +
 							")"
 					);
 					stmt14.executeUpdate();
