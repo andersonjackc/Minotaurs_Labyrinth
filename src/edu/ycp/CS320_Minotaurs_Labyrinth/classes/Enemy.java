@@ -51,7 +51,31 @@ public class Enemy extends NPC {
 				
 				return "You are dead.";
 			}
-			return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getHP() + " " + spell.getAffectedStat();
+			if(spell.getAffectedStat().equals("HP")) {
+				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getHP() + " " + spell.getAffectedStat();
+		  
+			} 
+			else if(spell.getAffectedStat().equals("maxHP")) {
+				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getMaxHP() + " " + spell.getAffectedStat();
+
+			}
+			else if(spell.getAffectedStat().equals("resource")) {
+				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getResource() + " " + spell.getAffectedStat();
+
+			}
+			else if(spell.getAffectedStat().equals("maxResource")) {
+				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getMaxResource() + " " + spell.getAffectedStat();
+
+			}
+			else if(spell.getAffectedStat().equals("atk")) {
+				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getAtk() + " " + spell.getAffectedStat();
+
+			}
+			else if(spell.getAffectedStat().equals("def")) {
+				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getDef() + " " + spell.getAffectedStat();
+
+			}
+			
 		}
 		}
 		return "";

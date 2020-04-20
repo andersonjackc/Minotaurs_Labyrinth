@@ -118,7 +118,7 @@ Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 	}
 	@Test
 	public void testRollForAction() {
-		assertThat(testEnemy.rollForAction(testEnemy), anyOf(containsString("test did 1 to test, you now have 4 HP."), containsString("testEnemy cast testMaxHPSpell it did 5 to testEnemy's maxHP, you now have 5 maxHP")));
+		assertThat(testEnemy.rollForAction(testEnemy), anyOf(containsString("test did 1 to test, you now have 4 HP."), containsString("testEnemy cast testMaxHPSpell it did 5 to testEnemy's maxHP, you now have 10 maxHP")));
 	}
 	@Test
 	public void testIsDeadMethods() {

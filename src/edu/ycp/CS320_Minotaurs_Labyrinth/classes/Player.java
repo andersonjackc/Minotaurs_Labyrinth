@@ -247,7 +247,30 @@ public class Player extends Actor {
 			return target.getName() + " is dead.";
 			
 		}
-		return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getHP() + " " + spell.getAffectedStat();
+		 if(spell.getAffectedStat().equals("HP")) {
+				return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getHP() + " " + spell.getAffectedStat();
+		  
+			} 
+			else if(spell.getAffectedStat().equals("maxHP")) {
+				return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getMaxHP() + " " + spell.getAffectedStat();
+
+			}
+			else if(spell.getAffectedStat().equals("resource")) {
+				return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getResource() + " " + spell.getAffectedStat();
+
+			}
+			else if(spell.getAffectedStat().equals("maxResource")) {
+				return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getMaxResource() + " " + spell.getAffectedStat();
+
+			}
+			else if(spell.getAffectedStat().equals("atk")) {
+				return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getAtk() + " " + spell.getAffectedStat();
+
+			}
+			else if(spell.getAffectedStat().equals("def")) {
+				return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getDef() + " " + spell.getAffectedStat();
+
+			}
 		}
 		if(spell.getCost() > this.resource) {
 		return "You don't have enough resource to cast " + spell.getName();

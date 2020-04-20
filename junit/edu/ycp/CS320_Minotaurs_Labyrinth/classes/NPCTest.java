@@ -126,6 +126,6 @@ Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 	
 	@Test
 	public void testRollForAction() {
-		assertThat(testNPC.rollForAction(testNPC), anyOf(containsString("test did 1 to test, you now have 4 HP."), containsString("testNPC cast testMaxHPSpell it did 5 to testNPC's maxHP, you now have 5 maxHP")));
+		assertThat(testNPC.rollForAction(testNPC), anyOf(containsString("test did 1 to test, you now have 4 HP."), containsString("testNPC cast test it did 5 to testNPC's maxHP, you now have 10 maxHP")));
 	}
 }
