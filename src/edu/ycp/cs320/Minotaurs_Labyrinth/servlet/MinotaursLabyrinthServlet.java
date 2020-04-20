@@ -204,24 +204,15 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		//move
 		else if (req.getParameter("textbox") != null && inputs[0].equals("move")){
-			if(inputs.length <= 2 && inputs.length > 1 && inputs[1].equals("north")) {
+			if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 				String moveMsg = model.getPlayer().move(inputs[1]);
 				Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
 				model.getOutputStrings().add(msg);
-			}else if(inputs.length <= 2 && inputs.length > 1 && inputs[1].equals("south")) {
-				String moveMsg = model.getPlayer().move(inputs[1]);
-				Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
+			}else if(inputs.length<=1){
+				Message<String, Integer> msg = new Message<String, Integer>("You must specify a direction!", 0);
 				model.getOutputStrings().add(msg);
-			}else if(inputs.length <= 2 && inputs.length > 1 && inputs[1].equals("east")) {
-				String moveMsg = model.getPlayer().move(inputs[1]);
-				Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
-				model.getOutputStrings().add(msg);
-			}else if(inputs.length <= 2 && inputs.length > 1 && inputs[1].equals("west")) {
-				String moveMsg = model.getPlayer().move(inputs[1]);
-				Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
-				model.getOutputStrings().add(msg);
-			}else{
-				Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid direction!", 0);
+			}else if(inputs.length > 2) {
+				Message<String, Integer> msg = new Message<String, Integer>("Specify a single direction!", 0);
 				model.getOutputStrings().add(msg);
 			}
 		}

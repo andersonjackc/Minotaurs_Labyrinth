@@ -14,6 +14,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
@@ -465,6 +466,7 @@ public class DerbyDatabase implements IDatabase {
 				List<Enemy> Enemies;
 				List<Player> Players;
 				List<NPC> NPCs;
+				List<Message<String, Integer>> Messages;
 				
 				try {
 					
@@ -479,6 +481,8 @@ public class DerbyDatabase implements IDatabase {
 					Enemies        = InitialData.getEnemies();
 					Players        = InitialData.getPlayers();
 					NPCs           = InitialData.getNPCs();
+					Messages       = InitialData.getTextHistory();
+					
 					
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
@@ -495,10 +499,11 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertEnemies   = null;
 				PreparedStatement insertPlayers   = null;
 				PreparedStatement insertNPCs   = null;
+				PreparedStatement insertMessages = null;
 
 				try {
 					// must completely populate Authors table before populating BookAuthors table because of primary keys
-					insertAbilities = conn.prepareStatement("insert into ability (name, description, variety, affectedstat, effect, cost) values (?, ?, ?, ?, ?, ?)");
+					insertAbilities = conn.prepareStatement("insert into ability (name, description, variety, affectedStat, effect, cost) values (?, ?, ?, ?, ?, ?)");
 					for (Ability ability : Abilities) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertAbilities.setString(1, ability.getName());
@@ -514,7 +519,7 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("Abilities table populated");
 					
 					// must completely populate Books table before populating BookAuthors table because of primary keys
-					insertAbilitiesList = conn.prepareStatement("insert into abilitieslist (ability1, ability2, ability3, ability4, ability5) values (?, ?, ?, ?, ?)");
+					insertAbilitiesList = conn.prepareStatement("insert into abilitylist (ability1, ability2, ability3, ability4, ability5) values (?, ?, ?, ?, ?)");
 					for (ArrayList<Ability> ability : AbilitiesList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 //						insertBook.setInt(1, book.getAuthorId());	// this is now in the BookAuthors table
@@ -524,13 +529,17 @@ public class DerbyDatabase implements IDatabase {
 						insertAbilitiesList.addBatch();
 
 					}
-					insertAbilitiesList.executeBatch();
+					insertAbilitiesList.executeBatch();					
+
 					
 					System.out.println("AbilitiesList table populated");					
 					
 					// must wait until all Books and all Authors are inserted into tables before creating BookAuthor table
 					// since this table consists entirely of foreign keys, with constraints applied
-					insertPlayers = conn.prepareStatement("insert into players (maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom, isDead, name) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertPlayers = conn.prepareStatement("insert into players (maxHP, HP, maxResource, resource, "
+							+ "atk, def, gold, XP, abilities, status, "
+							+ "inventory, currentRoom, isDead, name) values "
+							+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Player player : Players) {
 						insertPlayers.setInt(1, player.getMaxHP());
 						insertPlayers.setInt(2, player.getHP());
@@ -556,7 +565,10 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Players table populated");	
 					
-					insertEnemies = conn.prepareStatement("insert into enemies (maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom, isDead, name) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertEnemies = conn.prepareStatement("insert into npcs (maxHP, HP, maxResource, resource, "
+							+ "atk, def, gold, XP, abilities, "
+							+ "status, dialogue, attitude, description, "
+							+ "name, inventory, currentRoom, isDead) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Enemy enemy : Enemies) {
 						insertEnemies.setInt(1, enemy.getMaxHP());
 						insertEnemies.setInt(2, enemy.getHP());
@@ -568,21 +580,29 @@ public class DerbyDatabase implements IDatabase {
 						insertEnemies.setInt(8, enemy.getXP());
 						insertEnemies.setInt(9, AbilityIDbyList(enemy.getAbilities(), AbilitiesList));
 						insertEnemies.setString(10, enemy.getStatus());
-						insertEnemies.setInt(11, InventoryIDbyList(enemy.getInventory(), InventoryList));
-						insertEnemies.setInt(12, enemy.getCurrentRoom().getRoomId());
+						insertEnemies.setString(11, enemy.getDialogue());
+						insertEnemies.setInt(12, enemy.getAttitude());
+						insertEnemies.setString(13, enemy.getDescription());
+						insertEnemies.setString(14, enemy.getName());
+						insertEnemies.setInt(15, InventoryIDbyList(enemy.getInventory(), InventoryList));
+						insertEnemies.setInt(16, enemy.getCurrentRoom().getRoomId());
 						if(enemy.getIsDead()) {
-						insertItems.setInt(13, 1);
+						insertEnemies.setInt(17, 1);
 						}else{
-						insertItems.setInt(13, 0);
+						insertEnemies.setInt(17, 0);
 						}
 						insertEnemies.setString(14, enemy.getName());
 						insertEnemies.addBatch();
 					}
-					insertEnemies.executeBatch();	
+					insertEnemies.executeBatch();
 					
 					System.out.println("Enemies table populated");		
 					
-					insertNPCs = conn.prepareStatement("insert into npcs (maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom, isDead, name) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertNPCs = conn.prepareStatement("insert into npcs (maxHP, HP, maxResource, resource, "
+							+ "atk, def, gold, XP, abilities, "
+							+ "status, dialogue, attitude, description, "
+							+ "name, inventory, currentRoom, isDead) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					
 					for (NPC npc : NPCs) {
 						insertNPCs.setInt(1, npc.getMaxHP());
 						insertNPCs.setInt(2, npc.getHP());
@@ -594,16 +614,21 @@ public class DerbyDatabase implements IDatabase {
 						insertNPCs.setInt(8, npc.getXP());
 						insertNPCs.setInt(9, AbilityIDbyList(npc.getAbilities(), AbilitiesList));
 						insertNPCs.setString(10, npc.getStatus());
-						insertNPCs.setInt(11, InventoryIDbyList(npc.getInventory(), InventoryList));
-						insertNPCs.setInt(12, npc.getCurrentRoom().getRoomId());
+						insertNPCs.setString(11, npc.getDialogue());
+						insertNPCs.setInt(12, npc.getAttitude());
+						insertNPCs.setString(13, npc.getDescription());
+						insertNPCs.setString(14, npc.getName());
+						insertNPCs.setInt(15, InventoryIDbyList(npc.getInventory(), InventoryList));
+						insertNPCs.setInt(16, npc.getCurrentRoom().getRoomId());
 						if(npc.getIsDead()) {
-						insertNPCs.setInt(13, 1);
+						insertNPCs.setInt(17, 1);
 						}else{
-						insertNPCs.setInt(13, 0);
+						insertNPCs.setInt(17, 0);
 						}
 						insertNPCs.setString(14, npc.getName());
+						insertNPCs.addBatch();
 					}
-					insertNPCs.executeBatch();	
+					insertNPCs.executeBatch();
 					
 					System.out.println("NPC table populated");		
 
@@ -656,7 +681,9 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("ItemList table populated");
 					
-					insertRooms = conn.prepareStatement("insert into room (description, inventory, obstacle, roomMap, isFound) values (?, ?, ?, ?, ?)");
+					insertRooms = conn.prepareStatement("insert into room (description, inventory, obstacle, "
+							+ "roomMap, isFound) values (?, ?, ?, ?, ?)");
+					
 					for (Room room : Rooms) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertRooms.setString(1, room.getDescription());
@@ -674,7 +701,8 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Rooms table populated");
 					
-					insertObstacles = conn.prepareStatement("insert into obstacle (String description, String status, Item requirement) values (?, ?, ?)");
+					insertObstacles = conn.prepareStatement("insert into obstacle (String description, String status, "
+							+ "Item requirement) values (?, ?, ?)");
 					for (Obstacle obstacle : Obstacles) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertObstacles.setString(1, obstacle.getDescription());
@@ -702,6 +730,15 @@ public class DerbyDatabase implements IDatabase {
 					insertMaps.executeBatch();
 
 					System.out.println("Maps table populated");
+					
+					insertMessages = conn.prepareStatement("insert into textHistory (message, playerAction) values (?, ?)");
+					for (Message<String,Integer> message : Messages) {
+//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
+						insertMessages.setString(1, message.getMessage());
+						insertMessages.setInt(2, message.getPlayerAction());
+						insertMessages.addBatch();
+					}
+					insertMessages.executeBatch();
 					
 					return true;
 				} finally {
