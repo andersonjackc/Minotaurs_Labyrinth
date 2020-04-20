@@ -498,7 +498,7 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					// must completely populate Authors table before populating BookAuthors table because of primary keys
-					insertAbilities = conn.prepareStatement("insert into ability (name, description, variety, affectedstat, effect, cost) values (?, ?, ?, ?, ?, ?)");
+					insertAbilities = conn.prepareStatement("insert into ability (name, description, variety, affectedStat, effect, cost) values (?, ?, ?, ?, ?, ?)");
 					for (Ability ability : Abilities) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertAbilities.setString(1, ability.getName());
@@ -514,7 +514,7 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("Abilities table populated");
 					
 					// must completely populate Books table before populating BookAuthors table because of primary keys
-					insertAbilitiesList = conn.prepareStatement("insert into abilitieslist (ability1, ability2, ability3, ability4, ability5) values (?, ?, ?, ?, ?)");
+					insertAbilitiesList = conn.prepareStatement("insert into abilitylist (ability1, ability2, ability3, ability4, ability5) values (?, ?, ?, ?, ?)");
 					for (ArrayList<Ability> ability : AbilitiesList) {
 //						insertBook.setInt(1, book.getBookId());		// auto-generated primary key, don't insert this
 //						insertBook.setInt(1, book.getAuthorId());	// this is now in the BookAuthors table
@@ -524,7 +524,8 @@ public class DerbyDatabase implements IDatabase {
 						insertAbilitiesList.addBatch();
 
 					}
-					insertAbilitiesList.executeBatch();
+					insertAbilitiesList.executeBatch();					
+
 					
 					System.out.println("AbilitiesList table populated");					
 					
@@ -556,7 +557,10 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Players table populated");	
 					
-					insertEnemies = conn.prepareStatement("insert into enemies (maxHP, HP, maxResource, resource, atk, def, gold, XP, abilities, status, inventory, currentRoom, isDead, name) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertEnemies = conn.prepareStatement("insert into enemies (int maxHP, int HP, int maxResource, int resource, "
+							+ "int atk, int def, int gold, int XP, ArrayList<Ability> abilities, String status, String dialogue, "
+							+ "int attitude, String description, String name, Inventory inventory, Room currentRoom, boolean isDead)"
+							+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Enemy enemy : Enemies) {
 						insertEnemies.setInt(1, enemy.getMaxHP());
 						insertEnemies.setInt(2, enemy.getHP());
@@ -568,17 +572,43 @@ public class DerbyDatabase implements IDatabase {
 						insertEnemies.setInt(8, enemy.getXP());
 						insertEnemies.setInt(9, AbilityIDbyList(enemy.getAbilities(), AbilitiesList));
 						insertEnemies.setString(10, enemy.getStatus());
-						insertEnemies.setInt(11, InventoryIDbyList(enemy.getInventory(), InventoryList));
-						insertEnemies.setInt(12, enemy.getCurrentRoom().getRoomId());
+						insertEnemies.setString(11, enemy.getDialogue());
+						insertEnemies.setInt(12, enemy.getAttitude());
+						insertEnemies.setString(13, enemy.getDescription())
+						insertEnemies.setString(14, enemy.getName());
+						insertEnemies.setInt(15, InventoryIDbyList(enemy.getInventory(), InventoryList));
+						insertEnemies.setInt(16, enemy.getCurrentRoom().getRoomId());
 						if(enemy.getIsDead()) {
-						insertItems.setInt(13, 1);
+						insertItems.setInt(17, 1);
 						}else{
-						insertItems.setInt(13, 0);
+						insertItems.setInt(17, 0);
 						}
 						insertEnemies.setString(14, enemy.getName());
 						insertEnemies.addBatch();
 					}
 					insertEnemies.executeBatch();	
+					
+					"create table enemy (" +
+					"	enemy_id integer primary key " +
+					"		generated always as identity (start with 1, increment by 1), " +
+					"	maxHP integer," +
+					"	HP integer," +
+					"	maxResource integer," +
+					"	resource integer," +
+					"	atk integer," +
+					"	def integer," +
+					"	gold integer," +
+					"	XP integer," +
+					"	abilities integer," +
+					"	status varchar(40)," +
+					"	dialogue varchar(7999)," +
+					"	attitude integer," +
+					"	description varchar(7999)," +
+					"	name varchar(40)," +
+					"	inventory integer," +
+					"	currentRoom integer," +
+					"	isDead integer" +
+					")"
 					
 					System.out.println("Enemies table populated");		
 					
