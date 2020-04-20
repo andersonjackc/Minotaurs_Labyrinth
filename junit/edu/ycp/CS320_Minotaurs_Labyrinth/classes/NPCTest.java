@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class NPCTest {
 private NPC testNPC;
-Ability testMaxHPSpell = new Ability("test", "test ability", "test", "maxHP", 5, 5);
+Ability testMaxHPSpell = new Ability("testMaxHPSpell", "test ability", "test", "maxHP", 5, 5);
 ArrayList<Ability> abilities = new ArrayList<Ability>();
 ArrayList<Ability> abilities2 = new ArrayList<Ability>();
 ArrayList<Item> items = new ArrayList<Item>();
@@ -28,7 +28,7 @@ Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 	@Before
 	public void setUp() {
 		abilities.add(testMaxHPSpell);
-		testNPC = new NPC(5, 5, 5, 5, 1, 5, 5, 5, abilities, "test", "test", 1, "test", "test", i, room, false);
+		testNPC = new NPC(5, 5, 5, 5, 1, 5, 5, 5, abilities, "test", "test", 1, "test", "NPC", i, room, false);
 		
 	}
 	@Test
@@ -126,6 +126,6 @@ Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 	
 	@Test
 	public void testRollForAction() {
-		assertThat(testNPC.rollForAction(testNPC), anyOf(containsString("test did 1 to test, you now have 4 HP."), containsString("testNPC cast test it did 5 to testNPC's maxHP, you now have 10 maxHP")));
+		assertThat(testNPC.rollForAction(testNPC), anyOf(containsString("NPC did 1 to NPC, you now have 4 HP."), containsString("NPC cast testMaxHPSpell it did 5 to NPC's maxHP, you now have 10 maxHP")));
 	}
 }

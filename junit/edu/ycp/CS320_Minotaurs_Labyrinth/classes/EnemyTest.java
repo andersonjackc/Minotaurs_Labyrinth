@@ -11,7 +11,7 @@ import org.junit.Test;
 public class EnemyTest {
 
 private Enemy testEnemy;
-Ability testMaxHPSpell = new Ability("test", "test ability", "test", "maxHP", 5, 5);
+Ability testMaxHPSpell = new Ability("testMaxHPSpell", "test ability", "test", "maxHP", 5, 5);
 ArrayList<Ability> abilities = new ArrayList<Ability>();
 ArrayList<Ability> abilities2 = new ArrayList<Ability>();
 ArrayList<Item> items = new ArrayList<Item>();
@@ -27,7 +27,7 @@ Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 	@Before
 	public void setUp() {
 		abilities.add(testMaxHPSpell);
-		testEnemy = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, abilities, "test", "test", 1, "test", "test", i, room, false);
+		testEnemy = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, abilities, "test", "test", 1, "test", "Enemy", i, room, false);
 		
 		
 	}
@@ -118,7 +118,7 @@ Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 	}
 	@Test
 	public void testRollForAction() {
-		assertThat(testEnemy.rollForAction(testEnemy), anyOf(containsString("test did 1 to test, you now have 4 HP."), containsString("testEnemy cast testMaxHPSpell it did 5 to testEnemy's maxHP, you now have 10 maxHP")));
+		assertThat(testEnemy.rollForAction(testEnemy), anyOf(containsString("Enemy did 1 to Enemy, you now have 4 HP."), containsString("Enemy cast testMaxHPSpell it did 5 to Enemy's maxHP, you now have 10 maxHP")));
 	}
 	@Test
 	public void testIsDeadMethods() {
