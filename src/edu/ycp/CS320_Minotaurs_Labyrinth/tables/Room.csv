@@ -1,42 +1,42 @@
-1|You enter a small stone room there are four doorways at each cardinal direction.|1|1|1|1
-2|You enter a small stone room, the stench of ogre is unbearable. The only exit is the way you entered.|1|1|2|0
-3|You enter a small stone room, a villager stands before you. The only exit is the way you entered.|1|1|3|0
-4|You enter a small stone room, it is empty. The only exit is the way you entered.|1|2|4|0
-5|You enter a small stone room, it is empty. The only exit is the way you entered.|1|1|5|0
-6|Empty room|1|1|6|0
-7|Empty room|1|1|7|0
-8|Empty room|1|1|8|0
-9|Empty room|1|1|9|0
-10|Empty room|1|1|10|0
-11|Empty room|1|1|11|0
-12|Empty room|1|1|12|0
-13|Empty room|1|1|13|0
-14|Empty room|1|1|14|0
-15|Empty room|1|1|15|0
-16|Empty room|1|1|16|0
-17|Empty room|1|1|17|0
-18|Empty room|1|1|18|0
-19|Empty room|1|1|19|0
-20|Empty room|1|1|20|0
-21|Empty room|1|1|21|0
-22|Empty room|1|1|22|0
-23|Empty room|1|1|23|0
-24|Empty room|1|1|24|0
-25|Empty room|1|1|25|0
-26|Empty room|1|1|26|0
-27|Empty room|1|1|27|0
-28|Empty room|1|1|28|0
-29|Empty room|1|1|29|0
-30|Empty room|1|1|30|0
-31|Empty room|1|1|31|0
-32|Empty room|1|1|32|0
-33|Empty room|1|1|33|0
-34|Empty room|1|1|34|0
-35|Empty room|1|1|35|0
-36|Empty room|1|1|36|0
-37|Empty room|1|1|37|0
-38|Empty room|1|1|38|0
-39|Empty room|1|1|39|0
-40|Empty room|1|1|40|0
-41|Empty room|1|1|41|0
-42|Empty room|1|1|42|0
+1|You enter a small stone room there are four doorways at each cardinal direction.|1|1|1|north|2|south|3|east|4|west|5
+2|You enter a small stone room, the stench of ogre is unbearable. The only exit is the way you entered.|1|1|0|north|30|south|1
+3|You enter a small stone room, a villager stands before you. The only exit is the way you entered.|1|1|0|north|1
+4|You enter a small stone room, it is empty. The only exit is the way you entered.|1|2|0|west|1|east|7
+5|You enter a small stone room, it is empty. The only exit is the way you entered.|1|1|0|east|1|west|6
+6|Empty room|1|1|0|east|5
+7|Empty room|1|1|0|west|4|east|8
+8|Empty room|1|1|0|west|7|north|9
+9|Empty room|1|1|0|south|8|north|10
+10|Empty room|1|1|0|south|9|north|11
+11|Empty room|1|1|0|north|12|south|10|east|14|west|27
+12|Empty room|1|1|0|north|13|south|11
+13|Empty room|1|1|0|south|12
+14|Empty room|1|1|0|west|11|east|15
+15|Empty room|1|1|0|west|14|east|16
+16|Empty room|1|1|0|north|17|south|23|east|19|west|15
+17|Empty room|1|1|0|south|16|north|18
+18|Empty room|1|1|0|south|17
+19|Empty room|1|1|0|west|16|east|20
+20|Empty room|1|1|0|west|19|north|21|south|22
+21|Empty room|1|1|0|south|20
+22|Empty room|1|1|0|north|20
+23|Empty room|1|1|0|north|16|south|24
+24|Empty room|1|1|0|north|23|south|25
+25|Empty room|1|1|0|north|24|south|26
+26|Empty room|1|1|0|north|25
+27|Empty room|1|1|0|east|11|west|28
+28|Empty room|1|1|0|east|27|west|29
+29|Empty room|1|1|0|north|31|south|30|east|28|west|33
+30|Empty room|1|1|0|north|29|south|2
+31|Empty room|1|1|0|south|29|north|32
+32|Empty room|1|1|0|south|31
+33|Empty room|1|1|0|east|29|west|34
+34|Empty room|1|1|0|east|33|north|35
+35|Empty room|1|1|0|south|34|west|36|north|39
+36|Empty room|1|1|0|east|35|west|37
+37|Empty room|1|1|0|east|36|south|38
+38|Empty room|1|1|0|north|37
+39|Empty room|1|1|0|south|35|north|40
+40|Empty room|1|1|0|south|39|east|41
+41|Empty room|1|1|0|west|40|north|42
+42|Empty room|1|1|0|south|41

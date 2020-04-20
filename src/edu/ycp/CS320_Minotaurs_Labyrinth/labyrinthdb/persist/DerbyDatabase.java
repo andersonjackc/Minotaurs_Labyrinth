@@ -148,7 +148,7 @@ public class DerbyDatabase implements IDatabase {
 							"	ability2 integer," +
 							"	ability3 integer," +
 							"	ability4 integer," +
-							"	ability5 integer," +
+							"	ability5 integer" +
 							")"
 					);
 					stmt2.executeUpdate();
@@ -302,7 +302,7 @@ public class DerbyDatabase implements IDatabase {
 							"	item47 integer," +
 							"	item48 integer," +
 							"	item49 integer," +
-							"	item50 integer," +
+							"	item50 integer" +
 							")"
 					);
 					stmt8.executeUpdate();
@@ -329,7 +329,7 @@ public class DerbyDatabase implements IDatabase {
 							"	name varchar(40)," +
 							"	inventory integer," +
 							"	currentRoom integer," +
-							"	isDead integer," +
+							"	isDead integer" +
 							")"
 					);
 					stmt9.executeUpdate();
@@ -382,9 +382,7 @@ public class DerbyDatabase implements IDatabase {
 							"	inventory integer," +
 							"	obstacle integer," +
 							"	roomMap integer," +
-							"	roomMap integer," +
-							"	isFound integer," +
-							"	roomMap integer" +
+							"	isFound integer" +
 							")"
 					);
 					stmt12.executeUpdate();
@@ -457,7 +455,7 @@ public class DerbyDatabase implements IDatabase {
 					AbilitiesList  = InitialData.getAbilitiesList();
 					InventoryList  = InitialData.getInventory();
 					Items          = InitialData.getItems();
-					ItemList       = InitialData.getItemList();
+				    ItemList       = InitialData.getItemList();
 					Rooms          = InitialData.getRooms();
 					Obstacles      = InitialData.getObstacles();
 					Maps           = InitialData.getMaps();
@@ -485,7 +483,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertMessages = null;
 
 				try {
-					/*
+					
 					insertAbilities = conn.prepareStatement("insert into ability (name, description, variety, affectedStat, "
 							+ "effect, cost) values (?, ?, ?, ?, ?, ?)");
 					for (Ability ability : Abilities) {
@@ -500,9 +498,9 @@ public class DerbyDatabase implements IDatabase {
 					insertAbilities.executeBatch();
 					
 					System.out.println("Abilities table populated");
-					*/
+					
 
-					/*
+					
 					insertAbilitiesList = conn.prepareStatement("insert into abilitylist (ability1, ability2, ability3, "
 							+ "ability4, ability5) values (?, ?, ?, ?, ?)");
 					for (ArrayList<Ability> ability : AbilitiesList) {
@@ -516,7 +514,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					
 					System.out.println("AbilitiesList table populated");					
-					*/
+					
 					
 					insertPlayers = conn.prepareStatement("insert into players (maxHP, HP, maxResource, resource, "
 							+ "atk, def, gold, XP, abilities, status, "
@@ -614,7 +612,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("NPC table populated");		
 					
-					/*
+					
 					insertItems = conn.prepareStatement("insert into items (description, effect, flammable, lit, throwable, "
 							+ "value, name, variety, affectedStat) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Item item : Items) {
@@ -645,9 +643,9 @@ public class DerbyDatabase implements IDatabase {
 					insertEnemies.executeBatch();	
 					
 					System.out.println("NPC table populated");	
-					*/
 					
-					/*
+					
+					
 					insertItemList = conn.prepareStatement("insert into itemlist (item1, "
 							+ "item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, "
 							+ "item13, item14, item15, item16, item17, item18, item19, item20, item21, item22, "
@@ -666,7 +664,7 @@ public class DerbyDatabase implements IDatabase {
 					insertItemList.executeBatch();
 					
 					System.out.println("ItemList table populated");
-					*/
+					
 					
 					insertRooms = conn.prepareStatement("insert into room (description, inventory, obstacle, "
 							+ "roomMap, isFound) values (?, ?, ?, ?, ?)");
@@ -744,9 +742,9 @@ public class DerbyDatabase implements IDatabase {
 	
 	// The main method creates the database tables and loads the initial data.
 	public static void main(String[] args) throws IOException {
-		System.out.println("Creating tables...");
+		//System.out.println("Creating tables...");
 		DerbyDatabase db = new DerbyDatabase();
-		db.createTables();
+		//db.createTables();
 		
 		System.out.println("Loading initial data...");
 		db.loadInitialData();
