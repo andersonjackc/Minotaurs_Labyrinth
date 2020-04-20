@@ -205,7 +205,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		//move
 		else if (req.getParameter("textbox") != null && inputs[0].equals("move")){
 			if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
-				String moveMsg = model.getPlayer().move(inputs[1]);
+				String moveMsg = model.getPlayer().move(inputs[1], model.getAllRooms());
 				Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
 				model.getOutputStrings().add(msg);
 			}else if(inputs.length<=1){

@@ -7,11 +7,11 @@ public class Room {
 	private String description;
 	private Inventory inventory;
 	private Obstacle obstacle;
-	private HashMap<String, Room> roomMap;
+	private HashMap<String, Integer> roomMap;
 	private boolean isFound;
 	private int roomID;
 	
-	public Room(String description, Inventory inventory, Obstacle obstacle, HashMap<String, Room> roomMap, boolean isFound, int roomID) {
+	public Room(String description, Inventory inventory, Obstacle obstacle, HashMap<String, Integer> roomMap, boolean isFound, int roomID) {
 		this.description = description;
 		this.inventory = inventory;
 		this.obstacle = obstacle;
@@ -20,7 +20,7 @@ public class Room {
 		this.roomID = roomID;
 	}
 	
-	public HashMap<String, Room> getRoomMap() {
+	public HashMap<String, Integer> getRoomMap() {
 		return roomMap;
 	}
 	
@@ -51,7 +51,7 @@ public class Room {
 		this.description=description;
 	}
 
-	public void setRoomMap(HashMap<String, Room> roomMap) {
+	public void setRoomMap(HashMap<String, Integer> roomMap) {
 		this.roomMap=roomMap;
 	}
 	

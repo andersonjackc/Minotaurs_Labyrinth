@@ -19,8 +19,9 @@ public class Minotaur {
 	//attributes
 	HashMap<String, Actor> targets;
 	Room[] roomArray;
+	ArrayList<Room> allRooms;
 	Room room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15, room16, room17, room18, room19, room20, room21, room22, room23, room24, room25, room26, room27, room28, room29, room30, room31, room32, room33, room34, room35, room36, room37, room38, room39, room40, room41, room42;
-	HashMap<String, Room> roomMap1, roomMap2, roomMap3, roomMap4, roomMap5, roomMap6, roomMap7, roomMap8, roomMap9, roomMap10, roomMap11, roomMap12, roomMap13, roomMap14, roomMap15, roomMap16, roomMap17, roomMap18, roomMap19, roomMap20, roomMap21, roomMap22, roomMap23, roomMap24, roomMap25, roomMap26, roomMap27, roomMap28, roomMap29, roomMap30, roomMap31, roomMap32, roomMap33, roomMap34, roomMap35, roomMap36, roomMap37, roomMap38, roomMap39, roomMap40, roomMap41, roomMap42;
+	HashMap<String, Integer> roomMap1, roomMap2, roomMap3, roomMap4, roomMap5, roomMap6, roomMap7, roomMap8, roomMap9, roomMap10, roomMap11, roomMap12, roomMap13, roomMap14, roomMap15, roomMap16, roomMap17, roomMap18, roomMap19, roomMap20, roomMap21, roomMap22, roomMap23, roomMap24, roomMap25, roomMap26, roomMap27, roomMap28, roomMap29, roomMap30, roomMap31, roomMap32, roomMap33, roomMap34, roomMap35, roomMap36, roomMap37, roomMap38, roomMap39, roomMap40, roomMap41, roomMap42;
 	Inventory inv;
 	Item requirement;
 	ArrayList<Item> inventory;
@@ -54,49 +55,50 @@ public class Minotaur {
 		obs2 = new Obstacle("The room is locked", "locked", requirement);
 		
 		roomArray = new Room[43];
-		roomMap1 = new HashMap<String, Room>();
-		roomMap2 = new HashMap<String, Room>();
-		roomMap3 = new HashMap<String, Room>();
-		roomMap4 = new HashMap<String, Room>();
-		roomMap5 = new HashMap<String, Room>();
-		roomMap6 = new HashMap<String, Room>();
-		roomMap7 = new HashMap<String, Room>();
-		roomMap8 = new HashMap<String, Room>();
-		roomMap9 = new HashMap<String, Room>();
-		roomMap10 = new HashMap<String, Room>();
-		roomMap11 = new HashMap<String, Room>();
-		roomMap12 = new HashMap<String, Room>();
-		roomMap13 = new HashMap<String, Room>();
-		roomMap14 = new HashMap<String, Room>();
-		roomMap15 = new HashMap<String, Room>();
-		roomMap16 = new HashMap<String, Room>();
-		roomMap17 = new HashMap<String, Room>();
-		roomMap18 = new HashMap<String, Room>();
-		roomMap19 = new HashMap<String, Room>();
-		roomMap20 = new HashMap<String, Room>();
-		roomMap21 = new HashMap<String, Room>();
-		roomMap22 = new HashMap<String, Room>();
-		roomMap23 = new HashMap<String, Room>();
-		roomMap24 = new HashMap<String, Room>();
-		roomMap25 = new HashMap<String, Room>();
-		roomMap26 = new HashMap<String, Room>();
-		roomMap27 = new HashMap<String, Room>();
-		roomMap28 = new HashMap<String, Room>();
-		roomMap29 = new HashMap<String, Room>();
-		roomMap30 = new HashMap<String, Room>();
-		roomMap31 = new HashMap<String, Room>();
-		roomMap32 = new HashMap<String, Room>();
-		roomMap33 = new HashMap<String, Room>();
-		roomMap34 = new HashMap<String, Room>();
-		roomMap35 = new HashMap<String, Room>();
-		roomMap36 = new HashMap<String, Room>();
-		roomMap37 = new HashMap<String, Room>();
-		roomMap38 = new HashMap<String, Room>();
-		roomMap39 = new HashMap<String, Room>();
-		roomMap40 = new HashMap<String, Room>();
-		roomMap41 = new HashMap<String, Room>();
-		roomMap42 = new HashMap<String, Room>();
+		roomMap1 = new HashMap<String, Integer>();
+		roomMap2 = new HashMap<String,Integer>();
+		roomMap3 = new HashMap<String,Integer>();
+		roomMap4 = new HashMap<String,Integer>();
+		roomMap5 = new HashMap<String,Integer>();
+		roomMap6 = new HashMap<String,Integer>();
+		roomMap7 = new HashMap<String,Integer>();
+		roomMap8 = new HashMap<String,Integer>();
+		roomMap9 = new HashMap<String,Integer>();
+		roomMap10 = new HashMap<String,Integer>();
+		roomMap11 = new HashMap<String,Integer>();
+		roomMap12 = new HashMap<String,Integer>();
+		roomMap13 = new HashMap<String,Integer>();
+		roomMap14 = new HashMap<String,Integer>();
+		roomMap15 = new HashMap<String,Integer>();
+		roomMap16 = new HashMap<String,Integer>();
+		roomMap17 = new HashMap<String,Integer>();
+		roomMap18 = new HashMap<String,Integer>();
+		roomMap19 = new HashMap<String,Integer>();
+		roomMap20 = new HashMap<String,Integer>();
+		roomMap21 = new HashMap<String,Integer>();
+		roomMap22 = new HashMap<String,Integer>();
+		roomMap23 = new HashMap<String,Integer>();
+		roomMap24 = new HashMap<String,Integer>();
+		roomMap25 = new HashMap<String,Integer>();
+		roomMap26 = new HashMap<String,Integer>();
+		roomMap27 = new HashMap<String,Integer>();
+		roomMap28 = new HashMap<String,Integer>();
+		roomMap29 = new HashMap<String,Integer>();
+		roomMap30 = new HashMap<String,Integer>();
+		roomMap31 = new HashMap<String,Integer>();
+		roomMap32 = new HashMap<String,Integer>();
+		roomMap33 = new HashMap<String,Integer>();
+		roomMap34 = new HashMap<String,Integer>();
+		roomMap35 = new HashMap<String,Integer>();
+		roomMap36 = new HashMap<String,Integer>();
+		roomMap37 = new HashMap<String,Integer>();
+		roomMap38 = new HashMap<String,Integer>();
+		roomMap39 = new HashMap<String,Integer>();
+		roomMap40 = new HashMap<String,Integer>();
+		roomMap41 = new HashMap<String,Integer>();
+		roomMap42 = new HashMap<String,Integer>();
 		
+		allRooms = new ArrayList<Room>();
 		
 		room1 = new Room("You enter a small stone room there are four doorways at each cardinal direction.", inv, obs, roomMap1, true, 1);
 		room2 = new Room("You enter a small stone room, the stench of ogre is unbearable. The only exit is the way you entered.", inv, obs, roomMap2, false, 2);
@@ -140,137 +142,180 @@ public class Minotaur {
 		room40 = new Room("Empty room",  inv, obs, roomMap40, false, 40);
 		room41 = new Room("Empty room",  inv, obs, roomMap41, false, 41);
 		room42 = new Room("Empty room",  inv, obs, roomMap42, false, 42);
+		allRooms.add(room1);
+		allRooms.add(room2);
+		allRooms.add(room3);
+		allRooms.add(room4);
+		allRooms.add(room5);
+		allRooms.add(room6);
+		allRooms.add(room7);
+		allRooms.add(room8);
+		allRooms.add(room9);
+		allRooms.add(room10);
+		allRooms.add(room11);
+		allRooms.add(room12);
+		allRooms.add(room13);
+		allRooms.add(room14);
+		allRooms.add(room15);
+		allRooms.add(room16);
+		allRooms.add(room17);
+		allRooms.add(room18);
+		allRooms.add(room19);
+		allRooms.add(room20);
+		allRooms.add(room21);
+		allRooms.add(room22);
+		allRooms.add(room23);
+		allRooms.add(room24);
+		allRooms.add(room25);
+		allRooms.add(room26);
+		allRooms.add(room27);
+		allRooms.add(room28);
+		allRooms.add(room29);
+		allRooms.add(room30);
+		allRooms.add(room31);
+		allRooms.add(room32);
+		allRooms.add(room33);
+		allRooms.add(room34);
+		allRooms.add(room35);
+		allRooms.add(room36);
+		allRooms.add(room37);
+		allRooms.add(room38);
+		allRooms.add(room39);
+		allRooms.add(room40);
+		allRooms.add(room41);
+		allRooms.add(room42);
+		
 		
 		outputstrings = new ArrayList<Message<String, Integer>>();
 		Message<String, Integer> initialMessage = new Message<String, Integer>("You enter a small stone room there are four doorways at each cardinal direction.", 0);
 		outputstrings.add(initialMessage);
 		
 		
-		roomMap1.put("north", room2);
-		roomMap1.put("south", room3);
-		roomMap1.put("east", room4);
-		roomMap1.put("west", room5);
+		roomMap1.put("north", 2);
+		roomMap1.put("south", 3);
+		roomMap1.put("east", 4);
+		roomMap1.put("west", 5);
 		
-		roomMap2.put("south", room1);
-		roomMap2.put("north", room30);
+		roomMap2.put("south", 1);
+		roomMap2.put("north", 30);
 		
-		roomMap3.put("north", room1);
+		roomMap3.put("north", 1);
 		
-		roomMap4.put("west", room1);
-		roomMap4.put("east", room7);
+		roomMap4.put("west", 1);
+		roomMap4.put("east", 7);
 		
-		roomMap5.put("east", room1);
-		roomMap5.put("west", room6);
+		roomMap5.put("east", 1);
+		roomMap5.put("west", 6);
 		
-		roomMap6.put("east", room5);
+		roomMap6.put("east", 5);
 		
-		roomMap7.put("west", room4);
-		roomMap7.put("east", room8);
+		roomMap7.put("west", 4);
+		roomMap7.put("east", 8);
 		
-		roomMap8.put("west", room7);
-		roomMap8.put("north", room9);
+		roomMap8.put("west", 7);
+		roomMap8.put("north", 9);
 		
-		roomMap9.put("south", room8);
-		roomMap9.put("north", room10);
+		roomMap9.put("south", 8);
+		roomMap9.put("north", 10);
 		
-		roomMap10.put("south", room9);
-		roomMap10.put("north", room11);
+		roomMap10.put("south", 9);
+		roomMap10.put("north", 11);
 		
-		roomMap11.put("north", room12);
-		roomMap11.put("south", room10);
-		roomMap11.put("east", room14);
-		roomMap11.put("west", room27);
+		roomMap11.put("north", 12);
+		roomMap11.put("south", 10);
+		roomMap11.put("east", 14);
+		roomMap11.put("west", 27);
 		
-		roomMap12.put("north", room13);
-		roomMap12.put("south", room11);
+		roomMap12.put("north", 13);
+		roomMap12.put("south", 11);
 		
-		roomMap13.put("south", room12);
+		roomMap13.put("south", 12);
 		
-		roomMap14.put("west", room11);
-		roomMap14.put("east", room15);
+		roomMap14.put("west", 11);
+		roomMap14.put("east", 15);
 		
-		roomMap15.put("west", room14);
-		roomMap15.put("east", room16);
+		roomMap15.put("west", 14);
+		roomMap15.put("east", 16);
 		
-		roomMap16.put("north", room17);
-		roomMap16.put("south", room23);
-		roomMap16.put("east", room19);
-		roomMap16.put("west", room15);
+		roomMap16.put("north", 17);
+		roomMap16.put("south", 23);
+		roomMap16.put("east", 19);
+		roomMap16.put("west", 15);
 		
-		roomMap17.put("south", room16);
-		roomMap17.put("north", room18);
+		roomMap17.put("south", 16);
+		roomMap17.put("north", 18);
 		
-		roomMap18.put("south", room17);
+		roomMap18.put("south", 17);
 		
-		roomMap19.put("west", room16);
-		roomMap19.put("east", room20);
+		roomMap19.put("west", 16);
+		roomMap19.put("east", 20);
 		
-		roomMap20.put("west", room19);
-		roomMap20.put("north", room21);
-		roomMap20.put("south", room22);
+		roomMap20.put("west", 19);
+		roomMap20.put("north", 21);
+		roomMap20.put("south", 22);
 		
-		roomMap21.put("south", room20);
+		roomMap21.put("south", 20);
 		
-		roomMap22.put("north", room20);
+		roomMap22.put("north", 20);
 		
-		roomMap23.put("north", room16);
-		roomMap23.put("south", room24);
+		roomMap23.put("north", 16);
+		roomMap23.put("south", 24);
 		
-		roomMap24.put("north", room23);
-		roomMap24.put("south", room25);
+		roomMap24.put("north", 23);
+		roomMap24.put("south", 25);
 		
-		roomMap25.put("north", room24);
-		roomMap25.put("south", room26);
+		roomMap25.put("north", 24);
+		roomMap25.put("south", 26);
 		
-		roomMap26.put("north", room25);
+		roomMap26.put("north", 25);
 		
-		roomMap27.put("east", room11);
-		roomMap27.put("west", room28);
+		roomMap27.put("east", 11);
+		roomMap27.put("west", 28);
 		
-		roomMap28.put("east", room27);
-		roomMap28.put("west", room29);
+		roomMap28.put("east", 27);
+		roomMap28.put("west", 29);
 		
-		roomMap29.put("north", room31);
-		roomMap29.put("south", room30);
-		roomMap29.put("east", room28);
-		roomMap29.put("west", room33);
+		roomMap29.put("north", 31);
+		roomMap29.put("south", 30);
+		roomMap29.put("east", 28);
+		roomMap29.put("west", 33);
 		
-		roomMap30.put("north", room29);
-		roomMap30.put("south", room2);
+		roomMap30.put("north", 29);
+		roomMap30.put("south", 2);
 		
-		roomMap31.put("south", room29);
-		roomMap31.put("north", room32);
+		roomMap31.put("south", 29);
+		roomMap31.put("north", 32);
 		
-		roomMap32.put("south", room31);
+		roomMap32.put("south", 31);
 		
-		roomMap33.put("east", room29);
-		roomMap33.put("west", room34);
+		roomMap33.put("east", 29);
+		roomMap33.put("west", 34);
 		
-		roomMap34.put("east", room33);
-		roomMap34.put("north", room35);
+		roomMap34.put("east", 33);
+		roomMap34.put("north", 35);
 		
-		roomMap35.put("south", room34);
-		roomMap35.put("west", room36);
-		roomMap35.put("north", room39);
+		roomMap35.put("south", 34);
+		roomMap35.put("west", 36);
+		roomMap35.put("north", 39);
 		
-		roomMap36.put("east", room35);
-		roomMap36.put("west", room37);
+		roomMap36.put("east", 35);
+		roomMap36.put("west", 37);
 		
-		roomMap37.put("east", room36);
-		roomMap37.put("south", room38);
+		roomMap37.put("east", 36);
+		roomMap37.put("south", 38);
 		
-		roomMap38.put("north", room37);
+		roomMap38.put("north", 37);
 		
-		roomMap39.put("south", room35);
-		roomMap39.put("north", room40);
+		roomMap39.put("south", 35);
+		roomMap39.put("north", 40);
 		
-		roomMap40.put("south", room39);
-		roomMap40.put("east", room41);
+		roomMap40.put("south", 39);
+		roomMap40.put("east", 41);
 		
-		roomMap41.put("west", room40);
-		roomMap41.put("north", room42);
+		roomMap41.put("west", 40);
+		roomMap41.put("north", 42);
 		
-		roomMap42.put("south", room41);
+		roomMap42.put("south", 41);
 		
 		roomArray[1] = room1;
 		roomArray[2] = room2; 
@@ -452,5 +497,9 @@ public class Minotaur {
 	
 	public void setOutputStrings(ArrayList<Message<String, Integer>> outputstrings) {
 		this.outputstrings = outputstrings;
+	}
+	
+	public ArrayList<Room> getAllRooms(){
+		return allRooms;
 	}
 }

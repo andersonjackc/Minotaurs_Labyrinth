@@ -284,15 +284,20 @@ public class InitialData {
 				List<Obstacle> tmpList2 = getObstacles();
 				room.setObstacle(tmpList2.get(Integer.parseInt(i.next())-1));
 				
-				List<HashMap<String, Room>> tmpList3 = getMaps();
-				
-				room.setRoomMap(tmpList3.get(Integer.parseInt(i.next())-1));
-				
 				if(Integer.parseInt(i.next())==0) {
 					room.setIsFound(false);
 				}else {
 					room.setIsFound(true);	
 				}
+				
+				HashMap<String, Room> tmpMap = new HashMap<String, Room>();
+				while(i.hasNext()) {
+					
+					tmpMap.put(i.next(), room)
+					
+					
+				}
+				
 				
 				roomList.add(room);
 			}
@@ -338,36 +343,7 @@ public class InitialData {
 	
 	}
 	
-	public static List<HashMap<String, Room>> getMaps() throws IOException{
-		
-		List<HashMap<String, Room>> mapList = new ArrayList<HashMap<String, Room>>();
-		ReadCSV readMaps = new ReadCSV("RoomMap.csv");
-		try {
-			while (true) {
-				List<String> tuple = readMaps.next();
-				if (tuple == null) {
-					break;
-				}
-				
-				List<Room> roomList = getRooms();
-				Iterator<String> i = tuple.iterator();
-				
-				if(mapList.size() == Integer.parseInt(i.next())) {
-					HashMap<String, Room> prevMap = mapList.get(mapList.size()-1);
-					prevMap.put(i.next(), roomList.get(Integer.parseInt(i.next())-1));
-				}else {
-					HashMap<String, Room> roomMap = mapList.get(mapList.size()-1);
-					roomMap.put(i.next(), roomList.get(Integer.parseInt(i.next())-1));
-					mapList.add(roomMap);
-				}
-			}
-			
-			System.out.println("roomList loaded from CSV file");			
-			return mapList;
-		} finally {
-			readMaps.close();
-		}
-	}
+
 	
 	public static List<Enemy> getEnemies() throws IOException {
 		List<Enemy> enemyList = new ArrayList<Enemy>();

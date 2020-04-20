@@ -13,24 +13,24 @@ public class Player extends Actor {
 		
 	}
 	
-	public void crawl(String direction) {
+	public void crawl(String direction, ArrayList<Room> allRooms) {
 		
 		String tmpStatus = getStatus();
 		
 		setStatus("crawling");
 		
-		this.move(direction);
+		this.move(direction, allRooms);
 		
 		setStatus(tmpStatus);		
 	}
 	
-	public void jump(String direction) {
+	public void jump(String direction, ArrayList<Room> allRooms) {
 		
 		String tmpStatus = getStatus();
 		
 		setStatus("jumping");
 		
-		this.move(direction);
+		this.move(direction, allRooms);
 		
 		setStatus(tmpStatus);
 		
@@ -148,18 +148,18 @@ public class Player extends Actor {
 		throw new UnsupportedOperationException("TODO - implement");
 	}
 	
-	public String move(String direction) {
+	public String move(String direction, ArrayList<Room> allRooms) {
 		
-		HashMap<String, Room> roomMap = this.currentRoom.getRoomMap();
+		HashMap<String, Integer> roomMap = this.currentRoom.getRoomMap();
 		
 		if(!this.isDead) {
 			if(roomMap.containsKey(direction)){
-				Room newRoom = roomMap.get(direction);
+				Room newRoom = getRoomByRoomId(roomMap.get(direction), allRooms);
 				if(newRoom.getObstacle().checkStatus(this) || newRoom.getObstacle().getStatus().contentEquals("normal")){
 					if(newRoom.getIsFound()==false) {
 						newRoom.setIsFound(true);
 					}
-					this.currentRoom = roomMap.get(direction);
+					this.currentRoom = newRoom;
 					
 				}else if(!newRoom.getObstacle().checkStatus(this)) {
 					return "There is an obstacle in that direction!";
@@ -175,6 +175,15 @@ public class Player extends Actor {
 		
 	}
 	
+	private Room getRoomByRoomId(Integer room_id, ArrayList<Room> allRooms) {
+		for(Room room : allRooms) {
+			if(room.getRoomId() == room_id) {
+				return room;
+			}
+		}
+		return null;
+	}
+
 	public String checkMap() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("TODO - implement");
