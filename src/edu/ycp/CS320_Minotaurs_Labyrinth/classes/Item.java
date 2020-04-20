@@ -101,9 +101,9 @@ public class Item {
 	}
 
 	public void setLit(Boolean lit) {
-		if(getFlammable()) {
-			this.lit = lit;
-		}
+		
+		this.lit = lit;
+		
 	}
 	
 	public void setVariety(String variety) {

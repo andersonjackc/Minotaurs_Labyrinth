@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
@@ -86,7 +87,7 @@ public class DerbyDatabase implements IDatabase {
 	// TODO: Change it here and in SQLDemo.java under CS320_LibraryExample_Lab06->edu.ycp.cs320.sqldemo
 	// TODO: DO NOT PUT THE DB IN THE SAME FOLDER AS YOUR PROJECT - that will cause conflicts later w/Git
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/CS320-2019-LibraryExample-DB/library.db;create=true");		
+		Connection conn = DriverManager.getConnection("jdbc:derby:D:/Documents/CS320/Minotaurs_Labyrinth/labyrinth.db;create=true");		
 		
 		// Set autocommit() to false to allow the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -144,11 +145,11 @@ public class DerbyDatabase implements IDatabase {
 							"create table abilityList (" +
 							"	abilityList_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	ability1 integer," +
-							"	ability2 integer," +
-							"	ability3 integer," +
-							"	ability4 integer," +
-							"	ability5 integer" +
+							"	ability1 varchar(40)," +
+							"	ability2 varchar(40)," +
+							"	ability3 varchar(40)," +
+							"	ability4 varchar(40)," +
+							"	ability5 varchar(40)" +
 							")"
 					);
 					stmt2.executeUpdate();
@@ -253,56 +254,56 @@ public class DerbyDatabase implements IDatabase {
 							"create table itemList (" +
 							"	itemList_id integer primary key " +
 							"		generated always as identity (start with 1, increment by 1), " +
-							"	item1 integer," +
-							"	item2 integer," +
-							"	item3 integer," +
-							"	item4 integer," +
-							"	item5 integer," +
-							"	item6 integer," +
-							"	item7 integer," +
-							"	item8 integer," +
-							"	item9 integer," +
-							"	item10 integer," +
-							"	item11 integer," +
-							"	item12 integer," +
-							"	item13 integer," +
-							"	item14 integer," +
-							"	item15 integer," +
-							"	item16 integer," +
-							"	item17 integer," +
-							"	item18 integer," +
-							"	item19 integer," +
-							"	item20 integer," +
-							"	item21 integer," +
-							"	item22 integer," +
-							"	item23 integer," +
-							"	item24 integer," +
-							"	item25 integer," +
-							"	item26 integer," +
-							"	item27 integer," +
-							"	item28 integer," +
-							"	item29 integer," +
-							"	item30 integer," +
-							"	item31 integer," +
-							"	item32 integer," +
-							"	item33 integer," +
-							"	item34 integer," +
-							"	item35 integer," +
-							"	item36 integer," +
-							"	item37 integer," +
-							"	item38 integer," +
-							"	item39 integer," +
-							"	item40 integer," +
-							"	item41 integer," +
-							"	item42 integer," +
-							"	item43 integer," +
-							"	item44 integer," +
-							"	item45 integer," +
-							"	item46 integer," +
-							"	item47 integer," +
-							"	item48 integer," +
-							"	item49 integer," +
-							"	item50 integer" +
+							"	item1 varchar(40)," +
+							"	item2 varchar(40)," +
+							"	item3 varchar(40)," +
+							"	item4 varchar(40)," +
+							"	item5 varchar(40)," +
+							"	item6 varchar(40)," +
+							"	item7 varchar(40)," +
+							"	item8 varchar(40)," +
+							"	item9 varchar(40)," +
+							"	item10 varchar(40)," +
+							"	item11 varchar(40)," +
+							"	item12 varchar(40)," +
+							"	item13 varchar(40)," +
+							"	item14 varchar(40)," +
+							"	item15 varchar(40)," +
+							"	item16 varchar(40)," +
+							"	item17 varchar(40)," +
+							"	item18 varchar(40)," +
+							"	item19 varchar(40)," +
+							"	item20 varchar(40)," +
+							"	item21 varchar(40)," +
+							"	item22 varchar(40)," +
+							"	item23 varchar(40)," +
+							"	item24 varchar(40)," +
+							"	item25 varchar(40)," +
+							"	item26 varchar(40)," +
+							"	item27 varchar(40)," +
+							"	item28 varchar(40)," +
+							"	item29 varchar(40)," +
+							"	item30 varchar(40)," +
+							"	item31 varchar(40)," +
+							"	item32 varchar(40)," +
+							"	item33 varchar(40)," +
+							"	item34 varchar(40)," +
+							"	item35 varchar(40)," +
+							"	item36 varchar(40)," +
+							"	item37 varchar(40)," +
+							"	item38 varchar(40)," +
+							"	item39 varchar(40)," +
+							"	item40 varchar(40)," +
+							"	item41 varchar(40)," +
+							"	item42 varchar(40)," +
+							"	item43 varchar(40)," +
+							"	item44 varchar(40)," +
+							"	item45 varchar(40)," +
+							"	item46 varchar(40)," +
+							"	item47 varchar(40)," +
+							"	item48 varchar(40)," +
+							"	item49 varchar(40)," +
+							"	item50 varchar(40)" +
 							")"
 					);
 					stmt8.executeUpdate();
@@ -443,7 +444,7 @@ public class DerbyDatabase implements IDatabase {
 				List<ArrayList<Item>> ItemList;
 				List<Room> Rooms;
 				List<Obstacle> Obstacles;
-				List<HashMap<String, Room>> Maps;
+				List<HashMap<String, Integer>> Maps;
 				List<Enemy> Enemies;
 				List<Player> Players;
 				List<NPC> NPCs;
@@ -457,8 +458,8 @@ public class DerbyDatabase implements IDatabase {
 					Items          = InitialData.getItems();
 				    ItemList       = InitialData.getItemList();
 					Rooms          = InitialData.getRooms();
-					Obstacles      = InitialData.getObstacles();
 					Maps           = InitialData.getMaps();
+					Obstacles      = InitialData.getObstacles();
 					Enemies        = InitialData.getEnemies();
 					Players        = InitialData.getPlayers();
 					NPCs           = InitialData.getNPCs();
@@ -504,8 +505,8 @@ public class DerbyDatabase implements IDatabase {
 					insertAbilitiesList = conn.prepareStatement("insert into abilitylist (ability1, ability2, ability3, "
 							+ "ability4, ability5) values (?, ?, ?, ?, ?)");
 					for (ArrayList<Ability> ability : AbilitiesList) {
-						for(int i=0; i<=5; i++) {
-						insertAbilitiesList.setString(i, ability.get(i).getName());
+						for(int i=1; i<=ability.size(); i++) {
+						insertAbilitiesList.setString(i, ability.get(i-1).getName());
 						}
 						insertAbilitiesList.addBatch();
 
@@ -516,7 +517,7 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("AbilitiesList table populated");					
 					
 					
-					insertPlayers = conn.prepareStatement("insert into players (maxHP, HP, maxResource, resource, "
+					insertPlayers = conn.prepareStatement("insert into player (maxHP, HP, maxResource, resource, "
 							+ "atk, def, gold, XP, abilities, status, "
 							+ "inventory, currentRoom, isDead, name) values "
 							+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -545,7 +546,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Players table populated");	
 					
-					insertEnemies = conn.prepareStatement("insert into npcs (maxHP, HP, maxResource, resource, "
+					insertEnemies = conn.prepareStatement("insert into enemy (maxHP, HP, maxResource, resource, "
 							+ "atk, def, gold, XP, abilities, "
 							+ "status, dialogue, attitude, description, "
 							+ "name, inventory, currentRoom, isDead) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -578,7 +579,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Enemies table populated");		
 					
-					insertNPCs = conn.prepareStatement("insert into npcs (maxHP, HP, maxResource, resource, "
+					insertNPCs = conn.prepareStatement("insert into npc (maxHP, HP, maxResource, resource, "
 							+ "atk, def, gold, XP, abilities, "
 							+ "status, dialogue, attitude, description, "
 							+ "name, inventory, currentRoom, isDead) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -613,51 +614,50 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("NPC table populated");		
 					
 					
-					insertItems = conn.prepareStatement("insert into items (description, effect, flammable, lit, throwable, "
+					insertItems = conn.prepareStatement("insert into item (description, effect, flammable, lit, throwable, "
 							+ "value, name, variety, affectedStat) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (Item item : Items) {
 						insertItems.setString(1, item.getDescription());
 						insertItems.setInt(2, item.getEffect());
 						if(item.getFlammable()) {
-						insertItems.setInt(3, 1);
+							insertItems.setInt(3, 1);
 						}else{
-						insertItems.setInt(3, 0);
+							insertItems.setInt(3, 0);
 						}
+						
 						if(item.getLit()) {
-						insertItems.setInt(4, 1);
+							insertItems.setInt(4, 1);
 						}else{
-						insertItems.setInt(4, 0);
+							insertItems.setInt(4, 0);
 						}
+						
 						if(item.getThrowable()) {
-						insertItems.setInt(5, 1);
+							insertItems.setInt(5, 1);
 						}else{
-						insertItems.setInt(5, 0);
+							insertItems.setInt(5, 0);
 						}
+						
 						insertItems.setInt(6, item.getValue());
 						insertItems.setString(7, item.getName());
-						insertItems.setInt(8, item.getValue());
-						insertItems.setString(9, item.getVariety());
-						insertItems.setString(10, item.getAffectedStat());
+						insertItems.setString(8, item.getVariety());
+						insertItems.setString(9, item.getAffectedStat());
 						insertItems.addBatch();
 					}
 					insertEnemies.executeBatch();	
 					
 					System.out.println("NPC table populated");	
 					
-					
-					
 					insertItemList = conn.prepareStatement("insert into itemlist (item1, "
 							+ "item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, "
 							+ "item13, item14, item15, item16, item17, item18, item19, item20, item21, item22, "
-							+ "item23, item24, item25, item26, item27, item28, item29, item30, item31, item32, item33, "
+							+ "item23, item24, item25, item26, item27, item28, item29, item30, item31, item32, item33, item34, "
 							+ "item35, item36, item37, item38, item39, item40, item41, item42, item43, item44, item45, "
 							+ "item46, item47, item48, item49, item50) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
 							+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
 							+ "?, ?, ?, ?, ?, ?, ?)");
 					for (List<Item> items : ItemList) {
-//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
-						for(int i=0; i<=49; i++) {
-						insertItemList.setString(i, items.get(i).getName());
+						for(int i=1; i<=items.size(); i++) {
+							insertItemList.setString(i, items.get(i-1).getName());
 						}
 						insertItemList.addBatch();
 					}
@@ -685,8 +685,8 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Rooms table populated");
 					
-					insertObstacles = conn.prepareStatement("insert into obstacle (String description, String status, "
-							+ "Item requirement) values (?, ?, ?)");
+					insertObstacles = conn.prepareStatement("insert into obstacle (description, status, "
+							+ "requirement) values (?, ?, ?)");
 					for (Obstacle obstacle : Obstacles) {
 						insertObstacles.setString(1, obstacle.getDescription());
 						insertObstacles.setString(2, obstacle.getStatus());
@@ -698,16 +698,21 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Obstacles table populated");
 					
-					insertMaps = conn.prepareStatement("insert into maps (roomId, direction, mappedRoomId) values (?, ?, ?)");
+					insertMaps = conn.prepareStatement("insert into roomMap (roomId, direction, mappedRoomId) values (?, ?, ?)");
 					int counter=0;
-					for (HashMap<String, Room> map : Maps) {
+					for (HashMap<String, Integer> map : Maps) {
 						counter++;
-						String[] keys = (String[]) map.keySet().toArray();
-						for(int i=0; i<=map.keySet().size(); i++) {
-						insertMaps.setInt(1, counter);
-						insertMaps.setString(2, keys[i]);
-						insertMaps.setInt(3, map.get(keys[i]).getRoomId());
-						insertMaps.addBatch();
+						Set<String> keys = map.keySet();
+						ArrayList<String> strings = new ArrayList<String>();
+						for(String s : keys) {
+							strings.add(s);
+						}
+						
+						for(int i=0; i<=strings.size()-1; i++) {
+							insertMaps.setInt(1, counter);
+							insertMaps.setString(2, strings.get(i));
+							insertMaps.setInt(3, map.get(strings.get(i)));
+							insertMaps.addBatch();
 						}
 					}
 					insertMaps.executeBatch();

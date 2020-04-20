@@ -133,12 +133,16 @@ public class InitialData {
 				}else {
 					item.setFlammable(true);
 				}
-				
+								
 				if(Integer.parseInt(i.next())==0) {
+				
 					item.setLit(false);
 				}else {
+					
 					item.setLit(true);
 				}
+				
+				
 				
 				if(Integer.parseInt(i.next())==0) {
 					item.setThrowable(false);
@@ -290,12 +294,10 @@ public class InitialData {
 					room.setIsFound(true);	
 				}
 				
-				HashMap<String, Room> tmpMap = new HashMap<String, Room>();
+				HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
+				
 				while(i.hasNext()) {
-					
-					tmpMap.put(i.next(), room)
-					
-					
+					tmpMap.put(i.next(), Integer.parseInt(i.next()));
 				}
 				
 				
@@ -343,7 +345,37 @@ public class InitialData {
 	
 	}
 	
-
+	public static List<HashMap<String, Integer>> getMaps() throws IOException{
+		
+		List<HashMap<String, Integer>> mapList = new ArrayList<HashMap<String, Integer>>();
+		ReadCSV readMaps = new ReadCSV("RoomMap.csv");
+		try {
+			while (true) {
+				List<String> tuple = readMaps.next();
+				if (tuple == null) {
+					break;
+				}
+				
+				Iterator<String> i = tuple.iterator();
+				
+				while(i.hasNext()) {
+					if(mapList.size() == Integer.parseInt(i.next())) {
+						HashMap<String, Integer> prevMap = mapList.get(mapList.size()-1);
+						prevMap.put(i.next(), Integer.parseInt(i.next()));
+					}else {
+						HashMap<String, Integer> roomMap = new HashMap<String, Integer>();
+						roomMap.put(i.next(), Integer.parseInt(i.next()));
+						mapList.add(roomMap);
+					}
+				}
+			}
+			
+			System.out.println("roomList loaded from CSV file");			
+			return mapList;
+		} finally {
+			readMaps.close();
+		}
+	}
 	
 	public static List<Enemy> getEnemies() throws IOException {
 		List<Enemy> enemyList = new ArrayList<Enemy>();
