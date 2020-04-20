@@ -16,6 +16,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 
 public class Minotaur {
 	
+	//attributes
 	HashMap<String, Actor> targets;
 	Room[] roomArray;
 	Room room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15, room16, room17, room18, room19, room20, room21, room22, room23, room24, room25, room26, room27, room28, room29, room30, room31, room32, room33, room34, room35, room36, room37, room38, room39, room40, room41, room42;
@@ -42,6 +43,8 @@ public class Minotaur {
 	ArrayList<Message<String, Integer>> outputstrings;
 	String PlayerResp;
 
+	//methods
+	//init methods
 	//Creates the map and rooms
 	public void initMap() {
 				
@@ -336,14 +339,22 @@ public class Minotaur {
 	
 	}
 	
+	//Fills in player response, adds responses to output strings
+	public void initResponses() {
+		PlayerResp = "Greetings";
+		Message<String, Integer> respMsg = new Message<String, Integer>(PlayerResp, 0);
+		outputstrings.add(respMsg);
+		NPCResp = "The " + villager.getName() + " says " + villager.getDialogue();
+		Message<String, Integer> npcrespMsg = new Message<String, Integer>(NPCResp, 0);
+		outputstrings.add(npcrespMsg);
+
+	}
+
+	//getters
 	public Player getPlayer() {
 		return player;
 	}
-	
-	public void setPlayerIsDead(int playerDeadVal) {
-		this.playerDeadVal = playerDeadVal;
-	}
-	
+
 	public int getPlayerIsDead() {
 		return playerDeadVal;
 	}
@@ -356,125 +367,35 @@ public class Minotaur {
 		return villager;
 	}
 	
-	public Room getRoom() {
-		return player.getCurrentRoom();
-	}
-	
-	public String getRoomDescription() {
-		
-		return player.getCurrentRoom().getDescription();
-	}
-	
-	public int getRoomPosition() {
-		return roomPosition;
-	}
-	
-	public void setRoomPosition(int roomPosition) {
-		
-		this.roomPosition = roomPosition;
-	}
-	
-	
-	public String getError() {
-		return errorMessage;
-	}
-	
-	public void setError(String errorMessage) {
-		Message<String, Integer> error = new Message<String, Integer>(errorMessage, 0);
-		outputstrings.add(error);
-		this.errorMessage = errorMessage;
-	}
-	
-	
-	public String getMessage() {
-		return message;
-	}
-	
-	//Returns a boolean if the target is alive
-	public Boolean isEnemyAlive(Enemy target) {
-		if(target.getHP() <= 0) {
-			return false;
-		}else{
-			return true;
-		}
-	}	
-
-	public String getAttackmessage() {
-		return attackMessage;
-	}
-	public String getDefendmessage() {
-		return defendMessage;
-	}
-	public void setPlayerHP(int HP) {
-		player.setHP(HP);
-	}
-	public void setPlayerResource(int resource) {
-		player.setResource(resource);
-	}
 	public int getPlayerResource() {
 		return player.getResource();
 	}
+	
 	public int getPlayerHP() {
 		return player.getHP();
 	}
-	public void setEnemyHP(int HP) {
-		ogre.setHP(HP);
+	
+	public int getRoomPosition() {
+		return this.roomPosition;
 	}
+	
 	public int getEnemyHP() {
 		return ogre.getHP();
 	}
+	
 	public int getVillagerHP() {
 		return villager.getHP();
 	}
-	public void setVillagerHP(int HP) {
-		villager.setHP(HP);
-	}
+	
 	public int getEnemyDead() {
 		return enemyDeadVal;
 	}
-	
-	public void setEnemyDead(int enemyDeadVal) {
-		this.enemyDeadVal = enemyDeadVal;
-	}
+
 	public int getVillagerDead() {
 		return villagerDeadVal;
 	}
-	
-	public void setVillagerDead(int villagerDeadVal) {
-		this.villagerDeadVal = villagerDeadVal;
-	}
 	public ArrayList<Message<String, Integer>> getOutputStrings(){
 		return outputstrings;
-	}
-	
-	public void setOutputStrings(ArrayList<Message<String, Integer>> outputstrings) {
-		this.outputstrings = outputstrings;
-	}
-	
-	public String getNPCDesc() {
-		NPCDesc = "You see before you " + villager.getDescription();
-		Message<String, Integer> descMessage = new Message<String, Integer>(NPCDesc, 0);
-		outputstrings.add(descMessage);
-		return NPCDesc;
-	}
-	public String getNPCResp() {
-		return NPCResp;
-	}
-	
-	//Fills in player response, adds responses to output strings
-	public void initResponses() {
-		PlayerResp = "Greetings";
-		Message<String, Integer> respMsg = new Message<String, Integer>(PlayerResp, 0);
-		outputstrings.add(respMsg);
-		NPCResp = "The " + villager.getName() + " says " + villager.getDialogue();
-		Message<String, Integer> npcrespMsg = new Message<String, Integer>(NPCResp, 0);
-		outputstrings.add(npcrespMsg);
-
-	}
-	
-	public String getPlayerResp() {
-		
-		return PlayerResp;
 	}
 	
 	public Room getRoomByRoomId(int roomID) {
@@ -486,4 +407,50 @@ public class Minotaur {
 		return targets;
 	}
 	
+	//setters
+	public void setPlayerIsDead(int playerDeadVal) {
+		this.playerDeadVal = playerDeadVal;
+	}
+		
+	public void setRoomPosition(int roomPosition) {
+		
+		this.roomPosition = roomPosition;
+	}
+	
+	//Returns a boolean if the target is alive
+	public Boolean isEnemyAlive(Enemy target) {
+		if(target.getHP() <= 0) {
+			return false;
+		}else{
+			return true;
+		}
+	}	
+
+	public void setPlayerHP(int HP) {
+		player.setHP(HP);
+	}
+	
+	public void setPlayerResource(int resource) {
+		player.setResource(resource);
+	}
+
+	public void setEnemyHP(int HP) {
+		ogre.setHP(HP);
+	}
+	
+	public void setVillagerHP(int HP) {
+		villager.setHP(HP);
+	}
+	
+	public void setEnemyDead(int enemyDeadVal) {
+		this.enemyDeadVal = enemyDeadVal;
+	}
+		
+	public void setVillagerDead(int villagerDeadVal) {
+		this.villagerDeadVal = villagerDeadVal;
+	}
+	
+	public void setOutputStrings(ArrayList<Message<String, Integer>> outputstrings) {
+		this.outputstrings = outputstrings;
+	}
 }
