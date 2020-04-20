@@ -115,7 +115,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.getPlayer().setCurrentRoom(model.getRoomByRoomId(location));
 		
 		//Checks that textbox isnt empty, if it isnt empty check for our commands
-		//if the player enters an unrecognized command, we set the error message
+		//attack
 		if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
 			if(inputs.length <= 2 && inputs.length > 1 && model.getTargets().get(inputs[1])!=null && model.getPlayer().getCurrentRoom() == model.getTargets().get(inputs[1]).getCurrentRoom() && !inputs[1].equals("player")) {
 				String atkMsg = model.getPlayer().basicAttack(model.getTargets().get(inputs[1]));
@@ -145,7 +145,10 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
 				model.getOutputStrings().add(msg);
 			}
-		}else if(req.getParameter("textbox") != null && inputVal.equals("talk") && model.getPlayer().getCurrentRoom() == model.getRoomByRoomId(3)) {
+		}
+		
+		//talk
+		else if(req.getParameter("textbox") != null && inputVal.equals("talk") && model.getPlayer().getCurrentRoom() == model.getRoomByRoomId(3)) {
 			if(!(model.getVillager().getIsDead()) && !(model.getPlayer().getIsDead())) {
 				model.initResponses();
 			}else if(!(model.getPlayer().getIsDead())) {
@@ -156,6 +159,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				model.getOutputStrings().add(msg);
 			}
 		}
+		
+		//cast
 		else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
 			if(inputs.length <= 3 && inputs.length > 2 && model.getTargets().get(inputs[2]) != null && model.getPlayer().getCurrentRoom() == model.getTargets().get(inputs[2]).getCurrentRoom() && containsAbility(model.getPlayer().getAbilities(), inputs[1])) {
 				String castMsg = model.getPlayer().cast(model.getTargets().get(inputs[2]), getAbilitybyString(model.getPlayer().getAbilities(), inputs[1]));
@@ -195,32 +200,35 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				Message<String, Integer> msg = new Message<String, Integer>(inputs[2] + " is an invalid target!", 0);
 				model.getOutputStrings().add(msg);
 			}
-		}else if(req.getParameter("textbox") != null && inputVal.equals("north")) {
-			model.setError(model.getPlayer().move(inputVal));
-			if(model.getError().equals("")) {
-				Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
+		}
+		
+		//move
+		else if (req.getParameter("textbox") != null && inputs[0].equals("move")){
+			if(inputs.length <= 2 && inputs.length > 1 && inputs[1].equals("north")) {
+				String moveMsg = model.getPlayer().move(inputs[1]);
+				Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
+				model.getOutputStrings().add(msg);
+			}else if(inputs.length <= 2 && inputs.length > 1 && inputs[1].equals("south")) {
+				String moveMsg = model.getPlayer().move(inputs[1]);
+				Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
+				model.getOutputStrings().add(msg);
+			}else if(inputs.length <= 2 && inputs.length > 1 && inputs[1].equals("east")) {
+				String moveMsg = model.getPlayer().move(inputs[1]);
+				Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
+				model.getOutputStrings().add(msg);
+			}else if(inputs.length <= 2 && inputs.length > 1 && inputs[1].equals("west")) {
+				String moveMsg = model.getPlayer().move(inputs[1]);
+				Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
+				model.getOutputStrings().add(msg);
+			}else{
+				Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid direction!", 0);
 				model.getOutputStrings().add(msg);
 			}
-		}else if(req.getParameter("textbox") != null && inputVal.equals("south")) {
-			model.setError(model.getPlayer().move(inputVal));
-			if(model.getError().equals("")) {
-				Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
-				model.getOutputStrings().add(msg);
-			}
-		}else if(req.getParameter("textbox") != null && inputVal.equals("west")) {
-			model.setError(model.getPlayer().move(inputVal));
-			if(model.getError().equals("")) {
-				Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
-				model.getOutputStrings().add(msg);
-			}
-		}else if(req.getParameter("textbox") != null && inputVal.equals("east")) {
-			model.setError(model.getPlayer().move(inputVal));
-			if(model.getError().equals("")) {
-				Message<String, Integer> msg = new Message<String, Integer>(model.getPlayer().getCurrentRoom().getDescription(), 0);
-				model.getOutputStrings().add(msg);
-			}
-		}else if(req.getParameter("textbox") != null && !(inputVal.equals("north")) && !(inputVal.equals("south")) && !(inputVal.equals("east") && !(inputVal.equals("west")))) {
-			Message<String, Integer> msg = new Message<String, Integer>("Unrecognized Command!", 0);
+		}
+		
+		//give error for invalid commands
+		else if(req.getParameter("textbox") != null && !inputs[0].equals("attack") && !inputs[0].equals("talk") && !inputs[0].equals("cast") && !inputs[0].equals("move")){
+			Message<String, Integer> msg = new Message<String, Integer>(inputs[0] + " is an invalid command!", 0);
 			model.getOutputStrings().add(msg);
 		}
 		

@@ -168,7 +168,7 @@ public class Player extends Actor {
 				return "You can't move in that direction!";
 			}
 			
-			return "";
+			return this.currentRoom.getDescription();
 		}else {
 			return "You are dead!";
 		}
