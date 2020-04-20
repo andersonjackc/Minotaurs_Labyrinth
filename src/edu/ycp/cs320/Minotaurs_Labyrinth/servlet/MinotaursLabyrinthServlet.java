@@ -98,7 +98,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setPlayerIsDead(playerIsDead);
 
 		
-		//Set ogre/villager to dead if they have 0 hp or less
+		//Set ogre/villager/player to dead if they have 0 hp or less
 		if(model.getEnemyDead()==1) {
 			model.getEnemy().setIsDead(true);
 		}
