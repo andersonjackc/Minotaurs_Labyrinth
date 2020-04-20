@@ -10,6 +10,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
@@ -451,6 +452,37 @@ public class InitialData {
 		}
 	}
 
+	public static List<Message<String, Integer>> getTextHistory() throws IOException{
+		
+		List<Message<String, Integer>> messageList = new ArrayList<Message<String, Integer>>();
+		ReadCSV readTextHistory = new ReadCSV("TextHistory.csv");
+		try {
+			while (true) {
+				List<String> tuple = readTextHistory.next();
+				if (tuple == null) {
+					break;
+				}
+				
+				
+				Iterator<String> i = tuple.iterator();
+				
+				Message<String, Integer> message = new Message<String, Integer>(null, 0);
+				
+				message.setMessage(i.next());
+				
+				message.setPlayerAction(Integer.parseInt(i.next()));
+				
+				messageList.add(message);
+				
+			}
+			
+			System.out.println("textHistory loaded from CSV file");			
+			return messageList;
+		} finally {
+			readTextHistory.close();
+		}
+	}
+	
 	public static Ability getAbilitybyString(ArrayList<Ability> abilities, String name) {
         for(int i = 0; i < abilities.size(); i++) {
             if(abilities.get(i).getName().equals(name)) {
@@ -459,6 +491,8 @@ public class InitialData {
         }
         return null;
     }
+
+
 	public static Item getItembyString(ArrayList<Item> Item, String name) {
         for(int i = 0; i < Item.size(); i++) {
             if(Item.get(i).getName().equals(name)) {
