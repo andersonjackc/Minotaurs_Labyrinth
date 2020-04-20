@@ -14,6 +14,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
@@ -465,6 +466,7 @@ public class DerbyDatabase implements IDatabase {
 				List<Enemy> Enemies;
 				List<Player> Players;
 				List<NPC> NPCs;
+				List<Message<String, Integer>> Messages;
 				
 				try {
 					
@@ -479,6 +481,8 @@ public class DerbyDatabase implements IDatabase {
 					Enemies        = InitialData.getEnemies();
 					Players        = InitialData.getPlayers();
 					NPCs           = InitialData.getNPCs();
+					Messages       = InitialData.getTextHistory();
+					
 					
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
@@ -495,6 +499,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertEnemies   = null;
 				PreparedStatement insertPlayers   = null;
 				PreparedStatement insertNPCs   = null;
+				PreparedStatement insertMessages = null;
 
 				try {
 					// must completely populate Authors table before populating BookAuthors table because of primary keys
@@ -676,7 +681,9 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("ItemList table populated");
 					
-					insertRooms = conn.prepareStatement("insert into room (description, inventory, obstacle, roomMap, isFound) values (?, ?, ?, ?, ?)");
+					insertRooms = conn.prepareStatement("insert into room (description, inventory, obstacle, "
+							+ "roomMap, isFound) values (?, ?, ?, ?, ?)");
+					
 					for (Room room : Rooms) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertRooms.setString(1, room.getDescription());
@@ -694,7 +701,8 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Rooms table populated");
 					
-					insertObstacles = conn.prepareStatement("insert into obstacle (String description, String status, Item requirement) values (?, ?, ?)");
+					insertObstacles = conn.prepareStatement("insert into obstacle (String description, String status, "
+							+ "Item requirement) values (?, ?, ?)");
 					for (Obstacle obstacle : Obstacles) {
 //						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
 						insertObstacles.setString(1, obstacle.getDescription());
@@ -722,6 +730,15 @@ public class DerbyDatabase implements IDatabase {
 					insertMaps.executeBatch();
 
 					System.out.println("Maps table populated");
+					
+					insertMessages = conn.prepareStatement("insert into textHistory (message, playerAction) values (?, ?)");
+					for (Message<String,Integer> message : Messages) {
+//						insertAuthor.setInt(1, author.getAuthorId());	// auto-generated primary key, don't insert this
+						insertMessages.setString(1, message.getMessage());
+						insertMessages.setInt(2, message.getPlayerAction());
+						insertMessages.addBatch();
+					}
+					insertMessages.executeBatch();
 					
 					return true;
 				} finally {
