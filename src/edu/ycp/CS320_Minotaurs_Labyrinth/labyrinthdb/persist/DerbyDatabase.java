@@ -87,7 +87,7 @@ public class DerbyDatabase implements IDatabase {
 	// TODO: Change it here and in SQLDemo.java under CS320_LibraryExample_Lab06->edu.ycp.cs320.sqldemo
 	// TODO: DO NOT PUT THE DB IN THE SAME FOLDER AS YOUR PROJECT - that will cause conflicts later w/Git
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:D:/Documents/CS320/Minotaurs_Labyrinth/labyrinth.db;create=true");		
+		Connection conn = DriverManager.getConnection("jdbc:derby:C:/Documents/CS320/Minotaurs_Labyrinth/labyrinth.db;create=true");		
 		
 		// Set autocommit() to false to allow the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -747,14 +747,14 @@ public class DerbyDatabase implements IDatabase {
 	
 	// The main method creates the database tables and loads the initial data.
 	public static void main(String[] args) throws IOException {
-		//System.out.println("Creating tables...");
+		System.out.println("Creating tables...");
 		DerbyDatabase db = new DerbyDatabase();
-		//db.createTables();
+		db.createTables();
 		
 		System.out.println("Loading initial data...");
 		db.loadInitialData();
 		
-		System.out.println("Library DB successfully initialized!");
+		System.out.println("Labyrinth DB successfully initialized!");
 	}
 	
 	public static int AbilityIDbyList(ArrayList<Ability> Inner, List<ArrayList<Ability>> Outer) {
