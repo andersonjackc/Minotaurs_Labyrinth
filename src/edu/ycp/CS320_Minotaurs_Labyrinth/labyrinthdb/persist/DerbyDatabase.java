@@ -19,10 +19,8 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
-import edu.ycp.cs320.booksdb.model.Author;
-import edu.ycp.cs320.booksdb.model.Book;
-import edu.ycp.cs320.booksdb.model.BookAuthor;
-import edu.ycp.cs320.booksdb.model.Pair;
+import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DBUtil;
+
 
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -97,27 +95,12 @@ public class DerbyDatabase implements IDatabase {
 		return conn;
 	}
 	
-	// retrieves Author information from query result set
-	private void loadAuthor(Author author, ResultSet resultSet, int index) throws SQLException {
-		author.setAuthorId(resultSet.getInt(index++));
-		author.setLastname(resultSet.getString(index++));
-		author.setFirstname(resultSet.getString(index++));
+
+	private void loadMessage(Message<String, Integer> message, ResultSet resultSet, int index) throws SQLException {
+		message.setMessage(resultSet.getString(index++));
+		message.setPlayerAction(resultSet.getInt(index++));
 	}
-	
-	// retrieves Book information from query result set
-	private void loadBook(Book book, ResultSet resultSet, int index) throws SQLException {
-		book.setBookId(resultSet.getInt(index++));
-//		book.setAuthorId(resultSet.getInt(index++));  // no longer used
-		book.setTitle(resultSet.getString(index++));
-		book.setIsbn(resultSet.getString(index++));
-		book.setPublished(resultSet.getInt(index++));
-	}
-	
-	// retrieves WrittenBy information from query result set
-	private void loadBookAuthors(BookAuthor bookAuthor, ResultSet resultSet, int index) throws SQLException {
-		bookAuthor.setBookId(resultSet.getInt(index++));
-		bookAuthor.setAuthorId(resultSet.getInt(index++));
-	}
+
 	
 	//  creates the Authors and Books tables
 	public void createTables() {
@@ -810,5 +793,75 @@ public class DerbyDatabase implements IDatabase {
 			}
 		}
 		return 0;
+	}
+
+	@Override
+	public List<Player> findAllPlayers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Room> findAllRooms() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Enemy> findAllEnemies() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<NPC> findAllNPCs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Message<String, Integer>> findTextHistory() {
+		return executeTransaction(new Transaction<List<Message<String, Integer>>>() {
+			@Override
+			public List<Message<String, Integer>> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select textHistory.* " +
+							"  from  textHistory " 
+					);
+					
+					
+					List<Message<String, Integer>> result = new ArrayList<Message<String, Integer>>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						Message<String, Integer> message = new Message<String, Integer>(null, 0);
+						loadMessage(message, resultSet, 1);
+						
+
+						result.add(message);
+					}
+					
+					// check if the title was found
+					if (!found) {
+						System.out.println("No messages were found!");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
 }
