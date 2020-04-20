@@ -8,6 +8,7 @@ import java.util.List;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Gear;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
@@ -161,6 +162,70 @@ public class InitialData {
 			return itemList;
 		} finally {
 			readItem.close();
+		}
+	}
+
+	public static List<Gear> getGear() throws IOException{
+		
+		List<Gear> gearList = new ArrayList<Gear>();
+		ReadCSV readGear = new ReadCSV("Gear.csv");
+		try {
+			while (true) {
+				List<String> tuple = readGear.next();
+				if (tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				Gear gear = new Gear(0, 0, 0, null, null, null, 0, null, null, null, 0, null, null);
+				
+				i.next();
+				
+				gear.setAtk(Integer.parseInt(i.next()));
+				gear.setDef(Integer.parseInt(i.next()));
+				gear.setHP(Integer.parseInt(i.next()));
+				gear.setVariety(i.next());
+				
+				if(Integer.parseInt(i.next())==0) {
+					gear.setEquipped(false);
+				}else {
+					gear.setEquipped(true);
+				}
+				
+				gear.setDescription(i.next());
+				gear.setEffect(Integer.parseInt(i.next()));
+				
+				if(Integer.parseInt(i.next())==0) {
+					gear.setFlammable(false);
+				}else {
+					gear.setFlammable(true);
+				}
+				
+				if(Integer.parseInt(i.next())==0) {
+					gear.setLit(false);
+				}else {
+					gear.setLit(true);
+				}
+				
+				if(Integer.parseInt(i.next())==0) {
+					gear.setThrowable(false);
+				}else {
+					gear.setThrowable(true);
+				}
+				
+				gear.setValue(Integer.parseInt(i.next()));
+				
+				gear.setName(i.next());
+				
+				gear.setAffectedStat(i.next());
+				
+				gearList.add(gear);
+				
+			}
+			
+			System.out.println("gearList loaded from CSV file");			
+			return gearList;
+		} finally {
+			readGear.close();
 		}
 	}
 	
