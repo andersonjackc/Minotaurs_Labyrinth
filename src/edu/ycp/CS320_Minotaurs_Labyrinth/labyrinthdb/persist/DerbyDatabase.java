@@ -120,6 +120,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private void loadRoom(Room room, ResultSet resultSet, int index, HashMap<String, Integer> roomMap) throws SQLException {
+		room.setRoomId(resultSet.getInt(index++));
 		room.setDescription(resultSet.getString(index++));
 		room.setInventory(null);
 		index++;
@@ -159,6 +160,7 @@ public class DerbyDatabase implements IDatabase {
 			player.setIsDead(false);
 		}
 		player.setName(resultSet.getString(index++));
+		
 	}
 	
 	//  creates the Authors and Books tables
@@ -880,7 +882,7 @@ public class DerbyDatabase implements IDatabase {
 							"  from  player " 
 					);
 					resultSet = stmt.executeQuery();
-					
+					System.out.println("Statement 1 executed");
 					List<Player> result = new ArrayList<Player>();
 					
 					Boolean found = false;
@@ -897,7 +899,7 @@ public class DerbyDatabase implements IDatabase {
 						stmt2.setInt(1, resultSet.getInt(10));
 						
 						resultSet2 = stmt2.executeQuery();
-						
+						System.out.println("Statement 2 executed");
 						ArrayList<Ability> tempAbilList = new ArrayList<Ability>();
 						
 						resultSet2.next();
@@ -908,14 +910,14 @@ public class DerbyDatabase implements IDatabase {
 									"  where ability.name = ?"
 							);
 						
-							System.out.println(resultSet2.getString(i));
+							
 							stmt3.setString(1, resultSet2.getString(i));
 							
 							resultSet3 = stmt3.executeQuery();
-							System.out.println("I executed query 3!");
+							System.out.println("Statement 3 executed");
 							Ability abil = new Ability(null, null, null, null, 0, 0);
 							
-							System.out.println(resultSet3.next());
+							resultSet3.next();
 							
 							loadAbility(abil, resultSet3, 2);
 							
@@ -932,18 +934,18 @@ public class DerbyDatabase implements IDatabase {
 						stmt4.setInt(1, resultSet.getInt(13));
 						
 						resultSet4 = stmt4.executeQuery();
-						System.out.println("I executed query 4!");
+						System.out.println("Statement 4 executed");
 						stmt5 = conn.prepareStatement(
 								"select roomMap.* " +
 								"  from  roomMap " +
 								"  where roomMap.roomId = ?"
 						);
 						
-						resultSet4.next();
+						System.out.println(resultSet4.next());
 						stmt5.setInt(1, resultSet4.getInt(5));
 						
 						resultSet5 = stmt5.executeQuery();
-						System.out.println("I executed query 5!");
+						System.out.println("Statement 5 executed");
 						HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
 						while(resultSet5.next()) {
 							tmpMap.put(resultSet5.getString(2), resultSet5.getInt(3));
@@ -954,7 +956,7 @@ public class DerbyDatabase implements IDatabase {
 					
 						
 						Player player = new Player(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, false, null);
-						loadPlayer(player, resultSet, 1, tempAbilList, room);
+						loadPlayer(player, resultSet, 2, tempAbilList, room);
 						
 
 						result.add(player);
@@ -1040,6 +1042,120 @@ public class DerbyDatabase implements IDatabase {
 					}
 					
 					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
+	@Override
+	public Player updatePlayer(Player newPlayer) {
+		return executeTransaction(new Transaction<Player>() {
+			@Override
+			public Player execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet2 = null;
+				
+				PreparedStatement stmt3 = null;
+				ResultSet resultSet3 = null;
+				
+				/*PreparedStatement stmt4 = null;
+				ResultSet resultSet4 = null;*/
+				
+				try {
+					stmt = conn.prepareStatement(
+							"update player " +
+							" set  maxHP = ?,  HP = ?,  maxResource = ?,  resource = ?,  atk = ?,  " +
+							"   def = ?,  gold = ?,  xp = ?,  abilities = ?,  status = ?,  inventory = ?, " +
+							"  currentRoom = ?,  isDead = ?,  name = ?"
+					);
+					
+					stmt2 = conn.prepareStatement(
+							"select abilityList.* " +
+									" from abilityList"
+							);
+					resultSet2 = stmt2.executeQuery();
+					
+					stmt3 = conn.prepareStatement(
+							"select ability.* " +
+									" from ability"
+							);
+					resultSet3 = stmt3.executeQuery();
+					
+					
+					ArrayList<Ability> tmpAl = new ArrayList<Ability>();
+					List<ArrayList<Ability>> tmpList = new ArrayList<ArrayList<Ability>>();
+					
+					
+					while(resultSet3.next()) {
+						Ability tmpAbil = new Ability(null, null, null, null, 0, 0);
+						loadAbility(tmpAbil, resultSet3, 2);
+						tmpAl.add(tmpAbil);
+					}
+					
+					ArrayList<Ability> tmpAl2 = new ArrayList<Ability>();
+					
+					while(resultSet2.next()) {
+						
+						for(int i=2; i<=6; i++) {
+							
+							for(Ability abil : tmpAl) {
+								if(resultSet2.getString(i).equals(abil.getName())){
+									tmpAl2.add(abil);
+								}
+							}
+							tmpList.add(tmpAl2);
+						}
+						
+						
+						
+					}
+					
+					/*stmt4 = conn.prepareStatement(
+							"select inventory.* " +
+									" from inventory"
+							);
+					resultSet4 = stmt4.executeQuery();*/
+							
+					
+					stmt.setInt(1, newPlayer.getMaxHP());
+					stmt.setInt(2, newPlayer.getHP());
+					stmt.setInt(3, newPlayer.getMaxResource());
+					stmt.setInt(4, newPlayer.getResource());
+					stmt.setInt(5, newPlayer.getAtk());
+					stmt.setInt(6, newPlayer.getDef());
+					stmt.setInt(7, newPlayer.getGold());
+					stmt.setInt(8, newPlayer.getXP());
+					
+					//stmt.setInt(9, AbilityIDbyList(newPlayer.getAbilities(), tmpList));
+					stmt.setInt(9, 1);
+					
+					stmt.setString(10, newPlayer.getStatus());
+					
+					stmt.setInt(11, 1);
+					
+					stmt.setInt(12, newPlayer.getCurrentRoom().getRoomId());
+					
+					
+					if(newPlayer.getIsDead()) {
+						stmt.setInt(13, 1);
+					}else {
+						stmt.setInt(13, 0);
+					}
+					
+					stmt.setString(14, newPlayer.getName());
+					
+					
+					stmt.executeUpdate();
+					
+					//ArrayList<Player> playerList = (ArrayList<Player>)findAllPlayers();
+					
+					return null;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);

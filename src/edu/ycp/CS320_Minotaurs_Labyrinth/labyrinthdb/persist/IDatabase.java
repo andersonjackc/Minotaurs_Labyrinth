@@ -20,5 +20,7 @@ public interface IDatabase {
 	
 	public List<Message<String, Integer>> findTextHistory();
 	
+	public Player updatePlayer(Player newPlayer);
+	
 	
 }

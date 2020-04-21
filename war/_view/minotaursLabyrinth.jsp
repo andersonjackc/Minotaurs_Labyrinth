@@ -68,12 +68,10 @@
 					<td><input id="textbox" name="textbox" autofocus autocomplete="off" type="text" maxlength="256"
 							autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
 				</tr>
-				<input name="location" type="hidden" value="${game.roomPosition}" />
-				<input name="playerHP" type="hidden" value="${game.playerHP}" />
-				<input name="playerResource" type="hidden" value="${game.playerResource}" />
+				
+				
 				<input name="enemyIsDead" type="hidden" value="${game.enemyDead}" />
 				<input name="villagerIsDead" type="hidden" value="${game.villagerDead}" />
-				<input name="playerIsDead" type="hidden" value="${game.playerIsDead}" />
 				<input name="enemyHP" type="hidden" value="${game.enemyHP}" />
 				<input name="villagerHP" type="hidden" value="${game.villagerHP}" />
 

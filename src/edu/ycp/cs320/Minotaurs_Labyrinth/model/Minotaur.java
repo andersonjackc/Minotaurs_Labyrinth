@@ -14,6 +14,9 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
+import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DatabaseProvider;
+import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DerbyDatabase;
+import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.IDatabase;
 
 public class Minotaur {
 	
@@ -199,8 +202,9 @@ public class Minotaur {
 		allRooms.add(room42);
 		
 		
+		
 		outputstrings = new ArrayList<Message<String, Integer>>();
-		Message<String, Integer> initialMessage = new Message<String, Integer>("You enter a small stone room there are four doorways at each cardinal direction.", 0);
+		Message<String, Integer> initialMessage = new Message<String, Integer>(player.getCurrentRoom().getDescription(), 0);
 		outputstrings.add(initialMessage);
 		
 		
@@ -377,6 +381,14 @@ public class Minotaur {
 	
 	//Creates the actors
 	public void initPlayer() {
+		
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		IDatabase db = DatabaseProvider.getInstance();
+		
+		
+		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
+		player = testPlayer.get(0);
+		
 		targets = new HashMap<String, Actor>();
 		fireball = new Ability("fireball", "a flaming ball of death and destruction", "damage", "HP", -10, 10);
 		heal = new Ability("heal", "a rejuvenating spell", "healing", "HP", 5, 5);
@@ -386,7 +398,7 @@ public class Minotaur {
 		abilities.add(fireball);
 		abilities.add(heal);
 		gabilities.add(cripple);
-		player = new Player(1000, 20, 1000, 20, 2, 0, 0, 0, abilities, "normal", inv, room1, false, "player");
+		
 		roomPosition = 1;
 		playerDeadVal = 0;
 		targets.put("player", player);
@@ -522,5 +534,9 @@ public class Minotaur {
 	
 	public ArrayList<Room> getAllRooms(){
 		return allRooms;
+	}
+	
+	public void setPlayer(Player newPlayer) {
+		this.player = newPlayer;
 	}
 }
