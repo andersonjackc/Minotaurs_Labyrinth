@@ -1,3 +1,7 @@
 1|fireball|a flaming ball of death and destruction|damage|HP|-10|10
 2|heal|a rejuvenating spell|healing|HP|5|5
+<<<<<<< HEAD
 3|filler|filler|filler|filler|0|0
+=======
+3|cripple|a devastating blow that cripples the target|damage|HP|-5|5
+>>>>>>> branch 'master' of git@github.com:andersonjackc/Minotaurs_Labyrinth.git
