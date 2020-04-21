@@ -125,12 +125,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						model.setVillagerDead(1);
 						
 					}else if(model.getTargets().get(inputs[1]).getName().equals("ogre")) {
-						model.setEnemyDead(1);
+						
 					}
 				}
 				String enemyAtkMsg = model.getTargets().get(inputs[1]).basicAttack(dbPlayer);
 				if(dbPlayer.getIsDead()) {
-					dbPlayer.setIsDead(true);
+					
 				}
 				Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
 				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
@@ -171,16 +171,14 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						model.setVillagerDead(1);
 						
 					}else if(model.getTargets().get(inputs[2]).getName().equals("ogre")) {
-						model.setEnemyDead(1);
+						
 					}else if(model.getTargets().get(inputs[2]).getName().equals("player")) {
-						dbPlayer.setIsDead(true);;
+						
 					}
 				}
 				if(!inputs[2].equals(dbPlayer.getName())) {
 				String enemyAtkMsg = model.getTargets().get(inputs[2]).basicAttack(dbPlayer);
-				if(dbPlayer.getIsDead()) {
-					dbPlayer.setIsDead(true);
-				}
+				
 				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
 				outputStrings.add(msg2);
 				}
