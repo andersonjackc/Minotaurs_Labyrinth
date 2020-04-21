@@ -1,11 +1,16 @@
 ----------------------------------------------------------------
+<<<<<<< HEAD
 Tue Apr 21 15:57:11 EDT 2020:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-9e50-dd7d-00000e4e3590 
+=======
+Tue Apr 21 15:59:37 EDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-9e53-13e2-000009acab20 
+>>>>>>> branch 'master' of git@github.com:andersonjackc/Minotaurs_Labyrinth.git
 on database directory C:\Documents\CS320\Minotaurs_Labyrinth\labyrinth.db with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
-Loaded from file:/D:/Documents/CS320/CS320_Derby/lib/derby.jar
+Loaded from file:/F:/College/Sophomore/Semester_2/CS_320/CS320_Derby/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_231-b11
-user.dir=D:\Documents\CS320\Minotaurs_Labyrinth
+java.runtime.version=1.8.0_202-b08
+user.dir=C:\Users\yacde\git\Minotaurs_Labyrinth
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
