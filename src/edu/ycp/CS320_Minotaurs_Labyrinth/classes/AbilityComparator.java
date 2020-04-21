@@ -1,18 +1,33 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
-public class AbilityComparator implements Comparator<Ability>{
+public class AbilityComparator implements Comparator<ArrayList<Ability>>{
 
 	
-	public int compare(Ability a1, Ability a2) {
-		if(a1.getAffectedStat().equals(a2.getAffectedStat()) && a1.getCost() == a2.getCost() && a1.getDescription().equals(a2.getDescription()) && a1.getEffect() == a2.getEffect() && a1.getName().equals(a2.getName()) && a1.getVariety().equals(a2.getVariety())) {
-			return 1;
-		}
-		else {
-			return -1;	
+	public int compare(ArrayList<Ability> a1, ArrayList<Ability> a2) {
+		int count = 0;
+		
+		if(a1.size() == a2.size()) {
+			for(Ability a : a1) {
+				
+				if(!(a.getAffectedStat().equals(a2.get(count).getAffectedStat()) && a.getCost() == a2.get(count).getCost() && a.getDescription().equals(a2.get(count).getDescription()) && a.getEffect() == a2.get(count).getEffect() && a.getName().equals(a2.get(count).getName()) && a.getVariety().equals(a2.get(count).getVariety()))) {
+					break;
+				}else {
+					
+				}
+				
+				count++;
+			}
 		}
 		
+		if(count == a1.size() && count == a2.size()) {
+			return 1;
+		}else {
+			return -1;
+		}
 	}
 
+	
 }

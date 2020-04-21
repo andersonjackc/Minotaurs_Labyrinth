@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.AbilityComparator;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
@@ -816,9 +817,10 @@ public class DerbyDatabase implements IDatabase {
 	
 	public static int AbilityIDbyList(ArrayList<Ability> Inner, List<ArrayList<Ability>> Outer) {
 		int count=0;
+		AbilityComparator ac = new AbilityComparator();
 		for(ArrayList<Ability> arr : Outer) {
 			count++;
-			if (arr.equals(Inner)) {
+			if (ac.compare(arr, Inner)==1) {
 				return count;
 			}
 		}
