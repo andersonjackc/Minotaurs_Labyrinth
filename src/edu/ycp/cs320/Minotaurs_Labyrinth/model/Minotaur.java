@@ -6,6 +6,7 @@ import java.util.HashMap;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Actor;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Gear;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
@@ -22,19 +23,19 @@ public class Minotaur {
 	ArrayList<Room> allRooms;
 	Room room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15, room16, room17, room18, room19, room20, room21, room22, room23, room24, room25, room26, room27, room28, room29, room30, room31, room32, room33, room34, room35, room36, room37, room38, room39, room40, room41, room42;
 	HashMap<String, Integer> roomMap1, roomMap2, roomMap3, roomMap4, roomMap5, roomMap6, roomMap7, roomMap8, roomMap9, roomMap10, roomMap11, roomMap12, roomMap13, roomMap14, roomMap15, roomMap16, roomMap17, roomMap18, roomMap19, roomMap20, roomMap21, roomMap22, roomMap23, roomMap24, roomMap25, roomMap26, roomMap27, roomMap28, roomMap29, roomMap30, roomMap31, roomMap32, roomMap33, roomMap34, roomMap35, roomMap36, roomMap37, roomMap38, roomMap39, roomMap40, roomMap41, roomMap42;
-	Inventory inv;
-	Item requirement;
-	ArrayList<Item> inventory;
-	ArrayList<Ability> abilities;
-	Ability fireball, heal;
-	Obstacle obs, obs2;
+	Inventory inv, inv39;
+	Item requirement, rope, MKey, shears;
+	ArrayList<Item> inventory, inventory39;
+	ArrayList<Ability> abilities, gabilities;
+	Ability fireball, heal, cripple;
+	Obstacle obs, obs2, hole, weird_door, vines;
 	String errorMessage;
 	String message;
 	Player player;
 	int roomPosition;
 	String attackMessage;
 	String defendMessage;
-	Enemy ogre;
+	Enemy ogre, goblin, minotaur;
 	int enemyDeadVal;
 	int villagerDeadVal;
 	int playerDeadVal;
@@ -50,9 +51,21 @@ public class Minotaur {
 	public void initMap() {
 				
 		requirement = new Item("Key", 0, false, false, true, 0, "Key", "test", "test");
+		rope = new Item("a hemp rope", 0, true, false, true, 0, "rope", "obstacle item", "");
+		MKey = new Item("a key with a minotaur engraved on it", 0, false, false, true, 0, "MKey", "quest", "");
+		shears = new Item("a pair of shears", 0, false, false, true, 0, "shears", "obstacle item", "");
+		
+		inventory = new ArrayList<Item>();
+		inventory39 = new ArrayList<Item>();
+		inventory39.add(shears);
+
 		inv = new Inventory(0, 0, inventory);
+		inv39 = new Inventory(0, 0, inventory39);
 		obs = new Obstacle("No obstacle", "normal", null);
 		obs2 = new Obstacle("The room is locked", "locked", requirement);
+		hole = new Obstacle("A large hole across the middle of the room", "normal", rope);
+		weird_door = new Obstacle("There is a strange door with a Minotaur engraved on it blocking your path, it seems to require a key of some kind.", "normal", MKey);
+		vines = new Obstacle("large thick vines block the door", "normal", shears);
 		
 		roomArray = new Room[43];
 		roomMap1 = new HashMap<String, Integer>();
@@ -101,10 +114,10 @@ public class Minotaur {
 		allRooms = new ArrayList<Room>();
 		
 		room1 = new Room("You enter a small stone room there are four doorways at each cardinal direction.", inv, obs, roomMap1, true, 1);
-		room2 = new Room("You enter a small stone room, the stench of ogre is unbearable. The only exit is the way you entered.", inv, obs, roomMap2, false, 2);
+		room2 = new Room("You enter a small stone room, the stench of ogre is unbearable. There is an exit on the opposite side of the room from the way you entered.", inv, obs, roomMap2, false, 2);
 		room3 = new Room("You enter a small stone room, a villager stands before you. The only exit is the way you entered.", inv, obs, roomMap3, false, 3);
 		room4 = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.",  inv, obs2, roomMap4, false, 4);
-		room5 = new Room("You enter a small stone room, it is empty. The only exit is the way you entered.",  inv, obs, roomMap5, false, 5);
+		room5 = new Room("You enter a small stone room, it is empty. There is an exit on the opposite side of the room from the way you entered.",  inv, obs, roomMap5, false, 5);
 		room6 = new Room("Empty room",  inv, obs, roomMap6, false, 6);
 		room7 = new Room("Empty room",  inv, obs, roomMap7, false, 7);
 		room8 = new Room("Empty room",  inv, obs, roomMap8, false, 8);
@@ -128,20 +141,20 @@ public class Minotaur {
 		room26 = new Room("Empty room",  inv, obs, roomMap26, false, 26);
 		room27 = new Room("Empty room",  inv, obs, roomMap27, false, 27);
 		room28 = new Room("Empty room",  inv, obs, roomMap28, false, 28);
-		room29 = new Room("Empty room",  inv, obs, roomMap29, false, 29);
-		room30 = new Room("Empty room",  inv, obs, roomMap30, false, 30);
+		room29 = new Room("You enter a small stone room, it is empty. There are four doorways at each cardinal direction.",  inv, obs, roomMap29, false, 29);
+		room30 = new Room("You enter a small stone room, there is a large hole in the floor and an exit on the other side.",  inv, hole, roomMap30, false, 30);
 		room31 = new Room("Empty room",  inv, obs, roomMap31, false, 31);
 		room32 = new Room("Empty room",  inv, obs, roomMap32, false, 32);
-		room33 = new Room("Empty room",  inv, obs, roomMap33, false, 33);
-		room34 = new Room("Empty room",  inv, obs, roomMap34, false, 34);
-		room35 = new Room("Empty room",  inv, obs, roomMap35, false, 35);
+		room33 = new Room("You enter a small stone room, there is an exit on the opposite side of the room.",  inv, weird_door, roomMap33, false, 33);
+		room34 = new Room("You enter a small stone room, the stench of goblin is unbearable. There is an exit to the north.",  inv, obs, roomMap34, false, 34);
+		room35 = new Room("You enter a small stone room, it is empty. There are three doorways at each cardinal direction except east.",  inv, obs, roomMap35, false, 35);
 		room36 = new Room("Empty room",  inv, obs, roomMap36, false, 36);
 		room37 = new Room("Empty room",  inv, obs, roomMap37, false, 37);
 		room38 = new Room("Empty room",  inv, obs, roomMap38, false, 38);
-		room39 = new Room("Empty room",  inv, obs, roomMap39, false, 39);
-		room40 = new Room("Empty room",  inv, obs, roomMap40, false, 40);
-		room41 = new Room("Empty room",  inv, obs, roomMap41, false, 41);
-		room42 = new Room("Empty room",  inv, obs, roomMap42, false, 42);
+		room39 = new Room("You enter a small stone room, in the center of the room there is a pair of shears lying on a table. There is an exit on the opposite side of the room.",  inv39, obs, roomMap39, false, 39);
+		room40 = new Room("You enter a small stone room, vines and other brush grow out of control from a hole in the west wall. There is an exit to your east",  inv, vines, roomMap40, false, 40);
+		room41 = new Room("You enter a small stone room, there is an exit to your north",  inv, obs, roomMap41, false, 41);
+		room42 = new Room("You enter a large stone amphitheater, in the center of the room you see a large creature. It is half bull and half man, you recognize this as the minotaur",  inv, obs, roomMap42, false, 42);
 		allRooms.add(room1);
 		allRooms.add(room2);
 		allRooms.add(room3);
@@ -367,16 +380,24 @@ public class Minotaur {
 		targets = new HashMap<String, Actor>();
 		fireball = new Ability("fireball", "a flaming ball of death and destruction", "damage", "HP", -10, 10);
 		heal = new Ability("heal", "a rejuvenating spell", "healing", "HP", 5, 5);
+		cripple = new Ability("cripple", "a devastating blow that cripples the target", "damage", "HP", -5, 5);
 		abilities = new ArrayList<Ability>();
+		gabilities = new ArrayList<Ability>();
 		abilities.add(fireball);
 		abilities.add(heal);
+		gabilities.add(cripple);
 		player = new Player(1000, 20, 1000, 20, 2, 0, 0, 0, abilities, "normal", inv, room1, false, "player");
 		roomPosition = 1;
 		playerDeadVal = 0;
 		targets.put("player", player);
-		ogre = new Enemy(10, 10, 0, 0, 1, 0, 0, 0, null, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, room2, false);
+		ogre = new Enemy(10, 10, 5, 5, 1, 0, 0, 0, gabilities, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, room2, false);
+		goblin = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, gabilities, "goblin", "I'm gonna stab ya!", 0, "a small scraggly goblin with a wicked knife, it looks dangerous", "Goblin", inv, room34, false);
+		minotaur = new Enemy(20, 20, 20, 20, 5, 0, 0, 0, gabilities, "minotaur", "Roooaaaaaarrrrrrr!!!", 0, "a large creature towering a good two feet above", "Minotaur", inv, room42, false);
+
 		enemyDeadVal = 0;
 		targets.put("ogre", ogre);
+		targets.put("goblin", goblin);
+		targets.put("minotaur", minotaur);
 		ArrayList<Ability> VillagerAbilities = new ArrayList<Ability>();
 		villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 100, "An old man with tattered clothing", "Villager", inv, room3, false);
 		villagerDeadVal = 0;
