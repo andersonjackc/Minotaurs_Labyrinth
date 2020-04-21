@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
+import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.IDatabase;
+import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DerbyDatabase;
+import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DatabaseProvider;
 import edu.ycp.cs320.Minotaurs_Labyrinth.controller.MinotaursLabyrinthController;
 import edu.ycp.cs320.Minotaurs_Labyrinth.model.Minotaur;
 
@@ -44,6 +48,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		System.out.println("Minotaurs_Labyrinth Servlet: doPost");
 		
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		IDatabase db = DatabaseProvider.getInstance();
+		ArrayList<Message<String, Integer>> testAL = (ArrayList<Message<String, Integer>>) db.findTextHistory();
+		System.out.println(testAL.get(0).getMessage());
+		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
+		System.out.println(testPlayer.get(0).getName());
 		//model, controller and attribute for jsp setup
 		Minotaur model = new Minotaur();
 		MinotaursLabyrinthController controller = new MinotaursLabyrinthController();

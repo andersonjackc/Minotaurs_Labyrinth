@@ -111,11 +111,14 @@ public class DerbyDatabase implements IDatabase {
 		ability.setCost(resultSet.getInt(index++));
 	}
 	
-	private void loadRoom(Room room, ResultSet resultSet, int index) throws SQLException {
+	private void loadRoom(Room room, ResultSet resultSet, int index, HashMap<String, Integer> roomMap) throws SQLException {
 		room.setDescription(resultSet.getString(index++));
 		room.setInventory(null);
+		index++;
 		room.setObstacle(null);
-		room.setRoomMap());
+		index++;
+		room.setRoomMap(roomMap);
+		index++;
 		if(resultSet.getInt(index++)==1) {
 			room.setIsFound(true);
 		}else {
@@ -124,7 +127,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 
-	private void loadPlayer(Player player, ResultSet resultSet, int index, ArrayList<Ability> abilities) throws SQLException {
+	private void loadPlayer(Player player, ResultSet resultSet, int index, ArrayList<Ability> abilities, Room currentRoom) throws SQLException {
 
 		player.setMaxHP(resultSet.getInt(index++));
 		player.setHP(resultSet.getInt(index++));
@@ -139,7 +142,7 @@ public class DerbyDatabase implements IDatabase {
 		player.setStatus(resultSet.getString(index++));
 		player.setInventory(null);
 		index++;
-		player.setCurrentRoom();
+		player.setCurrentRoom(currentRoom);
 		index++;
 		if(resultSet.getInt(index++)==1) {
 			player.setIsDead(true);
@@ -796,7 +799,7 @@ public class DerbyDatabase implements IDatabase {
 	public static void main(String[] args) throws IOException {
 		System.out.println("Creating tables...");
 		DerbyDatabase db = new DerbyDatabase();
-		//db.createTables();
+		db.createTables();
 		
 		System.out.println("Loading initial data...");
 		db.loadInitialData();
@@ -812,7 +815,7 @@ public class DerbyDatabase implements IDatabase {
 				return count;
 			}
 		}
-		return 0;
+		return -1;
 	}
 	public static int InventoryIDbyList(Inventory Inner, List<Inventory> Outer) {
 		int count=0;
@@ -822,7 +825,7 @@ public class DerbyDatabase implements IDatabase {
 				return count;
 			}
 		}
-		return 0;
+		return -1;
 	}
 	public static int ObstacleIDbyList(Obstacle Inner, List<Obstacle> Outer) {
 		int count=0;
@@ -832,7 +835,7 @@ public class DerbyDatabase implements IDatabase {
 				return count;
 			}
 		}
-		return 0;
+		return -1;
 	}
 	public static int ItemIDbyList(Item Inner, List<Item> Outer) {
 		int count=0;
@@ -842,7 +845,7 @@ public class DerbyDatabase implements IDatabase {
 				return count;
 			}
 		}
-		return 0;
+		return -1;
 	}
 
 	@Override
@@ -853,55 +856,96 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt = null;
 				PreparedStatement stmt2 = null;
 				PreparedStatement stmt3 = null;
-
+				PreparedStatement stmt4 = null;
+				PreparedStatement stmt5 = null;
+				
 				ResultSet resultSet = null;
 				ResultSet resultSet2 = null;
 				ResultSet resultSet3 = null;
-
+				ResultSet resultSet4 = null;
+				ResultSet resultSet5 = null;
 				
 				try {
 					stmt = conn.prepareStatement(
 							"select player.* " +
 							"  from  player " 
 					);
-					
+					resultSet = stmt.executeQuery();
 					
 					List<Player> result = new ArrayList<Player>();
 					
-					resultSet = stmt.executeQuery();
-					
-					stmt2 = conn.prepareStatement(
-							"select abilityList.* " +
-							"  from  abilityList " +
-							"  where abilityList.abilityList_id = ?"
-					);
-					
-					stmt2.setInt(1, resultSet.getInt(9));
-
-					resultSet2 = stmt2.executeQuery();
-					ArrayList<Ability> temp = new ArrayList<Ability>();
-					for (int i=1; i<=5; i++) {
-					stmt3 = conn.prepareStatement(
-							"select ability.* " +
-							"  from  ability" +
-							"  where ability.name = ?"
-					);
-					stmt3.setString(1, resultSet2.getString(i));
-
-					resultSet3=stmt3.executeQuery();
-					
-					Ability abil = new Ability(null, null, null, null, 0, 0);
-					loadAbility(abil, resultSet3, 1);
-					temp.add(abil);
-					}
-					// for testing that a result was returned
 					Boolean found = false;
-					
 					while (resultSet.next()) {
+						
 						found = true;
 						
-						Player player = new Player(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, found, null);
-						loadPlayer(player, resultSet, 1, temp);
+						stmt2 = conn.prepareStatement(
+								"select abilityList.* " +
+								"  from  abilityList " +
+								"  where abilityList.abilityList_id = ?"
+						);
+						
+						stmt2.setInt(1, resultSet.getInt(10));
+						for(int i=1; i<=10; i++) {
+							System.out.println(resultSet.getInt(i));
+						}
+						resultSet2 = stmt2.executeQuery();
+						
+						ArrayList<Ability> tempAbilList = new ArrayList<Ability>();
+						
+						System.out.println(resultSet2.next());
+						for (int i=1; i<=5; i++) {
+							stmt3 = conn.prepareStatement(
+									"select ability.* " +
+									"  from  ability " +
+									"  where ability.name = ?"
+							);
+						
+							
+							stmt3.setString(1, resultSet2.getString(i));
+							
+							resultSet3 = stmt3.executeQuery();
+							System.out.println("I executed query 3!");
+							Ability abil = new Ability(null, null, null, null, 0, 0);
+							
+							resultSet3.next();
+							loadAbility(abil, resultSet3, 1);
+							tempAbilList.add(abil);
+						}
+						
+						
+						stmt4 = conn.prepareStatement(
+								"select room.* " +
+								"  from  room " +
+								"  where room.room_id = ?"
+						);
+						
+						stmt4.setInt(1, resultSet.getInt(13));
+						
+						resultSet4 = stmt4.executeQuery();
+						System.out.println("I executed query 4!");
+						stmt5 = conn.prepareStatement(
+								"select roomMap.* " +
+								"  from  roomMap " +
+								"  where roomMap.roomId = ?"
+						);
+						
+						resultSet4.next();
+						stmt5.setInt(1, resultSet4.getInt(5));
+						
+						resultSet5 = stmt5.executeQuery();
+						System.out.println("I executed query 5!");
+						HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
+						while(resultSet5.next()) {
+							tmpMap.put(resultSet5.getString(2), resultSet5.getInt(3));
+						}
+						
+						Room room = new Room(null, null, null, null, false, 0);
+						loadRoom(room, resultSet4, 1, tmpMap);
+					
+						
+						Player player = new Player(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, false, null);
+						loadPlayer(player, resultSet, 1, tempAbilList, room);
 						
 
 						result.add(player);
@@ -909,13 +953,22 @@ public class DerbyDatabase implements IDatabase {
 					
 					// check if the title was found
 					if (!found) {
-						System.out.println("No messages were found!");
+						System.out.println("No players were found!");
 					}
 					
 					return result;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(resultSet3);
+					DBUtil.closeQuietly(stmt3);
+					DBUtil.closeQuietly(resultSet4);
+					DBUtil.closeQuietly(stmt4);
+					DBUtil.closeQuietly(resultSet5);
+					DBUtil.closeQuietly(stmt5);
+					
 				}
 			}
 		});
