@@ -101,7 +101,54 @@ public class DerbyDatabase implements IDatabase {
 		message.setMessage(resultSet.getString(index++));
 		message.setPlayerAction(resultSet.getInt(index++));
 	}
+	
+	private void loadAbility(Ability ability, ResultSet resultSet, int index) throws SQLException {
+		ability.setName(resultSet.getString(index++));
+		ability.setDescription(resultSet.getString(index++));
+		ability.setVariety(resultSet.getString(index++));
+		ability.setAffectedStat(resultSet.getString(index++));
+		ability.setEffect(resultSet.getInt(index++));
+		ability.setCost(resultSet.getInt(index++));
+	}
+	
+	private void loadRoom(Room room, ResultSet resultSet, int index) throws SQLException {
+		room.setDescription(resultSet.getString(index++));
+		room.setInventory(null);
+		room.setObstacle(null);
+		room.setRoomMap());
+		if(resultSet.getInt(index++)==1) {
+			room.setIsFound(true);
+		}else {
+			room.setIsFound(false);
+		}
+	}
+	
 
+	private void loadPlayer(Player player, ResultSet resultSet, int index, ArrayList<Ability> abilities) throws SQLException {
+
+		player.setMaxHP(resultSet.getInt(index++));
+		player.setHP(resultSet.getInt(index++));
+		player.setMaxResource(resultSet.getInt(index++));
+		player.setResource(resultSet.getInt(index++));
+		player.setAtk(resultSet.getInt(index++));
+		player.setDef(resultSet.getInt(index++));
+		player.setGold(resultSet.getInt(index++));
+		player.setXP(resultSet.getInt(index++));
+		player.setAbilities(abilities);
+		index++;
+		player.setStatus(resultSet.getString(index++));
+		player.setInventory(null);
+		index++;
+		player.setCurrentRoom();
+		index++;
+		if(resultSet.getInt(index++)==1) {
+			player.setIsDead(true);
+		}
+		else {
+			player.setIsDead(false);
+		}
+		player.setName(resultSet.getString(index++));
+	}
 	
 	//  creates the Authors and Books tables
 	public void createTables() {
@@ -749,7 +796,7 @@ public class DerbyDatabase implements IDatabase {
 	public static void main(String[] args) throws IOException {
 		System.out.println("Creating tables...");
 		DerbyDatabase db = new DerbyDatabase();
-		db.createTables();
+		//db.createTables();
 		
 		System.out.println("Loading initial data...");
 		db.loadInitialData();
@@ -800,9 +847,80 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 	public List<Player> findAllPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<List<Player>>() {
+			@Override
+			public List<Player> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				PreparedStatement stmt3 = null;
+
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				ResultSet resultSet3 = null;
+
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select player.* " +
+							"  from  player " 
+					);
+					
+					
+					List<Player> result = new ArrayList<Player>();
+					
+					resultSet = stmt.executeQuery();
+					
+					stmt2 = conn.prepareStatement(
+							"select abilityList.* " +
+							"  from  abilityList " +
+							"  where abilityList.abilityList_id = ?"
+					);
+					
+					stmt2.setInt(1, resultSet.getInt(9));
+
+					resultSet2 = stmt2.executeQuery();
+					ArrayList<Ability> temp = new ArrayList<Ability>();
+					for (int i=1; i<=5; i++) {
+					stmt3 = conn.prepareStatement(
+							"select ability.* " +
+							"  from  ability" +
+							"  where ability.name = ?"
+					);
+					stmt3.setString(1, resultSet2.getString(i));
+
+					resultSet3=stmt3.executeQuery();
+					
+					Ability abil = new Ability(null, null, null, null, 0, 0);
+					loadAbility(abil, resultSet3, 1);
+					temp.add(abil);
+					}
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						Player player = new Player(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, found, null);
+						loadPlayer(player, resultSet, 1, temp);
+						
+
+						result.add(player);
+					}
+					
+					// check if the title was found
+					if (!found) {
+						System.out.println("No messages were found!");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
 	}
+	
 
 	@Override
 	public List<Room> findAllRooms() {
