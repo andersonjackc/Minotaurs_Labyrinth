@@ -11,6 +11,12 @@
 		position: absolute;
 		left: 0%;
 	}
+	img.zeus{
+		height: 700px;
+	}
+	img.hera{
+		height: 700px;
+	}
 	div.textbox{
 		margin: 0;
 		position: absolute;
@@ -36,6 +42,7 @@
 		width:700px;
 		bottom: 0;
 		font-size: 19px;
+		overflow-x: hidden;
 	}
 	tr.userCommands{
 		color: white;
