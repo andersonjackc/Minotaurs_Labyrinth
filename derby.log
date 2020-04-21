@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Tue Apr 21 18:02:07 EDT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-9ec3-3d9f-00000e57d548 
+Tue Apr 21 18:04:04 EDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-9ec5-0492-00000e4db270 
 on database directory C:\Documents\CS320\Minotaurs_Labyrinth\labyrinth.db with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
 Loaded from file:/D:/Documents/CS320/CS320_Derby/lib/derby.jar
 java.vendor=Oracle Corporation
