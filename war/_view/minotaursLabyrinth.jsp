@@ -19,10 +19,10 @@
 <body>
 	<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
 		<div class="zeus">
-			<img src="https://cdn.pixabay.com/photo/2013/07/12/13/24/mythology-146988_960_720.png">
+			<img class="zeus" src="https://cdn.pixabay.com/photo/2013/07/12/13/24/mythology-146988_960_720.png">
 		</div>
 		<div class="hera">
-			<img src="https://cdn.pixabay.com/photo/2013/07/12/13/23/hera-146932_960_720.png">
+			<img class="hera" src="https://cdn.pixabay.com/photo/2013/07/12/13/23/hera-146932_960_720.png">
 		</div>
 		<div id="gameText" class="gameText">
 			<table class="center">
