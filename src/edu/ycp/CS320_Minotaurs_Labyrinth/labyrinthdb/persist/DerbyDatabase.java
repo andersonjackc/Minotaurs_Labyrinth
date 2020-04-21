@@ -882,7 +882,7 @@ public class DerbyDatabase implements IDatabase {
 							"  from  player " 
 					);
 					resultSet = stmt.executeQuery();
-					System.out.println("Statement 1 executed");
+					
 					List<Player> result = new ArrayList<Player>();
 					
 					Boolean found = false;
@@ -899,7 +899,7 @@ public class DerbyDatabase implements IDatabase {
 						stmt2.setInt(1, resultSet.getInt(10));
 						
 						resultSet2 = stmt2.executeQuery();
-						System.out.println("Statement 2 executed");
+						
 						ArrayList<Ability> tempAbilList = new ArrayList<Ability>();
 						
 						resultSet2.next();
@@ -914,7 +914,7 @@ public class DerbyDatabase implements IDatabase {
 							stmt3.setString(1, resultSet2.getString(i));
 							
 							resultSet3 = stmt3.executeQuery();
-							System.out.println("Statement 3 executed");
+							
 							Ability abil = new Ability(null, null, null, null, 0, 0);
 							
 							resultSet3.next();
@@ -934,18 +934,18 @@ public class DerbyDatabase implements IDatabase {
 						stmt4.setInt(1, resultSet.getInt(13));
 						
 						resultSet4 = stmt4.executeQuery();
-						System.out.println("Statement 4 executed");
+						
 						stmt5 = conn.prepareStatement(
 								"select roomMap.* " +
 								"  from  roomMap " +
 								"  where roomMap.roomId = ?"
 						);
 						
-						System.out.println(resultSet4.next());
+						resultSet4.next();
 						stmt5.setInt(1, resultSet4.getInt(5));
 						
 						resultSet5 = stmt5.executeQuery();
-						System.out.println("Statement 5 executed");
+						
 						HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
 						while(resultSet5.next()) {
 							tmpMap.put(resultSet5.getString(2), resultSet5.getInt(3));

@@ -52,19 +52,20 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		IDatabase db = DatabaseProvider.getInstance();
 		ArrayList<Message<String, Integer>> testAL = (ArrayList<Message<String, Integer>>) db.findTextHistory();
-		System.out.println(testAL.get(0).getMessage());
+		
 		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
 		
-		System.out.println(testPlayer.get(0).getName());
+		
 		Player dbPlayer = testPlayer.get(0);
-		System.out.println(dbPlayer.getCurrentRoom().getRoomId());
+		
 		//model, controller and attribute for jsp setup
 		Minotaur model = new Minotaur();
 		MinotaursLabyrinthController controller = new MinotaursLabyrinthController();
-		System.out.println(dbPlayer.getCurrentRoom().getRoomId());
-		model.initPlayer();
+		
+		
+		
 		model.initMap();
-		System.out.println(dbPlayer.getCurrentRoom().getRoomId());
+		model.initPlayer();
 		controller.setModel(model);
 		req.setAttribute("game", model);
 		req.setAttribute("outputstrings", model.getOutputStrings());
@@ -105,7 +106,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		
 		//pass the persistence information to the model
-	
+		
 		model.setEnemyHP(enemyHP);
 		model.setVillagerHP(villagerHP);
 		model.setEnemyDead(ogreIsDead);
@@ -128,9 +129,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		//Checks that textbox isnt empty, if it isnt empty check for our commands
 		//attack
-		System.out.println(dbPlayer.getCurrentRoom().getRoomId());
+		//System.out.println(inputs.length <= 2 && inputs.length > 1 && model.getTargets().get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == model.getTargets().get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player"));
+		
+		System.out.println(model.getTargets().get("player"));
+		System.out.println(dbPlayer);
 		if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
-			if(inputs.length <= 2 && inputs.length > 1 && model.getTargets().get(inputs[1])!=null && dbPlayer.getCurrentRoom() == model.getTargets().get(inputs[1]).getCurrentRoom() && !inputs[1].equals("player")) {
+			if(inputs.length <= 2 && inputs.length > 1 && model.getTargets().get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == model.getTargets().get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
 				String atkMsg = dbPlayer.basicAttack(model.getTargets().get(inputs[1]));
 				if(atkMsg.equals(model.getTargets().get(inputs[1]).getName() + " is dead.")) {
 					if(model.getTargets().get(inputs[1]).getName().equals("Villager")) {
@@ -176,7 +180,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		//cast
 		else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
-			if(inputs.length <= 3 && inputs.length > 2 && model.getTargets().get(inputs[2]) != null && dbPlayer.getCurrentRoom() == model.getTargets().get(inputs[2]).getCurrentRoom() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
+			if(inputs.length <= 3 && inputs.length > 2 && model.getTargets().get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == model.getTargets().get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
 				String castMsg = dbPlayer.cast(model.getTargets().get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
 				if(castMsg.equals(model.getTargets().get(inputs[2]).getName() + " is dead.")) {
 					if(model.getTargets().get(inputs[2]).getName().equals("Villager")) {
@@ -241,6 +245,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		
 		System.out.println(dbPlayer.getCurrentRoom().getRoomId());
+		System.out.println(dbPlayer.getHP());
 		db.updatePlayer(dbPlayer);
 		//sets our outputstrings value, which is used to persist our past decisions
 		req.setAttribute("outputstrings", model.getOutputStrings());
