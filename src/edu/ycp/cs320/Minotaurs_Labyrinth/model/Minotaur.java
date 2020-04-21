@@ -392,7 +392,7 @@ public class Minotaur {
 		abilities.add(fireball);
 		abilities.add(heal);
 		gabilities.add(cripple);
-		targets.put("player", testPlayer.get(0));
+		//targets.put("player", testPlayer.get(0));
 		ogre = new Enemy(10, 10, 5, 5, 1, 0, 0, 0, gabilities, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, room2, false);
 		System.out.println(ogre.getCurrentRoom());
 		goblin = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, gabilities, "goblin", "I'm gonna stab ya!", 0, "a small scraggly goblin with a wicked knife, it looks dangerous", "Goblin", inv, room34, false);

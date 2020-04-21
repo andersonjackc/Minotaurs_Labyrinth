@@ -69,7 +69,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		controller.setModel(model);
 		req.setAttribute("game", model);
 		req.setAttribute("outputstrings", model.getOutputStrings());
-		
+		model.getTargets().put("player", dbPlayer);
 		//Create an empty list and fill it with the various interactions/descriptions
 		ArrayList<Message<String, Integer>> emptyList = new ArrayList<Message<String, Integer>>();
 		model.setOutputStrings(emptyList);
