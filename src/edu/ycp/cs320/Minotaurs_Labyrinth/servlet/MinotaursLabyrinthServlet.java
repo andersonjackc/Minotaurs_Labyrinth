@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.IDatabase;
@@ -55,7 +56,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		ArrayList<Message<String, Integer>> outputStrings = (ArrayList<Message<String, Integer>>) db.findTextHistory();
 		
 		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
-		
+		ArrayList<Enemy>  enemyList = (ArrayList<Enemy>) db.findAllEnemies();
 		
 		Player dbPlayer = testPlayer.get(0);
 		
@@ -71,25 +72,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		req.setAttribute("game", model);
 		req.setAttribute("outputstrings", outputStrings);
 		model.getTargets().put("player", dbPlayer);
-		//Create an empty list and fill it with the various interactions/descriptions
-		//ArrayList<Message<String, Integer>> emptyList = new ArrayList<Message<String, Integer>>();
-		//model.setOutputStrings(emptyList);
-		//String[] test = req.getParameterValues("test");
-		//String[] playerAction = req.getParameterValues("playerAction");
 		
-		/*int tempCount1 = 0;
-		int tempCount2 = 0;
-		for(String s: test) {
-			tempCount1++;
-			tempCount2 = 0;
-			for(String x : playerAction) {
-				tempCount2++;
-				if(tempCount1 == tempCount2) {
-					Message<String, Integer> newMsg = new Message<String, Integer>(s, Integer.parseInt(x));
-					model.getOutputStrings().add(newMsg);
-				}
-			}
-		}*/
+		
+		for(Enemy enemy : enemyList) {
+			model.getTargets().put(enemy.getName().toLowerCase(), enemy);
+		}
+		
 		
 		String inputVal = getString(req, "textbox");
 		String[] inputs;
@@ -99,27 +87,22 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		inputs = inputVal.split(" ");
 		//grab the hidden persistence values
 		
-		
-		
-		Integer enemyHP = getInteger(req, "enemyHP");
 		Integer villagerHP = getInteger(req, "villagerHP");
-		Integer ogreIsDead = getInteger(req, "enemyIsDead");
+		
 		Integer villagerIsDead = getInteger(req, "villagerIsDead");
 		
 		
 		//pass the persistence information to the model
 		
-		model.setEnemyHP(enemyHP);
+	
 		model.setVillagerHP(villagerHP);
-		model.setEnemyDead(ogreIsDead);
+		
 		model.setVillagerDead(villagerIsDead);
 		
 
 		
 		//Set ogre/villager/player to dead if they have 0 hp or less
-		if(model.getEnemyDead()==1) {
-			model.getEnemy().setIsDead(true);
-		}
+	
 		if(model.getVillagerDead()==1) {
 			model.getVillager().setIsDead(true);
 		}
@@ -248,6 +231,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		db.updatePlayer(dbPlayer);
 		db.updateTextHistory(outputStrings);
+		db.updateEnemies(enemyList);
 		//sets our outputstrings value, which is used to persist our past decisions
 		req.setAttribute("outputstrings", outputStrings);
 		

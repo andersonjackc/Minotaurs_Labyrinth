@@ -163,6 +163,37 @@ public class DerbyDatabase implements IDatabase {
 		
 	}
 	
+	private void loadEnemy(Enemy enemy, ResultSet resultSet, int index, ArrayList<Ability> abilities, Room currentRoom) throws SQLException {
+
+		enemy.setMaxHP(resultSet.getInt(index++));
+		enemy.setHP(resultSet.getInt(index++));
+		enemy.setMaxResource(resultSet.getInt(index++));
+		enemy.setResource(resultSet.getInt(index++));
+		enemy.setAtk(resultSet.getInt(index++));
+		enemy.setDef(resultSet.getInt(index++));
+		enemy.setGold(resultSet.getInt(index++));
+		enemy.setXP(resultSet.getInt(index++));
+		enemy.setAbilities(abilities);
+		index++;
+		enemy.setStatus(resultSet.getString(index++));
+		enemy.setDialogue(resultSet.getString(index++));
+		enemy.setAttitude(resultSet.getInt(index++));
+		enemy.setDescription(resultSet.getString(index++));
+		enemy.setName(resultSet.getString(index++));
+		enemy.setInventory(null);
+		index++;
+		enemy.setCurrentRoom(currentRoom);
+		index++;
+		if(resultSet.getInt(index++)==1) {
+			enemy.setIsDead(true);
+		}
+		else {
+			enemy.setIsDead(false);
+		}
+		
+		
+	}
+	
 	//  creates the Authors and Books tables
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
@@ -996,8 +1027,128 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 	public List<Enemy> findAllEnemies() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<List<Enemy>>() {
+			@Override
+			public List<Enemy> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				PreparedStatement stmt3 = null;
+				PreparedStatement stmt4 = null;
+				PreparedStatement stmt5 = null;
+				
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				ResultSet resultSet3 = null;
+				ResultSet resultSet4 = null;
+				ResultSet resultSet5 = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select enemy.* " +
+							"  from  enemy " 
+					);
+					resultSet = stmt.executeQuery();
+					
+					List<Enemy> result = new ArrayList<Enemy>();
+					
+					Boolean found = false;
+					while (resultSet.next()) {
+						
+						found = true;
+						
+						stmt2 = conn.prepareStatement(
+								"select abilityList.* " +
+								"  from  abilityList " +
+								"  where abilityList.abilityList_id = ?"
+						);
+						
+						stmt2.setInt(1, resultSet.getInt(10));
+						
+						resultSet2 = stmt2.executeQuery();
+						
+						ArrayList<Ability> tempAbilList = new ArrayList<Ability>();
+						
+						resultSet2.next();
+						for (int i=2; i<=6; i++) {
+							stmt3 = conn.prepareStatement(
+									"select ability.* " +
+									"  from  ability " +
+									"  where ability.name = ?"
+							);
+						
+							
+							stmt3.setString(1, resultSet2.getString(i));
+							
+							resultSet3 = stmt3.executeQuery();
+							
+							Ability abil = new Ability(null, null, null, null, 0, 0);
+							
+							resultSet3.next();
+							
+							loadAbility(abil, resultSet3, 2);
+							
+							tempAbilList.add(abil);
+						}
+						
+						
+						stmt4 = conn.prepareStatement(
+								"select room.* " +
+								"  from  room " +
+								"  where room.room_id = ?"
+						);
+						
+						stmt4.setInt(1, resultSet.getInt(17));
+						
+						resultSet4 = stmt4.executeQuery();
+						
+						stmt5 = conn.prepareStatement(
+								"select roomMap.* " +
+								"  from  roomMap " +
+								"  where roomMap.roomId = ?"
+						);
+						
+						resultSet4.next();
+						stmt5.setInt(1, resultSet4.getInt(5));
+						
+						resultSet5 = stmt5.executeQuery();
+						
+						HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
+						while(resultSet5.next()) {
+							tmpMap.put(resultSet5.getString(2), resultSet5.getInt(3));
+						}
+						
+						Room room = new Room(null, null, null, null, false, 0);
+						loadRoom(room, resultSet4, 1, tmpMap);
+					
+						
+						Enemy enemy = new Enemy(0, 0, 0, 0, 0, 0, 0, 0, tempAbilList, null, null, 0, null, null, null, room, found);
+						loadEnemy(enemy, resultSet, 2, tempAbilList, room);
+						
+
+						result.add(enemy);
+					}
+					
+					// check if the title was found
+					if (!found) {
+						System.out.println("No enemies were found!");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(resultSet3);
+					DBUtil.closeQuietly(stmt3);
+					DBUtil.closeQuietly(resultSet4);
+					DBUtil.closeQuietly(stmt4);
+					DBUtil.closeQuietly(resultSet5);
+					DBUtil.closeQuietly(stmt5);
+					
+				}
+			}
+		});
 	}
 
 	@Override
@@ -1060,10 +1211,6 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 				
-			
-				/*PreparedStatement stmt4 = null;
-				ResultSet resultSet4 = null;*/
-				
 				try {
 					stmt = conn.prepareStatement(
 							"update player " +
@@ -1071,10 +1218,6 @@ public class DerbyDatabase implements IDatabase {
 							"   def = ?,  gold = ?,  xp = ?,   status = ?,   " +
 							"  currentRoom = ?,  isDead = ?,  name = ?"
 					);
-					
-					
-					
-					
 					
 					stmt.setInt(1, newPlayer.getMaxHP());
 					stmt.setInt(2, newPlayer.getHP());
@@ -1121,10 +1264,6 @@ public class DerbyDatabase implements IDatabase {
 				
 				PreparedStatement stmt2 = null;
 				
-			
-				/*PreparedStatement stmt4 = null;
-				ResultSet resultSet4 = null;*/
-				
 				try {
 					stmt = conn.prepareStatement(
 							"truncate table textHistory"
@@ -1145,6 +1284,56 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
 					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+	}
+
+	@Override
+	public List<Enemy> updateEnemies(List<Enemy> enemyList) {
+		return executeTransaction(new Transaction<List<Enemy>>() {
+			@Override
+			public List<Enemy> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					int count=1;
+					for(Enemy enemy : enemyList) {
+						stmt = conn.prepareStatement(
+								"update enemy " +
+								" set  maxHP = ?,  HP = ?,  maxResource = ?,  resource = ?,  atk = ?,  " +
+								"   def = ?,  gold = ?,  xp = ?,   status = ?, dialogue = ?, attitude = ?,   " +
+								" description = ?, currentRoom = ?,  isDead = ?,  name = ? " +
+								" where enemy_id = ?"
+						);
+						
+						stmt.setInt(1, enemy.getMaxHP());
+						stmt.setInt(2, enemy.getHP());
+						stmt.setInt(3, enemy.getMaxResource());
+						stmt.setInt(4, enemy.getResource());
+						stmt.setInt(5, enemy.getAtk());
+						stmt.setInt(6, enemy.getDef());
+						stmt.setInt(7, enemy.getGold());
+						stmt.setInt(8, enemy.getXP());
+						stmt.setString(9, enemy.getStatus());
+						stmt.setString(10, enemy.getDialogue());
+						stmt.setInt(11, enemy.getAttitude());
+						stmt.setString(12, enemy.getDescription());
+						stmt.setInt(13, enemy.getCurrentRoom().getRoomId());
+						if(enemy.getIsDead()) {
+							stmt.setInt(14, 1);
+						}else {
+							stmt.setInt(14, 0);
+						}
+						stmt.setString(15, enemy.getName());
+						stmt.setInt(16, count++);
+						stmt.executeUpdate();
+					}
+					return null;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
 				}
 			}
 		});

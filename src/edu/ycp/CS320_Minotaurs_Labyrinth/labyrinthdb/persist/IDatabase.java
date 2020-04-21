@@ -24,5 +24,7 @@ public interface IDatabase {
 	
 	public List<Message<String, Integer>> updateTextHistory(List<Message<String, Integer>> newMessages);
 	
+	public List<Enemy> updateEnemies(List<Enemy> enemyList);
+	
 	
 }

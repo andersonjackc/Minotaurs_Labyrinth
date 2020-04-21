@@ -393,15 +393,15 @@ public class Minotaur {
 		abilities.add(heal);
 		gabilities.add(cripple);
 		//targets.put("player", testPlayer.get(0));
-		ogre = new Enemy(10, 10, 5, 5, 1, 0, 0, 0, gabilities, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, room2, false);
+		//ogre = new Enemy(10, 10, 5, 5, 1, 0, 0, 0, gabilities, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, room2, false);
 		
-		goblin = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, gabilities, "goblin", "I'm gonna stab ya!", 0, "a small scraggly goblin with a wicked knife, it looks dangerous", "Goblin", inv, room34, false);
-		minotaur = new Enemy(20, 20, 20, 20, 5, 0, 0, 0, gabilities, "minotaur", "Roooaaaaaarrrrrrr!!!", 0, "a large creature towering a good two feet above", "Minotaur", inv, room42, false);
+		//goblin = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, gabilities, "goblin", "I'm gonna stab ya!", 0, "a small scraggly goblin with a wicked knife, it looks dangerous", "Goblin", inv, room34, false);
+		//minotaur = new Enemy(20, 20, 20, 20, 5, 0, 0, 0, gabilities, "minotaur", "Roooaaaaaarrrrrrr!!!", 0, "a large creature towering a good two feet above", "Minotaur", inv, room42, false);
 
 		enemyDeadVal = 0;
-		targets.put("ogre", ogre);
-		targets.put("goblin", goblin);
-		targets.put("minotaur", minotaur);
+		//targets.put("ogre", ogre);
+		//targets.put("goblin", goblin);
+		//targets.put("minotaur", minotaur);
 		ArrayList<Ability> VillagerAbilities = new ArrayList<Ability>();
 		villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 100, "An old man with tattered clothing", "Villager", inv, room3, false);
 		villagerDeadVal = 0;
