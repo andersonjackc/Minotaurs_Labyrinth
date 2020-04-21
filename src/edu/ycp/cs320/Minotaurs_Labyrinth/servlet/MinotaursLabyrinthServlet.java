@@ -131,8 +131,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		//attack
 		//System.out.println(inputs.length <= 2 && inputs.length > 1 && model.getTargets().get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == model.getTargets().get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player"));
 		
-		System.out.println(model.getTargets().get("player"));
-		System.out.println(dbPlayer);
+		
 		if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
 			if(inputs.length <= 2 && inputs.length > 1 && model.getTargets().get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == model.getTargets().get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
 				String atkMsg = dbPlayer.basicAttack(model.getTargets().get(inputs[1]));

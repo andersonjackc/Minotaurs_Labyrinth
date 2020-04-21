@@ -463,6 +463,8 @@ public class DerbyDatabase implements IDatabase {
 					
 					stmt14 = conn.prepareStatement(
 							"create table textHistory (" +
+							"	textHistory_id integer primary key " +
+							"	generated always as identity (start with 1, increment by 1), " +
 							"	message varchar(7999)," +
 							"	playerAction integer" +
 							")"
@@ -1030,7 +1032,7 @@ public class DerbyDatabase implements IDatabase {
 						found = true;
 						
 						Message<String, Integer> message = new Message<String, Integer>(null, 0);
-						loadMessage(message, resultSet, 1);
+						loadMessage(message, resultSet, 2);
 						
 
 						result.add(message);
@@ -1104,6 +1106,47 @@ public class DerbyDatabase implements IDatabase {
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
+	@Override
+	public List<Message<String, Integer>> updateTextHistory(List<Message<String, Integer>> newMessages) {
+		return executeTransaction(new Transaction<List<Message<String,Integer>>>() {
+			@Override
+			public List<Message<String, Integer>> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				PreparedStatement stmt2 = null;
+				
+			
+				/*PreparedStatement stmt4 = null;
+				ResultSet resultSet4 = null;*/
+				
+				try {
+					stmt = conn.prepareStatement(
+							"truncate table textHistory"
+					);
+					
+					stmt.executeUpdate();
+					
+					for (Message<String,Integer> message : newMessages) {
+						stmt2 = conn.prepareStatement("insert into textHistory (message, playerAction) values (?, ?)");
+						stmt2.setString(1, message.getMessage());
+						stmt2.setInt(2, message.getPlayerAction());
+						stmt2.executeUpdate();
+					}
+					
+					
+
+					
+					return null;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(stmt2);
 				}
 			}
 		});

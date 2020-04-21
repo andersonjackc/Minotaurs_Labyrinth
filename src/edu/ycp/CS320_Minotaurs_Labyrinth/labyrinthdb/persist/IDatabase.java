@@ -22,5 +22,7 @@ public interface IDatabase {
 	
 	public Player updatePlayer(Player newPlayer);
 	
+	public List<Message<String, Integer>> updateTextHistory(List<Message<String, Integer>> newMessages);
+	
 	
 }

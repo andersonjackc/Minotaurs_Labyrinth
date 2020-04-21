@@ -541,6 +541,8 @@ public class InitialData {
 				
 				Message<String, Integer> message = new Message<String, Integer>(null, 0);
 				
+				i.next();
+				
 				message.setMessage(i.next());
 				
 				message.setPlayerAction(Integer.parseInt(i.next()));
