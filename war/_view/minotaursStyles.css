@@ -33,6 +33,7 @@
 		text-align: center;
 		overflow:auto;
 		height: 600px;
+		width:700px;
 		bottom: 0;
 		font-size: 19px;
 	}
@@ -47,5 +48,11 @@
 	tr.castCommands{
 		color: purple;
 
+	}
+	table.center{
+		width:690px;
+	  	table-layout:fixed;
+		text-align:center;
+		word-break: break-all; 
 	}
 	

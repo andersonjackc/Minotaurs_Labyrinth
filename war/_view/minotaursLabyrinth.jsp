@@ -25,7 +25,7 @@
 			<img src="https://cdn.pixabay.com/photo/2013/07/12/13/23/hera-146932_960_720.png">
 		</div>
 		<div id="gameText" class="gameText">
-			<table>
+			<table class="center">
 				<c:forEach items="${outputstrings}" var="strings">
 				
 					<c:if test="${strings.playerAction == 3}">
