@@ -14,9 +14,6 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
-import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DatabaseProvider;
-import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DerbyDatabase;
-import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.IDatabase;
 
 public class Minotaur {
 	
