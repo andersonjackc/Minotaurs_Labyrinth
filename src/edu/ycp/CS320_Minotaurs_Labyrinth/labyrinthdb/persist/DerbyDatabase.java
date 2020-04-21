@@ -1138,8 +1138,6 @@ public class DerbyDatabase implements IDatabase {
 						stmt2.setInt(2, message.getPlayerAction());
 						stmt2.executeUpdate();
 					}
-					
-					
 
 					
 					return null;

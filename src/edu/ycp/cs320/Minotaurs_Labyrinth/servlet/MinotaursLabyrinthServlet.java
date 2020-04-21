@@ -33,11 +33,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		//fills map 
 		controller.initModel();
-		
-
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		IDatabase db = DatabaseProvider.getInstance();
+		ArrayList<Message<String, Integer>> outputStrings = (ArrayList<Message<String, Integer>>) db.findTextHistory();
 		//set attribute name for jsp
 		req.setAttribute("game", model);		
-		req.setAttribute("outputstrings", model.getOutputStrings());
+		req.setAttribute("outputstrings", outputStrings);
 		// call JSP to generate empty form
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
 	}
@@ -51,7 +52,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		IDatabase db = DatabaseProvider.getInstance();
-		ArrayList<Message<String, Integer>> testAL = (ArrayList<Message<String, Integer>>) db.findTextHistory();
+		ArrayList<Message<String, Integer>> outputStrings = (ArrayList<Message<String, Integer>>) db.findTextHistory();
 		
 		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
 		
@@ -68,15 +69,15 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.initPlayer();
 		controller.setModel(model);
 		req.setAttribute("game", model);
-		req.setAttribute("outputstrings", model.getOutputStrings());
+		req.setAttribute("outputstrings", outputStrings);
 		model.getTargets().put("player", dbPlayer);
 		//Create an empty list and fill it with the various interactions/descriptions
-		ArrayList<Message<String, Integer>> emptyList = new ArrayList<Message<String, Integer>>();
-		model.setOutputStrings(emptyList);
-		String[] test = req.getParameterValues("test");
-		String[] playerAction = req.getParameterValues("playerAction");
+		//ArrayList<Message<String, Integer>> emptyList = new ArrayList<Message<String, Integer>>();
+		//model.setOutputStrings(emptyList);
+		//String[] test = req.getParameterValues("test");
+		//String[] playerAction = req.getParameterValues("playerAction");
 		
-		int tempCount1 = 0;
+		/*int tempCount1 = 0;
 		int tempCount2 = 0;
 		for(String s: test) {
 			tempCount1++;
@@ -88,11 +89,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					model.getOutputStrings().add(newMsg);
 				}
 			}
-		}
+		}*/
+		
 		String inputVal = getString(req, "textbox");
 		String[] inputs;
 		Message<String, Integer> input = new Message<String, Integer>(inputVal, 1);
-		model.getOutputStrings().add(input);
+		outputStrings.add(input);
 		inputVal = inputVal.toLowerCase();
 		inputs = inputVal.split(" ");
 		//grab the hidden persistence values
@@ -149,31 +151,31 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				}
 				Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
 				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
-				model.getOutputStrings().add(msg);
-				model.getOutputStrings().add(msg2);
+				outputStrings.add(msg);
+				outputStrings.add(msg2);
 			}else if(inputs.length<=1){
 				Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}else if(inputs.length > 2) {
 				Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}else{
 				Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}
-			System.out.println(dbPlayer.getCurrentRoom().getRoomId());
+			
 		}
 		
 		//talk
 		else if(req.getParameter("textbox") != null && inputVal.equals("talk") && dbPlayer.getCurrentRoom().getRoomId() == 3) {
 			if(!(model.getVillager().getIsDead()) && !(dbPlayer.getIsDead())) {
-				model.initResponses();
+				model.initResponses(outputStrings);
 			}else if(!(dbPlayer.getIsDead())) {
 				Message<String, Integer> msg = new Message<String, Integer>("You killed the villager you monster!", 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}else {
 				Message<String, Integer> msg = new Message<String, Integer>("You are dead!", 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}
 		}
 		
@@ -197,57 +199,57 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					dbPlayer.setIsDead(true);
 				}
 				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
-				model.getOutputStrings().add(msg2);
+				outputStrings.add(msg2);
 				}
 				Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}else if(inputs.length<=1){
 				Message<String, Integer> msg = new Message<String, Integer>("You must specify a spell or ability!", 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}else if(inputs.length<=2){
 				Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}else if(!containsAbility(dbPlayer.getAbilities(), inputs[1])) {
 				Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid spell!", 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}else if(inputs.length > 3) {
 				Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}else{
 				Message<String, Integer> msg = new Message<String, Integer>(inputs[2] + " is an invalid target!", 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}
 		}
 		
 		//move
 		else if (req.getParameter("textbox") != null && inputs[0].equals("move")){
-			System.out.println(dbPlayer.getCurrentRoom().getRoomId());
+			
 			if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 				String moveMsg = dbPlayer.move(inputs[1], model.getAllRooms());
 				Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}else if(inputs.length<=1){
 				Message<String, Integer> msg = new Message<String, Integer>("You must specify a direction!", 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}else if(inputs.length > 2) {
 				Message<String, Integer> msg = new Message<String, Integer>("Specify a single direction!", 0);
-				model.getOutputStrings().add(msg);
+				outputStrings.add(msg);
 			}
-			System.out.println(dbPlayer.getCurrentRoom().getRoomId());
+			
 		}
 		
 		//give error for invalid commands
 		else if(req.getParameter("textbox") != null && !inputs[0].equals("attack") && !inputs[0].equals("talk") && !inputs[0].equals("cast") && !inputs[0].equals("move")){
 			Message<String, Integer> msg = new Message<String, Integer>(inputs[0] + " is an invalid command!", 0);
-			model.getOutputStrings().add(msg);
+			outputStrings.add(msg);
 		}
 		
 		
-		System.out.println(dbPlayer.getCurrentRoom().getRoomId());
-		System.out.println(dbPlayer.getHP());
+		
 		db.updatePlayer(dbPlayer);
+		db.updateTextHistory(outputStrings);
 		//sets our outputstrings value, which is used to persist our past decisions
-		req.setAttribute("outputstrings", model.getOutputStrings());
+		req.setAttribute("outputstrings", outputStrings);
 		
 		//re-post
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);

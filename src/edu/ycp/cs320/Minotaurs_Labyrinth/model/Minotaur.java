@@ -407,20 +407,20 @@ public class Minotaur {
 		villagerDeadVal = 0;
 		targets.put("villager", villager);
 		
-		outputstrings = new ArrayList<Message<String, Integer>>();
+		/*outputstrings = new ArrayList<Message<String, Integer>>();
 		Message<String, Integer> initialMessage = new Message<String, Integer>(player.getCurrentRoom().getDescription(), 0);
-		outputstrings.add(initialMessage);
+		outputstrings.add(initialMessage);*/
 	
 	}
 	
 	//Fills in player response, adds responses to output strings
-	public void initResponses() {
+	public void initResponses(ArrayList<Message<String, Integer>> DBoutputStrings) {
 		PlayerResp = "Greetings";
 		Message<String, Integer> respMsg = new Message<String, Integer>(PlayerResp, 0);
-		outputstrings.add(respMsg);
+		DBoutputStrings.add(respMsg);
 		NPCResp = "The " + villager.getName() + " says " + villager.getDialogue();
 		Message<String, Integer> npcrespMsg = new Message<String, Integer>(NPCResp, 0);
-		outputstrings.add(npcrespMsg);
+		DBoutputStrings.add(npcrespMsg);
 
 	}
 
