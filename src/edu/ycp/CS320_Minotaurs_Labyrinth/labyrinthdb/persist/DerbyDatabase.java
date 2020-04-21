@@ -103,11 +103,18 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	private void loadAbility(Ability ability, ResultSet resultSet, int index) throws SQLException {
+		
+		
 		ability.setName(resultSet.getString(index++));
+		
 		ability.setDescription(resultSet.getString(index++));
+		
 		ability.setVariety(resultSet.getString(index++));
+	
 		ability.setAffectedStat(resultSet.getString(index++));
+		
 		ability.setEffect(resultSet.getInt(index++));
+		
 		ability.setCost(resultSet.getInt(index++));
 	}
 	
@@ -886,30 +893,30 @@ public class DerbyDatabase implements IDatabase {
 						);
 						
 						stmt2.setInt(1, resultSet.getInt(10));
-						for(int i=1; i<=10; i++) {
-							System.out.println(resultSet.getInt(i));
-						}
+						
 						resultSet2 = stmt2.executeQuery();
 						
 						ArrayList<Ability> tempAbilList = new ArrayList<Ability>();
 						
-						System.out.println(resultSet2.next());
-						for (int i=1; i<=5; i++) {
+						resultSet2.next();
+						for (int i=2; i<=6; i++) {
 							stmt3 = conn.prepareStatement(
 									"select ability.* " +
 									"  from  ability " +
 									"  where ability.name = ?"
 							);
 						
-							
+							System.out.println(resultSet2.getString(i));
 							stmt3.setString(1, resultSet2.getString(i));
 							
 							resultSet3 = stmt3.executeQuery();
 							System.out.println("I executed query 3!");
 							Ability abil = new Ability(null, null, null, null, 0, 0);
 							
-							resultSet3.next();
-							loadAbility(abil, resultSet3, 1);
+							System.out.println(resultSet3.next());
+							
+							loadAbility(abil, resultSet3, 2);
+							
 							tempAbilList.add(abil);
 						}
 						
