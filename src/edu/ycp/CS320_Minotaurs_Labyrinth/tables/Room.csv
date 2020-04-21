@@ -1,8 +1,8 @@
 1|You enter a small stone room there are four doorways at each cardinal direction.|1|1|1|north|2|south|3|east|4|west|5
-2|You enter a small stone room, the stench of ogre is unbearable. The only exit is the way you entered.|1|1|0|north|30|south|1
+2|You enter a small stone room, the stench of ogre is unbearable. There is an exit on the opposite side of the room from the way you entered.|1|1|0|north|30|south|1
 3|You enter a small stone room, a villager stands before you. The only exit is the way you entered.|1|1|0|north|1
 4|You enter a small stone room, it is empty. The only exit is the way you entered.|1|2|0|west|1|east|7
-5|You enter a small stone room, it is empty. The only exit is the way you entered.|1|1|0|east|1|west|6
+5|You enter a small stone room, it is empty. There is an exit on the opposite side of the room from the way you entered.|1|1|0|east|1|west|6
 6|Empty room|1|1|0|east|5
 7|Empty room|1|1|0|west|4|east|8
 8|Empty room|1|1|0|west|7|north|9
