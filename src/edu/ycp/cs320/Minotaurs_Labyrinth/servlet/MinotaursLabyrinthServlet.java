@@ -166,7 +166,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		}
 		
 		//talk
-		else if(req.getParameter("textbox") != null && inputVal.equals("talk") && dbPlayer.getCurrentRoom() == model.getRoomByRoomId(3)) {
+		else if(req.getParameter("textbox") != null && inputVal.equals("talk") && dbPlayer.getCurrentRoom().getRoomId() == 3) {
 			if(!(model.getVillager().getIsDead()) && !(dbPlayer.getIsDead())) {
 				model.initResponses();
 			}else if(!(dbPlayer.getIsDead())) {
