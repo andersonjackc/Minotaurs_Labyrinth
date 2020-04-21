@@ -1058,12 +1058,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 				
-				PreparedStatement stmt2 = null;
-				ResultSet resultSet2 = null;
-				
-				PreparedStatement stmt3 = null;
-				ResultSet resultSet3 = null;
-				
+			
 				/*PreparedStatement stmt4 = null;
 				ResultSet resultSet4 = null;*/
 				
@@ -1071,57 +1066,13 @@ public class DerbyDatabase implements IDatabase {
 					stmt = conn.prepareStatement(
 							"update player " +
 							" set  maxHP = ?,  HP = ?,  maxResource = ?,  resource = ?,  atk = ?,  " +
-							"   def = ?,  gold = ?,  xp = ?,  abilities = ?,  status = ?,  inventory = ?, " +
+							"   def = ?,  gold = ?,  xp = ?,   status = ?,   " +
 							"  currentRoom = ?,  isDead = ?,  name = ?"
 					);
 					
-					stmt2 = conn.prepareStatement(
-							"select abilityList.* " +
-									" from abilityList"
-							);
-					resultSet2 = stmt2.executeQuery();
-					
-					stmt3 = conn.prepareStatement(
-							"select ability.* " +
-									" from ability"
-							);
-					resultSet3 = stmt3.executeQuery();
 					
 					
-					ArrayList<Ability> tmpAl = new ArrayList<Ability>();
-					List<ArrayList<Ability>> tmpList = new ArrayList<ArrayList<Ability>>();
 					
-					
-					while(resultSet3.next()) {
-						Ability tmpAbil = new Ability(null, null, null, null, 0, 0);
-						loadAbility(tmpAbil, resultSet3, 2);
-						tmpAl.add(tmpAbil);
-					}
-					
-					ArrayList<Ability> tmpAl2 = new ArrayList<Ability>();
-					
-					while(resultSet2.next()) {
-						
-						for(int i=2; i<=6; i++) {
-							
-							for(Ability abil : tmpAl) {
-								if(resultSet2.getString(i).equals(abil.getName())){
-									tmpAl2.add(abil);
-								}
-							}
-							tmpList.add(tmpAl2);
-						}
-						
-						
-						
-					}
-					
-					/*stmt4 = conn.prepareStatement(
-							"select inventory.* " +
-									" from inventory"
-							);
-					resultSet4 = stmt4.executeQuery();*/
-							
 					
 					stmt.setInt(1, newPlayer.getMaxHP());
 					stmt.setInt(2, newPlayer.getHP());
@@ -1132,28 +1083,22 @@ public class DerbyDatabase implements IDatabase {
 					stmt.setInt(7, newPlayer.getGold());
 					stmt.setInt(8, newPlayer.getXP());
 					
-					//stmt.setInt(9, AbilityIDbyList(newPlayer.getAbilities(), tmpList));
-					stmt.setInt(9, 1);
 					
-					stmt.setString(10, newPlayer.getStatus());
+					stmt.setString(9, newPlayer.getStatus());
 					
-					stmt.setInt(11, 1);
-					
-					stmt.setInt(12, newPlayer.getCurrentRoom().getRoomId());
+					stmt.setInt(10, newPlayer.getCurrentRoom().getRoomId());
 					
 					
 					if(newPlayer.getIsDead()) {
-						stmt.setInt(13, 1);
+						stmt.setInt(11, 1);
 					}else {
-						stmt.setInt(13, 0);
+						stmt.setInt(11, 0);
 					}
 					
-					stmt.setString(14, newPlayer.getName());
+					stmt.setString(12, newPlayer.getName());
 					
 					
 					stmt.executeUpdate();
-					
-					//ArrayList<Player> playerList = (ArrayList<Player>)findAllPlayers();
 					
 					return null;
 				} finally {
