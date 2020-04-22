@@ -1489,4 +1489,54 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+
+	@Override
+	public List<NPC> updateNPCs(List<NPC> npcList) {
+		return executeTransaction(new Transaction<List<NPC>>() {
+			@Override
+			public List<NPC> execute(Connection conn) throws SQLException {
+					PreparedStatement stmt = null;
+					ResultSet resultSet = null;
+					
+					try {
+						int count=1;
+						for(NPC NPC : npcList) {
+							stmt = conn.prepareStatement(
+									"update npc " +
+									" set  maxHP = ?,  HP = ?,  maxResource = ?,  resource = ?,  atk = ?,  " +
+									"   def = ?,  gold = ?,  xp = ?,   status = ?, dialogue = ?, attitude = ?,   " +
+									" description = ?, currentRoom = ?,  isDead = ?,  name = ? " +
+									" where NPC_id = ?"
+							);
+							
+							stmt.setInt(1, NPC.getMaxHP());
+							stmt.setInt(2, NPC.getHP());
+							stmt.setInt(3, NPC.getMaxResource());
+							stmt.setInt(4, NPC.getResource());
+							stmt.setInt(5, NPC.getAtk());
+							stmt.setInt(6, NPC.getDef());
+							stmt.setInt(7, NPC.getGold());
+							stmt.setInt(8, NPC.getXP());
+							stmt.setString(9, NPC.getStatus());
+							stmt.setString(10, NPC.getDialogue());
+							stmt.setInt(11, NPC.getAttitude());
+							stmt.setString(12, NPC.getDescription());
+							stmt.setInt(13, NPC.getCurrentRoom().getRoomId());
+							if(NPC.getIsDead()) {
+								stmt.setInt(14, 1);
+							}else {
+								stmt.setInt(14, 0);
+							}
+							stmt.setString(15, NPC.getName());
+							stmt.setInt(16, count++);
+							stmt.executeUpdate();
+						}
+						return null;
+					} finally {
+						DBUtil.closeQuietly(resultSet);
+						DBUtil.closeQuietly(stmt);
+					}
+				}
+			});
+	}
 }

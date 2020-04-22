@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.IDatabase;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DerbyDatabase;
@@ -57,6 +58,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
 		ArrayList<Enemy>  enemyList = (ArrayList<Enemy>) db.findAllEnemies();
+		ArrayList<NPC> npcList = (ArrayList<NPC>) db.findAllNPCs();
 		
 		Player dbPlayer = testPlayer.get(0);
 		
@@ -77,45 +79,16 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		for(Enemy enemy : enemyList) {
 			model.getTargets().put(enemy.getName().toLowerCase(), enemy);
 		}
-		
+		for(NPC npc : npcList) {
+			model.getTargets().put(npc.getName().toLowerCase(), npc);
+		}
 		
 		String inputVal = getString(req, "textbox");
 		String[] inputs;
 		Message<String, Integer> input = new Message<String, Integer>(inputVal, 1);
 		outputStrings.add(input);
 		inputVal = inputVal.toLowerCase();
-		inputs = inputVal.split(" ");
-		//grab the hidden persistence values
-		
-		Integer villagerHP = getInteger(req, "villagerHP");
-		
-		Integer villagerIsDead = getInteger(req, "villagerIsDead");
-		
-		
-		//pass the persistence information to the model
-		
-	
-		model.setVillagerHP(villagerHP);
-		
-		model.setVillagerDead(villagerIsDead);
-		
-
-		
-		//Set ogre/villager/player to dead if they have 0 hp or less
-	
-		if(model.getVillagerDead()==1) {
-			model.getVillager().setIsDead(true);
-		}
-	
-		//Use persisted hidden player position value to keep them there upon post
-		//System.out.println(location);
-		//System.out.println(model.getRoomByRoomId(location).getDescription());
-		
-		
-		//Checks that textbox isnt empty, if it isnt empty check for our commands
-		//attack
-		//System.out.println(inputs.length <= 2 && inputs.length > 1 && model.getTargets().get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == model.getTargets().get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player"));
-		
+		inputs = inputVal.split(" ");	
 		
 		if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
 			if(inputs.length <= 2 && inputs.length > 1 && model.getTargets().get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == model.getTargets().get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
@@ -151,7 +124,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		//talk
 		else if(req.getParameter("textbox") != null && inputVal.equals("talk") && dbPlayer.getCurrentRoom().getRoomId() == 3) {
-			if(!(model.getVillager().getIsDead()) && !(dbPlayer.getIsDead())) {
+			if(!(npcList.get(0).getIsDead()) && !(dbPlayer.getIsDead())) {
 				model.initResponses(outputStrings);
 			}else if(!(dbPlayer.getIsDead())) {
 				Message<String, Integer> msg = new Message<String, Integer>("You killed the villager you monster!", 0);
@@ -232,6 +205,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		db.updatePlayer(dbPlayer);
 		db.updateTextHistory(outputStrings);
 		db.updateEnemies(enemyList);
+		db.updateNPCs(npcList);
+		
 		//sets our outputstrings value, which is used to persist our past decisions
 		req.setAttribute("outputstrings", outputStrings);
 		

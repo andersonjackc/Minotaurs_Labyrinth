@@ -68,12 +68,6 @@
 					<td><input id="textbox" name="textbox" autofocus autocomplete="off" type="text" maxlength="256"
 							autocapitalize="off" aria-live="off" style="left: 0px; width: 300px;" value=""></td>
 				</tr>
-				
-				
-				
-				<input name="villagerIsDead" type="hidden" value="${game.villagerDead}" />
-				<input name="villagerHP" type="hidden" value="${game.villagerHP}" />
-
 			</table>
 		</div>
 	</form>
