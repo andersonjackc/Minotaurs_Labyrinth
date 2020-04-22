@@ -1,7 +1,17 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> branch 'master' of git@github.com:andersonjackc/Minotaurs_Labyrinth.git
 ----------------------------------------------------------------
+<<<<<<< HEAD
 Tue Apr 21 21:11:34 EDT 2020:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-9f70-b0d4-00000e57d4d0 
 on database directory C:\Documents\CS320\Minotaurs_Labyrinth\labyrinth.db with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+=======
+Tue Apr 21 20:52:17 EDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-9f5f-08a0-00000e5864d8 
+on database directory C:\Documents\CS320\Minotaurs_Labyrinth\labyrinth.db with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+>>>>>>> branch 'master' of git@github.com:andersonjackc/Minotaurs_Labyrinth.git
 Loaded from file:/D:/Documents/CS320/CS320_Derby/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_231-b11
@@ -11,3 +21,21 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
+<<<<<<< HEAD
+=======
+=======
+----------------------------------------------------------------
+Tue Apr 21 21:39:33 EDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0171-9f8a-4d09-000009d2ad98 
+on database directory C:\Documents\CS320\Minotaurs_Labyrinth\labyrinth.db with class loader sun.misc.Launcher$AppClassLoader@5acf9800 
+Loaded from file:/F:/College/Sophomore/Semester_2/CS_320/CS320_Derby/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_202-b08
+user.dir=C:\Users\yacde\git\Minotaurs_Labyrinth
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+>>>>>>> branch 'master' of git@github.com:andersonjackc/Minotaurs_Labyrinth.git
+>>>>>>> branch 'master' of git@github.com:andersonjackc/Minotaurs_Labyrinth.git
