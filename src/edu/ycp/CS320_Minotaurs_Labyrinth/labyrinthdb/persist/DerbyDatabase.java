@@ -854,6 +854,21 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertMessages.executeBatch();
 					
+					insertInventoryList = conn.prepareStatement("insert into inventory (maxstorage, maxquant, inventory) "
+							+ " values (?, ?, ?)");
+					
+					for (Inventory inv : InventoryList) {
+						
+						insertInventoryList.setInt(1, inv.getMaxStorage());
+						insertInventoryList.setInt(2, inv.getMaxQuant());
+						insertInventoryList.setInt(3, InventoryIDbyList(inv, InventoryList));
+						
+						insertInventoryList.addBatch();
+					}
+					insertInventoryList.executeBatch();
+					
+					System.out.println("Inventory table populated");
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertAbilities);
