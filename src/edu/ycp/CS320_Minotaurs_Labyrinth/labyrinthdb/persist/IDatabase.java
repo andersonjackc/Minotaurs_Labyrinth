@@ -1,5 +1,6 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
@@ -25,4 +26,9 @@ public interface IDatabase {
 	public List<Message<String, Integer>> updateTextHistory(List<Message<String, Integer>> newMessages);
 	
 	public List<Enemy> updateEnemies(List<Enemy> enemyList);
+<<<<<<< HEAD
+
+	public List<NPC> updateNPCs(List<NPC> npcList);
+=======
+>>>>>>> branch 'master' of https://github.com/andersonjackc/Minotaurs_Labyrinth
 }
