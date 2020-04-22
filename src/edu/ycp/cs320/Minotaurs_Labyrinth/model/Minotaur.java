@@ -375,53 +375,23 @@ public class Minotaur {
 	
 	//Creates the actors
 	public void initPlayer() {
-		
-		
 		targets = new HashMap<String, Actor>();
-	
-		ArrayList<Ability> VillagerAbilities = new ArrayList<Ability>();
-		//villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 100, "An old man with tattered clothing", "Villager", inv, room3, false);
-		//villagerDeadVal = 0;
-		//targets.put("villager", villager);
-		
-	
-	
 	}
 	
 	//Fills in player response, adds responses to output strings
-	public void initResponses(ArrayList<Message<String, Integer>> DBoutputStrings) {
+	public void initResponses(NPC dbVillager, ArrayList<Message<String, Integer>> DBoutputStrings) {
 		PlayerResp = "Greetings";
-		Message<String, Integer> respMsg = new Message<String, Integer>(PlayerResp, 0);
+		Message<String, Integer> respMsg = new Message<String, Integer>(PlayerResp, 1);
 		DBoutputStrings.add(respMsg);
-		NPCResp = "The " + villager.getName() + " says " + villager.getDialogue();
+		NPCResp = "The " + dbVillager.getName() + " says " + dbVillager.getDialogue();
 		Message<String, Integer> npcrespMsg = new Message<String, Integer>(NPCResp, 0);
 		DBoutputStrings.add(npcrespMsg);
 
 	}
 
 	//getters
-	public Player getPlayer() {
-		return player;
-	}
-
-	
-	public NPC getVillager() {
-		return villager;
-	}
 	
 	
-	public int getVillagerHP() {
-		return villager.getHP();
-	}
-	
-	
-
-	public int getVillagerDead() {
-		return villagerDeadVal;
-	}
-	public ArrayList<Message<String, Integer>> getOutputStrings(){
-		return outputstrings;
-	}
 	
 	public Room getRoomByRoomId(int roomID) {
 		//System.out.println(roomID);
@@ -435,24 +405,9 @@ public class Minotaur {
 	//setters
 
 	
-	public void setVillagerHP(int HP) {
-		villager.setHP(HP);
-	}
-	
-	
-	public void setVillagerDead(int villagerDeadVal) {
-		this.villagerDeadVal = villagerDeadVal;
-	}
-	
-	public void setOutputStrings(ArrayList<Message<String, Integer>> outputstrings) {
-		this.outputstrings = outputstrings;
-	}
-	
 	public ArrayList<Room> getAllRooms(){
 		return allRooms;
 	}
 	
-	public void setPlayer(Player newPlayer) {
-		this.player = newPlayer;
-	}
+	
 }

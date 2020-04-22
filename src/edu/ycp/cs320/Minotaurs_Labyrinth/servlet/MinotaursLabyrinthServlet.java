@@ -95,7 +95,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				String atkMsg = dbPlayer.basicAttack(model.getTargets().get(inputs[1]));
 				if(atkMsg.equals(model.getTargets().get(inputs[1]).getName() + " is dead.")) {
 					if(model.getTargets().get(inputs[1]).getName().equals("Villager")) {
-						model.setVillagerDead(1);
+						
 						
 					}else if(model.getTargets().get(inputs[1]).getName().equals("ogre")) {
 						
@@ -125,7 +125,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		//talk
 		else if(req.getParameter("textbox") != null && inputVal.equals("talk") && dbPlayer.getCurrentRoom().getRoomId() == 3) {
 			if(!(npcList.get(0).getIsDead()) && !(dbPlayer.getIsDead())) {
-				model.initResponses(outputStrings);
+				model.initResponses(npcList.get(0), outputStrings);
 			}else if(!(dbPlayer.getIsDead())) {
 				Message<String, Integer> msg = new Message<String, Integer>("You killed the villager you monster!", 0);
 				outputStrings.add(msg);
@@ -141,7 +141,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				String castMsg = dbPlayer.cast(model.getTargets().get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
 				if(castMsg.equals(model.getTargets().get(inputs[2]).getName() + " is dead.")) {
 					if(model.getTargets().get(inputs[2]).getName().equals("Villager")) {
-						model.setVillagerDead(1);
+						
 						
 					}else if(model.getTargets().get(inputs[2]).getName().equals("ogre")) {
 						

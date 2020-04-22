@@ -26,9 +26,7 @@ public interface IDatabase {
 	public List<Message<String, Integer>> updateTextHistory(List<Message<String, Integer>> newMessages);
 	
 	public List<Enemy> updateEnemies(List<Enemy> enemyList);
-<<<<<<< HEAD
 
 	public List<NPC> updateNPCs(List<NPC> npcList);
-=======
->>>>>>> branch 'master' of https://github.com/andersonjackc/Minotaurs_Labyrinth
+
 }
