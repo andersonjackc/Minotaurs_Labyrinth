@@ -376,40 +376,15 @@ public class Minotaur {
 	//Creates the actors
 	public void initPlayer() {
 		
-		DatabaseProvider.setInstance(new DerbyDatabase());
-		IDatabase db = DatabaseProvider.getInstance();
-		
-		
-		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
-		player = testPlayer.get(0);
 		
 		targets = new HashMap<String, Actor>();
-		fireball = new Ability("fireball", "a flaming ball of death and destruction", "damage", "HP", -10, 10);
-		heal = new Ability("heal", "a rejuvenating spell", "healing", "HP", 5, 5);
-		cripple = new Ability("cripple", "a devastating blow that cripples the target", "damage", "HP", -5, 5);
-		abilities = new ArrayList<Ability>();
-		gabilities = new ArrayList<Ability>();
-		abilities.add(fireball);
-		abilities.add(heal);
-		gabilities.add(cripple);
-		//targets.put("player", testPlayer.get(0));
-		//ogre = new Enemy(10, 10, 5, 5, 1, 0, 0, 0, gabilities, "ogre", "Grr lets fight", 0, "A large ogre with a club, he has a leather tunic", "Ogre", inv, room2, false);
-		
-		//goblin = new Enemy(5, 5, 5, 5, 1, 0, 0, 0, gabilities, "goblin", "I'm gonna stab ya!", 0, "a small scraggly goblin with a wicked knife, it looks dangerous", "Goblin", inv, room34, false);
-		//minotaur = new Enemy(20, 20, 20, 20, 5, 0, 0, 0, gabilities, "minotaur", "Roooaaaaaarrrrrrr!!!", 0, "a large creature towering a good two feet above", "Minotaur", inv, room42, false);
-
-		enemyDeadVal = 0;
-		//targets.put("ogre", ogre);
-		//targets.put("goblin", goblin);
-		//targets.put("minotaur", minotaur);
+	
 		ArrayList<Ability> VillagerAbilities = new ArrayList<Ability>();
 		//villager = new NPC(10, 10, 0, 0, 1, 0, 0, 0, VillagerAbilities, "Villager", "Hello Traveler!", 100, "An old man with tattered clothing", "Villager", inv, room3, false);
 		//villagerDeadVal = 0;
 		//targets.put("villager", villager);
 		
-		/*outputstrings = new ArrayList<Message<String, Integer>>();
-		Message<String, Integer> initialMessage = new Message<String, Integer>(player.getCurrentRoom().getDescription(), 0);
-		outputstrings.add(initialMessage);*/
+	
 	
 	}
 	
@@ -429,41 +404,17 @@ public class Minotaur {
 		return player;
 	}
 
-	public int getPlayerIsDead() {
-		return playerDeadVal;
-	}
-	
-	public Enemy getEnemy() {
-		return ogre;
-	}
 	
 	public NPC getVillager() {
 		return villager;
 	}
 	
-	public int getPlayerResource() {
-		return player.getResource();
-	}
-	
-	public int getPlayerHP() {
-		return player.getHP();
-	}
-	
-	public int getRoomPosition() {
-		return this.roomPosition;
-	}
-	
-	public int getEnemyHP() {
-		return ogre.getHP();
-	}
 	
 	public int getVillagerHP() {
 		return villager.getHP();
 	}
 	
-	public int getEnemyDead() {
-		return enemyDeadVal;
-	}
+	
 
 	public int getVillagerDead() {
 		return villagerDeadVal;
@@ -482,44 +433,13 @@ public class Minotaur {
 	}
 	
 	//setters
-	public void setPlayerIsDead(int playerDeadVal) {
-		this.playerDeadVal = playerDeadVal;
-	}
-		
-	public void setRoomPosition(int roomPosition) {
-		
-		this.roomPosition = roomPosition;
-	}
-	
-	//Returns a boolean if the target is alive
-	public Boolean isEnemyAlive(Enemy target) {
-		if(target.getHP() <= 0) {
-			return false;
-		}else{
-			return true;
-		}
-	}	
 
-	public void setPlayerHP(int HP) {
-		player.setHP(HP);
-	}
-	
-	public void setPlayerResource(int resource) {
-		player.setResource(resource);
-	}
-
-	public void setEnemyHP(int HP) {
-		ogre.setHP(HP);
-	}
 	
 	public void setVillagerHP(int HP) {
 		villager.setHP(HP);
 	}
 	
-	public void setEnemyDead(int enemyDeadVal) {
-		this.enemyDeadVal = enemyDeadVal;
-	}
-		
+	
 	public void setVillagerDead(int villagerDeadVal) {
 		this.villagerDeadVal = villagerDeadVal;
 	}

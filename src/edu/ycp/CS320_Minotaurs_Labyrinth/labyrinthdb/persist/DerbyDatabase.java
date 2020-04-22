@@ -15,10 +15,13 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.AbilityComparator;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.InventoryComparator;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.ItemComparator;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.ObstacleComparator;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DBUtil;
@@ -894,9 +897,10 @@ public class DerbyDatabase implements IDatabase {
 	}
 	public static int InventoryIDbyList(Inventory Inner, List<Inventory> Outer) {
 		int count=0;
-		for(Inventory arr : Outer) {
+		InventoryComparator ic = new InventoryComparator();
+		for(Inventory inv : Outer) {
 			count++;
-			if (arr.equals(Inner)) {
+			if (ic.compare(inv, Inner) == 1) {
 				return count;
 			}
 		}
@@ -904,9 +908,10 @@ public class DerbyDatabase implements IDatabase {
 	}
 	public static int ObstacleIDbyList(Obstacle Inner, List<Obstacle> Outer) {
 		int count=0;
-		for(Obstacle arr : Outer) {
+		ObstacleComparator oc = new ObstacleComparator();
+		for(Obstacle obst : Outer) {
 			count++;
-			if (arr.equals(Inner)) {
+			if (oc.compare(obst, Inner) == 1) {
 				return count;
 			}
 		}
@@ -914,9 +919,10 @@ public class DerbyDatabase implements IDatabase {
 	}
 	public static int ItemIDbyList(Item Inner, List<Item> Outer) {
 		int count=0;
-		for(Item arr : Outer) {
+		ItemComparator ic = new ItemComparator();
+		for(Item item : Outer) {
 			count++;
-			if (arr.equals(Inner)) {
+			if (ic.compare(item, Inner)==1) {
 				return count;
 			}
 		}
