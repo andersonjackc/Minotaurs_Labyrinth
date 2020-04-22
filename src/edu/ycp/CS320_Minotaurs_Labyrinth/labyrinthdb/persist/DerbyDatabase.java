@@ -197,6 +197,37 @@ public class DerbyDatabase implements IDatabase {
 		
 	}
 	
+	private void loadNPC(NPC NPC, ResultSet resultSet, int index, ArrayList<Ability> abilities, Room currentRoom) throws SQLException {
+
+		NPC.setMaxHP(resultSet.getInt(index++));
+		NPC.setHP(resultSet.getInt(index++));
+		NPC.setMaxResource(resultSet.getInt(index++));
+		NPC.setResource(resultSet.getInt(index++));
+		NPC.setAtk(resultSet.getInt(index++));
+		NPC.setDef(resultSet.getInt(index++));
+		NPC.setGold(resultSet.getInt(index++));
+		NPC.setXP(resultSet.getInt(index++));
+		NPC.setAbilities(abilities);
+		index++;
+		NPC.setStatus(resultSet.getString(index++));
+		NPC.setDialogue(resultSet.getString(index++));
+		NPC.setAttitude(resultSet.getInt(index++));
+		NPC.setDescription(resultSet.getString(index++));
+		NPC.setName(resultSet.getString(index++));
+		NPC.setInventory(null);
+		index++;
+		NPC.setCurrentRoom(currentRoom);
+		index++;
+		if(resultSet.getInt(index++)==1) {
+			NPC.setIsDead(true);
+		}
+		else {
+			NPC.setIsDead(false);
+		}
+		
+		
+	}
+	
 	//  creates the Authors and Books tables
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
@@ -1159,8 +1190,128 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 	public List<NPC> findAllNPCs() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<List<NPC>>() {
+			@Override
+			public List<NPC> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				PreparedStatement stmt3 = null;
+				PreparedStatement stmt4 = null;
+				PreparedStatement stmt5 = null;
+				
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				ResultSet resultSet3 = null;
+				ResultSet resultSet4 = null;
+				ResultSet resultSet5 = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select NPC.* " +
+							"  from  NPC " 
+					);
+					resultSet = stmt.executeQuery();
+					
+					List<NPC> result = new ArrayList<NPC>();
+					
+					Boolean found = false;
+					while (resultSet.next()) {
+						
+						found = true;
+						
+						stmt2 = conn.prepareStatement(
+								"select abilityList.* " +
+								"  from  abilityList " +
+								"  where abilityList.abilityList_id = ?"
+						);
+						
+						stmt2.setInt(1, resultSet.getInt(10));
+						
+						resultSet2 = stmt2.executeQuery();
+						
+						ArrayList<Ability> tempAbilList = new ArrayList<Ability>();
+						
+						resultSet2.next();
+						for (int i=2; i<=6; i++) {
+							stmt3 = conn.prepareStatement(
+									"select ability.* " +
+									"  from  ability " +
+									"  where ability.name = ?"
+							);
+						
+							
+							stmt3.setString(1, resultSet2.getString(i));
+							
+							resultSet3 = stmt3.executeQuery();
+							
+							Ability abil = new Ability(null, null, null, null, 0, 0);
+							
+							resultSet3.next();
+							
+							loadAbility(abil, resultSet3, 2);
+							
+							tempAbilList.add(abil);
+						}
+						
+						
+						stmt4 = conn.prepareStatement(
+								"select room.* " +
+								"  from  room " +
+								"  where room.room_id = ?"
+						);
+						
+						stmt4.setInt(1, resultSet.getInt(17));
+						
+						resultSet4 = stmt4.executeQuery();
+						
+						stmt5 = conn.prepareStatement(
+								"select roomMap.* " +
+								"  from  roomMap " +
+								"  where roomMap.roomId = ?"
+						);
+						
+						resultSet4.next();
+						stmt5.setInt(1, resultSet4.getInt(5));
+						
+						resultSet5 = stmt5.executeQuery();
+						
+						HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
+						while(resultSet5.next()) {
+							tmpMap.put(resultSet5.getString(2), resultSet5.getInt(3));
+						}
+						
+						Room room = new Room(null, null, null, null, false, 0);
+						loadRoom(room, resultSet4, 1, tmpMap);
+					
+						
+						NPC NPC = new NPC(0, 0, 0, 0, 0, 0, 0, 0, tempAbilList, null, null, 0, null, null, null, room, found);
+						loadNPC(NPC, resultSet, 2, tempAbilList, room);
+						
+
+						result.add(NPC);
+					}
+					
+					// check if the title was found
+					if (!found) {
+						System.out.println("No players were found!");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(resultSet3);
+					DBUtil.closeQuietly(stmt3);
+					DBUtil.closeQuietly(resultSet4);
+					DBUtil.closeQuietly(stmt4);
+					DBUtil.closeQuietly(resultSet5);
+					DBUtil.closeQuietly(stmt5);
+					
+				}
+			}
+		});
 	}
 
 	@Override
