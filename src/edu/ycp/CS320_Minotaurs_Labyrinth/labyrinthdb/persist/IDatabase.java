@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
@@ -34,6 +35,8 @@ public interface IDatabase {
 	public List<NPC> updateNPCs(List<NPC> npcList);
 	
 	public Obstacle findObstacle(int ObstacleId);
+	
+	public Inventory findInventory(int InventoryId);
 
 	public List<Item> updateItems(List<Item> itemList);
 

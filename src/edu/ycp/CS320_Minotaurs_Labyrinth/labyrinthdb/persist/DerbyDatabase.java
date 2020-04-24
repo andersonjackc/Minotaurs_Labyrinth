@@ -1125,15 +1125,11 @@ public class DerbyDatabase implements IDatabase {
 			public List<Room> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				PreparedStatement stmt2 = null;
-				PreparedStatement stmt3 = null;
-				PreparedStatement stmt4 = null;
-				//PreparedStatement stmt5 = null;
+				
 				
 				ResultSet resultSet = null;
 				ResultSet resultSet2 = null;
-				ResultSet resultSet3 = null;
-				ResultSet resultSet4 = null;
-				//ResultSet resultSet5 = null;
+				
 				
 				try {
 					stmt = conn.prepareStatement(
@@ -1844,5 +1840,11 @@ public class DerbyDatabase implements IDatabase {
 
 			
 		});
+	}
+
+	@Override
+	public Inventory findInventory(int InventoryId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
