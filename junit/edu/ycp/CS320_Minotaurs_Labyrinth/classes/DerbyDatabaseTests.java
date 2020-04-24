@@ -24,6 +24,7 @@ public class DerbyDatabaseTests {
 	ArrayList<Enemy>   Enemies   = null;
 	ArrayList<NPC> NPCs = null;
 	ArrayList<Message<String, Integer>>   TextHistory   = null;
+	ArrayList<Item> Item = null;
 	ArrayList<Room> Rooms = null;
 	
 	
@@ -134,6 +135,25 @@ public class DerbyDatabaseTests {
 			for (Message<String, Integer> m : TextHistory) {
 				
 				System.out.print(m.getMessage() + ", ");
+			}			
+		}
+	}
+	
+	@Test
+	public void testFindItems() {
+		System.out.println("\n*** Testing FindAllItems ***");
+		Item = (ArrayList<Item>) db.findAllItems();
+		if (Item.isEmpty()) {
+			System.out.println("No Items found in Labyrinth Database");
+			fail("No Items returned from Library DB");
+		}
+		
+		else {		
+			for (Item item : Item) {
+				System.out.println(item.getDescription() + ", " + item.getEffect() + ", "
+				+ item.getFlammable() + ", " + item.getLit() + ", " + item.getThrowable() + ", " + item.getValue() + ", " + item.getName() + ", " 
+				+ item.getVariety() + ", " + item.getAffectedStat());
+
 			}			
 		}
 	}
