@@ -24,11 +24,8 @@ public class DerbyDatabaseTests {
 	ArrayList<Enemy>   Enemies   = null;
 	ArrayList<NPC> NPCs = null;
 	ArrayList<Message<String, Integer>>   TextHistory   = null;
-<<<<<<< HEAD
 	ArrayList<Item> Item = null;
-=======
 	ArrayList<Room> Rooms = null;
->>>>>>> branch 'master' of https://github.com/andersonjackc/Minotaurs_Labyrinth
 	
 	
 	@BeforeClass
