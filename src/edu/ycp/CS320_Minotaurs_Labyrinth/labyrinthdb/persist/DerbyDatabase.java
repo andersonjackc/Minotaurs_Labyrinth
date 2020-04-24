@@ -1073,8 +1073,79 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 	public List<Room> findAllRooms() {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<List<Room>>() {
+			@Override
+			public List<Room> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				//PreparedStatement stmt3 = null;
+				//PreparedStatement stmt4 = null;
+				//PreparedStatement stmt5 = null;
+				
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				//ResultSet resultSet3 = null;
+				//ResultSet resultSet4 = null;
+				//ResultSet resultSet5 = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select room.* " +
+							"  from  room " 
+					);
+					resultSet = stmt.executeQuery();
+					
+					List<Room> result = new ArrayList<Room>();
+					
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						
+						Room room = new Room(null, null, null, null, false, 0);
+						
+						
+						stmt2 = conn.prepareStatement(
+								"select roomMap.* " +
+								"  from  roomMap " +
+								"  where roomMap.roomId = ?"
+						);
+						
+						
+						stmt2.setInt(1, resultSet.getInt(5));
+						
+						resultSet2 = stmt2.executeQuery();
+						
+						HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
+						while(resultSet2.next()) {
+							tmpMap.put(resultSet2.getString(2), resultSet2.getInt(3));
+						}
+						//needs to take in inventory and obstacle
+						loadRoom(room, resultSet, 1, tmpMap);
+						
+						result.add(room);
+					}
+					
+					// check if the title was found
+					if (!found) {
+						System.out.println("No rooms were found!");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					//DBUtil.closeQuietly(resultSet3);
+					//DBUtil.closeQuietly(stmt3);
+					//DBUtil.closeQuietly(resultSet4);
+					//DBUtil.closeQuietly(stmt4);
+					//DBUtil.closeQuietly(resultSet5);
+					//DBUtil.closeQuietly(stmt5);
+					
+				}
+			}
+		});
 	}
 
 	@Override
