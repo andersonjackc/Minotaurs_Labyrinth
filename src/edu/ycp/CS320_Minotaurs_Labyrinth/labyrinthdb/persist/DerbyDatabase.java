@@ -770,7 +770,7 @@ public class DerbyDatabase implements IDatabase {
 						insertItems.setString(9, item.getAffectedStat());
 						insertItems.addBatch();
 					}
-					insertEnemies.executeBatch();	
+					insertItems.executeBatch();	
 					
 					System.out.println("NPC table populated");	
 					
