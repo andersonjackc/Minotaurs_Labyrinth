@@ -122,12 +122,12 @@ public class DerbyDatabase implements IDatabase {
 		ability.setCost(resultSet.getInt(index++));
 	}
 	
-	private void loadRoom(Room room, ResultSet resultSet, int index, HashMap<String, Integer> roomMap) throws SQLException {
+	private void loadRoom(Room room, ResultSet resultSet, int index, HashMap<String, Integer> roomMap, Obstacle obs) throws SQLException {
 		room.setRoomId(resultSet.getInt(index++));
 		room.setDescription(resultSet.getString(index++));
 		room.setInventory(null);
 		index++;
-		room.setObstacle(null);
+		room.setObstacle(obs);
 		index++;
 		room.setRoomMap(roomMap);
 		index++;
@@ -224,6 +224,52 @@ public class DerbyDatabase implements IDatabase {
 		else {
 			NPC.setIsDead(false);
 		}
+		
+		
+	}
+	
+	private void loadObstacle(Obstacle obs, ResultSet resultSet, Item item, int index) throws SQLException {
+		
+		obs.setDescription(resultSet.getString(index++));
+		obs.setStatus(resultSet.getString(index++));
+		obs.setRequirement(item);
+		index++;
+		
+	}
+
+	private void loadItem(Item item, ResultSet resultSet, int index) throws SQLException {
+		
+		item.setDescription(resultSet.getString(index++));
+		item.setEffect(resultSet.getInt(index++));
+		
+		if(resultSet.getInt(index++)==1) {
+			item.setFlammable(true);
+		}
+		else {
+			item.setFlammable(false);
+		}
+		
+		if(resultSet.getInt(index++)==1) {
+			item.setLit(true);
+		}
+		else {
+			item.setLit(false);
+		}
+		
+		if(resultSet.getInt(index++)==1) {
+			item.setThrowable(true);
+		}
+		else {
+			item.setThrowable(false);
+		}
+		
+		item.setValue(resultSet.getInt(index++));
+		
+		item.setName(resultSet.getString(index++));
+		
+		item.setVariety(resultSet.getString(index++));
+		
+		item.setAffectedStat(resultSet.getString(index++));
 		
 		
 	}
@@ -1037,7 +1083,8 @@ public class DerbyDatabase implements IDatabase {
 						}
 						
 						Room room = new Room(null, null, null, null, false, 0);
-						loadRoom(room, resultSet4, 1, tmpMap);
+						Obstacle obs = new Obstacle(null, null, null);
+						loadRoom(room, resultSet4, 1, tmpMap, obs);
 					
 						
 						Player player = new Player(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, false, null);
@@ -1078,14 +1125,14 @@ public class DerbyDatabase implements IDatabase {
 			public List<Room> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				PreparedStatement stmt2 = null;
-				//PreparedStatement stmt3 = null;
-				//PreparedStatement stmt4 = null;
+				PreparedStatement stmt3 = null;
+				PreparedStatement stmt4 = null;
 				//PreparedStatement stmt5 = null;
 				
 				ResultSet resultSet = null;
 				ResultSet resultSet2 = null;
-				//ResultSet resultSet3 = null;
-				//ResultSet resultSet4 = null;
+				ResultSet resultSet3 = null;
+				ResultSet resultSet4 = null;
 				//ResultSet resultSet5 = null;
 				
 				try {
@@ -1115,12 +1162,47 @@ public class DerbyDatabase implements IDatabase {
 						
 						resultSet2 = stmt2.executeQuery();
 						
+						
+						
 						HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
 						while(resultSet2.next()) {
 							tmpMap.put(resultSet2.getString(2), resultSet2.getInt(3));
 						}
+						
+						
+						stmt3 = conn.prepareStatement(
+								"select obstacle.* " +
+								"  from  obstacle " +
+								"  where obstacle.obstacle_id = ?"
+						);
+						
+						stmt3.setInt(1, resultSet.getInt(4));
+						
+						
+						resultSet3 = stmt3.executeQuery();
+						resultSet3.next();
+						
+						stmt4 = conn.prepareStatement(
+								"select item.* " +
+								"  from  item " +
+								"  where item.item = ?"
+						);
+						
+						stmt4.setInt(1, resultSet3.getInt(4));
+						
+						resultSet4 = stmt4.executeQuery();
+						resultSet4.next();
+						
+						Item item = new Item(null, 0, false, false, false, 0, null, null, null);
+						loadItem(item, resultSet4, 2);
+						
+						
+						
+						Obstacle obs = new Obstacle(null, null, null);
+						loadObstacle(obs, resultSet3, item, 2);
+						
 						//needs to take in inventory and obstacle
-						loadRoom(room, resultSet, 1, tmpMap);
+						loadRoom(room, resultSet, 1, tmpMap, obs);
 						
 						result.add(room);
 					}
@@ -1145,6 +1227,8 @@ public class DerbyDatabase implements IDatabase {
 					
 				}
 			}
+
+			
 		});
 	}
 
@@ -1241,7 +1325,8 @@ public class DerbyDatabase implements IDatabase {
 						}
 						
 						Room room = new Room(null, null, null, null, false, 0);
-						loadRoom(room, resultSet4, 1, tmpMap);
+						Obstacle obs = new Obstacle(null, null, null);
+						loadRoom(room, resultSet4, 1, tmpMap, obs);
 					
 						
 						Enemy enemy = new Enemy(0, 0, 0, 0, 0, 0, 0, 0, tempAbilList, null, null, 0, null, null, null, room, found);
@@ -1367,7 +1452,8 @@ public class DerbyDatabase implements IDatabase {
 						}
 						
 						Room room = new Room(null, null, null, null, false, 0);
-						loadRoom(room, resultSet4, 1, tmpMap);
+						Obstacle obs = new Obstacle(null, null, null);
+						loadRoom(room, resultSet4, 1, tmpMap, obs);
 					
 						
 						NPC NPC = new NPC(0, 0, 0, 0, 0, 0, 0, 0, tempAbilList, null, null, 0, null, null, null, room, found);
