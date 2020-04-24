@@ -7,6 +7,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 
@@ -32,6 +33,8 @@ public interface IDatabase {
 
 	public List<NPC> updateNPCs(List<NPC> npcList);
 	
+	public Obstacle findObstacle(int ObstacleId);
+
 	public List<Item> updateItems(List<Item> itemList);
 
 

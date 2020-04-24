@@ -24,7 +24,11 @@ public class DerbyDatabaseTests {
 	ArrayList<Enemy>   Enemies   = null;
 	ArrayList<NPC> NPCs = null;
 	ArrayList<Message<String, Integer>>   TextHistory   = null;
+<<<<<<< HEAD
 	ArrayList<Item> Item = null;
+=======
+	ArrayList<Room> Rooms = null;
+>>>>>>> branch 'master' of https://github.com/andersonjackc/Minotaurs_Labyrinth
 	
 	
 	@BeforeClass
@@ -66,10 +70,23 @@ public class DerbyDatabaseTests {
 		
 	}
 	
-	/*@Test
+	@Test
 	public void testFindAllRooms() {
-		fail("Not yet Implemented");
-	}*/
+		System.out.println("\n*** Testing FindAllRooms ***");
+		Rooms = (ArrayList<Room>) db.findAllRooms();
+		
+		if (Rooms.isEmpty()) {
+			System.out.println("No rooms found in Labyrinth Database");
+			fail("No rooms returned from Library DB");
+		}
+		
+		else {			
+			for (Room room : Rooms) {
+				
+				System.out.println(room.getDescription() + ", " + room.getRoomId() + ", " + room.getInventory() + ", " + room.getIsFound() + ", " + room.getObstacle() + ", " + room.getRoomMap());
+			}			
+		}
+	}
 	
 	@Test
 	public void testFindAllEnemies() {
