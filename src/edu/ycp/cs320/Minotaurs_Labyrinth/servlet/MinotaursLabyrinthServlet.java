@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
@@ -59,7 +60,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
 		ArrayList<Enemy>  enemyList = (ArrayList<Enemy>) db.findAllEnemies();
 		ArrayList<NPC> npcList = (ArrayList<NPC>) db.findAllNPCs();
-		
+		ArrayList<Item> itemList = (ArrayList<Item>) db.findAllItems();
 		Player dbPlayer = testPlayer.get(0);
 		
 		//model, controller and attribute for jsp setup
