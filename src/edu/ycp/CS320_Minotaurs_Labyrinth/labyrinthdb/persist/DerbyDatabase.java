@@ -1104,6 +1104,52 @@ public class DerbyDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public List<Item> findAllItems() {
+		return executeTransaction(new Transaction<List<Item>>() {
+			@Override
+			public List<Item> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select item.* " +
+							"  from  item " 
+					);
+					
+					
+					List<Item> result = new ArrayList<Item>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						Item item = new Item(null, 0, found, found, found, 0, null, null, null);
+						loadItem(item, resultSet, 2);
+						
+
+						result.add(item);
+					}
+					
+					// check if the title was found
+					if (!found) {
+						System.out.println("No items were found!");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 
 	@Override
 	public List<Enemy> findAllEnemies() {
@@ -1488,7 +1534,59 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	@Override
+	public List<Item> updateItems(List<Item> itemList) {
+		return executeTransaction(new Transaction<List<Item>>() {
+			@Override
+			public List<Item> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					int count=1;
+					for(Item item : itemList) {
+						stmt = conn.prepareStatement(
+								"update item " +
+								" set  description = ?,  effect = ?,  flammable = ?,  lit = ?,  throwable = ?,  " +
+								"   value = ?,  name = ?,  variety = ?,   affectedStat = ? " +
+								" where item.item = ?"
 
+						);
+						
+						stmt.setString(1, item.getDescription());
+						stmt.setInt(2, item.getEffect());
+						if(item.getFlammable()) {
+							stmt.setInt(3, 1);
+						}else {
+							stmt.setInt(3, 0);
+						}
+						if(item.getLit()) {
+							stmt.setInt(4, 1);
+						}else {
+							stmt.setInt(4, 0);
+						}
+						if(item.getThrowable()) {
+							stmt.setInt(5, 1);
+						}else {
+							stmt.setInt(5, 0);
+						}
+						stmt.setInt(6, item.getValue());
+						stmt.setString(7, item.getName());
+						stmt.setString(8, item.getVariety());
+						stmt.setString(9, item.getAffectedStat());
+						stmt.setInt(10, count++);
+
+						stmt.executeUpdate();
+					}
+					return null;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
 	@Override
 	public List<Enemy> updateEnemies(List<Enemy> enemyList) {
 		return executeTransaction(new Transaction<List<Enemy>>() {

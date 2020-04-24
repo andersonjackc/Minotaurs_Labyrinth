@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
@@ -18,6 +19,8 @@ public interface IDatabase {
 	public List<Enemy> findAllEnemies();
 	
 	public List<NPC> findAllNPCs();
+
+	public List<Item> findAllItems();
 	
 	public List<Message<String, Integer>> findTextHistory();
 	
@@ -28,5 +31,9 @@ public interface IDatabase {
 	public List<Enemy> updateEnemies(List<Enemy> enemyList);
 
 	public List<NPC> updateNPCs(List<NPC> npcList);
+	
+	public List<Item> updateItems(List<Item> itemList);
+
+
 
 }
