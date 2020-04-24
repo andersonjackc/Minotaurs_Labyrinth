@@ -67,7 +67,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		MinotaursLabyrinthController controller = new MinotaursLabyrinthController();
 		
 		
-		
+		//initializing the map/player in the model, eventually will be removed
 		model.initMap();
 		model.initPlayer();
 		controller.setModel(model);
