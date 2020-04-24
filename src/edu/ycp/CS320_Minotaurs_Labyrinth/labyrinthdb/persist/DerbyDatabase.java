@@ -166,6 +166,34 @@ public class DerbyDatabase implements IDatabase {
 		
 	}
 	
+	private void loadItem(Item item, ResultSet resultSet, int index) throws SQLException {
+		item.setDescription(resultSet.getString(index++));
+		item.setEffect(resultSet.getInt(index++));
+		
+		if(resultSet.getInt(index++)==1) {
+			item.setFlammable(true);
+		}
+		else {
+			item.setFlammable(false);
+		}
+		if(resultSet.getInt(index++)==1) {
+			item.setLit(true);
+		}
+		else {
+			item.setLit(false);
+		}
+		if(resultSet.getInt(index++)==1) {
+			item.setThrowable(true);
+		}
+		else {
+			item.setThrowable(false);
+		}
+		item.setValue(resultSet.getInt(index++));
+		item.setName(resultSet.getString(index++));
+		item.setVariety(resultSet.getString(index++));
+		item.setAffectedStat(resultSet.getString(index++));
+	}
+	
 	private void loadEnemy(Enemy enemy, ResultSet resultSet, int index, ArrayList<Ability> abilities, Room currentRoom) throws SQLException {
 
 		enemy.setMaxHP(resultSet.getInt(index++));
