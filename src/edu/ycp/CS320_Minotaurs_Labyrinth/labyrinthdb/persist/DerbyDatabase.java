@@ -165,35 +165,7 @@ public class DerbyDatabase implements IDatabase {
 		player.setName(resultSet.getString(index++));
 		
 	}
-	
-	private void loadItem(Item item, ResultSet resultSet, int index) throws SQLException {
-		item.setDescription(resultSet.getString(index++));
-		item.setEffect(resultSet.getInt(index++));
 		
-		if(resultSet.getInt(index++)==1) {
-			item.setFlammable(true);
-		}
-		else {
-			item.setFlammable(false);
-		}
-		if(resultSet.getInt(index++)==1) {
-			item.setLit(true);
-		}
-		else {
-			item.setLit(false);
-		}
-		if(resultSet.getInt(index++)==1) {
-			item.setThrowable(true);
-		}
-		else {
-			item.setThrowable(false);
-		}
-		item.setValue(resultSet.getInt(index++));
-		item.setName(resultSet.getString(index++));
-		item.setVariety(resultSet.getString(index++));
-		item.setAffectedStat(resultSet.getString(index++));
-	}
-	
 	private void loadEnemy(Enemy enemy, ResultSet resultSet, int index, ArrayList<Ability> abilities, Room currentRoom) throws SQLException {
 
 		enemy.setMaxHP(resultSet.getInt(index++));
@@ -1111,7 +1083,7 @@ public class DerbyDatabase implements IDatabase {
 						}
 						
 						Room room = new Room(null, null, null, null, false, 0);
-						Obstacle obs = new Obstacle(null, null, null);
+						Obstacle obs = findObstacle(resultSet4.getInt(4));
 						loadRoom(room, resultSet4, 1, tmpMap, obs);
 					
 						
@@ -1197,37 +1169,8 @@ public class DerbyDatabase implements IDatabase {
 							tmpMap.put(resultSet2.getString(2), resultSet2.getInt(3));
 						}
 						
-						
-						stmt3 = conn.prepareStatement(
-								"select obstacle.* " +
-								"  from  obstacle " +
-								"  where obstacle.obstacle_id = ?"
-						);
-						
-						stmt3.setInt(1, resultSet.getInt(4));
-						
-						
-						resultSet3 = stmt3.executeQuery();
-						resultSet3.next();
-						
-						stmt4 = conn.prepareStatement(
-								"select item.* " +
-								"  from  item " +
-								"  where item.item = ?"
-						);
-						
-						stmt4.setInt(1, resultSet3.getInt(4));
-						
-						resultSet4 = stmt4.executeQuery();
-						resultSet4.next();
-						
-						Item item = new Item(null, 0, false, false, false, 0, null, null, null);
-						loadItem(item, resultSet4, 2);
-						
-						
-						
-						Obstacle obs = new Obstacle(null, null, null);
-						loadObstacle(obs, resultSet3, item, 2);
+											
+						Obstacle obs = findObstacle(resultSet.getInt(4));
 						
 						//needs to take in inventory and obstacle
 						loadRoom(room, resultSet, 1, tmpMap, obs);
@@ -1353,7 +1296,7 @@ public class DerbyDatabase implements IDatabase {
 						}
 						
 						Room room = new Room(null, null, null, null, false, 0);
-						Obstacle obs = new Obstacle(null, null, null);
+						Obstacle obs = findObstacle(resultSet4.getInt(4));
 						loadRoom(room, resultSet4, 1, tmpMap, obs);
 					
 						
@@ -1480,7 +1423,7 @@ public class DerbyDatabase implements IDatabase {
 						}
 						
 						Room room = new Room(null, null, null, null, false, 0);
-						Obstacle obs = new Obstacle(null, null, null);
+						Obstacle obs = findObstacle(resultSet4.getInt(4));
 						loadRoom(room, resultSet4, 1, tmpMap, obs);
 					
 						
@@ -1744,5 +1687,64 @@ public class DerbyDatabase implements IDatabase {
 					}
 				}
 			});
+	}
+
+	@Override
+	public Obstacle findObstacle(int ObstacleId) {
+		return executeTransaction(new Transaction<Obstacle>() {
+			@Override
+			public Obstacle execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				
+				try {
+					
+					
+					
+					stmt = conn.prepareStatement(
+							"select obstacle.* " +
+							"  from  obstacle " +
+							"  where obstacle.obstacle_id = ?"
+					);
+					
+					stmt.setInt(1, ObstacleId);
+					
+					resultSet = stmt.executeQuery();
+					resultSet.next();
+					
+					stmt2 = conn.prepareStatement(
+							"select item.* " +
+							"  from  item " +
+							"  where item.item = ?"
+					);
+					
+					stmt2.setInt(1, resultSet.getInt(4));
+					
+					resultSet2 = stmt2.executeQuery();
+					resultSet2.next();
+					
+					Item item = new Item(null, 0, false, false, false, 0, null, null, null);
+					loadItem(item, resultSet2, 2);
+					
+					
+					Obstacle obs = new Obstacle(null, null, null);
+					loadObstacle(obs, resultSet, item, 2);
+						
+					
+					return obs;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					
+				}
+			}
+
+			
+		});
 	}
 }
