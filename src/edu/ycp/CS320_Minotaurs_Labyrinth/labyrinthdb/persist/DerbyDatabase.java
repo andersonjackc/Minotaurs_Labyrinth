@@ -122,10 +122,10 @@ public class DerbyDatabase implements IDatabase {
 		ability.setCost(resultSet.getInt(index++));
 	}
 	
-	private void loadRoom(Room room, ResultSet resultSet, int index, HashMap<String, Integer> roomMap, Obstacle obs) throws SQLException {
+	private void loadRoom(Room room, ResultSet resultSet, int index, HashMap<String, Integer> roomMap, Obstacle obs, Inventory inv) throws SQLException {
 		room.setRoomId(resultSet.getInt(index++));
 		room.setDescription(resultSet.getString(index++));
-		room.setInventory(null);
+		room.setInventory(inv);
 		index++;
 		room.setObstacle(obs);
 		index++;
@@ -139,7 +139,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 
-	private void loadPlayer(Player player, ResultSet resultSet, int index, ArrayList<Ability> abilities, Room currentRoom) throws SQLException {
+	private void loadPlayer(Player player, ResultSet resultSet, int index, ArrayList<Ability> abilities, Room currentRoom, Inventory inv) throws SQLException {
 
 		player.setMaxHP(resultSet.getInt(index++));
 		player.setHP(resultSet.getInt(index++));
@@ -152,7 +152,7 @@ public class DerbyDatabase implements IDatabase {
 		player.setAbilities(abilities);
 		index++;
 		player.setStatus(resultSet.getString(index++));
-		player.setInventory(null);
+		player.setInventory(inv);
 		index++;
 		player.setCurrentRoom(currentRoom);
 		index++;
@@ -166,7 +166,7 @@ public class DerbyDatabase implements IDatabase {
 		
 	}
 		
-	private void loadEnemy(Enemy enemy, ResultSet resultSet, int index, ArrayList<Ability> abilities, Room currentRoom) throws SQLException {
+	private void loadEnemy(Enemy enemy, ResultSet resultSet, int index, ArrayList<Ability> abilities, Room currentRoom, Inventory inv) throws SQLException {
 
 		enemy.setMaxHP(resultSet.getInt(index++));
 		enemy.setHP(resultSet.getInt(index++));
@@ -183,7 +183,7 @@ public class DerbyDatabase implements IDatabase {
 		enemy.setAttitude(resultSet.getInt(index++));
 		enemy.setDescription(resultSet.getString(index++));
 		enemy.setName(resultSet.getString(index++));
-		enemy.setInventory(null);
+		enemy.setInventory(inv);
 		index++;
 		enemy.setCurrentRoom(currentRoom);
 		index++;
@@ -197,7 +197,7 @@ public class DerbyDatabase implements IDatabase {
 		
 	}
 	
-	private void loadNPC(NPC NPC, ResultSet resultSet, int index, ArrayList<Ability> abilities, Room currentRoom) throws SQLException {
+	private void loadNPC(NPC NPC, ResultSet resultSet, int index, ArrayList<Ability> abilities, Room currentRoom, Inventory inv) throws SQLException {
 
 		NPC.setMaxHP(resultSet.getInt(index++));
 		NPC.setHP(resultSet.getInt(index++));
@@ -214,7 +214,7 @@ public class DerbyDatabase implements IDatabase {
 		NPC.setAttitude(resultSet.getInt(index++));
 		NPC.setDescription(resultSet.getString(index++));
 		NPC.setName(resultSet.getString(index++));
-		NPC.setInventory(null);
+		NPC.setInventory(inv);
 		index++;
 		NPC.setCurrentRoom(currentRoom);
 		index++;
@@ -273,6 +273,17 @@ public class DerbyDatabase implements IDatabase {
 		
 		
 	}
+	
+	private void loadInventory(Inventory inv, ResultSet resultSet, int index, ArrayList<Item> itemList) throws SQLException {
+
+		inv.setMaxStorage(resultSet.getInt(index++));
+		inv.setMaxQuant(resultSet.getInt(index++));
+		inv.setInventory(itemList);
+		index++;
+		
+	}
+
+
 	
 	//  creates the Authors and Books tables
 	public void createTables() {
@@ -1084,11 +1095,12 @@ public class DerbyDatabase implements IDatabase {
 						
 						Room room = new Room(null, null, null, null, false, 0);
 						Obstacle obs = findObstacle(resultSet4.getInt(4));
-						loadRoom(room, resultSet4, 1, tmpMap, obs);
+						Inventory inv = findInventory(resultSet4.getInt(3));
+						loadRoom(room, resultSet4, 1, tmpMap, obs, inv);
 					
-						
+						Inventory invForPlayer = findInventory(resultSet.getInt(12));
 						Player player = new Player(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, false, null);
-						loadPlayer(player, resultSet, 2, tempAbilList, room);
+						loadPlayer(player, resultSet, 2, tempAbilList, room, invForPlayer);
 						
 
 						result.add(player);
@@ -1167,9 +1179,9 @@ public class DerbyDatabase implements IDatabase {
 						
 											
 						Obstacle obs = findObstacle(resultSet.getInt(4));
-						
+						Inventory inv = findInventory(resultSet.getInt(3));
 						//needs to take in inventory and obstacle
-						loadRoom(room, resultSet, 1, tmpMap, obs);
+						loadRoom(room, resultSet, 1, tmpMap, obs, inv);
 						
 						result.add(room);
 					}
@@ -1339,11 +1351,12 @@ public class DerbyDatabase implements IDatabase {
 						
 						Room room = new Room(null, null, null, null, false, 0);
 						Obstacle obs = findObstacle(resultSet4.getInt(4));
-						loadRoom(room, resultSet4, 1, tmpMap, obs);
+						Inventory inv = findInventory(resultSet4.getInt(3));
+						loadRoom(room, resultSet4, 1, tmpMap, obs, inv);
 					
-						
+						Inventory invForEnemy = findInventory(resultSet.getInt(16));
 						Enemy enemy = new Enemy(0, 0, 0, 0, 0, 0, 0, 0, tempAbilList, null, null, 0, null, null, null, room, found);
-						loadEnemy(enemy, resultSet, 2, tempAbilList, room);
+						loadEnemy(enemy, resultSet, 2, tempAbilList, room, invForEnemy);
 						
 
 						result.add(enemy);
@@ -1466,11 +1479,13 @@ public class DerbyDatabase implements IDatabase {
 						
 						Room room = new Room(null, null, null, null, false, 0);
 						Obstacle obs = findObstacle(resultSet4.getInt(4));
-						loadRoom(room, resultSet4, 1, tmpMap, obs);
-					
+						Inventory inv = findInventory(resultSet4.getInt(3));
 						
+						loadRoom(room, resultSet4, 1, tmpMap, obs, inv);
+					
+						Inventory invForNPC = findInventory(resultSet.getInt(16));
 						NPC NPC = new NPC(0, 0, 0, 0, 0, 0, 0, 0, tempAbilList, null, null, 0, null, null, null, room, found);
-						loadNPC(NPC, resultSet, 2, tempAbilList, room);
+						loadNPC(NPC, resultSet, 2, tempAbilList, room, invForNPC);
 						
 
 						result.add(NPC);
@@ -1844,7 +1859,122 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 	public Inventory findInventory(int InventoryId) {
-		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<Inventory>() {
+			@Override
+			public Inventory execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				
+				try {
+					
+					
+					
+					stmt = conn.prepareStatement(
+							"select inventory.* " +
+							"  from  inventory " +
+							"  where inventory.inventory_id = ?"
+					);
+					
+					stmt.setInt(1, InventoryId);
+					
+					resultSet = stmt.executeQuery();
+					resultSet.next();
+					
+					
+					
+
+					ArrayList<Item> itemList = (ArrayList<Item>) findItemList(resultSet.getInt(4));
+					
+					
+					Inventory inv = new Inventory(0, 0, null);
+					loadInventory(inv, resultSet, 2, itemList);
+						
+					
+					return inv;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					
+				}
+			}
+
+			
+		});
+	}
+
+	@Override
+	public List<Item> findItemList(int itemListId) {
+		return executeTransaction(new Transaction<List<Item>>() {
+			@Override
+			public List<Item> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				
+				try {
+					ArrayList<Item> itemList = new ArrayList<Item>();
+					
+					
+					stmt = conn.prepareStatement(
+							"select itemList.* " +
+							"  from  itemList " +
+							"  where itemList.itemList_id = ?"
+					);
+					
+					stmt.setInt(1, itemListId);
+					
+					resultSet = stmt.executeQuery();
+					
+					resultSet.next();
+					
+	
+					for(int i=2; i<=51; i++) {
+						
+						if(!resultSet.getString(i).contentEquals("filler")) {
+							
+							stmt2 = conn.prepareStatement(
+									"select item.* " +
+									"  from  item " +
+									"  where item.name = ?"
+							);
+							
+							stmt2.setString(1, resultSet.getString(i));
+							
+							resultSet2 = stmt2.executeQuery();
+							resultSet2.next();
+							
+
+							Item item = new Item(null, 0, null, null, null, 0, null, null, null);
+							loadItem(item, resultSet2, 2);
+							
+							itemList.add(item);
+							
+						}
+						
+						
+					}
+					
+					
+					return itemList;
+					
+					
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					
+				}
+			}
+
+			
+		});
 	}
 }

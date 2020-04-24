@@ -37,6 +37,8 @@ public interface IDatabase {
 	public Obstacle findObstacle(int ObstacleId);
 	
 	public Inventory findInventory(int InventoryId);
+	
+	public List<Item> findItemList(int itemListId);
 
 	public List<Item> updateItems(List<Item> itemList);
 
