@@ -33,8 +33,8 @@ public class PlayerTest {
 	
 
 	
-	
-	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, 100, "A test NPC", "test", null, room, false);
+	Enemy testEnemy = new Enemy(0, 0, 0, 0, 0, 0, 0, 0, abilities, null, "testDialogue", 0, null, null, testInv, room, false);
+	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, "testDialogue", 100, "A test NPC", "test", null, room, false);
 	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", null, null);
 	Item rope = new Item("rope", 0, true, false, true, 50, "rope", "misc", null);
 
@@ -201,7 +201,10 @@ public class PlayerTest {
 	}
 	@Test
 	public void testTalk() {
+		assertEquals("You can't talk to yourself!", testPlayer.talk(testPlayer));
 		assertEquals(testNPC.getDialogue(), testPlayer.talk(testNPC));
+		assertEquals(testEnemy.getDialogue(), testPlayer.talk(testEnemy));
+
 	}
 	
 	@Test

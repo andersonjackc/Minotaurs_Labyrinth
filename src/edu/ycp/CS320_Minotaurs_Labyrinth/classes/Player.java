@@ -81,8 +81,13 @@ public class Player extends Actor {
 		
 	}
 	
-	public String talk(NPC target) {
-		return target.getDialogue();
+	public String talk(Actor target) {
+		this.status = "talking";
+		if(target.getClass() != this.getClass()) {
+			NPC npc = (NPC) target; 
+			return npc.getDialogue();
+		}
+		return "You can't talk to yourself!";
 	}
 	
 	public void throNPCItem(NPC target, Item item) {
