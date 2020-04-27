@@ -1886,6 +1886,9 @@ public class DerbyDatabase implements IDatabase {
 						resultSet.next();
 						updateObstacle(room.getObstacle(), resultSet.getInt(1));
 						
+						//have to update the inventory
+						//not yet completed
+						
 						if(room.getIsFound()) {
 							stmt.setInt(3, 1);
 						}else {
