@@ -32,7 +32,7 @@ public class Enemy extends NPC {
 		
 		if(target.getHP()<=0 || target.getIsDead()) {
 			target.setIsDead(true);
-			
+			target.setStatus("normal");
 			return "You are dead.";
 		}
 		
@@ -48,7 +48,7 @@ public class Enemy extends NPC {
 			setResource(getResource()-spell.getCost());
 			if(target.getHP()<=0) {
 				target.setIsDead(true);
-				
+				target.setStatus("normal");
 				return "You are dead.";
 			}
 			if(spell.getAffectedStat().equals("HP")) {

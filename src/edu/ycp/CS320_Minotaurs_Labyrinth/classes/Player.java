@@ -71,9 +71,9 @@ public class Player extends Actor {
 		
 	}
 	
-	public void run() {
-		// TODO Auto-generated method  stub
-		throw new UnsupportedOperationException("TODO - implement");
+	public String run() {
+		this.status = "normal";
+		return "AAAAAAAHHHHHHHHHHHHHHHHHHH!";
 	}
 	
 	public void take(Item item) {
@@ -82,8 +82,9 @@ public class Player extends Actor {
 	}
 	
 	public String talk(Actor target) {
-		this.status = "talking";
+		
 		if(target.getClass() != this.getClass()) {
+			this.status = "talking";
 			NPC npc = (NPC) target; 
 			return npc.getDialogue();
 		}
@@ -148,9 +149,9 @@ public class Player extends Actor {
 		return priceOff;
 	}
 	
-	public void leave() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO - implement");
+	public String leave() {
+		this.status = "normal";
+		return "Goodbye!";
 	}
 	
 	public String move(String direction, ArrayList<Room> allRooms) {
@@ -244,61 +245,65 @@ public class Player extends Actor {
 	}
 
 	public String basicAttack(Actor target) {
+		this.status = "combat";
 		if(!this.isDead) {
-		target.setHP((target.getHP() - getAtk())); 
-		
-		if(target.getHP()<=0 || target.getIsDead()) {
-			target.setIsDead(true);
-			return target.getName() + " is dead.";
+			target.setHP((target.getHP() - getAtk())); 
 			
-		}
-		
-		return "You did " + this.getAtk() + " to " + target.getName() + ", it now has " + target.getHP() + " HP.";
+			if(target.getHP()<=0 || target.getIsDead()) {
+				target.setIsDead(true);
+				this.status = "normal";
+				return target.getName() + " is dead.";
+				
+			}
+			
+			return "You did " + this.getAtk() + " to " + target.getName() + ", it now has " + target.getHP() + " HP.";
 		}
 		return "";
 	}
 
 	public String cast(Actor target, Ability spell) {
+		
 		if(!this.isDead) {
-		if(abilities.contains(spell) && spell.getCost() <= this.resource) {
-		spell.addEffect(target);
-		setResource(getResource()-spell.getCost());
-		if(target.getHP()<=0 || target.getIsDead()) {
-			target.setIsDead(true);
-			
-			return target.getName() + " is dead.";
-			
+			this.status = "combat";
+			if(abilities.contains(spell) && spell.getCost() <= this.resource) {
+				spell.addEffect(target);
+				setResource(getResource()-spell.getCost());
+				if(target.getHP()<=0 || target.getIsDead()) {
+					target.setIsDead(true);
+					this.status = "normal";
+					return target.getName() + " is dead.";
+					
+				}
+				if(spell.getAffectedStat().equals("HP")) {
+					return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getHP() + " " + spell.getAffectedStat();
+				  
+				} 
+				else if(spell.getAffectedStat().equals("maxHP")) {
+					return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getMaxHP() + " " + spell.getAffectedStat();
+		
+				}
+				else if(spell.getAffectedStat().equals("resource")) {
+					return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getResource() + " " + spell.getAffectedStat();
+		
+				}
+				else if(spell.getAffectedStat().equals("maxResource")) {
+					return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getMaxResource() + " " + spell.getAffectedStat();
+		
+				}
+				else if(spell.getAffectedStat().equals("atk")) {
+					return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getAtk() + " " + spell.getAffectedStat();
+		
+				}
+				else if(spell.getAffectedStat().equals("def")) {
+					return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getDef() + " " + spell.getAffectedStat();
+		
+				}
+				}
+			if(spell.getCost() > this.resource) {
+				return "You don't have enough resource to cast " + spell.getName();
+			}
 		}
-		 if(spell.getAffectedStat().equals("HP")) {
-				return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getHP() + " " + spell.getAffectedStat();
-		  
-			} 
-			else if(spell.getAffectedStat().equals("maxHP")) {
-				return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getMaxHP() + " " + spell.getAffectedStat();
-
-			}
-			else if(spell.getAffectedStat().equals("resource")) {
-				return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getResource() + " " + spell.getAffectedStat();
-
-			}
-			else if(spell.getAffectedStat().equals("maxResource")) {
-				return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getMaxResource() + " " + spell.getAffectedStat();
-
-			}
-			else if(spell.getAffectedStat().equals("atk")) {
-				return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getAtk() + " " + spell.getAffectedStat();
-
-			}
-			else if(spell.getAffectedStat().equals("def")) {
-				return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getDef() + " " + spell.getAffectedStat();
-
-			}
-		}
-		if(spell.getCost() > this.resource) {
-		return "You don't have enough resource to cast " + spell.getName();
-		}
-		}
-		return "";
+		return "You are dead!";
 	}
 
 	//getters

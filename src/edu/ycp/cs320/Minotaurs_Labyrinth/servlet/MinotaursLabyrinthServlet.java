@@ -92,115 +92,259 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		outputStrings.add(input);
 		inputVal = inputVal.toLowerCase();
 		inputs = inputVal.split(" ");	
-
-		if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
-			if(inputs.length <= 2 && inputs.length > 1 && targets.get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
-				String atkMsg = dbPlayer.basicAttack(targets.get(inputs[1]));
-				if(atkMsg.equals(targets.get(inputs[1]).getName() + " is dead.")) {
-					if(targets.get(inputs[1]).getName().equals("Villager")) {
-						
-						
-					}else if(targets.get(inputs[1]).getName().equals("ogre")) {
+		
+		if(dbPlayer.getStatus().equals("normal")) {
+			if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
+				if(inputs.length <= 2 && inputs.length > 1 && targets.get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
+					String atkMsg = dbPlayer.basicAttack(targets.get(inputs[1]));
+					if(atkMsg.equals(targets.get(inputs[1]).getName() + " is dead.")) {
+						if(targets.get(inputs[1]).getName().equals("Villager")) {
+							
+							
+						}else if(targets.get(inputs[1]).getName().equals("ogre")) {
+							
+						}
+					}
+					String enemyAtkMsg = targets.get(inputs[1]).basicAttack(dbPlayer);
+					if(dbPlayer.getIsDead()) {
 						
 					}
+					Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
+					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
+					outputStrings.add(msg);
+					outputStrings.add(msg2);
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
+					outputStrings.add(msg);
+				}else if(inputs.length > 2) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
+					outputStrings.add(msg);
+				}else{
+					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
+					outputStrings.add(msg);
 				}
-				String enemyAtkMsg = targets.get(inputs[1]).basicAttack(dbPlayer);
-				if(dbPlayer.getIsDead()) {
-					
-				}
-				Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
-				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
-				outputStrings.add(msg);
-				outputStrings.add(msg2);
-			}else if(inputs.length<=1){
-				Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
-				outputStrings.add(msg);
-			}else if(inputs.length > 2) {
-				Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
-				outputStrings.add(msg);
-			}else{
-				Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
-				outputStrings.add(msg);
+				
 			}
 			
+			//cast
+			else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
+				if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
+					String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
+					if(castMsg.equals(targets.get(inputs[2]).getName() + " is dead.")) {
+						if(targets.get(inputs[2]).getName().equals("Villager")) {
+							
+							
+						}else if(targets.get(inputs[2]).getName().equals("ogre")) {
+							
+						}else if(targets.get(inputs[2]).getName().equals("player")) {
+							
+						}
+					}
+					if(!inputs[2].equals(dbPlayer.getName())) {
+					String enemyAtkMsg = targets.get(inputs[2]).basicAttack(dbPlayer);
+					if(dbPlayer.getIsDead()) {
+						
+					}
+					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
+					outputStrings.add(msg2);
+					}
+					Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
+					outputStrings.add(msg);
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify a spell or ability!", 0);
+					outputStrings.add(msg);
+				}else if(inputs.length<=2){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
+					outputStrings.add(msg);
+				}else if(!containsAbility(dbPlayer.getAbilities(), inputs[1])) {
+					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid spell!", 0);
+					outputStrings.add(msg);
+				}else if(inputs.length > 3) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
+					outputStrings.add(msg);
+				}else{
+					Message<String, Integer> msg = new Message<String, Integer>(inputs[2] + " is an invalid target!", 0);
+					outputStrings.add(msg);
+				}
+			}
+			
+			//talk
+			else if(req.getParameter("textbox") != null && inputs[0].equals("talk")) {
+				if(inputs.length <= 2 && inputs.length > 1 && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId()) {
+					if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead())) {
+						String tmp = dbPlayer.talk(targets.get(inputs[1]));
+						Message<String, Integer> talkMsg = new Message<String, Integer>(tmp, 0);
+						outputStrings.add(talkMsg);
+					}else if(!(dbPlayer.getIsDead())) {
+						Message<String, Integer> msg = new Message<String, Integer>("You can't talk to " + targets.get(inputs[1]).getName() + " because it is dead.", 0);
+						outputStrings.add(msg);
+					}else if(dbPlayer.getIsDead()) {
+						Message<String, Integer> msg = new Message<String, Integer>("You are dead!", 0);
+						outputStrings.add(msg);
+					}
+				}
+				else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
+					outputStrings.add(msg);
+				}else if(inputs.length > 2) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
+					outputStrings.add(msg);
+				}else{
+					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
+					outputStrings.add(msg);
+				}
+			
+			}
+			
+			//move
+			else if (req.getParameter("textbox") != null && inputs[0].equals("move")){
+				
+				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
+					String moveMsg = dbPlayer.move(inputs[1], roomList);
+					Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
+					outputStrings.add(msg);
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify a direction!", 0);
+					outputStrings.add(msg);
+				}else if(inputs.length > 2) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single direction!", 0);
+					outputStrings.add(msg);
+				}
+				
+			}
+			
+			//give error for invalid commands
+			else if(req.getParameter("textbox") != null && !inputs[0].equals("attack") && !inputs[0].equals("talk") && !inputs[0].equals("cast") && !inputs[0].equals("move")){
+				Message<String, Integer> msg = new Message<String, Integer>(inputs[0] + " is an invalid command!", 0);
+				outputStrings.add(msg);
+			}
 		}
 		
-		//talk
-		else if(req.getParameter("textbox") != null && inputVal.equals("talk") && dbPlayer.getCurrentRoom().getRoomId() == 3) {
-			if(!(npcList.get(0).getIsDead()) && !(dbPlayer.getIsDead())) {
-				//targets.get("villager")(npcList.get(0), outputStrings);
-			}else if(!(dbPlayer.getIsDead())) {
-				Message<String, Integer> msg = new Message<String, Integer>("You killed the villager you monster!", 0);
-				outputStrings.add(msg);
+		//combat status
+		else if(dbPlayer.getStatus().equals("combat")) {
+			if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
+				if(inputs.length <= 2 && inputs.length > 1 && targets.get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
+					String atkMsg = dbPlayer.basicAttack(targets.get(inputs[1]));
+					if(atkMsg.equals(targets.get(inputs[1]).getName() + " is dead.")) {
+						if(targets.get(inputs[1]).getName().equals("Villager")) {
+							
+							
+						}else if(targets.get(inputs[1]).getName().equals("ogre")) {
+							
+						}
+					}
+					String enemyAtkMsg = targets.get(inputs[1]).basicAttack(dbPlayer);
+					if(dbPlayer.getIsDead()) {
+						
+					}
+					Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
+					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
+					outputStrings.add(msg);
+					outputStrings.add(msg2);
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
+					outputStrings.add(msg);
+				}else if(inputs.length > 2) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
+					outputStrings.add(msg);
+				}else{
+					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
+					outputStrings.add(msg);
+				}
+				
+			}
+			
+			//cast
+			else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
+				if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
+					String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
+					if(!inputs[2].equals(dbPlayer.getName())) {
+					String enemyAtkMsg = targets.get(inputs[2]).basicAttack(dbPlayer);
+					if(dbPlayer.getIsDead()) {
+						
+					}
+					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
+					outputStrings.add(msg2);
+					}
+					Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
+					outputStrings.add(msg);
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify a spell or ability!", 0);
+					outputStrings.add(msg);
+				}else if(inputs.length<=2){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
+					outputStrings.add(msg);
+				}else if(!containsAbility(dbPlayer.getAbilities(), inputs[1])) {
+					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid spell!", 0);
+					outputStrings.add(msg);
+				}else if(inputs.length > 3) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
+					outputStrings.add(msg);
+				}else{
+					Message<String, Integer> msg = new Message<String, Integer>(inputs[2] + " is an invalid target!", 0);
+					outputStrings.add(msg);
+				}
+			}
+			
+			//run
+			else if(req.getParameter("textbox") != null && inputs[0].equals("run")) {
+				if(inputs.length == 1) {
+					String tmp = dbPlayer.run();
+					Message<String, Integer> runMsg = new Message<String, Integer>(tmp, 1);
+					outputStrings.add(runMsg);
+					Message<String, Integer> msg = new Message<String, Integer>("You ran away from combat.", 0);
+					outputStrings.add(msg);
+				}else {
+					Message<String, Integer> msg = new Message<String, Integer>(inputVal + " is an invalid command.", 0);
+					outputStrings.add(msg);
+				}
 			}else {
-				Message<String, Integer> msg = new Message<String, Integer>("You are dead!", 0);
+				Message<String, Integer> msg = new Message<String, Integer>("In order to " + inputs[0] + " you must run from combat first.", 0);
 				outputStrings.add(msg);
 			}
 		}
 		
-		//cast
-		else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
-			if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
-				String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
-				if(castMsg.equals(targets.get(inputs[2]).getName() + " is dead.")) {
-					if(targets.get(inputs[2]).getName().equals("Villager")) {
-						
-						
-					}else if(targets.get(inputs[2]).getName().equals("ogre")) {
-						
-					}else if(targets.get(inputs[2]).getName().equals("player")) {
-						
+		//talk status
+		else if(dbPlayer.getStatus().equals("talking")) {
+			//talk
+			if(req.getParameter("textbox") != null && inputs[0].equals("talk")) {
+				if(inputs.length <= 2 && inputs.length > 1 && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId()) {
+					if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead())) {
+						String tmp = dbPlayer.talk(targets.get(inputs[1]));
+						Message<String, Integer> talkMsg = new Message<String, Integer>(tmp, 0);
+						outputStrings.add(talkMsg);
+					}else if(!(dbPlayer.getIsDead())) {
+						Message<String, Integer> msg = new Message<String, Integer>("You can't talk to " + targets.get(inputs[1]).getName() + " because it is dead.", 0);
+						outputStrings.add(msg);
+					}else if(dbPlayer.getIsDead()) {
+						Message<String, Integer> msg = new Message<String, Integer>("You are dead!", 0);
+						outputStrings.add(msg);
 					}
 				}
-				if(!inputs[2].equals(dbPlayer.getName())) {
-				String enemyAtkMsg = targets.get(inputs[2]).basicAttack(dbPlayer);
-				if(dbPlayer.getIsDead()) {
+				else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
+					outputStrings.add(msg);
+				}else if(inputs.length > 2) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
+					outputStrings.add(msg);
+				}else{
+					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
+					outputStrings.add(msg);
+				}
+			
+			}else if(req.getParameter("textbox") != null && inputs[0].equals("leave") && !dbPlayer.getIsDead()) {
+				String tmp = dbPlayer.leave();
+				Message<String, Integer> leaveMsg = new Message<String, Integer>(tmp, 1);
+				outputStrings.add(leaveMsg);
 					
-				}
-				Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
-				outputStrings.add(msg2);
-				}
-				Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
-				outputStrings.add(msg);
-			}else if(inputs.length<=1){
-				Message<String, Integer> msg = new Message<String, Integer>("You must specify a spell or ability!", 0);
-				outputStrings.add(msg);
-			}else if(inputs.length<=2){
-				Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
-				outputStrings.add(msg);
-			}else if(!containsAbility(dbPlayer.getAbilities(), inputs[1])) {
-				Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid spell!", 0);
-				outputStrings.add(msg);
-			}else if(inputs.length > 3) {
-				Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
-				outputStrings.add(msg);
-			}else{
-				Message<String, Integer> msg = new Message<String, Integer>(inputs[2] + " is an invalid target!", 0);
-				outputStrings.add(msg);
-			}
-		}
-		else if (req.getParameter("textbox") != null && inputs[0].equals("move")){
-			
-			if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
-				String moveMsg = dbPlayer.move(inputs[1], roomList);
-				Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
-				outputStrings.add(msg);
-			}else if(inputs.length<=1){
-				Message<String, Integer> msg = new Message<String, Integer>("You must specify a direction!", 0);
-				outputStrings.add(msg);
-			}else if(inputs.length > 2) {
-				Message<String, Integer> msg = new Message<String, Integer>("Specify a single direction!", 0);
+			}else {
+				Message<String, Integer> msg = new Message<String, Integer>("In order to " + inputs[0] + " you must leave the conversation first.", 0);
 				outputStrings.add(msg);
 			}
 			
+			
 		}
-		
-		//give error for invalid commands
-		else if(req.getParameter("textbox") != null && !inputs[0].equals("attack") && !inputs[0].equals("talk") && !inputs[0].equals("cast") && !inputs[0].equals("move")){
-			Message<String, Integer> msg = new Message<String, Integer>(inputs[0] + " is an invalid command!", 0);
-			outputStrings.add(msg);
-		}
-		
+	
 
 		db.updatePlayer(dbPlayer);
 		db.updateTextHistory(outputStrings);

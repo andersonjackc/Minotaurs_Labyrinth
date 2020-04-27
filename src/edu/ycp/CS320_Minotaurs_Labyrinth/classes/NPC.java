@@ -40,7 +40,7 @@ public class NPC extends Actor {
 		
 		if(target.getHP()<=0) {
 			target.setIsDead(true);
-			
+			target.setStatus("normal");
 			return "You are dead.";
 		}
 		
@@ -56,7 +56,7 @@ public class NPC extends Actor {
 			setResource(getResource()-spell.getCost());
 			if(target.getHP()<=0) {
 				target.setIsDead(true);
-				
+				target.setStatus("normal");
 				return "You are dead.";
 			}
 			if(spell.getAffectedStat().equals("HP")) {
