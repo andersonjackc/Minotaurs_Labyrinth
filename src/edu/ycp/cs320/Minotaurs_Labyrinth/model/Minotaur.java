@@ -61,6 +61,7 @@ public class Minotaur {
 		inventory = new ArrayList<Item>();
 		inventory39 = new ArrayList<Item>();
 		inventory39.add(shears);
+		inventory.add(shears);
 
 		inv = new Inventory(0, 0, inventory);
 		inv39 = new Inventory(0, 0, inventory39);
@@ -407,6 +408,10 @@ public class Minotaur {
 	
 	public ArrayList<Room> getAllRooms(){
 		return allRooms;
+	}
+	
+	public void roomItemToOuput(Player player, Room room, ArrayList<Message<String, Integer>> DBoutputStrings) {
+
 	}
 	
 	
