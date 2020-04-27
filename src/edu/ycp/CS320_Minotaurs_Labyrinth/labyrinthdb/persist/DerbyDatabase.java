@@ -1257,6 +1257,7 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
+	
 	@Override
 	public List<Enemy> findAllEnemies() {
 		return executeTransaction(new Transaction<List<Enemy>>() {
@@ -1612,6 +1613,32 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
+	public Obstacle updateObstacle(Obstacle newObstacle, int ObsticleID) {
+		return executeTransaction(new Transaction<Obstacle>() {
+			@Override
+			public Obstacle execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"update obstacle " +
+							" set  status = ?" +
+							" where obstacle.obstacle_id = ?"
+					);
+					stmt.setString(1, newObstacle.getStatus());
+					stmt.setInt(2, ObsticleID);
+					stmt.executeUpdate();
+					return null;
+					} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	@Override
 	public List<Message<String, Integer>> updateTextHistory(List<Message<String, Integer>> newMessages) {
 		return executeTransaction(new Transaction<List<Message<String,Integer>>>() {
 			@Override
@@ -1737,6 +1764,53 @@ public class DerbyDatabase implements IDatabase {
 						}
 						stmt.setString(15, enemy.getName());
 						stmt.setInt(16, count++);
+						stmt.executeUpdate();
+					}
+					return null;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	@Override
+	public List<Room> updateRooms(List<Room> roomList) {
+		return executeTransaction(new Transaction<List<Room>>() {
+			@Override
+			public List<Room> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+
+				ResultSet resultSet = null;
+				
+				
+				try {
+					for(Room room : roomList) {
+						
+						stmt = conn.prepareStatement(
+								"update room " +
+								" set  description = ?,  inventory = ?, isFound = ?,  " +
+								" where room_id = ?"
+						);
+						stmt.setString(1, room.getDescription());
+
+						stmt2 = conn.prepareStatement(
+								"select obstacle.obstacle_id " +
+								"  from  obstacle" +
+								"  where obstacle.description = ?"
+						);
+						stmt2.setString(1, room.getObstacle().getDescription());
+						resultSet = stmt2.executeQuery();
+						resultSet.next();
+						updateObstacle(room.getObstacle(), resultSet.getInt(1));
+						
+						if(room.getIsFound()) {
+							stmt.setInt(3, 1);
+						}else {
+							stmt.setInt(3, 0);
+						}
 						stmt.executeUpdate();
 					}
 					return null;
