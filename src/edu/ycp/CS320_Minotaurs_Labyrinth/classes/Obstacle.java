@@ -13,13 +13,14 @@ public class Obstacle {
 	}
 	
 	public Boolean checkRequirement(Player player) {
-		if(player.getInventory().getInventory().contains(requirement)) {
-			return true;
+		ItemComparator ic = new ItemComparator();
+		for(Item item: player.getInventory().getInventory()) {
+			if (ic.compare(item, requirement)==1) {
+				return true;
+			}
 		}
-		
-			return false;
-		
-	}
+		return false;
+}
 	
 	public Boolean checkStatus(Player player) {
 		if(player.getStatus().equals(status)) {
