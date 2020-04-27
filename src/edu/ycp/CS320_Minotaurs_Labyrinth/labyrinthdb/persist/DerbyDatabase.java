@@ -1875,6 +1875,7 @@ public class DerbyDatabase implements IDatabase {
 						);
 						stmt.setString(1, room.getDescription());
 
+						//have to update the obstacle
 						stmt2 = conn.prepareStatement(
 								"select obstacle.obstacle_id " +
 								"  from  obstacle" +
