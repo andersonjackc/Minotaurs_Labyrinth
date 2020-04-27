@@ -4,3 +4,5 @@
 4|a key with a minotaur engraved on it|0|0|0|1|0|MKey|quest|none
 5|a pair of shears|0|0|0|1|0|shears|obstacle item|none
 6|filler|0|0|0|1|0|filler|filler|none
+7|SampleItem|0|0|0|1|0|SampleItem|Sample|none
+8|SampleItem2|0|0|0|1|0|SampleItem2|Sample|none
