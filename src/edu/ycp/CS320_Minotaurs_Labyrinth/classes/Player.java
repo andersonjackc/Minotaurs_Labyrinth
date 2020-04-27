@@ -159,8 +159,9 @@ public class Player extends Actor {
 		
 		if(!this.isDead) {
 			if(roomMap.containsKey(direction)){
+				
 				Room newRoom = getRoomByRoomId(roomMap.get(direction), allRooms);
-				if(newRoom.getObstacle().checkStatus(this) || newRoom.getObstacle().getStatus().contentEquals("normal")){
+				if(newRoom.getObstacle().checkStatus(this) || newRoom.getObstacle().getStatus().contentEquals("normal") || newRoom.getObstacle().checkRequirement(this)){
 					if(newRoom.getIsFound()==false) {
 						newRoom.setIsFound(true);
 					}
@@ -175,9 +176,7 @@ public class Player extends Actor {
 			
 			String tempStr = this.currentRoom.getDescription();
 			Inventory inventory = this.currentRoom.getInventory();
-			System.out.println(inventory.getInventory());
 			for(Item item : inventory.getInventory()) {
-				System.out.println("This happens");
 				String resp = "There is a " + item.getName() + " in the room.";
 				tempStr= tempStr + " " + resp;
 			}

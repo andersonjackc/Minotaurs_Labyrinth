@@ -2,6 +2,7 @@ package edu.ycp.cs320.Minotaurs_Labyrinth.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Actor;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
@@ -62,6 +64,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		ArrayList<Enemy>  enemyList = (ArrayList<Enemy>) db.findAllEnemies();
 		ArrayList<NPC> npcList = (ArrayList<NPC>) db.findAllNPCs();
 		ArrayList<Item> itemList = (ArrayList<Item>) db.findAllItems();
+		ArrayList<Room> roomList = (ArrayList<Room>) db.findAllRooms();
 		Player dbPlayer = testPlayer.get(0);
 		//model, controller and attribute for jsp setup
 		Minotaur model = new Minotaur();
@@ -69,19 +72,18 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		
 		//initializing the map/player in the model, eventually will be removed
-		model.initMap();
-		model.initPlayer();
+		HashMap<String, Actor> targets = new HashMap<String, Actor>();
 		controller.setModel(model);
 		req.setAttribute("game", model);
 		req.setAttribute("outputstrings", outputStrings);
-		model.getTargets().put("player", dbPlayer);
+		targets.put("player", dbPlayer);
 
 		
 		for(Enemy enemy : enemyList) {
-			model.getTargets().put(enemy.getName().toLowerCase(), enemy);
+			targets.put(enemy.getName().toLowerCase(), enemy);
 		}
 		for(NPC npc : npcList) {
-			model.getTargets().put(npc.getName().toLowerCase(), npc);
+			targets.put(npc.getName().toLowerCase(), npc);
 		}
 		
 		String inputVal = getString(req, "textbox");
@@ -92,17 +94,17 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		inputs = inputVal.split(" ");	
 
 		if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
-			if(inputs.length <= 2 && inputs.length > 1 && model.getTargets().get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == model.getTargets().get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
-				String atkMsg = dbPlayer.basicAttack(model.getTargets().get(inputs[1]));
-				if(atkMsg.equals(model.getTargets().get(inputs[1]).getName() + " is dead.")) {
-					if(model.getTargets().get(inputs[1]).getName().equals("Villager")) {
+			if(inputs.length <= 2 && inputs.length > 1 && targets.get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
+				String atkMsg = dbPlayer.basicAttack(targets.get(inputs[1]));
+				if(atkMsg.equals(targets.get(inputs[1]).getName() + " is dead.")) {
+					if(targets.get(inputs[1]).getName().equals("Villager")) {
 						
 						
-					}else if(model.getTargets().get(inputs[1]).getName().equals("ogre")) {
+					}else if(targets.get(inputs[1]).getName().equals("ogre")) {
 						
 					}
 				}
-				String enemyAtkMsg = model.getTargets().get(inputs[1]).basicAttack(dbPlayer);
+				String enemyAtkMsg = targets.get(inputs[1]).basicAttack(dbPlayer);
 				if(dbPlayer.getIsDead()) {
 					
 				}
@@ -126,7 +128,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		//talk
 		else if(req.getParameter("textbox") != null && inputVal.equals("talk") && dbPlayer.getCurrentRoom().getRoomId() == 3) {
 			if(!(npcList.get(0).getIsDead()) && !(dbPlayer.getIsDead())) {
-				model.initResponses(npcList.get(0), outputStrings);
+				//targets.get("villager")(npcList.get(0), outputStrings);
 			}else if(!(dbPlayer.getIsDead())) {
 				Message<String, Integer> msg = new Message<String, Integer>("You killed the villager you monster!", 0);
 				outputStrings.add(msg);
@@ -138,20 +140,20 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		//cast
 		else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
-			if(inputs.length <= 3 && inputs.length > 2 && model.getTargets().get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == model.getTargets().get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
-				String castMsg = dbPlayer.cast(model.getTargets().get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
-				if(castMsg.equals(model.getTargets().get(inputs[2]).getName() + " is dead.")) {
-					if(model.getTargets().get(inputs[2]).getName().equals("Villager")) {
+			if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
+				String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
+				if(castMsg.equals(targets.get(inputs[2]).getName() + " is dead.")) {
+					if(targets.get(inputs[2]).getName().equals("Villager")) {
 						
 						
-					}else if(model.getTargets().get(inputs[2]).getName().equals("ogre")) {
+					}else if(targets.get(inputs[2]).getName().equals("ogre")) {
 						
-					}else if(model.getTargets().get(inputs[2]).getName().equals("player")) {
+					}else if(targets.get(inputs[2]).getName().equals("player")) {
 						
 					}
 				}
 				if(!inputs[2].equals(dbPlayer.getName())) {
-				String enemyAtkMsg = model.getTargets().get(inputs[2]).basicAttack(dbPlayer);
+				String enemyAtkMsg = targets.get(inputs[2]).basicAttack(dbPlayer);
 				if(dbPlayer.getIsDead()) {
 					
 				}
@@ -180,7 +182,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		else if (req.getParameter("textbox") != null && inputs[0].equals("move")){
 			
 			if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
-				String moveMsg = dbPlayer.move(inputs[1], model.getAllRooms());
+				String moveMsg = dbPlayer.move(inputs[1], roomList);
 				Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
 				outputStrings.add(msg);
 			}else if(inputs.length<=1){
