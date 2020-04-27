@@ -12,8 +12,6 @@ public class MinotaursLabyrinthController {
 	
 	//Calls model methods that create the map, rooms, and various game objects
 	public void initModel() {
-		
-		model.initMap();
-		model.initPlayer();
+		//might do something later
 	}
 }
