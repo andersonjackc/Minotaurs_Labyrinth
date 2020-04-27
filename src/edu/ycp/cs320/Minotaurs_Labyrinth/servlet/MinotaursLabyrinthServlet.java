@@ -170,7 +170,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			
 			//talk
 			else if(req.getParameter("textbox") != null && inputs[0].equals("talk")) {
-				if(inputs.length <= 2 && inputs.length > 1 && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId()) {
+				if(inputs.length <= 2 && inputs.length > 1 && targets.containsKey(inputs[1]) && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId()) {
 					if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead())) {
 						String tmp = dbPlayer.talk(targets.get(inputs[1]));
 						Message<String, Integer> talkMsg = new Message<String, Integer>(tmp, 0);
@@ -308,7 +308,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		else if(dbPlayer.getStatus().equals("talking")) {
 			//talk
 			if(req.getParameter("textbox") != null && inputs[0].equals("talk")) {
-				if(inputs.length <= 2 && inputs.length > 1 && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId()) {
+				if(inputs.length <= 2 && inputs.length > 1 && targets.containsKey(inputs[1]) && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId()) {
 					if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead())) {
 						String tmp = dbPlayer.talk(targets.get(inputs[1]));
 						Message<String, Integer> talkMsg = new Message<String, Integer>(tmp, 0);
