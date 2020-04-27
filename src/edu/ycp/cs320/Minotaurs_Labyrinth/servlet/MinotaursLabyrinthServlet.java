@@ -14,6 +14,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.IDatabase;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DerbyDatabase;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DatabaseProvider;
@@ -62,7 +63,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		ArrayList<NPC> npcList = (ArrayList<NPC>) db.findAllNPCs();
 		ArrayList<Item> itemList = (ArrayList<Item>) db.findAllItems();
 		Player dbPlayer = testPlayer.get(0);
-		
 		//model, controller and attribute for jsp setup
 		Minotaur model = new Minotaur();
 		MinotaursLabyrinthController controller = new MinotaursLabyrinthController();
@@ -75,7 +75,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		req.setAttribute("game", model);
 		req.setAttribute("outputstrings", outputStrings);
 		model.getTargets().put("player", dbPlayer);
-		
+
 		
 		for(Enemy enemy : enemyList) {
 			model.getTargets().put(enemy.getName().toLowerCase(), enemy);
@@ -90,7 +90,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		outputStrings.add(input);
 		inputVal = inputVal.toLowerCase();
 		inputs = inputVal.split(" ");	
-		
+
 		if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
 			if(inputs.length <= 2 && inputs.length > 1 && model.getTargets().get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == model.getTargets().get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
 				String atkMsg = dbPlayer.basicAttack(model.getTargets().get(inputs[1]));
@@ -177,8 +177,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				outputStrings.add(msg);
 			}
 		}
-		
-		//move
 		else if (req.getParameter("textbox") != null && inputs[0].equals("move")){
 			
 			if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
@@ -201,13 +199,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			outputStrings.add(msg);
 		}
 		
-		
-		
+
 		db.updatePlayer(dbPlayer);
 		db.updateTextHistory(outputStrings);
 		db.updateEnemies(enemyList);
 		db.updateNPCs(npcList);
-		
+
 		//sets our outputstrings value, which is used to persist our past decisions
 		req.setAttribute("outputstrings", outputStrings);
 		

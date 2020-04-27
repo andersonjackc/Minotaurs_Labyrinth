@@ -168,7 +168,16 @@ public class Player extends Actor {
 				return "You can't move in that direction!";
 			}
 			
-			return this.currentRoom.getDescription();
+			String tempStr = this.currentRoom.getDescription();
+			Inventory inventory = this.currentRoom.getInventory();
+			System.out.println(inventory.getInventory());
+			for(Item item : inventory.getInventory()) {
+				System.out.println("This happens");
+				String resp = "There is a " + item.getName() + " in the room.";
+				tempStr= tempStr + " " + resp;
+			}
+			return tempStr;
+			
 		}else {
 			return "You are dead!";
 		}
