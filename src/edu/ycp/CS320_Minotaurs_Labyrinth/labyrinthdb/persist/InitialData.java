@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Choice;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Dialogue;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Gear;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
@@ -555,6 +557,77 @@ public class InitialData {
 			return messageList;
 		} finally {
 			readTextHistory.close();
+		}
+	}
+	
+	public static List<Dialogue> getDialogues() throws IOException{
+		
+		List<Dialogue> dialogueList = new ArrayList<Dialogue>();
+		ReadCSV readDialogue = new ReadCSV("Dialogue.csv");
+		try {
+			while (true) {
+				List<String> tuple = readDialogue.next();
+				if (tuple == null) {
+					break;
+				}
+				
+				
+				Iterator<String> i = tuple.iterator();
+				
+				Dialogue dialogue = new Dialogue(null, 0, 0, 0, 0);
+				
+				i.next();
+				
+				dialogue.setNPC_ID(Integer.parseInt(i.next()));
+				
+				dialogue.setQuestion(i.next());
+				
+				dialogue.setChoice1(Integer.parseInt(i.next()));
+				dialogue.setChoice2(Integer.parseInt(i.next()));
+				dialogue.setChoice3(Integer.parseInt(i.next()));
+
+				
+				dialogueList.add(dialogue);
+				
+			}
+			
+			System.out.println("Dialogue loaded from CSV file");			
+			return dialogueList;
+		} finally {
+			readDialogue.close();
+		}
+	}
+
+	public static List<Choice> getChoices() throws IOException{
+	
+		List<Choice> choiceList = new ArrayList<Choice>();
+		ReadCSV readChoices = new ReadCSV("Choices.csv");
+		try {
+			while (true) {
+				List<String> tuple = readChoices.next();
+				if (tuple == null) {
+					break;
+				}
+			
+			
+				Iterator<String> i = tuple.iterator();
+			
+				Choice choice = new Choice(0, 0, null);
+			
+				choice.setNPC_ID(Integer.parseInt(i.next()));
+			
+				choice.setChoice_ID(Integer.parseInt(i.next()));
+				
+				choice.setResponse(i.next());
+			
+				choiceList.add(choice);
+			
+			}
+		
+			System.out.println("Choices loaded from CSV file");			
+			return choiceList;
+		} finally {
+			readChoices.close();
 		}
 	}
 	

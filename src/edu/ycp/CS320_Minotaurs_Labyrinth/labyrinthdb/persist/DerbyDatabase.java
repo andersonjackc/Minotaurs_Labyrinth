@@ -13,6 +13,8 @@ import java.util.Set;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.AbilityComparator;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Choice;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Dialogue;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.InventoryComparator;
@@ -283,9 +285,18 @@ public class DerbyDatabase implements IDatabase {
 		
 	}
 
+	/*private void loadDialogue(ResultSet resultSet, int index) throws SQLException {
+		message.setMessage(resultSet.getString(index++));
+		message.setPlayerAction(resultSet.getInt(index++));
+	}
+	
+	private void loadChoices(ResultSet resultSet, int index) throws SQLException {
+		message.setMessage(resultSet.getString(index++));
+		message.setPlayerAction(resultSet.getInt(index++));
+	}*/
 
 	
-	//  creates the Authors and Books tables
+	//  creates the tables
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
@@ -304,6 +315,8 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt12 = null;	
 				PreparedStatement stmt13 = null;	
 				PreparedStatement stmt14 = null;	
+				PreparedStatement stmt15 = null;	
+				PreparedStatement stmt16 = null;	
 				
 			
 				try {
@@ -595,6 +608,32 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("textHistory table created");
 					
+					stmt15 = conn.prepareStatement(
+							"create table dialogue (" +
+							"	dialogue_id integer primary key " +
+							"		generated always as identity (start with 1, increment by 1), " +	
+							"	npc_id integer," +
+							"	question varchar(7999)," +
+							"	choice1_id integer," +
+							"	choice2_id integer," +
+							"	choice3_id integer" +
+							")"
+						);	
+						stmt15.executeUpdate();
+						
+						System.out.println("Dialogue table created");
+						
+						stmt16 = conn.prepareStatement(
+								"create table choices (" +
+								"	npc_id integer," +									
+								"	choice_id integer," +
+								"	response varchar(7999)" +
+								")"
+							);	
+							stmt16.executeUpdate();
+							
+							System.out.println("Choices table created");
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
@@ -611,6 +650,9 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(stmt12);
 					DBUtil.closeQuietly(stmt13);
 					DBUtil.closeQuietly(stmt14);
+					DBUtil.closeQuietly(stmt15);
+					DBUtil.closeQuietly(stmt16);
+					
 				}
 			}
 		});
@@ -633,6 +675,8 @@ public class DerbyDatabase implements IDatabase {
 				List<Player> Players;
 				List<NPC> NPCs;
 				List<Message<String, Integer>> Messages;
+				List<Dialogue> Dialogues;
+				List<Choice> Choices;
 				
 				try {
 					
@@ -648,6 +692,8 @@ public class DerbyDatabase implements IDatabase {
 					Players        = InitialData.getPlayers();
 					NPCs           = InitialData.getNPCs();
 					Messages       = InitialData.getTextHistory();
+					Dialogues      = InitialData.getDialogues();
+					Choices        = InitialData.getChoices();
 					
 					
 				} catch (IOException e) {
@@ -666,6 +712,9 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertPlayers   = null;
 				PreparedStatement insertNPCs   = null;
 				PreparedStatement insertMessages = null;
+				PreparedStatement insertDialogue = null;
+				PreparedStatement insertChoices = null;
+
 
 				try {
 					
@@ -911,6 +960,8 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertMessages.executeBatch();
 					
+					System.out.println("TextHistory table populated");
+					
 					insertInventoryList = conn.prepareStatement("insert into inventory (maxstorage, maxquant, inventory) "
 							+ " values (?, ?, ?)");
 					
@@ -926,6 +977,31 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Inventory table populated");
 					
+					insertDialogue = conn.prepareStatement("insert into Dialogue (npc_id, question, choice1_id, choice2_id, choice3_id) values (?, ?, ?, ?, ?)");
+					for (Dialogue dialogue : Dialogues) {
+						insertDialogue.setInt(1, dialogue.getNPC_ID());
+						insertDialogue.setString(2, dialogue.getQuestion());
+						insertDialogue.setInt(3, dialogue.getChoice1());
+						insertDialogue.setInt(4, dialogue.getChoice2());
+						insertDialogue.setInt(5, dialogue.getChoice3());
+						insertDialogue.addBatch();
+						
+					}
+					insertDialogue.executeBatch();
+					
+					System.out.println("Dialogue table populated");
+					
+					insertChoices = conn.prepareStatement("insert into Choices (npc_id, choice_id, response) values (?, ?, ?)");
+					for (Choice choice : Choices) {
+						insertChoices.setInt(1, choice.getNPC_ID());
+						insertChoices.setInt(2, choice.getChoice_ID());						
+						insertChoices.setString(3, choice.getResponse());
+						insertChoices.addBatch();
+					}
+					insertChoices.executeBatch();
+					
+					System.out.println("Choices table populated");
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertAbilities);
@@ -939,6 +1015,9 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(insertEnemies);
 					DBUtil.closeQuietly(insertPlayers);
 					DBUtil.closeQuietly(insertNPCs);
+					DBUtil.closeQuietly(insertDialogue);
+					DBUtil.closeQuietly(insertChoices);
+					
 				}
 			}
 		});
