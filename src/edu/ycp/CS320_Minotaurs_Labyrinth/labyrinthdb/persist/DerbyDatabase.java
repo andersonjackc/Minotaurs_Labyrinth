@@ -1864,17 +1864,20 @@ public class DerbyDatabase implements IDatabase {
 
 				ResultSet resultSet = null;
 				
-				
 				try {
 					for(Room room : roomList) {
-						
 						stmt = conn.prepareStatement(
 								"update room " +
-								" set  description = ?,  inventory = ?, isFound = ?,  " +
+								" set  description = ?, isFound = ?  " +
 								" where room_id = ?"
 						);
 						stmt.setString(1, room.getDescription());
-
+						if(room.getIsFound()) {
+							stmt.setInt(2, 1);
+						}else {
+							stmt.setInt(2, 0);
+						}
+						stmt.setInt(3, room.getRoomId());
 						//have to update the obstacle
 						stmt2 = conn.prepareStatement(
 								"select obstacle.obstacle_id " +
@@ -1885,15 +1888,8 @@ public class DerbyDatabase implements IDatabase {
 						resultSet = stmt2.executeQuery();
 						resultSet.next();
 						updateObstacle(room.getObstacle(), resultSet.getInt(1));
-						
 						//have to update the inventory
 						//not yet completed
-						
-						if(room.getIsFound()) {
-							stmt.setInt(3, 1);
-						}else {
-							stmt.setInt(3, 0);
-						}
 						stmt.executeUpdate();
 					}
 					return null;

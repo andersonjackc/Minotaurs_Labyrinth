@@ -201,7 +201,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			outputStrings.add(msg);
 		}
 		
-
+		db.updateRooms(roomList);
 		db.updatePlayer(dbPlayer);
 		db.updateTextHistory(outputStrings);
 		db.updateEnemies(enemyList);
