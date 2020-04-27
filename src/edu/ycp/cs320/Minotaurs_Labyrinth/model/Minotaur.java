@@ -409,10 +409,4 @@ public class Minotaur {
 	public ArrayList<Room> getAllRooms(){
 		return allRooms;
 	}
-	
-	public void roomItemToOuput(Player player, Room room, ArrayList<Message<String, Integer>> DBoutputStrings) {
-
-	}
-	
-	
 }
