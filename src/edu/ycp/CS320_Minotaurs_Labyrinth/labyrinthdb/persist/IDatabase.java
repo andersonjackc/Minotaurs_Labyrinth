@@ -42,6 +42,10 @@ public interface IDatabase {
 
 	public List<Item> updateItems(List<Item> itemList);
 
+	public List<Room> updateRooms(List<Room> roomList);
+	
+	public Obstacle updateObstacle(Obstacle newObstacle, int ObstacleID);
+
 
 
 }
