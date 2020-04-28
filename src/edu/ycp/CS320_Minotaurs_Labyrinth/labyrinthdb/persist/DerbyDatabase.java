@@ -1125,24 +1125,26 @@ public class DerbyDatabase implements IDatabase {
 						
 						resultSet2.next();
 						for (int i=2; i<=6; i++) {
-							stmt3 = conn.prepareStatement(
-									"select ability.* " +
-									"  from  ability " +
-									"  where ability.name = ?"
-							);
-						
+							if(!resultSet2.getString(i).equals("filler")) {
+								stmt3 = conn.prepareStatement(
+										"select ability.* " +
+										"  from  ability " +
+										"  where ability.name = ?"
+								);
 							
-							stmt3.setString(1, resultSet2.getString(i));
-							
-							resultSet3 = stmt3.executeQuery();
-							
-							Ability abil = new Ability(null, null, null, null, 0, 0);
-							
-							resultSet3.next();
-							
-							loadAbility(abil, resultSet3, 2);
-							
-							tempAbilList.add(abil);
+								
+								stmt3.setString(1, resultSet2.getString(i));
+								
+								resultSet3 = stmt3.executeQuery();
+								
+								Ability abil = new Ability(null, null, null, null, 0, 0);
+								
+								resultSet3.next();
+								
+								loadAbility(abil, resultSet3, 2);
+								
+								tempAbilList.add(abil);
+							}
 						}
 						
 						
@@ -1276,12 +1278,7 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(stmt);
 					DBUtil.closeQuietly(resultSet2);
 					DBUtil.closeQuietly(stmt2);
-					//DBUtil.closeQuietly(resultSet3);
-					//DBUtil.closeQuietly(stmt3);
-					//DBUtil.closeQuietly(resultSet4);
-					//DBUtil.closeQuietly(stmt4);
-					//DBUtil.closeQuietly(resultSet5);
-					//DBUtil.closeQuietly(stmt5);
+					
 					
 				}
 			}
@@ -1382,24 +1379,26 @@ public class DerbyDatabase implements IDatabase {
 						
 						resultSet2.next();
 						for (int i=2; i<=6; i++) {
-							stmt3 = conn.prepareStatement(
-									"select ability.* " +
-									"  from  ability " +
-									"  where ability.name = ?"
-							);
-						
+							if(!resultSet2.getString(i).equals("filler")) {
+								stmt3 = conn.prepareStatement(
+										"select ability.* " +
+										"  from  ability " +
+										"  where ability.name = ?"
+								);
 							
-							stmt3.setString(1, resultSet2.getString(i));
-							
-							resultSet3 = stmt3.executeQuery();
-							
-							Ability abil = new Ability(null, null, null, null, 0, 0);
-							
-							resultSet3.next();
-							
-							loadAbility(abil, resultSet3, 2);
-							
-							tempAbilList.add(abil);
+								
+								stmt3.setString(1, resultSet2.getString(i));
+								
+								resultSet3 = stmt3.executeQuery();
+								
+								Ability abil = new Ability(null, null, null, null, 0, 0);
+								
+								resultSet3.next();
+								
+								loadAbility(abil, resultSet3, 2);
+								
+								tempAbilList.add(abil);
+							}
 						}
 						
 						
@@ -1510,24 +1509,26 @@ public class DerbyDatabase implements IDatabase {
 						
 						resultSet2.next();
 						for (int i=2; i<=6; i++) {
-							stmt3 = conn.prepareStatement(
-									"select ability.* " +
-									"  from  ability " +
-									"  where ability.name = ?"
-							);
-						
+							if(!resultSet2.getString(i).equals("filler")) {
+								stmt3 = conn.prepareStatement(
+										"select ability.* " +
+										"  from  ability " +
+										"  where ability.name = ?"
+								);
 							
-							stmt3.setString(1, resultSet2.getString(i));
-							
-							resultSet3 = stmt3.executeQuery();
-							
-							Ability abil = new Ability(null, null, null, null, 0, 0);
-							
-							resultSet3.next();
-							
-							loadAbility(abil, resultSet3, 2);
-							
-							tempAbilList.add(abil);
+								
+								stmt3.setString(1, resultSet2.getString(i));
+								
+								resultSet3 = stmt3.executeQuery();
+								
+								Ability abil = new Ability(null, null, null, null, 0, 0);
+								
+								resultSet3.next();
+								
+								loadAbility(abil, resultSet3, 2);
+								
+								tempAbilList.add(abil);
+							}
 						}
 						
 						
