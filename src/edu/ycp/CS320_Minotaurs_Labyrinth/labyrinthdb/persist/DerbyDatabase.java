@@ -1719,40 +1719,6 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	@Override
-	public List<Message<String, Integer>> updateTextHistory(List<Message<String, Integer>> newMessages) {
-		return executeTransaction(new Transaction<List<Message<String,Integer>>>() {
-			@Override
-			public List<Message<String, Integer>> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-				
-				PreparedStatement stmt2 = null;
-				
-				try {
-					stmt = conn.prepareStatement(
-							"truncate table textHistory"
-					);
-					
-					stmt.executeUpdate();
-					
-					for (Message<String,Integer> message : newMessages) {
-						stmt2 = conn.prepareStatement("insert into textHistory (message, playerAction) values (?, ?)");
-						stmt2.setString(1, message.getMessage());
-						stmt2.setInt(2, message.getPlayerAction());
-						stmt2.executeUpdate();
-					}
-
-					
-					return null;
-				} finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-					DBUtil.closeQuietly(stmt2);
-				}
-			}
-		});
-	}
-	@Override
 	public List<Item> updateItems(List<Item> itemList) {
 		return executeTransaction(new Transaction<List<Item>>() {
 			@Override
@@ -2129,6 +2095,34 @@ public class DerbyDatabase implements IDatabase {
 			}
 
 			
+		});
+	}
+
+	@Override
+	public List<Message<String, Integer>> insertIntoTextHistory(Message<String, Integer> newMessage) {
+		return executeTransaction(new Transaction<List<Message<String,Integer>>>() {
+			@Override
+			public List<Message<String, Integer>> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				
+				try {
+					stmt = conn.prepareStatement(
+							"insert into textHistory (message, playerAction) values (?, ?)");
+										
+					stmt.setString(1, newMessage.getMessage());
+					stmt.setInt(2, newMessage.getPlayerAction());
+					stmt.executeUpdate();
+
+					
+					return null;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					
+				}
+			}
 		});
 	}
 }
