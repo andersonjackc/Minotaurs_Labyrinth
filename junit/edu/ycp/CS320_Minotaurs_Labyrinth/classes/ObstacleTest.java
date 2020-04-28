@@ -8,7 +8,7 @@ import java.util.HashMap;
 import org.junit.Test;
 
 public class ObstacleTest {
-	Item key = new Item("test", 1, true, false, false, 10, null, "quest", null);
+	Item key = new Item("test", 1, true, false, false, 10, "key", "quest", "HP");
 	Item key2 = new Item("test", 1, true, false, false, 10, null, "quest", null);
 	Obstacle obs = new Obstacle("test", "jumping", key);
 	ArrayList<Item> Inv = new ArrayList<Item>();

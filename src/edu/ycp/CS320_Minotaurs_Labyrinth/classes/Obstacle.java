@@ -15,7 +15,7 @@ public class Obstacle {
 	public Boolean checkRequirement(Player player) {
 		ItemComparator ic = new ItemComparator();
 		for(Item item: player.getInventory().getInventory()) {
-			if (ic.compare(item, requirement)==1) {
+			if (ic.compare(item, this.requirement) == 1) {
 				return true;
 			}
 		}

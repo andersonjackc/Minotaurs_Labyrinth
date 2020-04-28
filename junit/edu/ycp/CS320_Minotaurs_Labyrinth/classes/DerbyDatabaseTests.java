@@ -160,11 +160,11 @@ public class DerbyDatabaseTests {
 	
 	@Test
 	public void testFindItemList() {
-		System.out.println("\n*** Testing FindAllItems ***");
+		System.out.println("\n*** Testing FindItemList ***");
 		ItemList = (ArrayList<Item>) db.findItemList(1);
 		if (ItemList.isEmpty()) {
 			System.out.println("No ItemLists found in Labyrinth Database");
-			fail("No Items returned from Library DB");
+			fail("No ItemLists returned from Library DB");
 		}
 		
 		else {		
