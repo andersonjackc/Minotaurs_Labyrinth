@@ -1719,40 +1719,6 @@ public class DerbyDatabase implements IDatabase {
 	}
 	
 	@Override
-	public List<Message<String, Integer>> updateTextHistory(List<Message<String, Integer>> newMessages) {
-		return executeTransaction(new Transaction<List<Message<String,Integer>>>() {
-			@Override
-			public List<Message<String, Integer>> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-				
-				PreparedStatement stmt2 = null;
-				
-				try {
-					stmt = conn.prepareStatement(
-							"truncate table textHistory"
-					);
-					
-					stmt.executeUpdate();
-					
-					for (Message<String,Integer> message : newMessages) {
-						stmt2 = conn.prepareStatement("insert into textHistory (message, playerAction) values (?, ?)");
-						stmt2.setString(1, message.getMessage());
-						stmt2.setInt(2, message.getPlayerAction());
-						stmt2.executeUpdate();
-					}
-
-					
-					return null;
-				} finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-					DBUtil.closeQuietly(stmt2);
-				}
-			}
-		});
-	}
-	@Override
 	public List<Item> updateItems(List<Item> itemList) {
 		return executeTransaction(new Transaction<List<Item>>() {
 			@Override
@@ -2129,6 +2095,100 @@ public class DerbyDatabase implements IDatabase {
 			}
 
 			
+		});
+	}
+
+	@Override
+	public List<Message<String, Integer>> insertIntoTextHistory(Message<String, Integer> newMessage) {
+		return executeTransaction(new Transaction<List<Message<String,Integer>>>() {
+			@Override
+			public List<Message<String, Integer>> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				
+				
+				try {
+					stmt = conn.prepareStatement(
+							"insert into textHistory (message, playerAction) values (?, ?)");
+										
+					stmt.setString(1, newMessage.getMessage());
+					stmt.setInt(2, newMessage.getPlayerAction());
+					stmt.executeUpdate();
+
+					
+					return null;
+				} finally {
+					
+					DBUtil.closeQuietly(stmt);
+					
+				}
+			}
+		});
+	}
+
+	@Override
+	public List<Message<String, Integer>> updateTextHistory() {
+		return executeTransaction(new Transaction<List<Message<String,Integer>>>() {
+			@Override
+			public List<Message<String, Integer>> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet2 = null;
+				
+				PreparedStatement stmt3 = null;
+				
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"select count(*) from textHistory");
+										
+					
+					resultSet = stmt.executeQuery();
+					resultSet.next();
+					int size = resultSet.getInt(1);
+					
+					while(size>30) {
+						
+						
+						
+						stmt2 = conn.prepareStatement(
+								"select textHistory.textHistory_id from textHistory ");
+						
+						resultSet2 = stmt2.executeQuery();
+						
+						stmt3 = conn.prepareStatement(
+								"delete from textHistory where textHistory_id = ? ");
+						
+						resultSet2.next();
+						
+						stmt3.setInt(1, resultSet2.getInt(1));
+						
+						stmt3.executeUpdate();
+					
+					
+						resultSet = stmt.executeQuery();
+						resultSet.next();
+						size = resultSet.getInt(1);
+						System.out.println(size);
+						
+					}
+					
+					return null;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					
+					
+					DBUtil.closeQuietly(stmt3);
+					
+				}
+			}
 		});
 	}
 }

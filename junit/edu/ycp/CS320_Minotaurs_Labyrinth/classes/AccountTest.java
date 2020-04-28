@@ -33,4 +33,12 @@ public class AccountTest {
 		
 		assertEquals("password123", testAccount.getPassword());
 	}
+	
+	@Test
+	public void testEmailConfirmMethods() {
+		
+		testAccount.setEmailConfirm(true);;
+		
+		assertTrue("password123", testAccount.getEmailConfirm());
+	}
 }
