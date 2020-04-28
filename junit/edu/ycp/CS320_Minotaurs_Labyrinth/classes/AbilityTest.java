@@ -11,6 +11,7 @@ public class AbilityTest {
 	private Ability testMaxResSpell;
 	private Ability testAtkSpell;
 	private Ability testDefSpell;
+	private Ability testGodmode;
 	private Player testPlayer;
 	@Before
 	public void setup() {
@@ -20,6 +21,7 @@ public class AbilityTest {
 		testMaxResSpell = new Ability("test", "test ability", "test", "maxResource", 5, 5);
 		testAtkSpell = new Ability("test", "test ability", "test", "atk", 5, 5);
 		testDefSpell = new Ability("test", "test ability", "test", "def", 5, 5);
+		testGodmode = new Ability("test", "test ability", "test", "godmode", 1, 1);
 		testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, null, false, "test");
 	}
 	
@@ -67,6 +69,12 @@ public class AbilityTest {
 		assertEquals(15, testPlayer.getAtk());
 		testDefSpell.addEffect(testPlayer);
 		assertEquals(10, testPlayer.getDef());
+		testPlayer.setIsDead(true);
+		testGodmode.addEffect(testPlayer);
+		assertEquals(106, testPlayer.getHP());
+		assertEquals(56, testPlayer.getResource());
+		assertEquals(16, testPlayer.getAtk());
+		assertFalse(testPlayer.getIsDead());
 	}
 	
 
