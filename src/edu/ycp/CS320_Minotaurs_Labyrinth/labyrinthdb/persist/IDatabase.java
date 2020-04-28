@@ -46,6 +46,4 @@ public interface IDatabase {
 	
 	public Obstacle updateObstacle(Obstacle newObstacle, int ObstacleID);
 
-
-
 }
