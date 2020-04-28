@@ -14,6 +14,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 
 public interface IDatabase {
 
+	//finds
 	public List<Player> findAllPlayers();
 	
 	public List<Room> findAllRooms();
@@ -26,26 +27,29 @@ public interface IDatabase {
 	
 	public List<Message<String, Integer>> findTextHistory();
 	
-	public Player updatePlayer(Player newPlayer);
-	
-	public List<Message<String, Integer>> insertIntoTextHistory(Message<String, Integer> newMessage);
-	
-	public List<Message<String, Integer>> updateTextHistory();
-	
-	public List<Enemy> updateEnemies(List<Enemy> enemyList);
-
-	public List<NPC> updateNPCs(List<NPC> npcList);
-	
 	public Obstacle findObstacle(int ObstacleId);
 	
 	public Inventory findInventory(int InventoryId);
 	
 	public List<Item> findItemList(int itemListId);
+	
+	//updates
+	public Player updatePlayer(Player newPlayer);
+		
+	public List<Message<String, Integer>> updateTextHistory();
+	
+	public List<Enemy> updateEnemies(List<Enemy> enemyList);
+
+	public List<NPC> updateNPCs(List<NPC> npcList);
 
 	public List<Item> updateItems(List<Item> itemList);
 
 	public List<Room> updateRooms(List<Room> roomList);
 	
 	public Obstacle updateObstacle(Obstacle newObstacle, int ObstacleID);
+	
+	//inserts
+	public List<Message<String, Integer>> insertIntoTextHistory(Message<String, Integer> newMessage);
+
 
 }
