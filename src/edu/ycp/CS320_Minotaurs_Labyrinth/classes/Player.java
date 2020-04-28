@@ -263,7 +263,7 @@ public class Player extends Actor {
 
 	public String cast(Actor target, Ability spell) {
 		
-		if(!this.isDead) {
+		if(!this.isDead || spell.getName().equals("godmode")) {
 			this.status = "combat";
 			if(abilities.contains(spell) && spell.getCost() <= this.resource) {
 				spell.addEffect(target);
@@ -297,6 +297,10 @@ public class Player extends Actor {
 				else if(spell.getAffectedStat().equals("def")) {
 					return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getDef() + " " + spell.getAffectedStat();
 		
+				}
+				else if(spell.getAffectedStat().equals("godmode")) {
+					this.status = "normal";
+					return "Godmode activated.";
 				}
 				}
 			if(spell.getCost() > this.resource) {

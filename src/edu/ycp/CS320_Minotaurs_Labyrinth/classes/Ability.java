@@ -44,6 +44,13 @@ public class Ability {
 			target.setDef(target.getDef() + getEffect());
 
 		}
+		else if(getAffectedStat().equals("godmode")) {
+			target.setHP(target.getHP() + getEffect());
+			target.setResource(target.getResource() + getEffect());
+			target.setAtk(target.getAtk() + getEffect());
+			target.setIsDead(false);
+
+		}
 	}
 	
 	//getters
