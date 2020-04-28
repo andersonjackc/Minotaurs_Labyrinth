@@ -42,14 +42,14 @@ public class Enemy extends NPC {
 	}
 	
 	public String cast(Actor target, Ability spell) {
-		if(!this.isDead) {
+		if(!this.isDead|| spell.getName().equals("godmode")) {
 		if(abilities.contains(spell) && spell.getCost() <= resource) {
 			spell.addEffect(target);
 			setResource(getResource()-spell.getCost());
-			if(target.getHP()<=0) {
+			if(target.getHP()<=0 || target.getIsDead()) {
 				target.setIsDead(true);
-				target.setStatus("normal");
 				return "You are dead.";
+				
 			}
 			if(spell.getAffectedStat().equals("HP")) {
 				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getHP() + " " + spell.getAffectedStat();
@@ -75,7 +75,15 @@ public class Enemy extends NPC {
 				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getDef() + " " + spell.getAffectedStat();
 
 			}
+			else if(spell.getAffectedStat().equals("godmode")) {
+				this.status = "normal";
+				return "Godmode activated.";
+			}
+
 			
+		}
+		if(spell.getCost() > this.resource) {
+			return this.getName() + " doesn't have enough resource to cast " + spell.getName();
 		}
 		}
 		return "";
