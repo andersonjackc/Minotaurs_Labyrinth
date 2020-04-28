@@ -15,14 +15,23 @@ public class PlayerTest {
 	Player testPlayer;
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
+	ArrayList<Item> Inv2 = new ArrayList<Item>();
+	Inventory testRoomInv2 = new Inventory(100, 100, Inv2);
 	Ability testMaxHPSpell = new Ability("test", "test ability", "test", "maxHP", 5, 5);
+	Ability testHPSpell = new Ability("test", "test ability", "test", "HP", 5, 5);
+	Ability testMaxResourceSpell = new Ability("test", "test ability", "test", "maxResource", 5, 5);
+	Ability testResourceSpell = new Ability("test", "test ability", "test", "resource", 5, 5);
+	Ability testAtkSpell = new Ability("test", "test ability", "test", "atk", 5, 5);
+	Ability testDefSpell = new Ability("test", "test ability", "test", "def", 5, 5);
+	Ability testGodmodeSpell = new Ability("godmode", "test ability", "godmode", "godmode", 5, 5);
 	ArrayList<Ability> abilities = new ArrayList<Ability>();
+	ArrayList<Ability> abilities2 = new ArrayList<Ability>();
 	HashMap<String, Integer> testRoomMap1;
 	HashMap<String, Integer> testRoomMap2;
 	HashMap<String, Integer> testRoomMap3;
 	HashMap<String, Integer> testRoomMap4;
 	ArrayList<Room> allRooms;
-	Item key = new Item("test", 1, true, false, true, 10, null, "misc", null);
+	Item key = new Item("test", 1, true, false, true, 10, "key", "misc", "none");
 	Obstacle obs = new Obstacle("test", "normal", key);
 	Obstacle obs1 = new Obstacle("test", "jumping", key);
 	Obstacle obs2 = new Obstacle("test", "crawling", key);
@@ -46,19 +55,26 @@ public class PlayerTest {
 
 	@Before
 	public void setUp() {
+		Inv2.add(testTorch);
 		testRoomMap1 = new HashMap<String, Integer>();
 		testRoomMap2 = new HashMap<String, Integer>();
 		testRoomMap3 = new HashMap<String, Integer>();
 		testRoomMap4 = new HashMap<String, Integer>();
 		room = new Room("A test room", testRoomInv, obs, testRoomMap1,  false, 1);
 		room2 = new Room("A test room", testRoomInv, obs, testRoomMap2,  false, 2);
-		room3 = new Room("A test room", testRoomInv, obs1, testRoomMap3,  false, 3);
+		room3 = new Room("A test room", testRoomInv2, obs1, testRoomMap3,  false, 3);
 		room4 = new Room("A test room", testRoomInv, obs2, testRoomMap4, false, 4);
 		testRoomMap1.put("north", room2.getRoomId());
 		testRoomMap1.put("east", room3.getRoomId());
 		testRoomMap1.put("west", room4.getRoomId());
 		testRoomMap2.put("south", room.getRoomId());
 		abilities.add(testMaxHPSpell);
+		abilities.add(testHPSpell);
+		abilities.add(testMaxResourceSpell);
+		abilities.add(testResourceSpell);
+		abilities.add(testAtkSpell);
+		abilities.add(testDefSpell);
+		abilities.add(testGodmodeSpell);
 		testPlayer = new Player(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "normal", testInv, room, false, "test");
 		allRooms = new ArrayList<Room>();
 		allRooms.add(room);
@@ -178,8 +194,18 @@ public class PlayerTest {
 	}
 	@Test
 	public void testMove() {
-		testPlayer.move("north", allRooms);
+		String tmp = testPlayer.move("north", allRooms);
 		assertEquals(testPlayer.getCurrentRoom(), room2);
+		assertEquals(testPlayer.getCurrentRoom().getDescription(), tmp);
+		testPlayer.move("south", allRooms);
+		tmp = testPlayer.move("south", allRooms);
+		assertEquals("You can't move in that direction!", tmp);
+		testPlayer.take(key);
+		tmp = testPlayer.move("east", allRooms);
+		assertEquals(testPlayer.getCurrentRoom().getDescription() + " " + "There is a torch in the room.", tmp);
+		testPlayer.setIsDead(true);
+		tmp = testPlayer.move("north", allRooms);
+		assertEquals("You are dead!", tmp);
 	}
 	@Test
 	public void testCrawl() {
@@ -263,11 +289,85 @@ public class PlayerTest {
 		assertEquals("test1", testPlayer.getName());
 	}
 	@Test
+	public void testAbilitiesMethods() {
+		testPlayer.setAbilities(abilities2);
+		assertEquals(abilities2, testPlayer.getAbilities());
+	}
+	@Test
+	public void testInventoryMethods() {
+		testPlayer.setInventory(testInv);
+		assertEquals(testInv, testPlayer.getInventory());
+	}
+	@Test
+	public void testCurrentRoomMethods() {
+		testPlayer.setCurrentRoom(room2);
+		assertEquals(room2, testPlayer.getCurrentRoom());
+	}
+	@Test
 	public void testCast() {
-		testPlayer.cast(testPlayer, testMaxHPSpell);
+		String tmp = testPlayer.cast(testPlayer, testMaxHPSpell);
 		assertEquals(1005, testPlayer.getMaxHP());
 		assertEquals(45, testPlayer.getResource());
+		assertEquals("You cast " + testMaxHPSpell.getName() + " it did " + Math.abs(testMaxHPSpell.getEffect()) + " to " + testPlayer.getName() + "'s " + testMaxHPSpell.getAffectedStat() + ", it now has " + testPlayer.getMaxHP() + " " + testMaxHPSpell.getAffectedStat(), tmp);
+		testPlayer.cast(testPlayer, testHPSpell);
+		assertEquals(105, testPlayer.getHP());
+		testPlayer.cast(testPlayer, testMaxResourceSpell);
+		assertEquals(205, testPlayer.getMaxResource());
+		testPlayer.cast(testPlayer, testResourceSpell);
+		assertEquals(35, testPlayer.getResource());
+		testPlayer.cast(testPlayer, testAtkSpell);
+		assertEquals(15, testPlayer.getAtk());
+		testPlayer.cast(testPlayer, testDefSpell);
+		assertEquals(10, testPlayer.getDef());
+		testPlayer.setIsDead(true);
+		tmp = testPlayer.cast(testPlayer, testGodmodeSpell);
+		assertEquals(110, testPlayer.getHP());
+		assertEquals(25, testPlayer.getResource());
+		assertEquals(20, testPlayer.getAtk());
+		assertFalse(testPlayer.getIsDead());
+		assertEquals("Godmode activated.", tmp);
+		testNPC.setIsDead(true);
+		tmp = testPlayer.cast(testNPC, testAtkSpell);
+		assertEquals(testNPC.getName() + " is dead.", tmp);
+		testPlayer.setResource(0);
+		tmp = testPlayer.cast(testNPC, testAtkSpell);
+		assertEquals("You don't have enough resource to cast " + testAtkSpell.getName(), tmp);
+		testPlayer.setResource(10);
+		testPlayer.setIsDead(true);
+		tmp = testPlayer.cast(testNPC, testHPSpell);
+		assertEquals("You are dead!", tmp);
 
+
+
+	}
+	@Test
+	public void testBasicAttack() {
+		
+		String tmp = testPlayer.basicAttack(testNPC);
+		assertEquals("combat", testPlayer.getStatus());
+		assertEquals(90, testNPC.getHP());
+		assertEquals("You did 10 to test, it now has 90 HP.", tmp);
+		testNPC.setIsDead(true);
+		tmp = testPlayer.basicAttack(testNPC);
+		assertEquals("normal", testPlayer.getStatus());
+		assertEquals("test is dead.", tmp);
+
+	}
+	@Test
+	public void testRun() {
+		String tmp = testPlayer.run();
+		assertEquals("normal", testPlayer.getStatus());
+		assertEquals("AAAAAAAHHHHHHHHHHHHHHHHHHH!", tmp);
+	}
+	@Test
+	public void testLeave() {
+		String tmp = testPlayer.leave();
+		assertEquals("normal", testPlayer.getStatus());
+		assertEquals("Goodbye!", tmp);
+	}
+	@Test
+	public void testCheckRoom() {
+		assertEquals(testPlayer.getCurrentRoom().getDescription(),testPlayer.checkRoom(room));
 	}
 	
 }

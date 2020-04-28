@@ -162,7 +162,7 @@ public class Player extends Actor {
 			if(roomMap.containsKey(direction)){
 				
 				Room newRoom = getRoomByRoomId(roomMap.get(direction), allRooms);
-				if(newRoom.getObstacle().checkStatus(this) || newRoom.getObstacle().getStatus().contentEquals("normal") || newRoom.getObstacle().checkRequirement(this)){
+				if(newRoom.getObstacle().checkStatus(this) || newRoom.getObstacle().getStatus().equals("normal") || newRoom.getObstacle().checkRequirement(this)){
 					if(newRoom.getIsFound()==false) {
 						newRoom.setIsFound(true);
 					}
