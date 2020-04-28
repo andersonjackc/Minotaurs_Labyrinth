@@ -58,7 +58,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		IDatabase db = DatabaseProvider.getInstance();
-		ArrayList<Message<String, Integer>> outputStrings = (ArrayList<Message<String, Integer>>) db.findTextHistory();
+		
 		
 		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
 		ArrayList<Enemy>  enemyList = (ArrayList<Enemy>) db.findAllEnemies();
@@ -75,7 +75,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		HashMap<String, Actor> targets = new HashMap<String, Actor>();
 		controller.setModel(model);
 		req.setAttribute("game", model);
-		req.setAttribute("outputstrings", outputStrings);
 		targets.put("player", dbPlayer);
 
 		
@@ -89,7 +88,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		String inputVal = getString(req, "textbox");
 		String[] inputs;
 		Message<String, Integer> input = new Message<String, Integer>(inputVal, 1);
-		outputStrings.add(input);
 		db.insertIntoTextHistory(input);
 		inputVal = inputVal.toLowerCase();
 		inputs = inputVal.split(" ");	
@@ -112,21 +110,16 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					}
 					Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
 					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
-					outputStrings.add(msg);
-					outputStrings.add(msg2);
 					db.insertIntoTextHistory(msg);
 					db.insertIntoTextHistory(msg2);
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}else if(inputs.length > 2) {
 					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}else{
 					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}
@@ -153,32 +146,25 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						
 					}
 					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
-					outputStrings.add(msg2);
 					db.insertIntoTextHistory(msg2);
 
 					}
 					Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a spell or ability!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}else if(inputs.length<=2){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}else if(!containsAbility(dbPlayer.getAbilities(), inputs[1])) {
 					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid spell!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}else if(inputs.length > 3) {
 					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}else{
 					Message<String, Integer> msg = new Message<String, Integer>(inputs[2] + " is an invalid target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}
@@ -190,29 +176,23 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead())) {
 						String tmp = dbPlayer.talk(targets.get(inputs[1]));
 						Message<String, Integer> talkMsg = new Message<String, Integer>(tmp, 0);
-						outputStrings.add(talkMsg);
 						db.insertIntoTextHistory(talkMsg);
 					}else if(!(dbPlayer.getIsDead())) {
 						Message<String, Integer> msg = new Message<String, Integer>("You can't talk to " + targets.get(inputs[1]).getName() + " because it is dead.", 0);
-						outputStrings.add(msg);
 						db.insertIntoTextHistory(msg);
 					}else if(dbPlayer.getIsDead()) {
 						Message<String, Integer> msg = new Message<String, Integer>("You are dead!", 0);
-						outputStrings.add(msg);
 						db.insertIntoTextHistory(msg);
 					}
 				}
 				else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}else if(inputs.length > 2) {
 					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}else{
 					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}
 			
@@ -224,17 +204,14 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 					String moveMsg = dbPlayer.move(inputs[1], roomList);
 					Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a direction!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}else if(inputs.length > 2) {
 					Message<String, Integer> msg = new Message<String, Integer>("Specify a single direction!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}
@@ -244,7 +221,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			//give error for invalid commands
 			else if(req.getParameter("textbox") != null && !inputs[0].equals("attack") && !inputs[0].equals("talk") && !inputs[0].equals("cast") && !inputs[0].equals("move")){
 				Message<String, Integer> msg = new Message<String, Integer>(inputs[0] + " is an invalid command!", 0);
-				outputStrings.add(msg);
 				db.insertIntoTextHistory(msg);
 
 			}
@@ -269,24 +245,19 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					}
 					Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
 					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
-					outputStrings.add(msg);
-					outputStrings.add(msg2);
 					db.insertIntoTextHistory(msg);
 					db.insertIntoTextHistory(msg2);
 
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}else if(inputs.length > 2) {
 					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}else{
 					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}
@@ -303,37 +274,30 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						
 					}
 					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
-					outputStrings.add(msg2);
 					db.insertIntoTextHistory(msg2);
 
 					}
 					Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a spell or ability!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}else if(inputs.length<=2){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}else if(!containsAbility(dbPlayer.getAbilities(), inputs[1])) {
 					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid spell!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}else if(inputs.length > 3) {
 					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}else{
 					Message<String, Integer> msg = new Message<String, Integer>(inputs[2] + " is an invalid target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 
 				}
@@ -344,19 +308,15 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				if(inputs.length == 1) {
 					String tmp = dbPlayer.run();
 					Message<String, Integer> runMsg = new Message<String, Integer>(tmp, 1);
-					outputStrings.add(runMsg);
 					db.insertIntoTextHistory(runMsg);
 					Message<String, Integer> msg = new Message<String, Integer>("You ran away from combat.", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}else {
 					Message<String, Integer> msg = new Message<String, Integer>(inputVal + " is an invalid command.", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}
 			}else {
-				Message<String, Integer> msg = new Message<String, Integer>("In order to " + inputs[0] + " you must run from combat first.", 0);
-				outputStrings.add(msg);
+				Message<String, Integer> msg = new Message<String, Integer>("In order to " + inputVal + " you must run from combat first.", 0);
 				db.insertIntoTextHistory(msg);
 			}
 		}
@@ -369,42 +329,34 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead())) {
 						String tmp = dbPlayer.talk(targets.get(inputs[1]));
 						Message<String, Integer> talkMsg = new Message<String, Integer>(tmp, 0);
-						outputStrings.add(talkMsg);
 						db.insertIntoTextHistory(talkMsg);
 					}else if(!(dbPlayer.getIsDead())) {
 						Message<String, Integer> msg = new Message<String, Integer>("You can't talk to " + targets.get(inputs[1]).getName() + " because it is dead.", 0);
-						outputStrings.add(msg);
 						db.insertIntoTextHistory(msg);
 					}else if(dbPlayer.getIsDead()) {
 						Message<String, Integer> msg = new Message<String, Integer>("You are dead!", 0);
-						outputStrings.add(msg);
 						db.insertIntoTextHistory(msg);
 
 					}
 				}
 				else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}else if(inputs.length > 2) {
 					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}else{
 					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
-					outputStrings.add(msg);
 					db.insertIntoTextHistory(msg);
 				}
 			
 			}else if(req.getParameter("textbox") != null && inputs[0].equals("leave") && !dbPlayer.getIsDead()) {
 				String tmp = dbPlayer.leave();
 				Message<String, Integer> leaveMsg = new Message<String, Integer>(tmp, 1);
-				outputStrings.add(leaveMsg);
 				db.insertIntoTextHistory(leaveMsg);
 					
 			}else {
-				Message<String, Integer> msg = new Message<String, Integer>("In order to " + inputs[0] + " you must leave the conversation first.", 0);
-				outputStrings.add(msg);
+				Message<String, Integer> msg = new Message<String, Integer>("In order to " + inputVal + " you must leave the conversation first.", 0);
 				db.insertIntoTextHistory(msg);
 			}
 			
@@ -415,9 +367,10 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		db.updatePlayer(dbPlayer);
 		db.updateEnemies(enemyList);
 		db.updateNPCs(npcList);
+		db.updateTextHistory();
 
 		//sets our outputstrings value, which is used to persist our past decisions
-		req.setAttribute("outputstrings", outputStrings);
+		req.setAttribute("outputstrings", (ArrayList<Message<String, Integer>>)db.findTextHistory());
 		
 		//re-post
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
@@ -443,10 +396,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		return false;
 	}
 	
-	// gets an Integer from the Posted form data, for the given attribute name
-	private int getInteger(HttpServletRequest req, String name) {
-		return Integer.parseInt(req.getParameter(name));
-	}
 	
 	private String getString(HttpServletRequest req, String name) {
 		return String.valueOf(req.getParameter(name));

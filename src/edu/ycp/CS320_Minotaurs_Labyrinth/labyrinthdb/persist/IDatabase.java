@@ -30,6 +30,8 @@ public interface IDatabase {
 	
 	public List<Message<String, Integer>> insertIntoTextHistory(Message<String, Integer> newMessage);
 	
+	public List<Message<String, Integer>> updateTextHistory();
+	
 	public List<Enemy> updateEnemies(List<Enemy> enemyList);
 
 	public List<NPC> updateNPCs(List<NPC> npcList);

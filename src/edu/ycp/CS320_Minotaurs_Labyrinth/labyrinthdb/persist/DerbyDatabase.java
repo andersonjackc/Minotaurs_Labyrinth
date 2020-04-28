@@ -2104,7 +2104,7 @@ public class DerbyDatabase implements IDatabase {
 			@Override
 			public List<Message<String, Integer>> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
+				
 				
 				
 				try {
@@ -2118,8 +2118,74 @@ public class DerbyDatabase implements IDatabase {
 					
 					return null;
 				} finally {
+					
+					DBUtil.closeQuietly(stmt);
+					
+				}
+			}
+		});
+	}
+
+	@Override
+	public List<Message<String, Integer>> updateTextHistory() {
+		return executeTransaction(new Transaction<List<Message<String,Integer>>>() {
+			@Override
+			public List<Message<String, Integer>> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet2 = null;
+				
+				PreparedStatement stmt3 = null;
+				
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"select count(*) from textHistory");
+										
+					
+					resultSet = stmt.executeQuery();
+					resultSet.next();
+					int size = resultSet.getInt(1);
+					
+					while(size>30) {
+						
+						
+						
+						stmt2 = conn.prepareStatement(
+								"select textHistory.textHistory_id from textHistory ");
+						
+						resultSet2 = stmt2.executeQuery();
+						
+						stmt3 = conn.prepareStatement(
+								"delete from textHistory where textHistory_id = ? ");
+						
+						resultSet2.next();
+						
+						stmt3.setInt(1, resultSet2.getInt(1));
+						
+						stmt3.executeUpdate();
+					
+					
+						resultSet = stmt.executeQuery();
+						resultSet.next();
+						size = resultSet.getInt(1);
+						System.out.println(size);
+						
+					}
+					
+					return null;
+				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
+					
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					
+					
+					DBUtil.closeQuietly(stmt3);
 					
 				}
 			}
