@@ -43,6 +43,40 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		IDatabase db = DatabaseProvider.getInstance();
 		ArrayList<Message<String, Integer>> outputStrings = (ArrayList<Message<String, Integer>>) db.findTextHistory();
+		Pair<Integer, Integer> arraySize = db.findMapArraySize();
+		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
+		Player dbPlayer = testPlayer.get(0);
+		ArrayList<Room> roomList = (ArrayList<Room>) db.findAllRooms();
+
+		String[][] mapArray = new String[arraySize.getRight()][arraySize.getLeft()];
+		String mapString = "";
+		for(int i = 0; i < mapArray.length; i++) {
+			for(int j = 0; j < mapArray[0].length; j++) {
+				mapArray[i][j] = "0";
+			}
+		}
+		
+		for(Room room : roomList) {
+			
+			Pair<Integer, Integer> coordPair = db.findCoordinates(room.getRoomId());
+			
+			if(room.getIsFound()) {
+				mapArray[coordPair.getRight()][coordPair.getLeft()] = "*";
+			}
+			
+			if(room.getRoomId() == dbPlayer.getCurrentRoom().getRoomId()) {
+				mapArray[coordPair.getRight()][coordPair.getLeft()] = "x";
+			}
+			
+		}
+		
+		for(int i = 0; i < mapArray.length; i++) {
+			for(int j = 0; j < mapArray[0].length; j++) {
+				mapString += mapArray[i][j];
+			}
+			mapString += ",";
+		}
+		model.setMapString(mapString);
 		//set attribute name for jsp
 		req.setAttribute("game", model);		
 		req.setAttribute("outputstrings", outputStrings);
@@ -395,16 +429,21 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			
 		}
 		
+		String mapString = "";
 		for(int i = 0; i < mapArray.length; i++) {
 			for(int j = 0; j < mapArray[0].length; j++) {
-				System.out.print(mapArray[i][j]);
+				//System.out.print(mapArray[i][j]);
+				mapString+=mapArray[i][j];
 			}
-			System.out.println();
+			//System.out.println();
+			mapString+= ",";
+			
 		}
-
+		model.setMapString(mapString);
 		//sets our outputstrings value, which is used to persist our past decisions
 		req.setAttribute("outputstrings", (ArrayList<Message<String, Integer>>)db.findTextHistory());
-		req.setAttribute("map", mapArray);
+		req.setAttribute("game", model);		
+
 
 		//re-post
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);

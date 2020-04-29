@@ -63,3 +63,11 @@
 		word-break: break-word; 
 	}
 	
+	div.map{
+	
+		top: 30%;
+		right: 18%;
+		position: absolute;
+	
+	}
+	

@@ -3,8 +3,3 @@ function scrollBarFunction() {
 	objDiv.scrollTop = objDiv.scrollHeight;
 }
 
-function printMap(){
-	
-	document.getElementById("map").innerHTML = "this is working";
-
-}

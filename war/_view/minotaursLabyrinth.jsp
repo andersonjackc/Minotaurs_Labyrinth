@@ -51,8 +51,6 @@
 						</tr>
 					</c:if>
 
-					<input name="test" type="hidden" value="${strings.message}" />
-					<input name="playerAction" type="hidden" value="${strings.playerAction}" />
 
 				</c:forEach>
 				<script>
@@ -70,14 +68,12 @@
 				</tr>
 			</table>
 		</div>
-		
-		<div id = "map">
-		
+		<div class="map">
+		<c:forTokens items = "${game.mapString}" delims = "," var = "row">
+			<c:out value = "${row}"/><br>
+		</c:forTokens>
+			
 		</div>
-		<script>
-			printMap();
-		</script>
-		
 	</form>
 </body>
 
