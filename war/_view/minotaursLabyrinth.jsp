@@ -70,6 +70,14 @@
 				</tr>
 			</table>
 		</div>
+		
+		<div id = "map">
+		
+		</div>
+		<script>
+			printMap();
+		</script>
+		
 	</form>
 </body>
 
