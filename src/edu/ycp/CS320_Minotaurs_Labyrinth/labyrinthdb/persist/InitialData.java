@@ -302,6 +302,7 @@ public class InitialData {
 					tmpMap.put(i.next(), Integer.parseInt(i.next()));
 				}
 				
+				room.setRoomMap(tmpMap);
 				
 				roomList.add(room);
 			}
@@ -346,38 +347,7 @@ public class InitialData {
 		}
 	
 	}
-	
-	public static List<HashMap<String, Integer>> getMaps() throws IOException{
-		
-		List<HashMap<String, Integer>> mapList = new ArrayList<HashMap<String, Integer>>();
-		ReadCSV readMaps = new ReadCSV("RoomMap.csv");
-		try {
-			while (true) {
-				List<String> tuple = readMaps.next();
-				if (tuple == null) {
-					break;
-				}
-				
-				Iterator<String> i = tuple.iterator();
-				
-				while(i.hasNext()) {
-					if(mapList.size() == Integer.parseInt(i.next())) {
-						HashMap<String, Integer> prevMap = mapList.get(mapList.size()-1);
-						prevMap.put(i.next(), Integer.parseInt(i.next()));
-					}else {
-						HashMap<String, Integer> roomMap = new HashMap<String, Integer>();
-						roomMap.put(i.next(), Integer.parseInt(i.next()));
-						mapList.add(roomMap);
-					}
-				}
-			}
-			
-			System.out.println("roomList loaded from CSV file");			
-			return mapList;
-		} finally {
-			readMaps.close();
-		}
-	}
+
 	
 	public static List<Enemy> getEnemies() throws IOException {
 		List<Enemy> enemyList = new ArrayList<Enemy>();

@@ -24,6 +24,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.ObstacleComparator;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Pair;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DBUtil;
@@ -589,7 +590,9 @@ public class DerbyDatabase implements IDatabase {
 							"create table roomMap (" +
 							"	roomId integer," +
 							"	direction varchar(40)," +
-							"	mappedRoomId integer" +
+							"	mappedRoomId integer," +
+							"   xCoord integer," +
+							"   yCoord integer" +
 							")"
 					);
 					stmt13.executeUpdate();
@@ -670,7 +673,6 @@ public class DerbyDatabase implements IDatabase {
 				List<ArrayList<Item>> ItemList;
 				List<Room> Rooms;
 				List<Obstacle> Obstacles;
-				List<HashMap<String, Integer>> Maps;
 				List<Enemy> Enemies;
 				List<Player> Players;
 				List<NPC> NPCs;
@@ -686,7 +688,6 @@ public class DerbyDatabase implements IDatabase {
 					Items          = InitialData.getItems();
 				    ItemList       = InitialData.getItemList();
 					Rooms          = InitialData.getRooms();
-					Maps           = InitialData.getMaps();
 					Obstacles      = InitialData.getObstacles();
 					Enemies        = InitialData.getEnemies();
 					Players        = InitialData.getPlayers();
@@ -931,12 +932,15 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Obstacles table populated");
 					
-					insertMaps = conn.prepareStatement("insert into roomMap (roomId, direction, mappedRoomId) values (?, ?, ?)");
-					int counter=0;
-					for (HashMap<String, Integer> map : Maps) {
+					insertMaps = conn.prepareStatement("insert into roomMap (roomId, direction, mappedRoomId, xCoord, yCoord) values (?, ?, ?, ?, ?)");
+					int counter = 0, xCoord = 0, yCoord = 0;
+					HashMap<Integer, Pair<Integer, Integer>> coordMap = new HashMap<Integer, Pair<Integer, Integer>>();
+					coordMap.put(1, new Pair<Integer, Integer>(xCoord, yCoord));
+					for(Room room : Rooms) {
 						counter++;
-						Set<String> keys = map.keySet();
+						Set<String> keys = room.getRoomMap().keySet();
 						ArrayList<String> strings = new ArrayList<String>();
+						
 						for(String s : keys) {
 							strings.add(s);
 						}
@@ -944,9 +948,29 @@ public class DerbyDatabase implements IDatabase {
 						for(int i=0; i<=strings.size()-1; i++) {
 							insertMaps.setInt(1, counter);
 							insertMaps.setString(2, strings.get(i));
-							insertMaps.setInt(3, map.get(strings.get(i)));
+							insertMaps.setInt(3, room.getRoomMap().get(strings.get(i)));
+							
+							xCoord = coordMap.get(room.getRoomId()).getLeft();
+							yCoord = coordMap.get(room.getRoomId()).getRight();
+							
+							if(strings.get(i).equals("north")) {
+								yCoord++;
+							}else if(strings.get(i).equals("south")) {
+								yCoord--;
+							}else if(strings.get(i).equals("east")) {
+								xCoord++;
+							}else if(strings.get(i).equals("west")) {
+								xCoord--;
+							}
+							
+							coordMap.put(room.getRoomMap().get(strings.get(i)), new Pair<Integer, Integer>(xCoord, yCoord));
+							
+							insertMaps.setInt(4, xCoord);
+							insertMaps.setInt(5, yCoord);
+							
 							insertMaps.addBatch();
 						}
+					
 					}
 					insertMaps.executeBatch();
 
@@ -2172,7 +2196,7 @@ public class DerbyDatabase implements IDatabase {
 						resultSet = stmt.executeQuery();
 						resultSet.next();
 						size = resultSet.getInt(1);
-						System.out.println(size);
+						
 						
 					}
 					
