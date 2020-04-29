@@ -15,6 +15,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Pair;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.IDatabase;
@@ -69,6 +70,17 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		//model, controller and attribute for jsp setup
 		Minotaur model = new Minotaur();
 		MinotaursLabyrinthController controller = new MinotaursLabyrinthController();
+		
+		Pair<Integer, Integer> arraySize = db.findMapArraySize();
+		
+		String[][] mapArray = new String[arraySize.getRight()][arraySize.getLeft()];
+		
+		for(int i = 0; i < mapArray.length; i++) {
+			for(int j = 0; j < mapArray[0].length; j++) {
+				mapArray[i][j] = "0";
+			}
+		}
+		
 		
 		
 		//initializing the map/player in the model, eventually will be removed
@@ -368,10 +380,32 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		db.updateEnemies(enemyList);
 		db.updateNPCs(npcList);
 		db.updateTextHistory();
+		
+		for(Room room : roomList) {
+			
+			Pair<Integer, Integer> coordPair = db.findCoordinates(room.getRoomId());
+			
+			if(room.getIsFound()) {
+				mapArray[coordPair.getRight()][coordPair.getLeft()] = "*";
+			}
+			
+			if(room.getRoomId() == dbPlayer.getCurrentRoom().getRoomId()) {
+				mapArray[coordPair.getRight()][coordPair.getLeft()] = "x";
+			}
+			
+		}
+		
+		for(int i = 0; i < mapArray.length; i++) {
+			for(int j = 0; j < mapArray[0].length; j++) {
+				System.out.print(mapArray[i][j]);
+			}
+			System.out.println();
+		}
 
 		//sets our outputstrings value, which is used to persist our past decisions
 		req.setAttribute("outputstrings", (ArrayList<Message<String, Integer>>)db.findTextHistory());
-		
+		req.setAttribute("map", mapArray);
+
 		//re-post
 		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
 		

@@ -1,6 +1,7 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
@@ -9,6 +10,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Pair;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
 
@@ -32,6 +34,14 @@ public interface IDatabase {
 	public Inventory findInventory(int InventoryId);
 	
 	public List<Item> findItemList(int itemListId);
+	
+	public HashMap<String, Integer> findMap(int roomId);
+	
+	public Room findRoom(int roomId);
+	
+	public Pair<Integer, Integer> findMapArraySize();
+	
+	public Pair<Integer, Integer> findCoordinates(int roomId);
 	
 	//updates
 	public Player updatePlayer(Player newPlayer);

@@ -954,9 +954,9 @@ public class DerbyDatabase implements IDatabase {
 							yCoord = coordMap.get(room.getRoomId()).getRight();
 							
 							if(strings.get(i).equals("north")) {
-								yCoord++;
-							}else if(strings.get(i).equals("south")) {
 								yCoord--;
+							}else if(strings.get(i).equals("south")) {
+								yCoord++;
 							}else if(strings.get(i).equals("east")) {
 								xCoord++;
 							}else if(strings.get(i).equals("west")) {
@@ -2209,6 +2209,204 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(stmt2);
 					
 					
+					DBUtil.closeQuietly(stmt3);
+					
+				}
+			}
+		});
+	}
+
+	@Override
+	public Room findRoom(int roomId) {
+		return executeTransaction(new Transaction<Room>() {
+			@Override
+			public Room execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"select room.* " +
+							"  from  room " +
+							"  where room.room_id = ?"
+					);
+					
+					stmt.setInt(1, roomId);
+					
+					resultSet = stmt.executeQuery();
+					
+					resultSet.next();
+					
+					Room newRoom = new Room(null, null, null, null, false, 0);
+					
+					HashMap<String, Integer> newMap = new HashMap<String, Integer>();
+					
+					newMap = findMap(roomId);
+					
+					Obstacle obs = new Obstacle(null, null, null);
+					obs = findObstacle(resultSet.getInt(4));
+					
+					Inventory inv = new Inventory(0, 0, null);
+					inv = findInventory(resultSet.getInt(3));
+					
+					loadRoom(newRoom, resultSet, 2, newMap, obs, inv);
+					
+					
+					
+					return newRoom;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					
+					
+					
+				}
+			}
+		});
+	}
+
+	@Override
+	public Pair<Integer, Integer> findCoordinates(int roomId) {
+		return executeTransaction(new Transaction<Pair<Integer, Integer>>() {
+			@Override
+			public Pair<Integer, Integer> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet2 = null;
+				
+				PreparedStatement stmt3 = null;
+				ResultSet resultSet3 = null;
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"select min(xCoord) from roomMap");
+										
+					resultSet = stmt.executeQuery();
+					resultSet.next();
+					
+					stmt2 = conn.prepareStatement(
+							"select min(yCoord) from roomMap");
+					resultSet2 = stmt2.executeQuery();
+					resultSet2.next();
+					
+					stmt3 = conn.prepareStatement(
+							"select xCoord, yCoord from roomMap where mappedRoomid = ?");
+						
+					stmt3.setInt(1,  roomId);
+					
+					resultSet3 = stmt3.executeQuery();
+					resultSet3.next();
+					
+					Pair<Integer, Integer> coordPair = new Pair<Integer, Integer>(resultSet3.getInt(1) + Math.abs(resultSet.getInt(1)), resultSet3.getInt(2) + Math.abs(resultSet2.getInt(1)));
+					
+					
+					return coordPair;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					
+					DBUtil.closeQuietly(resultSet3);
+					DBUtil.closeQuietly(stmt3);
+					
+				}
+			}
+		});
+	}
+
+	@Override
+	public HashMap<String, Integer> findMap(int roomId) {
+		
+		return executeTransaction(new Transaction<HashMap<String, Integer>>() {
+			@Override
+			public HashMap<String, Integer> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"select roomMap.* " +
+							"  from  roomMap " +
+							"  where roomMap.roomId = ?"
+					);
+					
+					
+					stmt.setInt(1, roomId);
+					
+					resultSet = stmt.executeQuery();
+					
+					HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
+					while(resultSet.next()) {
+						tmpMap.put(resultSet.getString(2), resultSet.getInt(3));
+					}
+					
+					return tmpMap;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					
+			
+				}
+			}
+		});
+		
+		
+	}
+	
+	@Override
+	public Pair<Integer, Integer> findMapArraySize() {
+		return executeTransaction(new Transaction<Pair<Integer, Integer>>() {
+			@Override
+			public Pair<Integer, Integer> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet2 = null;
+				
+				PreparedStatement stmt3 = null;
+				ResultSet resultSet3 = null;
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"select min(xCoord) from roomMap");
+										
+					resultSet = stmt.executeQuery();
+					resultSet.next();
+					
+					stmt2 = conn.prepareStatement(
+							"select min(yCoord) from roomMap");
+					resultSet2 = stmt2.executeQuery();
+					resultSet2.next();
+					
+					stmt3 = conn.prepareStatement(
+							"select max(xCoord), max(yCoord) from roomMap");
+						
+					resultSet3 = stmt3.executeQuery();
+					resultSet3.next();
+					
+					Pair<Integer, Integer> coordPair = new Pair<Integer, Integer>(resultSet3.getInt(1) + Math.abs(resultSet.getInt(1))+1, resultSet3.getInt(2) + Math.abs(resultSet2.getInt(1))+1);
+					
+					
+					return coordPair;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					
+					DBUtil.closeQuietly(resultSet3);
 					DBUtil.closeQuietly(stmt3);
 					
 				}
