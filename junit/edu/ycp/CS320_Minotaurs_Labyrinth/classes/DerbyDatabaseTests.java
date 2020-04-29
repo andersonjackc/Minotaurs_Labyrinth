@@ -26,6 +26,8 @@ public class DerbyDatabaseTests {
 	ArrayList<Message<String, Integer>>   TextHistory   = null;
 	ArrayList<Item> Item = null, ItemList = null;
 	ArrayList<Room> Rooms = null;
+	ArrayList<Obstacle> Obstacles = new ArrayList<Obstacle>();
+	ArrayList<Inventory> Inventorys = new ArrayList<Inventory>();
 	
 	
 	@BeforeClass
@@ -176,5 +178,39 @@ public class DerbyDatabaseTests {
 			}			
 		}
 	}
+	
+	@Test
+	public void testFindInventory() {
+		System.out.println("\n*** Testing FindInventory ***");
+		Inventorys.add(db.findInventory(1));
+		if (Inventorys.isEmpty()) {
+			System.out.println("No Inventorys found in Labyrinth Database");
+			fail("No Inventorys returned from Library DB");
+		}
+		
+		else {		
+			for (Inventory inv : Inventorys) {
+				System.out.println(inv.getMaxQuant() + ", " + inv.getMaxStorage() + ", " + inv.getInventory());
+			}
+		}
+	}
+	
+	@Test
+	public void testFindObstacle() {
+		System.out.println("\n*** Testing FindObstacle ***");
+		Obstacles.add(db.findObstacle(1));
+		if (Obstacles.isEmpty()) {
+			System.out.println("No Obstacles found in Labyrinth Database");
+			fail("No Obstacles returned from Library DB");
+		}
+		
+		else {		
+			for (Obstacle obs : Obstacles) {
+				System.out.println(obs.getDescription() + ", " + obs.getStatus() + ", " + obs.getRequirement().getName());
+			}
+		}
+	}
+	
+	
 	
 }
