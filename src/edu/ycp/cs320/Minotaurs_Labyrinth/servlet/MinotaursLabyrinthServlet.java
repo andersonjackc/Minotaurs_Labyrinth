@@ -39,7 +39,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		controller.setModel(model);
 		
 		//fills map 
-		controller.initModel();
+		//controller.initModel();
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		IDatabase db = DatabaseProvider.getInstance();
 		ArrayList<Message<String, Integer>> outputStrings = (ArrayList<Message<String, Integer>>) db.findTextHistory();
