@@ -264,7 +264,9 @@ public class Player extends Actor {
 	public String cast(Actor target, Ability spell) {
 		
 		if(!this.isDead || spell.getName().equals("godmode")) {
-			this.status = "combat";
+			if(!target.getName().equals("player")) {
+				this.status = "combat";
+			}
 			if(abilities.contains(spell) && spell.getCost() <= this.resource) {
 				spell.addEffect(target);
 				setResource(getResource()-spell.getCost());
