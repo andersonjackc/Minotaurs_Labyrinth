@@ -65,10 +65,11 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			}
 			
 			if(room.getRoomId() == dbPlayer.getCurrentRoom().getRoomId()) {
-				mapArray[coordPair.getRight()][coordPair.getLeft()] = "●";
+				mapArray[coordPair.getRight()][coordPair.getLeft()] = "<span class=highlight>●</span>";
 			}
 			
 		}
+	
 		
 		for(int i = 0; i < mapArray.length; i++) {
 			for(int j = 0; j < mapArray[0].length; j++) {
@@ -424,7 +425,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			}
 			
 			if(room.getRoomId() == dbPlayer.getCurrentRoom().getRoomId()) {
-				mapArray[coordPair.getRight()][coordPair.getLeft()] = "●";
+				mapArray[coordPair.getRight()][coordPair.getLeft()] = "<span class=highlight>●</span>";
 			}
 			
 		}

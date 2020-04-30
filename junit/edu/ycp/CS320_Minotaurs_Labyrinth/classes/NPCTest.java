@@ -12,6 +12,12 @@ import org.junit.Test;
 
 public class NPCTest {
 private NPC testNPC;
+Ability testHPSpell = new Ability("test", "test ability", "test", "HP", 5, 5);
+Ability testMaxResourceSpell = new Ability("test", "test ability", "test", "maxResource", 5, 5);
+Ability testResourceSpell = new Ability("test", "test ability", "test", "resource", 5, 5);
+Ability testAtkSpell = new Ability("test", "test ability", "test", "atk", 5, 5);
+Ability testDefSpell = new Ability("test", "test ability", "test", "def", 5, 5);
+Ability testGodmodeSpell = new Ability("godmode", "test ability", "godmode", "godmode", 5, 5);
 Ability testMaxHPSpell = new Ability("testMaxHPSpell", "test ability", "test", "maxHP", 5, 5);
 ArrayList<Ability> abilities = new ArrayList<Ability>();
 ArrayList<Ability> abilities2 = new ArrayList<Ability>();
@@ -24,11 +30,19 @@ Item key = new Item("test", 1, true, false, false, 10, null, null, null);
 Obstacle obs = new Obstacle("test", "jumping", key);
 HashMap<String, Integer> testMap;
 Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
+Enemy testEnemy = new Enemy(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "test", "test", 1, "test", "Enemy", i, room, false);
 
 	@Before
 	public void setUp() {
 		abilities.add(testMaxHPSpell);
-		testNPC = new NPC(5, 5, 5, 5, 1, 5, 5, 5, abilities, "test", "test", 1, "test", "NPC", i, room, false);
+		abilities.add(testHPSpell);
+		abilities.add(testMaxResourceSpell);
+		abilities.add(testResourceSpell);
+		abilities.add(testAtkSpell);
+		abilities.add(testDefSpell);
+		abilities.add(testGodmodeSpell);
+		abilities2.add(testMaxHPSpell);
+		testNPC = new NPC(100, 50, 100, 50, 1, 5, 5, 5, abilities, "test", "test", 1, "test", "NPC", i, room, false);
 		
 	}
 	@Test
@@ -112,11 +126,38 @@ Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 	}
 	@Test
 	public void testCast() {
-		testNPC.cast(testNPC, testMaxHPSpell);
-		assertEquals(10, testNPC.getMaxHP());
-		assertEquals(0, testNPC.getResource());
-
-	}
+		String tmp = testNPC.cast(testNPC, testMaxHPSpell);
+		assertEquals(105, testNPC.getMaxHP());
+		assertEquals(45, testNPC.getResource());
+		assertEquals(testNPC.getName() + " cast " + testMaxHPSpell.getName() + " it did " + testMaxHPSpell.getEffect() + " to " + testNPC.getName() + "'s " + testMaxHPSpell.getAffectedStat() + ", you now have " + testNPC.getMaxHP() + " " + testMaxHPSpell.getAffectedStat(), tmp);
+		testNPC.cast(testNPC, testHPSpell);
+		assertEquals(55, testNPC.getHP());
+		testNPC.cast(testNPC, testMaxResourceSpell);
+		assertEquals(105, testNPC.getMaxResource());
+		testNPC.cast(testNPC, testResourceSpell);
+		assertEquals(35, testNPC.getResource());
+		testNPC.cast(testNPC, testAtkSpell);
+		assertEquals(6, testNPC.getAtk());
+		testNPC.cast(testNPC, testDefSpell);
+		assertEquals(10, testNPC.getDef());
+		testNPC.setIsDead(true);
+		tmp = testNPC.cast(testNPC, testGodmodeSpell);
+		assertEquals(60, testNPC.getHP());
+		assertEquals(25, testNPC.getResource());
+		assertEquals(11, testNPC.getAtk());
+		assertFalse(testNPC.getIsDead());
+		assertEquals("Godmode activated.", tmp);
+		testEnemy.setIsDead(true);
+		tmp = testNPC.cast(testEnemy, testAtkSpell);
+		assertEquals("You are dead.", tmp);
+		testNPC.setResource(0);
+		tmp = testNPC.cast(testNPC, testAtkSpell);
+		assertEquals(testNPC.getName() + " doesn't have enough resource to cast " + testAtkSpell.getName(), tmp);
+		testNPC.setResource(10);
+		testNPC.setIsDead(true);
+		tmp = testNPC.cast(testNPC, testHPSpell);
+		assertEquals("", tmp);
+		}
 	
 	@Test
 	public void testIsDeadMethods() {
@@ -126,6 +167,7 @@ Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 	
 	@Test
 	public void testRollForAction() {
-		assertThat(testNPC.rollForAction(testNPC), anyOf(containsString("NPC did 1 to NPC, you now have 4 HP."), containsString("NPC cast testMaxHPSpell it did 5 to NPC's maxHP, you now have 10 maxHP")));
+		testNPC.setAbilities(abilities2);
+		assertThat(testNPC.rollForAction(testNPC), anyOf(containsString("NPC did 1 to NPC, you now have 49 HP."), containsString("NPC cast testMaxHPSpell it did 5 to NPC's maxHP, you now have 105 maxHP")));
 	}
 }

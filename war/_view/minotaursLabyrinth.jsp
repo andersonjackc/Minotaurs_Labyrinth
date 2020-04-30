@@ -8,15 +8,18 @@
 
 <head>
 	<title>Minotaur's Labyrinth</title>
+	
 	<style>
 		<%@include file="minotaursStyles.css"%>
 	</style>
 	<script>
 		<%@include file = "minotaursFunctions.js" %>
 	</script>
+	
 </head>
 
 <body>
+
 	<form action="${pageContext.servletContext.contextPath}/minotaursLabyrinth" method="post">
 		<div class="zeus">
 			<img class="zeus" src="https://cdn.pixabay.com/photo/2013/07/12/13/24/mythology-146988_960_720.png">
@@ -68,12 +71,18 @@
 				</tr>
 			</table>
 		</div>
+		
 		<div class="map">
 		<c:forTokens items = "${game.mapString}" delims = "," var = "row">
-			<c:out value = "${row}"/><br>
-		</c:forTokens>
 			
+					${row}
+				
+		<br>
+		</c:forTokens>
+		
 		</div>
+		
+		
 	</form>
 </body>
 
