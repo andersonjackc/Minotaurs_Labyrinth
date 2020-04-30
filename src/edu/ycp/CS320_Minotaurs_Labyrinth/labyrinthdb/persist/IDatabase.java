@@ -61,5 +61,7 @@ public interface IDatabase {
 	//inserts
 	public List<Message<String, Integer>> insertIntoTextHistory(Message<String, Integer> newMessage);
 
+	//removes
+	public String removeTextHistoryByMessage(String message);
 
 }

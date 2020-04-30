@@ -3,6 +3,7 @@ package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.After;
@@ -28,6 +29,8 @@ public class DerbyDatabaseTests {
 	ArrayList<Room> Rooms = null;
 	ArrayList<Obstacle> Obstacles = new ArrayList<Obstacle>();
 	ArrayList<Inventory> Inventorys = new ArrayList<Inventory>();
+	ArrayList<HashMap> Maps = new ArrayList<HashMap>();
+	ArrayList<Pair<Integer, Integer>> Coords = new ArrayList<Pair<Integer, Integer>>();
 	
 	
 	@BeforeClass
@@ -139,6 +142,7 @@ public class DerbyDatabaseTests {
 				System.out.print(m.getMessage() + ", ");
 			}			
 		}
+		System.out.println();
 	}
 	
 	@Test
@@ -211,6 +215,116 @@ public class DerbyDatabaseTests {
 		}
 	}
 	
+	@Test
+	public void testFindCoordinates() {
+		System.out.println("\n*** Testing FindCoordinates ***");
+		Coords.add(db.findCoordinates(1));
+		if (Coords.isEmpty()) {
+			System.out.println("No Coordinates found in Labyrinth Database");
+			fail("No Coordinates returned from Library DB");
+		}
+		
+		else {		
+			for (Pair<Integer, Integer> coord : Coords) {
+				System.out.println(coord.getLeft() + ", " + coord.getRight());
+			}
+		}
+	}
+	
+	@Test
+	public void testFindMap() {
+		System.out.println("\n*** Testing FindMap ***");
+		Maps.add(db.findMap(1));
+		if (Maps.isEmpty()) {
+			System.out.println("No Maps found in Labyrinth Database");
+			fail("No Maps returned from Library DB");
+		}
+		
+		else {		
+			for (HashMap map : Maps) {
+				System.out.println();
+				for(Object key : map.keySet()) {
+					System.out.print(map.get(key) + ", ");
+				}
+				System.out.println(map.keySet());
+			}
+		}
+	}
+	
+	@Test
+	public void testFindRoom() {
+		System.out.println("\n*** Testing FindRoom ***");
+		Rooms = new ArrayList<Room>();
+		Rooms.add(db.findRoom(1));
+		if (Rooms.isEmpty()) {
+			System.out.println("No Rooms found in Labyrinth Database");
+			fail("No Rooms returned from Library DB");
+		}
+		
+		else {		
+			for (Room room : Rooms) {
+				System.out.println(room.getDescription() + ", " + room.getRoomId() + ", " + room.getInventory() + ", " + room.getIsFound() + ", " + room.getObstacle() + ", " + room.getRoomMap());
+			}
+		}
+	}
+	
+	@Test
+	public void testFindMapArraySize() {
+		System.out.println("\n*** Testing FindMapArraySize ***");
+		Rooms = new ArrayList<Room>();
+		Rooms.add(db.findRoom(1));
+		if (Rooms.isEmpty()) {
+			System.out.println("MapArraysize not found in Labyrinth Database");
+			fail("No MapArraySize returned from Library DB");
+		}
+		
+		else {		
+			for (Room room : Rooms) {
+				System.out.println(room.getDescription() + ", " + room.getRoomId() + ", " + room.getInventory() + ", " + room.getIsFound() + ", " + room.getObstacle() + ", " + room.getRoomMap());
+			}
+		}
+	}
+	
+	@Test
+	public void testInsertTestHistory() {
+		System.out.println("\n*** Testing insertTextHistory ***");
+
+		Message<String, Integer> text     = new Message<String, Integer>("Hello there.", 0);
+		ArrayList<Message<String, Integer>> textHist = new ArrayList<Message<String, Integer>>();
+		textHist = (ArrayList<Message<String, Integer>>) db.findTextHistory();
+		
+				
+		// insert new text into DB
+		ArrayList<Message<String, Integer>> textHistory = new ArrayList<Message<String, Integer>>();
+		db.insertIntoTextHistory(text);
+		textHistory = (ArrayList<Message<String, Integer>>) db.findTextHistory();
+		
+		// check the return value - should be a textHistory size > 0
+		if (textHistory.size() == textHist.size()){
+				fail("Failed to insert new message <" + text + "> into textHistory table");
+		}
+			// otherwise, the test was successful.  Now remove the book just inserted to return the DB
+			// to it's original state, except for using an author_id and a book_id
+		else {
+				System.out.println("New message (Text: " + textHistory.get(textHistory.size()-1).getMessage() + ") successfully added to textHistory table");
+				
+				// now delete Book (and its Author) from DB
+				// leaving the DB in its previous state - except that an author_id, and a book_id have been used
+				String removeText = db.removeTextHistoryByMessage(textHistory.get(textHistory.size()-1).getMessage());
+				textHistory = (ArrayList<Message<String, Integer>>) db.findTextHistory();
+				
+
+				if(textHistory.size() == textHist.size()) {
+					System.out.println("New message " + removeText);
+				}
+				else {
+					System.out.println("Failed to remove message <" + text + "> from textHistory table");
+					fail("Failed to remove message <" + text + "> from textHistory table");
+				}
+			}
+		
+		
+	}
 	
 	
 }
