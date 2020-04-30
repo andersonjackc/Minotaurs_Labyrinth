@@ -31,7 +31,8 @@ public class DerbyDatabaseTests {
 	ArrayList<Inventory> Inventorys = new ArrayList<Inventory>();
 	ArrayList<HashMap> Maps = new ArrayList<HashMap>();
 	ArrayList<Pair<Integer, Integer>> Coords = new ArrayList<Pair<Integer, Integer>>();
-	
+	ArrayList<Pair<Integer, Integer>> Sizes = new ArrayList<Pair<Integer, Integer>>();
+
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -271,16 +272,15 @@ public class DerbyDatabaseTests {
 	@Test
 	public void testFindMapArraySize() {
 		System.out.println("\n*** Testing FindMapArraySize ***");
-		Rooms = new ArrayList<Room>();
-		Rooms.add(db.findRoom(1));
-		if (Rooms.isEmpty()) {
-			System.out.println("MapArraysize not found in Labyrinth Database");
+		Sizes.add(db.findMapArraySize());
+		if (Sizes.isEmpty()) {
+			System.out.println("MapArraySize not found in Labyrinth Database");
 			fail("No MapArraySize returned from Library DB");
 		}
 		
 		else {		
-			for (Room room : Rooms) {
-				System.out.println(room.getDescription() + ", " + room.getRoomId() + ", " + room.getInventory() + ", " + room.getIsFound() + ", " + room.getObstacle() + ", " + room.getRoomMap());
+			for (Pair<Integer, Integer> size : Sizes) {
+				System.out.println(size.getLeft() + ", " + size.getRight());
 			}
 		}
 	}
