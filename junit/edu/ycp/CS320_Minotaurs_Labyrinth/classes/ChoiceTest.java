@@ -34,6 +34,6 @@ public class ChoiceTest {
 	@Test
 	public void testStatusMethods() {
 		testChoice.setStatus("test status");
-		assertEquals("test status", testChoice.getResponse());
+		assertEquals("test status", testChoice.getStatus());
 	}
 }
