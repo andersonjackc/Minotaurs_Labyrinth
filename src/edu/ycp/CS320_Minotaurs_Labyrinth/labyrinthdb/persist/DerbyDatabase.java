@@ -304,7 +304,6 @@ public class DerbyDatabase implements IDatabase {
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt1 = null;
 				PreparedStatement stmt2 = null;
-				PreparedStatement stmt3 = null;
 				PreparedStatement stmt4 = null;	
 				PreparedStatement stmt5 = null;	
 				PreparedStatement stmt6 = null;	
@@ -352,17 +351,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("abilityList table created");					
 					
-					stmt3 = conn.prepareStatement(
-							"create table account (" +
-							"	account_id integer primary key " +
-							"		generated always as identity (start with 1, increment by 1), " +
-							"	username varchar(40)," +
-							"	password varchar(40)" +
-							")"
-					);
-					stmt3.executeUpdate();
 					
-					System.out.println("account table created");
 					
 					stmt4 = conn.prepareStatement(
 							"create table enemy (" +
@@ -643,7 +632,6 @@ public class DerbyDatabase implements IDatabase {
 				} finally {
 					DBUtil.closeQuietly(stmt1);
 					DBUtil.closeQuietly(stmt2);
-					DBUtil.closeQuietly(stmt3);
 					DBUtil.closeQuietly(stmt4);
 					DBUtil.closeQuietly(stmt5);
 					DBUtil.closeQuietly(stmt6);
