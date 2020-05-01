@@ -582,7 +582,7 @@ public class InitialData {
 			
 				Iterator<String> i = tuple.iterator();
 			
-				Choice choice = new Choice(0, 0, null);
+				Choice choice = new Choice(0, 0, null, null);
 			
 				choice.setNPC_ID(Integer.parseInt(i.next()));
 			
