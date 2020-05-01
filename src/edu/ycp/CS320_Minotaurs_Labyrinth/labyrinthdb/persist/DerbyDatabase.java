@@ -2447,4 +2447,72 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+
+	@Override
+	public List<Message<String, Integer>> findChoicesForNPC(String npcName) {
+		return executeTransaction(new Transaction<List<Message<String, Integer>>>() {
+			@Override
+			public List<Message<String, Integer>> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet2 = null;
+				
+				PreparedStatement stmt3 = null;
+				ResultSet resultSet3 = null;
+				
+				
+				try {
+					ArrayList<Message<String, Integer>> dialogueList = new ArrayList<Message<String, Integer>>();
+					
+					stmt = conn.prepareStatement(
+							"select npc_id from npc where npc.name = ?");
+								
+					stmt.setString(1, npcName);
+					
+					resultSet = stmt.executeQuery();
+					resultSet.next();
+					
+					
+					stmt2 = conn.prepareStatement(
+							"select question from dialogue where npc_id = ?");
+					
+					stmt2.setInt(1,  resultSet.getInt(1));
+					
+					resultSet2 = stmt2.executeQuery();
+					resultSet2.next();
+					
+					dialogueList.add(new Message<String, Integer>(resultSet2.getString(1), 0));
+					
+					stmt3 = conn.prepareStatement(
+							"select response from choices where npc_id = ?");
+					stmt3.setInt(1,  resultSet.getInt(1));
+					
+					resultSet3 = stmt3.executeQuery();
+					
+					int count = 1;
+					while(resultSet3.next()) {
+						
+						dialogueList.add(new Message<String, Integer>("Option " + count + ". " + resultSet3.getString(1), 1));
+						count++;
+					}
+					
+					return dialogueList;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					
+					
+					
+				}
+			}
+		});
+	}
+
+	@Override
+	public List<Message<String, Integer>> findResponse(String npcName, int playerChoice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
