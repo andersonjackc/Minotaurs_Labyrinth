@@ -588,8 +588,10 @@ public class InitialData {
 			
 				choice.setChoice_ID(Integer.parseInt(i.next()));
 				
-				choice.setResponse(i.next());
+				choice.setChoice(i.next());
 			
+				choice.setResponse(i.next());
+				
 				choiceList.add(choice);
 			
 			}
