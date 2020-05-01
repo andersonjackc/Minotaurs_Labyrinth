@@ -47,6 +47,10 @@ public interface IDatabase {
 	
 	public String findResponse(String npcName, int playerChoice);
 	
+	public Integer findTextHistoryCount();
+	
+	public Integer findTextHistoryIDbyString(String message);
+	
 	//updates
 	public Player updatePlayer(Player newPlayer);
 		
@@ -67,5 +71,7 @@ public interface IDatabase {
 
 	//removes
 	public String removeTextHistoryByMessage(String message);
+	
+	public String removeTextHistoryByID(int ID);
 
 }

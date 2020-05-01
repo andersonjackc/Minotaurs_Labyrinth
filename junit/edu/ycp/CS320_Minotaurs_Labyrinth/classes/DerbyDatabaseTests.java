@@ -32,6 +32,8 @@ public class DerbyDatabaseTests {
 	ArrayList<HashMap> Maps = new ArrayList<HashMap>();
 	ArrayList<Pair<Integer, Integer>> Coords = new ArrayList<Pair<Integer, Integer>>();
 	ArrayList<Pair<Integer, Integer>> Sizes = new ArrayList<Pair<Integer, Integer>>();
+	ArrayList<Message<String, Integer>>   Choices   = null;
+	ArrayList<String>   Responses   = new ArrayList<String>();
 
 	
 	@BeforeClass
@@ -283,6 +285,62 @@ public class DerbyDatabaseTests {
 				System.out.println(size.getLeft() + ", " + size.getRight());
 			}
 		}
+	}
+	
+	@Test
+	public void testFindChoicesForNPC() {
+		System.out.println("\n*** Testing FindChoicesForNPC ***");
+		int count = db.findTextHistoryCount();
+		Choices = (ArrayList<Message<String, Integer>>) db.findChoicesForNPC("test");
+		int count2 = db.findTextHistoryCount();
+
+		if (Choices.isEmpty()) {
+			System.out.println("No Choices found for test in Labyrinth Database");
+			fail("No Choices returned from Library DB");
+		}
+		
+		else {	
+			for (Message<String, Integer> c : Choices) {
+				
+				System.out.print(c.getMessage() + ", ");
+			}			
+		}
+		System.out.println();
+		
+		int counter = db.findTextHistoryIDbyString("test");
+		int counter2 = counter + (count2 - count);
+		
+
+		for(int i = counter; i <= counter2; i++) {
+			
+			System.out.println(db.removeTextHistoryByID(i));
+		}
+		
+
+		if(count != db.findTextHistoryCount()) {
+			System.out.println("TextHistory was not reset correctly");
+			fail("TextHistory was not reset correctly");
+		}
+	}
+	
+	@Test
+	public void testFindResponse() {
+		System.out.println("\n*** Testing FindResponse ***");
+		Responses.add(db.findResponse("test", 1));
+		if (Responses.isEmpty()) {
+			System.out.println("No Response found in Labyrinth Database");
+			fail("No Responses returned from Library DB");
+		}
+		
+		else {		
+			for (String r : Responses) {
+				
+				System.out.println(r);
+			}			
+		}
+		db.removeTextHistoryByMessage("test1");
+		db.removeTextHistoryByMessage("test4");
+		
 	}
 	
 	@Test

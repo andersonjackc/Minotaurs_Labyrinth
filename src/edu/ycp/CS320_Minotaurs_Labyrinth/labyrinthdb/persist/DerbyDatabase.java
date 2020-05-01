@@ -2439,6 +2439,40 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	@Override
+	public String removeTextHistoryByID(int ID) {
+		return executeTransaction(new Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				
+				
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"delete from textHistory " +
+									"  where texthistory_id = ? "
+					);
+					
+					
+					stmt.setInt(1, ID);
+					
+					stmt.executeUpdate();
+					
+					String removed = "removed";
+					
+					return removed;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+					
+			
+				}
+			}
+		});
+	}
 
 	@Override
 	public List<Message<String, Integer>> findChoicesForNPC(String npcName) {
@@ -2453,7 +2487,7 @@ public class DerbyDatabase implements IDatabase {
 				
 				PreparedStatement stmt3 = null;
 				ResultSet resultSet3 = null;
-				
+				List<Message<String, Integer>> list = new ArrayList<Message<String, Integer>>();
 				
 				try {
 					
@@ -2474,7 +2508,10 @@ public class DerbyDatabase implements IDatabase {
 					resultSet2 = stmt2.executeQuery();
 					resultSet2.next();
 					
-					insertIntoTextHistory(new Message<String, Integer>(resultSet2.getString(1), 0));
+					Message<String, Integer> msg = new Message<String, Integer>(resultSet2.getString(1), 0);
+					
+					insertIntoTextHistory(msg);
+					list.add(msg);
 					
 					stmt3 = conn.prepareStatement(
 							"select choice from choices where npc_id = ?");
@@ -2484,12 +2521,13 @@ public class DerbyDatabase implements IDatabase {
 					
 					int count = 1;
 					while(resultSet3.next()) {
-						
-						insertIntoTextHistory(new Message<String, Integer>("Option " + count + ". " + resultSet3.getString(1), 1));
+						String string = resultSet3.getString(1);
+						insertIntoTextHistory(new Message<String, Integer>("Option " + count + ". " + string, 1));
+						list.add(new Message<String, Integer>(string, 1));
 						count++;
 					}
 					
-					return null;
+					return list;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
@@ -2518,7 +2556,6 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet2 = null;
 				
 				try {
-					
 					stmt = conn.prepareStatement(
 							"select npc_id from npc where npc.name = ?");
 								
@@ -2527,7 +2564,6 @@ public class DerbyDatabase implements IDatabase {
 					resultSet = stmt.executeQuery();
 					resultSet.next();
 					
-					
 					stmt2 = conn.prepareStatement(
 							"select choice, response, status from choices where npc_id = ? and choice_id = ?");
 					
@@ -2535,7 +2571,10 @@ public class DerbyDatabase implements IDatabase {
 					stmt2.setInt(2, playerChoice);
 					
 					resultSet2 = stmt2.executeQuery();
+					resultSet2.next();
 					
+					
+
 					insertIntoTextHistory(new Message<String, Integer>(resultSet2.getString(1), 1));
 					insertIntoTextHistory(new Message<String, Integer>(resultSet2.getString(2), 0));
 
@@ -2554,4 +2593,65 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	@Override
+	public Integer findTextHistoryCount() {
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				Integer count;
+				
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"select count(*) from textHistory");
+										
+					
+					resultSet = stmt.executeQuery();
+					resultSet.next();
+					count = resultSet.getInt(1);
+					
+					return count;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					
+				}
+			}
+		});
+	}
+	
+	@Override
+	public Integer findTextHistoryIDbyString(String message) {
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				Integer ID;
+				
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"select texthistory_id from textHistory where message = ?");
+										
+					stmt.setString(1, message);
+					resultSet = stmt.executeQuery();
+					resultSet.next();
+					ID = resultSet.getInt(1);
+					
+					return ID;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					
+				}
+			}
+		});
+	}
+	
 }
