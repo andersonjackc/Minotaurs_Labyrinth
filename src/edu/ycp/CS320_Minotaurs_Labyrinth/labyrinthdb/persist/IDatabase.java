@@ -45,7 +45,7 @@ public interface IDatabase {
 	
 	public List<Message<String, Integer>> findChoicesForNPC(String npcName);
 	
-	public List<Message<String, Integer>> findResponse(String npcName, int playerChoice);
+	public String findResponse(String npcName, int playerChoice);
 	
 	//updates
 	public Player updatePlayer(Player newPlayer);

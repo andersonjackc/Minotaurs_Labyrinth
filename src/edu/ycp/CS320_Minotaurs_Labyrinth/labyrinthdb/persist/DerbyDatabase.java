@@ -2468,7 +2468,6 @@ public class DerbyDatabase implements IDatabase {
 				
 				
 				try {
-					ArrayList<Message<String, Integer>> dialogueList = new ArrayList<Message<String, Integer>>();
 					
 					stmt = conn.prepareStatement(
 							"select npc_id from npc where npc.name = ?");
@@ -2487,10 +2486,10 @@ public class DerbyDatabase implements IDatabase {
 					resultSet2 = stmt2.executeQuery();
 					resultSet2.next();
 					
-					dialogueList.add(new Message<String, Integer>(resultSet2.getString(1), 0));
+					insertIntoTextHistory(new Message<String, Integer>(resultSet2.getString(1), 0));
 					
 					stmt3 = conn.prepareStatement(
-							"select response from choices where npc_id = ?");
+							"select choice from choices where npc_id = ?");
 					stmt3.setInt(1,  resultSet.getInt(1));
 					
 					resultSet3 = stmt3.executeQuery();
@@ -2498,15 +2497,20 @@ public class DerbyDatabase implements IDatabase {
 					int count = 1;
 					while(resultSet3.next()) {
 						
-						dialogueList.add(new Message<String, Integer>("Option " + count + ". " + resultSet3.getString(1), 1));
+						insertIntoTextHistory(new Message<String, Integer>("Option " + count + ". " + resultSet3.getString(1), 1));
 						count++;
 					}
 					
-					return dialogueList;
+					return null;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
 					
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					
+					DBUtil.closeQuietly(resultSet3);
+					DBUtil.closeQuietly(stmt3);
 					
 					
 				}
@@ -2515,22 +2519,17 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
-	public List<Message<String, Integer>> findResponse(String npcName, int playerChoice) {
-		return executeTransaction(new Transaction<List<Message<String, Integer>>>() {
+	public String findResponse(String npcName, int playerChoice) {
+		return executeTransaction(new Transaction<String>() {
 			@Override
-			public List<Message<String, Integer>> execute(Connection conn) throws SQLException {
+			public String execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 				
 				PreparedStatement stmt2 = null;
 				ResultSet resultSet2 = null;
 				
-				PreparedStatement stmt3 = null;
-				ResultSet resultSet3 = null;
-				
-				
 				try {
-					ArrayList<Message<String, Integer>> dialogueList = new ArrayList<Message<String, Integer>>();
 					
 					stmt = conn.prepareStatement(
 							"select npc_id from npc where npc.name = ?");
@@ -2542,33 +2541,25 @@ public class DerbyDatabase implements IDatabase {
 					
 					
 					stmt2 = conn.prepareStatement(
-							"select question from dialogue where npc_id = ?");
+							"select choice, response, status from choices where npc_id = ? and choice_id = ?");
 					
-					stmt2.setInt(1,  resultSet.getInt(1));
+					stmt2.setInt(1, resultSet.getInt(1));
+					stmt2.setInt(2, playerChoice);
 					
 					resultSet2 = stmt2.executeQuery();
-					resultSet2.next();
 					
-					dialogueList.add(new Message<String, Integer>(resultSet2.getString(1), 0));
+					insertIntoTextHistory(new Message<String, Integer>(resultSet2.getString(1), 1));
+					insertIntoTextHistory(new Message<String, Integer>(resultSet2.getString(2), 0));
+
 					
-					stmt3 = conn.prepareStatement(
-							"select response from choices where npc_id = ?");
-					stmt3.setInt(1,  resultSet.getInt(1));
 					
-					resultSet3 = stmt3.executeQuery();
-					
-					int count = 1;
-					while(resultSet3.next()) {
-						
-						dialogueList.add(new Message<String, Integer>("Option " + count + ". " + resultSet3.getString(1), 1));
-						count++;
-					}
-					
-					return dialogueList;
+					return resultSet2.getString(3);
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
 					
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
 					
 					
 				}
