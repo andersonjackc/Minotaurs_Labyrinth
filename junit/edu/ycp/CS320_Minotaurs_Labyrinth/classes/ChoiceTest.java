@@ -9,7 +9,7 @@ public class ChoiceTest {
 	Choice testChoice;
 	@Before
 	public void setUp() {
-		testChoice = new Choice(1, 2, "testChoice", "testResponse");
+		testChoice = new Choice(1, 2, "testChoice", "testResponse", "normal");
 	}
 	@Test
 	public void testNPCIDMethods() {
@@ -23,12 +23,17 @@ public class ChoiceTest {
 	}
 	@Test
 	public void testChoiceMethods() {
-		testChoice.setChoice("test Choice");
-		assertEquals("test Choice", testChoice.getChoice());
+		testChoice.setChoice("test choice");
+		assertEquals("test choice", testChoice.getChoice());
 	}
 	@Test
 	public void testRepsonseMethods() {
 		testChoice.setResponse("test response");
 		assertEquals("test response", testChoice.getResponse());
+	}
+	@Test
+	public void testStatusMethods() {
+		testChoice.setStatus("test status");
+		assertEquals("test status", testChoice.getResponse());
 	}
 }
