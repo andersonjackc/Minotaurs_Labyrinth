@@ -384,5 +384,39 @@ public class DerbyDatabaseTests {
 		
 	}
 	
+	@Test
+	public void testTextHistoryCount() {
+		System.out.println("\n*** Testing FindTextHistoryCount ***");
+		int count;
+		count = db.findTextHistoryCount();
+		if (count == 0) {
+			System.out.println("TextHistoryCount not found in Labyrinth Database");
+			fail("No Count returned from Library DB");
+		}
+		
+		else {		
+			
+				System.out.println(count);
+			
+		}
+	}
+	
+	@Test
+	public void testFindTextHistoryIDbyString() {
+		System.out.println("\n*** Testing FindTextHistoryIDbyString ***");
+		int ID;
+		ID = db.findTextHistoryIDbyString("You enter a small stone room there are four doorways at each cardinal direction.");
+		if (ID == 0) {
+			System.out.println("ID not found in Labyrinth Database");
+			fail("No ID returned from Library DB");
+		}
+		
+		else {		
+			
+				System.out.println(ID);
+			
+		}
+	}
+	
 	
 }
