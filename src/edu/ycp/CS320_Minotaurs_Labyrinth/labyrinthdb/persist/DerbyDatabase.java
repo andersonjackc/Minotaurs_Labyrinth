@@ -2250,7 +2250,7 @@ public class DerbyDatabase implements IDatabase {
 					Inventory inv = new Inventory(0, 0, null);
 					inv = findInventory(resultSet.getInt(3));
 					
-					loadRoom(newRoom, resultSet, 2, newMap, obs, inv);
+					loadRoom(newRoom, resultSet, 1, newMap, obs, inv);
 					
 					
 					
@@ -2409,6 +2409,40 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(resultSet3);
 					DBUtil.closeQuietly(stmt3);
 					
+				}
+			}
+		});
+	}
+	
+	@Override
+	public String removeTextHistoryByMessage(String message) {
+		return executeTransaction(new Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				
+				
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"delete from textHistory " +
+									"  where message = ? "
+					);
+					
+					
+					stmt.setString(1, message);
+					
+					stmt.executeUpdate();
+					
+					String removed = message + " has been removed";
+					
+					return removed;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+					
+			
 				}
 			}
 		});

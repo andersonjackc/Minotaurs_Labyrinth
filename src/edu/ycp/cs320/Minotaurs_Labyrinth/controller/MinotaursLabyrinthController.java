@@ -10,8 +10,12 @@ public class MinotaursLabyrinthController {
 		this.model = model;
 	}
 	
-	//Calls model methods that create the map, rooms, and various game objects
-	public void initModel() {
-		//might do something later
+	public Minotaur getModel() {
+		return this.model;
 	}
+	
+	//Calls model methods that create the map, rooms, and various game objects
+	/*public void initModel() {
+		//might do something later
+	}*/
 }
