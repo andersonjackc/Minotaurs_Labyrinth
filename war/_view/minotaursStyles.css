@@ -65,13 +65,17 @@
 	
 	div.map{
 	
-		top: 5%;
-		right: 17%;
+		top: 2%;
+		right: 16%;
 		position: absolute;
-	
+		font-size: 20px;
+		line-height: 12px;	
 	}
 	
-	.highlight {
+	.circle {
       	color: blue;
     }
 	
+	.closedSquare {
+      	visibility: hidden;
+    }

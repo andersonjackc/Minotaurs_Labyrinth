@@ -43,6 +43,8 @@ public interface IDatabase {
 	
 	public Pair<Integer, Integer> findCoordinates(int roomId);
 	
+	public List<Message<String, Integer>> findChoicesForNPC(String npcName);
+	
 	//updates
 	public Player updatePlayer(Player newPlayer);
 		
