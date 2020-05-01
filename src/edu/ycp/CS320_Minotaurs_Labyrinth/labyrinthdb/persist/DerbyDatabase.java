@@ -630,6 +630,7 @@ public class DerbyDatabase implements IDatabase {
 								"create table choices (" +
 								"	npc_id integer," +									
 								"	choice_id integer," +
+								"	choice varchar(7999)," +
 								"	response varchar(7999)" +
 								")"
 							);	
@@ -1015,11 +1016,12 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Dialogue table populated");
 					
-					insertChoices = conn.prepareStatement("insert into Choices (npc_id, choice_id, response) values (?, ?, ?)");
+					insertChoices = conn.prepareStatement("insert into Choices (npc_id, choice_id, choice, response) values (?, ?, ?, ?)");
 					for (Choice choice : Choices) {
 						insertChoices.setInt(1, choice.getNPC_ID());
-						insertChoices.setInt(2, choice.getChoice_ID());						
-						insertChoices.setString(3, choice.getResponse());
+						insertChoices.setInt(2, choice.getChoice_ID());	
+						insertChoices.setString(3, choice.getChoice());
+						insertChoices.setString(4, choice.getResponse());
 						insertChoices.addBatch();
 					}
 					insertChoices.executeBatch();
