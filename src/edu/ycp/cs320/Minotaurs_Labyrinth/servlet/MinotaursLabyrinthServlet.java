@@ -39,7 +39,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		MinotaursLabyrinthController controller = new MinotaursLabyrinthController();
 		controller.setModel(model);
 		
-		//fills map 
+		//fills map
 		//controller.initModel();
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		IDatabase db = DatabaseProvider.getInstance();
@@ -126,6 +126,13 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		//model, controller and attribute for jsp setup
 		Minotaur model = new Minotaur();
 		MinotaursLabyrinthController controller = new MinotaursLabyrinthController();
+		
+		model.setAtk(dbPlayer.getAtk());
+		model.setDef(dbPlayer.getDef());
+		model.setHP(dbPlayer.getHP());
+		model.setResource(dbPlayer.getResource());
+		model.setXP(dbPlayer.getXP());
+		model.setGold(dbPlayer.getGold());
 		
 		Pair<Integer, Integer> arraySize = db.findMapArraySize();
 		
