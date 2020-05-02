@@ -291,8 +291,9 @@ public class DerbyDatabaseTests {
 	public void testFindChoicesForNPC() {
 		System.out.println("\n*** Testing FindChoicesForNPC ***");
 		int count = db.findTextHistoryCount();
-		Choices = (ArrayList<Message<String, Integer>>) db.findChoicesForNPC("test");
-		int count2 = db.findTextHistoryCount();
+		int max = db.findTextHistoryMax();
+		Choices = (ArrayList<Message<String, Integer>>) db.findChoicesForNPC("villager");
+		int max2 = db.findTextHistoryMax();
 
 		if (Choices.isEmpty()) {
 			System.out.println("No Choices found for test in Labyrinth Database");
@@ -307,11 +308,11 @@ public class DerbyDatabaseTests {
 		}
 		System.out.println();
 		
-		int counter = db.findTextHistoryIDbyString("test");
-		int counter2 = counter + (count2 - count);
+		int counter = max + 1;
+		
 		
 
-		for(int i = counter; i <= counter2; i++) {
+		for(int i = counter; i <= max2; i++) {
 			
 			System.out.println(db.removeTextHistoryByID(i));
 		}
@@ -326,7 +327,12 @@ public class DerbyDatabaseTests {
 	@Test
 	public void testFindResponse() {
 		System.out.println("\n*** Testing FindResponse ***");
-		Responses.add(db.findResponse(43, 1));
+		int count = db.findTextHistoryCount();
+		int max = db.findTextHistoryMax();
+		Responses.add(db.findResponse(3, 1));
+		int max2 = db.findTextHistoryMax();
+		
+		
 		if (Responses.isEmpty()) {
 			System.out.println("No Response found in Labyrinth Database");
 			fail("No Responses returned from Library DB");
@@ -338,8 +344,16 @@ public class DerbyDatabaseTests {
 				System.out.println(r);
 			}			
 		}
-		db.removeTextHistoryByMessage("test1");
-		db.removeTextHistoryByMessage("test4");
+		
+		int counter = max + 1;
+		for(int i = counter; i <= max2; i++) {
+			System.out.println(db.removeTextHistoryByID(i));
+		}
+		
+		if(count != db.findTextHistoryCount()) {
+			System.out.println("TextHistory was not reset correctly");
+			fail("TextHistory was not reset correctly");
+		}
 		
 	}
 	

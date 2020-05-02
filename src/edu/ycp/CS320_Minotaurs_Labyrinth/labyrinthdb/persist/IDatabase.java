@@ -49,6 +49,8 @@ public interface IDatabase {
 	
 	public Integer findTextHistoryCount();
 	
+	public Integer findTextHistoryMax();
+	
 	public Integer findTextHistoryIDbyString(String message);
 	
 	//updates

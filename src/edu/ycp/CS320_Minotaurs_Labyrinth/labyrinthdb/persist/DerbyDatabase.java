@@ -2654,4 +2654,34 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
+	@Override
+	public Integer findTextHistoryMax() {
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				Integer max;
+				
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"select max(texthistory_id) from textHistory");
+										
+					
+					resultSet = stmt.executeQuery();
+					resultSet.next();
+					max = resultSet.getInt(1);
+					
+					return max;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					
+				}
+			}
+		});
+	}
+	
 }
