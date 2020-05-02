@@ -13,27 +13,30 @@ public class Player extends Actor {
 		
 	}
 	
-	public void crawl(String direction, ArrayList<Room> allRooms) {
+	public String crawl(String direction, ArrayList<Room> allRooms) {
 		
 		String tmpStatus = getStatus();
 		
 		setStatus("crawling");
 		
-		this.move(direction, allRooms);
+		String tmp = this.move(direction, allRooms);
 		
-		setStatus(tmpStatus);		
+		setStatus(tmpStatus);
+		
+		return tmp;
 	}
 	
-	public void jump(String direction, ArrayList<Room> allRooms) {
+	public String jump(String direction, ArrayList<Room> allRooms) {
 		
 		String tmpStatus = getStatus();
 		
 		setStatus("jumping");
 		
-		this.move(direction, allRooms);
+		String tmp = this.move(direction, allRooms);
 		
 		setStatus(tmpStatus);
 		
+		return tmp;
 	}
 	
 	public void light(Item item) {
@@ -169,7 +172,7 @@ public class Player extends Actor {
 					this.currentRoom = newRoom;
 					
 				}else if(!newRoom.getObstacle().checkStatus(this)) {
-					return "There is an obstacle in that direction!";
+					return "There is an obstacle in that direction! " + newRoom.getObstacle().getDescription();
 				}
 			}else {
 				return "You can't move in that direction!";
@@ -198,11 +201,6 @@ public class Player extends Actor {
 		return null;
 	}
 
-	public String checkMap() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO - implement");
-
-	}
 	
 	public String checkStats() {
 		String Message = "You have: " + this.HP + " HP, " + this.resource + " Mana, " + this.atk + " Attack, " 
