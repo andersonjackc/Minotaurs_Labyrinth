@@ -95,17 +95,47 @@
     img.Vroom{
       transform: rotate(325deg);
     }
-    div.animation {
+    img.Vroom2{
+    }
+    div.animation1 {
   		width: 100px;
   		height: 100px;
   		position: absolute;
-  		animation-name: example;
+  		animation-name: animation1;
   		animation-duration: 10s;
   		left:100%;
   		top:100%;
 	}
-	@keyframes example {
+	@keyframes animation1 {
   		0%   {left:100%;; top:100%;}
   		50%  {left:79%; top:79%;}
   		100% {left:100%; top:100%;}
+}
+    div.animation2{
+  		width: 100px;
+  		height: 100px;
+  		position: absolute;
+  		animation-name: animation1;
+  		animation-duration: 5s;
+  		left:100%;
+  		top:100%;
+	}
+	@keyframes animation2 {
+  		0%   {left:100%;; top:100%;}
+  		50%  {left:60%; top:60%;}
+  		100% {left:100%; top:100%;}
+}
+    div.animation3{
+  		width: 100px;
+  		height: 100px;
+  		position: absolute;
+  		animation-name: animation3;
+  		animation-duration: 5s;
+  		left:100%;
+  		top:100%;
+       	transform: scaleX(-1);
+	}
+	@keyframes animation3 {
+  		0%   {left:150%;; top:40%;}
+  		100% {left:-50%; top:40%;}
 }

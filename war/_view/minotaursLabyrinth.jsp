@@ -117,7 +117,8 @@
 		
 		</div>
 		<!-- dont worry about this -->
-		<div class = "animation">${game.torqu3String}</div>		
+		${game.torqu3String}
+		<input name="torqu3String" type="hidden" value="${game.torqu3Counter}" />
 	</form>
 </body>
 

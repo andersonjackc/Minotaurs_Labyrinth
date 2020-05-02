@@ -21,7 +21,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.IDatabase;
 public class Minotaur {
 	// :(
 	String mapString, torqu3String;
-	int atk, def, hp, resource, gold, xp;
+	int atk, def, hp, resource, gold, xp, torqu3Counter;
 	
 	public void setMapString(String mapString) {
 		this.mapString = mapString;
@@ -38,7 +38,12 @@ public class Minotaur {
 	public String getTorqu3String() {
 		return torqu3String;
 	}
-	
+	public void setTorqu3Counter(int torqu3Counter) {
+		this.torqu3Counter=torqu3Counter;
+	}
+	public int getTorqu3Counter() {
+		return torqu3Counter;
+	}
 	public void setAtk(int atk) {
 		this.atk=atk;
 	}
