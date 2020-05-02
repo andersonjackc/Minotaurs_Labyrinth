@@ -368,6 +368,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		//talking status
 		//THIS IS THE SECOND PHASE OF THE CONVERSATION
+		//comment
 		else if(dbPlayer.getStatus().equals("talking")) {
 			if(req.getParameter("textbox") != null  && isNumeric(inputs[0]) && Integer.parseInt(inputs[0]) > 0 && Integer.parseInt(inputs[0]) < 4) {
 				if(inputs.length <= 1) {
