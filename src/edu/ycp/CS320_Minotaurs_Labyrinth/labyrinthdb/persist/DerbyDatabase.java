@@ -2545,7 +2545,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
-	public String findResponse(String npcName, int playerChoice) {
+	public String findResponse(int roomID, int playerChoice) {
 		return executeTransaction(new Transaction<String>() {
 			@Override
 			public String execute(Connection conn) throws SQLException {
@@ -2557,9 +2557,9 @@ public class DerbyDatabase implements IDatabase {
 				
 				try {
 					stmt = conn.prepareStatement(
-							"select npc_id from npc where npc.name = ?");
+							"select npc_id from npc where npc.currentRoom = ?");
 								
-					stmt.setString(1, npcName);
+					stmt.setInt(1, roomID);
 					
 					resultSet = stmt.executeQuery();
 					resultSet.next();

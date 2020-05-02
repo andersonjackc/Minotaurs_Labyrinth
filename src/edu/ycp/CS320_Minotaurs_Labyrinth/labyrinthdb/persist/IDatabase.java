@@ -45,7 +45,7 @@ public interface IDatabase {
 	
 	public List<Message<String, Integer>> findChoicesForNPC(String npcName);
 	
-	public String findResponse(String npcName, int playerChoice);
+	public String findResponse(int roomID, int playerChoice);
 	
 	public Integer findTextHistoryCount();
 	

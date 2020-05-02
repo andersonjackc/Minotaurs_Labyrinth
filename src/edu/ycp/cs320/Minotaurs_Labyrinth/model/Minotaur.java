@@ -18,8 +18,6 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DatabaseProvider;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DerbyDatabase;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.IDatabase;
 
-
-
 public class Minotaur {
 	// :(
 	String mapString;
@@ -31,5 +29,4 @@ public class Minotaur {
 	public String getMapString() {
 		return mapString;
 	}
-	
 }

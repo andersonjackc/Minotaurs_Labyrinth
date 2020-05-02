@@ -80,9 +80,7 @@
 		<br>
 		</c:forTokens>
 		
-		</div>
-		
-		
+		</div>		
 	</form>
 </body>
 

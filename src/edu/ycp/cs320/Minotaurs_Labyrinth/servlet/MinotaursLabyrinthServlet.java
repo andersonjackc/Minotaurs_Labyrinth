@@ -221,9 +221,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if(req.getParameter("textbox") != null && inputs[0].equals("talk")) {
 				if(inputs.length <= 2 && inputs.length > 1 && targets.containsKey(inputs[1]) && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId()) {
 					if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead())) {
-						String tmp = dbPlayer.talk(targets.get(inputs[1]));
-						Message<String, Integer> talkMsg = new Message<String, Integer>(tmp, 0);
-						db.insertIntoTextHistory(talkMsg);
+						db.findChoicesForNPC(inputs[1]);
+						dbPlayer.setStatus("talking");
 					}else if(!(dbPlayer.getIsDead())) {
 						Message<String, Integer> msg = new Message<String, Integer>("You can't talk to " + targets.get(inputs[1]).getName() + " because it is dead.", 0);
 						db.insertIntoTextHistory(msg);
@@ -247,7 +246,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			
 			//move
 			else if (req.getParameter("textbox") != null && inputs[0].equals("move")){
-				
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 					String moveMsg = dbPlayer.move(inputs[1], roomList);
 					Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
@@ -368,46 +366,25 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			}
 		}
 		
-		//talk status
+		//talking status
+		//THIS IS THE SECOND PHASE OF THE CONVERSATION
 		else if(dbPlayer.getStatus().equals("talking")) {
-			//talk
-			if(req.getParameter("textbox") != null && inputs[0].equals("talk")) {
-				if(inputs.length <= 2 && inputs.length > 1 && targets.containsKey(inputs[1]) && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId()) {
-					if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead())) {
-						String tmp = dbPlayer.talk(targets.get(inputs[1]));
-						Message<String, Integer> talkMsg = new Message<String, Integer>(tmp, 0);
-						db.insertIntoTextHistory(talkMsg);
-					}else if(!(dbPlayer.getIsDead())) {
-						Message<String, Integer> msg = new Message<String, Integer>("You can't talk to " + targets.get(inputs[1]).getName() + " because it is dead.", 0);
-						db.insertIntoTextHistory(msg);
-					}else if(dbPlayer.getIsDead()) {
-						Message<String, Integer> msg = new Message<String, Integer>("You are dead!", 0);
-						db.insertIntoTextHistory(msg);
-
-					}
+			if(req.getParameter("textbox") != null  && isNumeric(inputs[0]) && Integer.parseInt(inputs[0]) > 0 && Integer.parseInt(inputs[0]) < 4) {
+				if(inputs.length <= 1) {
+						dbPlayer.setStatus(db.findResponse(dbPlayer.getCurrentRoom().getRoomId(), Integer.parseInt(inputs[0])));
 				}
-				else if(inputs.length<=1){
-					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
-					db.insertIntoTextHistory(msg);
-				}else if(inputs.length > 2) {
-					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
-					db.insertIntoTextHistory(msg);
-				}else{
-					Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " is an invalid target", 0);
-					db.insertIntoTextHistory(msg);
-				}
-			
 			}else if(req.getParameter("textbox") != null && inputs[0].equals("leave") && !dbPlayer.getIsDead()) {
 				String tmp = dbPlayer.leave();
 				Message<String, Integer> leaveMsg = new Message<String, Integer>(tmp, 1);
 				db.insertIntoTextHistory(leaveMsg);
-					
+			}
+			else if(Integer.parseInt(inputs[0]) >= 4) {
+					Message<String, Integer> msg = new Message<String, Integer>("Please choose a valid option!", 0);
+					db.insertIntoTextHistory(msg);
 			}else {
 				Message<String, Integer> msg = new Message<String, Integer>("In order to " + inputVal + " you must leave the conversation first.", 0);
 				db.insertIntoTextHistory(msg);
 			}
-			
-			
 		}
 
 		db.updateRooms(roomList);
@@ -474,4 +451,17 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 	private String getString(HttpServletRequest req, String name) {
 		return String.valueOf(req.getParameter(name));
 	}
+	
+	public static boolean isNumeric(final String str) {
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+        try {
+            Integer.parseInt(str);
+            return true;
+
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
