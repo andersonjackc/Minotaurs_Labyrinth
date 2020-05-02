@@ -120,7 +120,17 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		commandMap.put("cast", "-allows you to cast spells or abilities.");
 		commandMap.put("leave", "-allows you to leave conversations.");
 		commandMap.put("run", "-allows you to flee from a fight.");
-
+		commandMap.put("throw", "-allows you to fight other creatures in the Labyrinth.");
+		commandMap.put("take", "-allows you to pick an item up.");
+		commandMap.put("drop", "-allows you to drop an item.");
+		commandMap.put("barter", "-allows you to barter with npc's.");
+		commandMap.put("light", "-allows you to light items on fire.");
+		commandMap.put("equip", "-allows you to equip gear.");
+		commandMap.put("unequip", "-allows you to unequip gear.");
+		commandMap.put("use", "-allows you to use items.");
+		commandMap.put("check item", "-allows you to examine an item.");
+		commandMap.put("check inventory", "-allows you to check the contents of your inventory.");
+		
 		
 		Player dbPlayer = testPlayer.get(0);
 		//model, controller and attribute for jsp setup
@@ -311,7 +321,75 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			
 			//torqu3
 			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
-				model.setTorqu3String();
+				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			}
+			
+			//throw
+			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
+				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			}
+			
+			//take
+			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
+				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			}
+			
+			//drop
+			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
+				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			}
+			
+			//barter
+			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
+				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			}
+			
+			//light
+			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
+				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			}
+			
+			//equip
+			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
+				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			}
+			
+			//unequip
+			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
+				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			}
+			
+			//use
+			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
+				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			}
+			
+			//check
+			else if(req.getParameter("textbox") != null && inputs[0].equals("check")) {
+				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
+					//inv
+					if(inputs[1].equals("inventory")) {
+						for(Item i : dbPlayer.getInventory().getInventory()) {
+							Message<String, Integer> msg = new Message<String, Integer>(i.getName() + "\n", 0);
+							db.insertIntoTextHistory(msg);
+						}
+					}
+					
+					//item
+					else if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
+						Item i = getItembyName(inputs[1], dbPlayer.getInventory().getInventory());
+						Message<String, Integer> msg = new Message<String, Integer>("Affected Stat: " + i.getAffectedStat() + ", Description: " + i.getDescription() + ", Effect: " + i.getEffect() + ", Name: " + i.getName() + ", Value: " + i.getValue() + ", Variety: " + i.getVariety(), 0);
+						db.insertIntoTextHistory(msg);
+					}
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify a kind of check!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}else if(inputs.length > 2) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single check!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}
 			}
 			
 			//give error for invalid commands
@@ -498,6 +576,25 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			
 		}
 		return new NPC(0, 0, 0, 0, 0, 0, 0, 0, null, "", "", 0, "", "", null, null, false);
+	}
+	
+	public Boolean containsItem(String name, ArrayList<Item> playerInv) {
+		for(Item i : playerInv) {
+			if(i.getName().equals(name)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public Item getItembyName(String name, ArrayList<Item> inv) {
+		for(Item i : inv) {
+			if(i.getName().equals(name)) {
+				return i;
+			}
+		}
+		return null;
 	}
 	
 	public Boolean containsAbility(ArrayList<Ability> abilities, String name) {
