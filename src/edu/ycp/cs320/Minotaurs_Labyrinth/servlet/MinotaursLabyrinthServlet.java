@@ -48,7 +48,14 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
 		Player dbPlayer = testPlayer.get(0);
 		ArrayList<Room> roomList = (ArrayList<Room>) db.findAllRooms();
-		
+		model.setAtk(dbPlayer.getAtk());
+		model.setDef(dbPlayer.getDef());
+		model.setHP(dbPlayer.getHP());
+		model.setResource(dbPlayer.getResource());
+		model.setXP(dbPlayer.getXP());
+		model.setGold(dbPlayer.getGold());
+
+
 
 		String[][] mapArray = new String[arraySize.getRight()][arraySize.getLeft()];
 		String mapString = "";
