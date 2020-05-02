@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.activation.CommandMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +48,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
 		Player dbPlayer = testPlayer.get(0);
 		ArrayList<Room> roomList = (ArrayList<Room>) db.findAllRooms();
+		
 
 		String[][] mapArray = new String[arraySize.getRight()][arraySize.getLeft()];
 		String mapString = "";
@@ -101,6 +103,18 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		ArrayList<NPC> npcList = (ArrayList<NPC>) db.findAllNPCs();
 		ArrayList<Item> itemList = (ArrayList<Item>) db.findAllItems();
 		ArrayList<Room> roomList = (ArrayList<Room>) db.findAllRooms();
+		
+		HashMap<String, String> commandMap = new HashMap<String, String>();
+		commandMap.put("attack", "-allows you to fight other creatures in the Labyrinth.");
+		commandMap.put("talk", "-allows you to talk to other creatures.");
+		commandMap.put("move", "-allows you to move between rooms.");
+		commandMap.put("jump", "-allows you to jump over obstacles.");
+		commandMap.put("crawl", "-allows you to crawl under obstacles.");
+		commandMap.put("cast", "-allows you to cast spells or abilities.");
+		commandMap.put("leave", "-allows you to leave conversations.");
+		commandMap.put("run", "-allows you to flee from a fight.");
+
+		
 		Player dbPlayer = testPlayer.get(0);
 		//model, controller and attribute for jsp setup
 		Minotaur model = new Minotaur();
@@ -245,9 +259,19 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			}
 			
 			//move
-			else if (req.getParameter("textbox") != null && inputs[0].equals("move")){
+			else if (req.getParameter("textbox") != null && (inputs[0].equals("move") || inputs[0].equals("jump") || inputs[0].equals("crawl"))){
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
-					String moveMsg = dbPlayer.move(inputs[1], roomList);
+					String moveMsg = "";
+					if(inputs[0].equals("move")) {
+						moveMsg = dbPlayer.move(inputs[1], roomList);
+						moveMsg+= " " + getNPCbyRoomID(dbPlayer.getCurrentRoom().getRoomId(), targets).getDescription();
+					}else if(inputs[0].equals("jump")) {
+						moveMsg = dbPlayer.jump(inputs[1], roomList);
+						moveMsg+= " " + getNPCbyRoomID(dbPlayer.getCurrentRoom().getRoomId(), targets).getDescription();
+					}else if(inputs[0].equals("crawl")) {
+						moveMsg = dbPlayer.crawl(inputs[1], roomList);
+						moveMsg+= " " + getNPCbyRoomID(dbPlayer.getCurrentRoom().getRoomId(), targets).getDescription();
+					}
 					Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
 					db.insertIntoTextHistory(msg);
 
@@ -263,8 +287,16 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				
 			}
 			
+			//help
+			else if(req.getParameter("textbox") != null && inputs[0].equals("help")) {
+				for(String command : commandMap.keySet()) {
+					Message<String, Integer> msg = new Message<String, Integer>(command + commandMap.get(command), 0);
+					db.insertIntoTextHistory(msg);
+				}
+			}
+			
 			//give error for invalid commands
-			else if(req.getParameter("textbox") != null && !inputs[0].equals("attack") && !inputs[0].equals("talk") && !inputs[0].equals("cast") && !inputs[0].equals("move")){
+			else if(req.getParameter("textbox") != null && !commandMap.containsKey(inputs[0]) && !inputs[0].equals("torqu3")){
 				Message<String, Integer> msg = new Message<String, Integer>(inputs[0] + " is an invalid command!", 0);
 				db.insertIntoTextHistory(msg);
 
@@ -379,7 +411,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				Message<String, Integer> leaveMsg = new Message<String, Integer>(tmp, 1);
 				db.insertIntoTextHistory(leaveMsg);
 			}
-			else if(Integer.parseInt(inputs[0]) >= 4) {
+			else if(isNumeric(inputs[0]) && Integer.parseInt(inputs[0]) >= 4) {
 					Message<String, Integer> msg = new Message<String, Integer>("Please choose a valid option!", 0);
 					db.insertIntoTextHistory(msg);
 			}else {
@@ -435,6 +467,18 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			}
 		}
 		return null;
+	}
+	
+	public NPC getNPCbyRoomID(int roomID, HashMap<String, Actor> targets) {
+		for(Actor target : targets.values()) {
+			if(target.getClass() != targets.get("player").getClass()) {
+				if(target.getCurrentRoom().getRoomId() == roomID) {
+					return (NPC) target;
+				}
+			}
+			
+		}
+		return new NPC(0, 0, 0, 0, 0, 0, 0, 0, null, "", "", 0, "", "", null, null, false);
 	}
 	
 	public Boolean containsAbility(ArrayList<Ability> abilities, String name) {
