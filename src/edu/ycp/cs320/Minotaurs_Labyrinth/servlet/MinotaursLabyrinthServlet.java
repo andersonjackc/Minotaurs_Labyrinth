@@ -55,8 +55,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setXP(dbPlayer.getXP());
 		model.setGold(dbPlayer.getGold());
 
-
-
 		String[][] mapArray = new String[arraySize.getRight()][arraySize.getLeft()];
 		String mapString = "";
 		for(int i = 0; i < mapArray.length; i++) {
@@ -519,6 +517,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 
 		db.updateRooms(roomList);
 		db.updatePlayer(dbPlayer);
+		model.setAtk(dbPlayer.getAtk());
+		model.setDef(dbPlayer.getDef());
+		model.setHP(dbPlayer.getHP());
+		model.setResource(dbPlayer.getResource());
+		model.setXP(dbPlayer.getXP());
+		model.setGold(dbPlayer.getGold());
 		db.updateEnemies(enemyList);
 		db.updateNPCs(npcList);
 		db.updateTextHistory();
