@@ -309,6 +309,11 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				}
 			}
 			
+			//torqu3
+			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
+				model.setTorqu3String();
+			}
+			
 			//give error for invalid commands
 			else if(req.getParameter("textbox") != null && !commandMap.containsKey(inputs[0]) && !inputs[0].equals("torqu3")){
 				Message<String, Integer> msg = new Message<String, Integer>(inputs[0] + " is an invalid command!", 0);
