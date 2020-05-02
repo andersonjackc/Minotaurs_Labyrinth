@@ -326,7 +326,7 @@ public class DerbyDatabaseTests {
 	@Test
 	public void testFindResponse() {
 		System.out.println("\n*** Testing FindResponse ***");
-		Responses.add(db.findResponse("test", 1));
+		Responses.add(db.findResponse(43, 1));
 		if (Responses.isEmpty()) {
 			System.out.println("No Response found in Labyrinth Database");
 			fail("No Responses returned from Library DB");
