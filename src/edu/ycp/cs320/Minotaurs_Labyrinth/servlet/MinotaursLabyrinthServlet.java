@@ -54,6 +54,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setResource(dbPlayer.getResource());
 		model.setXP(dbPlayer.getXP());
 		model.setGold(dbPlayer.getGold());
+		model.setTorqu3String(" ");
 
 		String[][] mapArray = new String[arraySize.getRight()][arraySize.getLeft()];
 		String mapString = "";
@@ -141,6 +142,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setResource(dbPlayer.getResource());
 		model.setXP(dbPlayer.getXP());
 		model.setGold(dbPlayer.getGold());
+		model.setTorqu3String(" ");
 		
 		Pair<Integer, Integer> arraySize = db.findMapArraySize();
 		
@@ -319,7 +321,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			
 			//torqu3
 			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
-				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+				model.setTorqu3String("<img class=\"Vroom\" src=\"https://i.imgur.com/YJ71Cqh.png\">");
 			}
 			
 			//throw

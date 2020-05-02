@@ -115,7 +115,9 @@
 		<br>
 		</c:forTokens>
 		
-		</div>		
+		</div>
+		<!-- dont worry about this -->
+		<div class = "animation">${game.torqu3String}</div>		
 	</form>
 </body>
 
