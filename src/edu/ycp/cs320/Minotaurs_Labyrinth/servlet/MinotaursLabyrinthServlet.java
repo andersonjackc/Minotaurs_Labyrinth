@@ -411,10 +411,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		String mapString = "";
 		for(int i = 0; i < mapArray.length; i++) {
 			for(int j = 0; j < mapArray[0].length; j++) {
-				//System.out.print(mapArray[i][j]);
 				mapString+=mapArray[i][j];
 			}
-			//System.out.println();
 			mapString+= ",";
 			
 		}

@@ -286,15 +286,7 @@ public class DerbyDatabase implements IDatabase {
 		
 	}
 
-	/*private void loadDialogue(ResultSet resultSet, int index) throws SQLException {
-		message.setMessage(resultSet.getString(index++));
-		message.setPlayerAction(resultSet.getInt(index++));
-	}
 	
-	private void loadChoices(ResultSet resultSet, int index) throws SQLException {
-		message.setMessage(resultSet.getString(index++));
-		message.setPlayerAction(resultSet.getInt(index++));
-	}*/
 
 	
 	//  creates the tables
