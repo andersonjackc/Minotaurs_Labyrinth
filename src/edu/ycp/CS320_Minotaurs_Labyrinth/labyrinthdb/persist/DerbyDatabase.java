@@ -2514,8 +2514,8 @@ public class DerbyDatabase implements IDatabase {
 					int count = 1;
 					while(resultSet3.next()) {
 						String string = resultSet3.getString(1);
-						insertIntoTextHistory(new Message<String, Integer>("Option " + count + ". " + string, 1));
-						list.add(new Message<String, Integer>(string, 1));
+						insertIntoTextHistory(new Message<String, Integer>("Option " + count + ". " + string, 0));
+						list.add(new Message<String, Integer>(string, 0));
 						count++;
 					}
 					
