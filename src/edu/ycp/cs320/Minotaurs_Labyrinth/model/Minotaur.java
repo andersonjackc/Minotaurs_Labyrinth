@@ -21,6 +21,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.IDatabase;
 public class Minotaur {
 	// :(
 	String mapString;
+	int atk, def, hp, resource, gold, xp;
 	
 	public void setMapString(String mapString) {
 		this.mapString = mapString;
@@ -28,5 +29,42 @@ public class Minotaur {
 	
 	public String getMapString() {
 		return mapString;
+	}
+	
+	public void setAtk(int atk) {
+		this.atk=atk;
+	}
+	public int getAtk() {
+		return atk;
+	}
+	public void setDef(int def) {
+		this.def=def;
+	}
+	public int getDef() {
+		return def;
+	}
+	public void setHP(int hp) {
+		this.hp=hp;
+	}
+	public int getHP() {
+		return hp;
+	}
+	public void setResource(int Resource) {
+		this.resource=Resource;
+	}
+	public int getResource() {
+		return resource;
+	}
+	public void setGold(int gold) {
+		this.gold=gold;
+	}
+	public int getGold() {
+		return gold;
+	}
+	public void setXP(int xp) {
+		this.xp=xp;
+	}
+	public int getXP() {
+		return xp;
 	}
 }
