@@ -27,6 +27,41 @@
 		<div class="hera">
 			<img class="hera" src="https://cdn.pixabay.com/photo/2013/07/12/13/23/hera-146932_960_720.png">
 		</div>
+		<div class = "statBar">
+			<table>
+			
+				<tr>
+				<td><img class="statSymbol" src="https://image.flaticon.com/icons/svg/535/535234.svg"></td>
+				<td>${game.HP}</td>
+				</tr>
+		
+				<tr>
+				<td><img class="statSymbol" src="https://image.flaticon.com/icons/svg/867/867785.svg"></td>				
+				<td>${game.resource}</td>
+				</tr>
+				
+				<tr>
+				<td><img class="statSymbol" src="https://image.flaticon.com/icons/svg/1191/1191182.svg"></td>
+				<td>${game.atk}</td>
+				</tr>
+				
+				<tr>
+				<td><img class="statSymbol" src="https://image.flaticon.com/icons/svg/786/786245.svg"></td>
+				<td>${game.def}</td>
+				</tr>
+				
+				<tr>
+				<td><img class="statSymbol" src="https://image.flaticon.com/icons/svg/482/482506.svg"></td>				
+				<td>${game.gold}</td>
+				</tr>
+				
+				<tr>
+				<td><img class="statSymbol" src="https://image.flaticon.com/icons/svg/1087/1087927.svg"></td>				
+				<td>${game.XP}</td>
+				</tr>
+				
+			</table>
+		</div>
 		<div id="gameText" class="gameText">
 			<table class="center">
 				<c:forEach items="${outputstrings}" var="strings">
