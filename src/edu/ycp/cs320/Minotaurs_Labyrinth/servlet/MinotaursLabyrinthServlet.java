@@ -329,7 +329,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				model.setTorqu3Counter(1);
 				}
 				else if(model.getTorqu3Counter()==1) {
-				model.setTorqu3String("<div class = \"animation2\"><img class=\"Vroom\" src=\"https://i.imgur.com/NfC1M8o.png\"></div>");
+				model.setTorqu3String("<div class = \"animation2\"><img class=\"Vroom1\" src=\"https://i.imgur.com/NfC1M8o.png\"></div>");
 				model.setTorqu3Counter(2);
 				}
 				else if(model.getTorqu3Counter()==2) {
