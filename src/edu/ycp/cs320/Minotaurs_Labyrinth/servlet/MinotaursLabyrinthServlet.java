@@ -134,7 +134,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		commandMap.put("use", "-allows you to use items.");
 		commandMap.put("check item", "-allows you to examine an item.");
 		commandMap.put("check inventory", "-allows you to check the contents of your inventory.");
-		
+		commandMap.put("restart", "-restarts the game to the beginning.");
+
 		
 		Player dbPlayer = testPlayer.get(0);
 		//model, controller and attribute for jsp setup
@@ -338,6 +339,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			//DJHAKE
 			else if(req.getParameter("textbox") != null && inputs[0].equals("djhake")) {
 				model.setdjHake("<script>djRedirect()</script>");
+			}
+			
+			//restart
+			else if(req.getParameter("textbox") != null && inputs[0].equals("restart")) {
+				db.restartGame();
+				doGet(req, resp);
 			}
 			
 			//throw

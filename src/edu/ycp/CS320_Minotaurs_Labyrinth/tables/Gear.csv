@@ -1,2 +1,3 @@
-1|0|10|0|armor|0|An iron chestplate|0|0|0|0|10|chestplate|def
-2|5|0|0|weapon|0|a plain iron sword|0|0|0|0|0|sword|atk
+1|0|10|0|armor|0|An iron chestplate|0|0|0|0|10|chestplate|chest
+2|5|0|0|weapon|0|a plain iron sword|0|0|0|0|0|sword|right hand
+3|0|10|0|armor|0|Also an iron chestplate|0|0|0|0|10|chestplate2|chest
