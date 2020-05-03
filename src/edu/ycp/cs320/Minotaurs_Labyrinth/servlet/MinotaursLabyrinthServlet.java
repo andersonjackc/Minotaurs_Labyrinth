@@ -369,7 +369,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if(req.getParameter("textbox") != null && inputs[0].equals("drop")) {
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
-						String takeMsg = dbPlayer.drop(getItembyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()));
+						String takeMsg = dbPlayer.drop(getItembyName(inputs[1], dbPlayer.getInventory().getInventory()));
 						Message<String, Integer> msg = new Message<String, Integer>(takeMsg, 0);
 						db.insertIntoTextHistory(msg);
 					}else {
@@ -396,12 +396,12 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if(req.getParameter("textbox") != null && inputs[0].equals("light")) {
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
-						String takeMsg = dbPlayer.light(getItembyName(inputs[1], dbPlayer.getInventory().getInventory()));
-						Message<String, Integer> msg = new Message<String, Integer>(takeMsg, 0);
+						String lightMsg = dbPlayer.light(getItembyName(inputs[1], dbPlayer.getInventory().getInventory()), itemList);
+						Message<String, Integer> msg = new Message<String, Integer>(lightMsg, 0);
 						db.insertIntoTextHistory(msg);
 					}else if(containsItem(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory())) {
-						String takeMsg = dbPlayer.light(getItembyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()));
-						Message<String, Integer> msg = new Message<String, Integer>(takeMsg, 0);
+						String lightMsg = dbPlayer.light(getItembyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()), itemList);
+						Message<String, Integer> msg = new Message<String, Integer>(lightMsg, 0);
 						db.insertIntoTextHistory(msg);
 					}else {
 						Message<String, Integer> msg = new Message<String, Integer>("You can't light " + inputs[1] + " on fire.", 0);
@@ -422,8 +422,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if(req.getParameter("textbox") != null && inputs[0].equals("equip")) {
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
-						String takeMsg = dbPlayer.equip(getGearbyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()));
-						Message<String, Integer> msg = new Message<String, Integer>(takeMsg, 0);
+						String equipMsg = dbPlayer.equip(getGearbyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()), itemList);
+						Message<String, Integer> msg = new Message<String, Integer>(equipMsg, 0);
 						db.insertIntoTextHistory(msg);
 					}else {
 						Message<String, Integer> msg = new Message<String, Integer>("You can't equip " + inputs[1] + ".", 0);
@@ -443,8 +443,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if(req.getParameter("textbox") != null && inputs[0].equals("unequip")) {
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
-						String takeMsg = dbPlayer.unequip(getGearbyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()));
-						Message<String, Integer> msg = new Message<String, Integer>(takeMsg, 0);
+						String unequipMsg = dbPlayer.unequip(getGearbyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()), itemList);
+						Message<String, Integer> msg = new Message<String, Integer>(unequipMsg, 0);
 						db.insertIntoTextHistory(msg);
 					}else {
 						Message<String, Integer> msg = new Message<String, Integer>("You can't drop " + inputs[1] + ".", 0);
@@ -484,8 +484,13 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					//item
 					else if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
 						Item i = getItembyName(inputs[1], dbPlayer.getInventory().getInventory());
-						Message<String, Integer> msg = new Message<String, Integer>("Affected Stat: " + i.getAffectedStat() + ", Description: " + i.getDescription() + ", Effect: " + i.getEffect() + ", Value: " + i.getValue() + ", Variety: " + i.getVariety(), 0);
-						db.insertIntoTextHistory(msg);
+						if(i.getLit()) {
+							Message<String, Integer> msg = new Message<String, Integer>("Affected Stat: " + i.getAffectedStat() + ", Description: " + i.getDescription() + ", Effect: " + i.getEffect() + ", Value: " + i.getValue() + ", Variety: " + i.getVariety() + ", It's on fire!", 0);
+							db.insertIntoTextHistory(msg);
+						}else {
+							Message<String, Integer> msg = new Message<String, Integer>("Affected Stat: " + i.getAffectedStat() + ", Description: " + i.getDescription() + ", Effect: " + i.getEffect() + ", Value: " + i.getValue() + ", Variety: " + i.getVariety(), 0);
+							db.insertIntoTextHistory(msg);
+						}
 					}else {
 						Message<String, Integer> msg = new Message<String, Integer>("You can't check " + inputs[1] + ".", 0);
 						db.insertIntoTextHistory(msg);
