@@ -452,7 +452,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if(req.getParameter("textbox") != null && inputs[0].equals("unequip")) {
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
-						String unequipMsg = dbPlayer.unequip(getGearbyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()), itemList);
+						String unequipMsg = dbPlayer.unequip(getGearbyName(inputs[1], dbPlayer.getInventory().getInventory()), itemList);
 						Message<String, Integer> msg = new Message<String, Integer>(unequipMsg, 0);
 						db.insertIntoTextHistory(msg);
 					}else {
@@ -550,18 +550,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
 				if(inputs.length <= 2 && inputs.length > 1 && targets.get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
 					String atkMsg = dbPlayer.basicAttack(targets.get(inputs[1]));
-					if(atkMsg.equals(targets.get(inputs[1]).getName() + " is dead.")) {
-						if(targets.get(inputs[1]).getName().equals("Villager")) {
-							
-							
-						}else if(targets.get(inputs[1]).getName().equals("ogre")) {
-							
-						}
-					}
 					String enemyAtkMsg = targets.get(inputs[1]).basicAttack(dbPlayer);
-					if(dbPlayer.getIsDead()) {
-						
-					}
 					Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
 					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
 					db.insertIntoTextHistory(msg);
@@ -588,12 +577,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
 					String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
 					if(!inputs[2].equals(dbPlayer.getName())) {
-					String enemyAtkMsg = targets.get(inputs[2]).basicAttack(dbPlayer);
-					if(dbPlayer.getIsDead()) {
-						
-					}
-					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
-					db.insertIntoTextHistory(msg2);
+						String enemyAtkMsg = targets.get(inputs[2]).basicAttack(dbPlayer);
+						Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
+						db.insertIntoTextHistory(msg2);
 
 					}
 					Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
@@ -727,7 +713,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 	public NPC getNPCbyRoomID(int roomID, HashMap<String, Actor> targets) {
 		for(Actor target : targets.values()) {
 			if(target.getClass() != targets.get("player").getClass()) {
-				if(target.getCurrentRoom().getRoomId() == roomID) {
+				if(target.getCurrentRoom().getRoomId() == roomID && !target.getIsDead()) {
 					return (NPC) target;
 				}
 			}
