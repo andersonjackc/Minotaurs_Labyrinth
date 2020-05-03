@@ -16,6 +16,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.AbilityComparator;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Choice;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Dialogue;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Gear;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.InventoryComparator;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
@@ -662,6 +663,7 @@ public class DerbyDatabase implements IDatabase {
 				List<Message<String, Integer>> Messages;
 				List<Dialogue> Dialogues;
 				List<Choice> Choices;
+				List<Gear> Gears;
 				
 				try {
 					
@@ -678,6 +680,7 @@ public class DerbyDatabase implements IDatabase {
 					Messages       = InitialData.getTextHistory();
 					Dialogues      = InitialData.getDialogues();
 					Choices        = InitialData.getChoices();
+					Gears          = InitialData.getGear();
 					
 					
 				} catch (IOException e) {
@@ -698,7 +701,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertMessages = null;
 				PreparedStatement insertDialogue = null;
 				PreparedStatement insertChoices = null;
-
+				PreparedStatement insertGears = null;
 
 				try {
 					
@@ -862,7 +865,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertItems.executeBatch();	
 					
-					System.out.println("NPC table populated");	
+					System.out.println("item table populated");	
 					
 					insertItemList = conn.prepareStatement("insert into itemlist (item1, "
 							+ "item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, "
@@ -1010,6 +1013,51 @@ public class DerbyDatabase implements IDatabase {
 					insertChoices.executeBatch();
 					
 					System.out.println("Choices table populated");
+					
+					insertGears = conn.prepareStatement("insert into gear (atk, def, hp, variety, equipped, description, effect, flammable, lit, throwable, "
+							+ "value, name, affectedStat) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					for (Gear gear : Gears) {
+						insertGears.setInt(1, gear.getAtk());
+						insertGears.setInt(2, gear.getDef());
+						insertGears.setInt(3, gear.getHP());
+						insertGears.setString(4, gear.getVariety());
+						
+						if(gear.getEquipped()) {
+							insertGears.setInt(5, 1);
+						}else{
+							insertGears.setInt(5, 0);
+						}
+						
+						insertGears.setString(6, gear.getDescription());
+						insertGears.setInt(7, gear.getEffect());
+						
+						if(gear.getFlammable()) {
+							insertGears.setInt(8, 1);
+						}else{
+							insertGears.setInt(8, 0);
+						}
+						
+						if(gear.getLit()) {
+							insertGears.setInt(9, 1);
+						}else{
+							insertGears.setInt(9, 0);
+						}
+						
+						if(gear.getThrowable()) {
+							insertGears.setInt(10, 1);
+						}else{
+							insertGears.setInt(10, 0);
+						}
+						
+						insertGears.setInt(11, gear.getValue());
+						insertGears.setString(12, gear.getName());
+						insertGears.setString(13, gear.getAffectedStat());
+						
+						insertGears.addBatch();
+					}
+					insertGears.executeBatch();	
+					
+					System.out.println("gear table populated");	
 					
 					return true;
 				} finally {
