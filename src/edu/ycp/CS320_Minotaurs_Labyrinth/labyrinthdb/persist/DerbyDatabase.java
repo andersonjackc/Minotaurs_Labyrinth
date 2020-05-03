@@ -1330,7 +1330,6 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 		});
 	}
 	
-
 	@Override
 	public List<Room> findAllRooms() {
 		return executeTransaction(new Transaction<List<Room>>() {
@@ -1472,6 +1471,50 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 		});
 	}
 
+	@Override
+	public List<Ability> findAllAbilities() {
+		return executeTransaction(new Transaction<List<Ability>>() {
+			@Override
+			public List<Ability> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"select ability.* " +
+							"  from  ability " 
+					);
+					
+					
+					List<Ability> result = new ArrayList<Ability>();
+					
+					resultSet = stmt.executeQuery();
+					
+					// for testing that a result was returned
+					Boolean found = false;
+					
+					while (resultSet.next()) {
+						found = true;
+						
+						Ability ability = new Ability(null, null, null, null, 0, 0);
+						loadAbility(ability, resultSet, 2);
+	
+						result.add(ability);
+					}
+					
+					// check if the title was found
+					if (!found) {
+						System.out.println("No abilitys were found!");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 	
 	@Override
 	public List<Enemy> findAllEnemies() {
@@ -1791,6 +1834,8 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 				ResultSet resultSet2 = null;
 				PreparedStatement stmt3 = null;
 				ResultSet resultSet3 = null;
+				PreparedStatement stmt4 = null;
+				ResultSet resultSet4 = null;
 				
 				try {
 					stmt = conn.prepareStatement(
@@ -1837,6 +1882,15 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 					
 					updateInventory(newPlayer.getInventory(), resultSet3.getInt(1));
 					
+					stmt4 = conn.prepareStatement(
+							"select abilities from player where player.name = ? ");
+					stmt4.setString(1, newPlayer.getName());
+					resultSet4 = stmt4.executeQuery();
+					resultSet4.next();
+					
+					updateInventory(newPlayer.getInventory(), resultSet3.getInt(1));
+					updateAbilityList(newPlayer.getAbilities(), resultSet4.getInt(1));
+					
 					return null;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
@@ -1845,6 +1899,8 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 					DBUtil.closeQuietly(stmt2);
 					DBUtil.closeQuietly(resultSet3);
 					DBUtil.closeQuietly(stmt3);
+					DBUtil.closeQuietly(resultSet4);
+					DBUtil.closeQuietly(stmt4);
 	
 				}
 			}
@@ -3006,4 +3062,37 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 		});
 	}
 	
+	@Override
+	public List<Ability> updateAbilityList(List<Ability> iList, int iListID) {
+		return executeTransaction(new Transaction<List<Ability>>() {
+			@Override
+			public List<Ability> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"update abilitylist " +
+							"set ability1 = ?, " +
+							"ability2 = ?, ability3 = ?, ability4 = ?, ability5 = ?"
+							+ " where abilitylist_id = ?");
+					for(int i = 1; i <= 5; i++) {
+						if(i-1 < iList.size()) {
+							stmt.setString(i, iList.get(i-1).getName());
+						}else {
+							stmt.setString(i, "filler");
+						}
+					}
+
+					stmt.setInt(6, iListID);
+					stmt.executeUpdate();
+					return null;
+					} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 }

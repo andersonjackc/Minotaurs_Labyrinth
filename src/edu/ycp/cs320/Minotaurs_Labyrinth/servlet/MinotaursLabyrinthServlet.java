@@ -113,6 +113,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		ArrayList<NPC> npcList = (ArrayList<NPC>) db.findAllNPCs();
 		ArrayList<Item> itemList = (ArrayList<Item>) db.findAllItems();
 		ArrayList<Room> roomList = (ArrayList<Room>) db.findAllRooms();
+		ArrayList<Ability> abilityList = (ArrayList<Ability>) db.findAllAbilities();
 		
 		HashMap<String, String> commandMap = new HashMap<String, String>();
 		commandMap.put("attack", "-allows you to fight other creatures in the Labyrinth.");
@@ -222,16 +223,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
 				if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
 					String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
-					if(castMsg.equals(targets.get(inputs[2]).getName() + " is dead.")) {
-						if(targets.get(inputs[2]).getName().equals("Villager")) {
-							
-							
-						}else if(targets.get(inputs[2]).getName().equals("ogre")) {
-							
-						}else if(targets.get(inputs[2]).getName().equals("player")) {
-							
-						}
-					}
+					
+					
 					if(!inputs[2].equals(dbPlayer.getName())) {
 					String enemyAtkMsg = targets.get(inputs[2]).basicAttack(dbPlayer);
 					if(dbPlayer.getIsDead()) {
