@@ -472,7 +472,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if(req.getParameter("textbox") != null && inputs[0].equals("use")) {
 				if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() ) {
 					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
-						String useMsg = dbPlayer.use(getItembyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()), targets.get(inputs[2]));
+						String useMsg = dbPlayer.use(getItembyName(inputs[1], dbPlayer.getInventory().getInventory()), targets.get(inputs[2]));
 						Message<String, Integer> msg = new Message<String, Integer>(useMsg, 0);
 						db.insertIntoTextHistory(msg);
 					}else {
