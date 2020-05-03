@@ -4,6 +4,7 @@ package edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist;
 import java.util.HashMap;
 import java.util.List;
 
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
@@ -53,6 +54,8 @@ public interface IDatabase {
 	
 	public Integer findTextHistoryIDbyString(String message);
 	
+	public List<Ability> findAllAbilities();
+	
 	//updates
 	public Player updatePlayer(Player newPlayer);
 		
@@ -72,6 +75,7 @@ public interface IDatabase {
 	
 	public List<Item> updateItemList(List<Item> iList, int iListID);
 	
+	public List<Ability> updateAbilityList(List<Ability> iList, int iListID);	
 	
 	//inserts
 	public List<Message<String, Integer>> insertIntoTextHistory(Message<String, Integer> newMessage);
@@ -80,5 +84,4 @@ public interface IDatabase {
 	public String removeTextHistoryByMessage(String message);
 	
 	public String removeTextHistoryByID(int ID);
-
 }
