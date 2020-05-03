@@ -3095,4 +3095,113 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 			}
 		});
 	}
+
+	@Override
+	public Message<String, Integer> restartGame() {
+		return executeTransaction(new Transaction<Message<String, Integer>>() {
+			@Override
+			public Message<String, Integer> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				PreparedStatement stmt3 = null;
+				PreparedStatement stmt4 = null;
+				PreparedStatement stmt5 = null;
+				PreparedStatement stmt6 = null;
+				PreparedStatement stmt7 = null;
+				PreparedStatement stmt8 = null;
+				PreparedStatement stmt9 = null;
+				PreparedStatement stmt10 = null;
+				PreparedStatement stmt11 = null;
+				PreparedStatement stmt12 = null;
+				PreparedStatement stmt13 = null;
+				PreparedStatement stmt14 = null;
+				PreparedStatement stmt15 = null;
+
+				try {
+					
+					stmt = conn.prepareStatement(
+							"truncate table Ability");
+					
+					stmt.executeUpdate();
+					
+					stmt2 = conn.prepareStatement(
+							"truncate table AbilityList");
+					
+					stmt2.executeUpdate();
+					
+					stmt3 = conn.prepareStatement(
+							"truncate table enemy");
+					
+					stmt3.executeUpdate();
+					
+					stmt4 = conn.prepareStatement(
+							"truncate table gear");
+					
+					stmt4.executeUpdate();
+					
+					stmt5 = conn.prepareStatement(
+							"truncate table inventory");
+					
+					stmt5.executeUpdate();
+					
+					stmt6 = conn.prepareStatement(
+							"truncate table item");
+					
+					stmt6.executeUpdate();
+					
+					stmt7 = conn.prepareStatement(
+							"truncate table itemList");
+					
+					stmt7.executeUpdate();
+					
+					stmt8 = conn.prepareStatement(
+							"truncate table NPC");
+					
+					stmt8.executeUpdate();
+					
+					stmt9 = conn.prepareStatement(
+							"truncate table obstacle");
+					
+					stmt9.executeUpdate();
+					
+					stmt10 = conn.prepareStatement(
+							"truncate table player");
+					
+					stmt10.executeUpdate();
+					
+					stmt11 = conn.prepareStatement(
+							"truncate table room");
+					
+					stmt11.executeUpdate();
+					
+					stmt12 = conn.prepareStatement(
+							"truncate table roomMap");
+					
+					stmt12.executeUpdate();
+					
+					stmt13 = conn.prepareStatement(
+							"truncate table textHistory");
+					
+					stmt13.executeUpdate();
+					
+					stmt14 = conn.prepareStatement(
+							"truncate table dialogue");
+					
+					stmt14.executeUpdate();
+					
+					stmt15 = conn.prepareStatement(
+							"truncate table choices");
+					
+					stmt15.executeUpdate();
+					
+					loadInitialData();
+
+					
+					return null;
+					} finally {
+						DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 }

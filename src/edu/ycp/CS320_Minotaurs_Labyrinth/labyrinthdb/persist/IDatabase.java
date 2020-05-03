@@ -84,4 +84,7 @@ public interface IDatabase {
 	public String removeTextHistoryByMessage(String message);
 	
 	public String removeTextHistoryByID(int ID);
+	
+	//restart
+	public Message<String, Integer> restartGame();
 }
