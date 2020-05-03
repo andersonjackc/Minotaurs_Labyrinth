@@ -25,7 +25,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DerbyDatabase;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DatabaseProvider;
 import edu.ycp.cs320.Minotaurs_Labyrinth.controller.MinotaursLabyrinthController;
 import edu.ycp.cs320.Minotaurs_Labyrinth.model.Minotaur;
-import sun.security.action.GetIntegerAction;
+
 
 public class MinotaursLabyrinthServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -630,8 +630,15 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				db.insertIntoTextHistory(msg);
 			}
 		}
+		
+		
+		
+		//the order of these updates matter
+		db.updateItems(itemList);
+		
 		roomList.set(dbPlayer.getCurrentRoom().getRoomId()-1, dbPlayer.getCurrentRoom());
 		db.updateRooms(roomList);
+		
 		db.updatePlayer(dbPlayer);
 		model.setAtk(dbPlayer.getAtk());
 		model.setDef(dbPlayer.getDef());
