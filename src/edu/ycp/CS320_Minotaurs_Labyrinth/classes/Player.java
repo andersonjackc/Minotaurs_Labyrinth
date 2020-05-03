@@ -39,39 +39,45 @@ public class Player extends Actor {
 		return tmp;
 	}
 	
-	public void light(Item item) {
-		if(getInventory().getInventory().contains(item) && item.getFlammable() && item.getLit() == false) {
+	public String light(Item item) {
+		if(item.getFlammable() && item.getLit() == false) {
 			item.setLit(true);
+			return item.getName() + "is now on fire!";
 		}
 		
+		return "You can't light " + item.getName() + "on fire!";	
 	}
 	
-	public void equip(Gear gear) {
+	public String equip(Gear gear) {
 		if(getInventory().getInventory().contains(gear) && gear.getEquipped() == false) {
 			gear.setEquipped(true);
 			int atk = getAtk() + gear.getAtk();
 			int def = getDef() + gear.getDef();
 			setAtk(atk);
 			setDef(def);
+			return "You have equipped " + gear.getName() + "."; 
 		}
+		return "You can't equip " + gear.getName() + "."; 
 		
 	}
 	
-	public void unequip(Gear gear) {
+	public String unequip(Gear gear) {
 		if(getInventory().getInventory().contains(gear) && gear.getEquipped() == true) {
 			gear.setEquipped(false);
 			int atk = getAtk() - gear.getAtk();
 			int def = getDef() - gear.getDef();
 			setAtk(atk);
 			setDef(def);
+			return "You have unequipped " + gear.getName() + "."; 
 		}
+		return "You can't unequip " + gear.getName() + "."; 
 		
 	}
 	
-	public void drop(Item item) {
-		getInventory().removeItem(item);
+	public String drop(Item item) {
+		String tmp = this.inventory.removeItem(item);
 		getCurrentRoom().getInventory().addItem(item);
-		
+		return tmp;
 	}
 	
 	public String run() {
@@ -79,8 +85,9 @@ public class Player extends Actor {
 		return "AAAAAAAHHHHHHHHHHHHHHHHHHH!";
 	}
 	
-	public void take(Item item) {
-		getInventory().addItem(item);
+	public String take(Item item, Inventory inv) {
+		inv.removeItem(item);
+		return this.inventory.addItem(item);
 		
 	}
 	

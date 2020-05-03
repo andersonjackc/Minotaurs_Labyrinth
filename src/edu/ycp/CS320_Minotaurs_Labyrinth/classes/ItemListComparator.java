@@ -1,19 +1,19 @@
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
-public class ItemListComparator implements Comparator<ArrayList<Item>>{
+public class ItemListComparator implements Comparator<List<Item>>{
 
 	
-	public int compare(ArrayList<Item> i1, ArrayList<Item> i2) {
+	public int compare(List<Item> list, List<Item> inner) {
 		int count = 0;
 		ItemComparator IC = new ItemComparator();
 		
-		if(i1.size() == i2.size()) {
-			for(Item i : i1) {
+		if(list.size() == inner.size()) {
+			for(Item i : list) {
 				
-				if(!(IC.compare(i, i2.get(count)) == 1)) {
+				if(!(IC.compare(i, inner.get(count)) == 1)) {
 					break;
 				}else {
 					
@@ -23,7 +23,7 @@ public class ItemListComparator implements Comparator<ArrayList<Item>>{
 			}
 		}
 		
-		if(count == i1.size() && count == i2.size()) {
+		if(count == list.size() && count == inner.size()) {
 			return 1;
 		}else {
 			return -1;

@@ -3,7 +3,7 @@
 3|You enter a small stone room. The only exit is the way you entered.|2|1|0|north|1
 4|You enter a small stone room. There is an exit to the east.|2|2|0|west|1|east|7
 5|You enter a small stone room, it is empty. There is an exit on the opposite side of the room from the way you entered.|2|1|0|east|1|west|6
-6|Empty room|1|1|0|east|5
+6|Empty room|3|1|0|east|5
 7|Empty room|2|1|0|west|4|east|8
 8|Empty room|2|1|0|west|7|north|9
 9|Empty room|2|1|0|south|8|north|10

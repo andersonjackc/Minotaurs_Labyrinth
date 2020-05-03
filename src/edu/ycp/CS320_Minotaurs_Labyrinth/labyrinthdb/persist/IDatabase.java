@@ -68,6 +68,10 @@ public interface IDatabase {
 	
 	public Obstacle updateObstacle(Obstacle newObstacle, int ObstacleID);
 	
+	public Inventory updateInventory(Inventory inv, int invID);
+	
+	public List<Item> updateItemList(List<Item> iList, int iListID);
+	
 	//inserts
 	public List<Message<String, Integer>> insertIntoTextHistory(Message<String, Integer> newMessage);
 

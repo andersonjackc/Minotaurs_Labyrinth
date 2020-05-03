@@ -1,3 +1,4 @@
+
 package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 import java.util.ArrayList;
@@ -15,19 +16,22 @@ public class Inventory {
 		this.inventory = inventory;
 	}
 	
-	public void addItem(Item item) {
+	public String addItem(Item item) {
 		if(inventory.size() == maxStorage) {
-			// print some error saying inventory is full
+			return "Your inventory is full";
 		}
 		else {
 		inventory.add(item);
+		return item.getName() + " has been added to inventory.";
 		}
 	}
 	
-	public void removeItem(Item item) {
+	public String removeItem(Item item) {
 		if(getInventory().contains(item)) {
 			inventory.remove(item);
+			return "You dropped " + item.getName();
 		}
+		return "You don't have a " + item.getName();
 	}
 	
 	//getters

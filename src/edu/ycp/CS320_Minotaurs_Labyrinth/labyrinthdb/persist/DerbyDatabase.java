@@ -20,6 +20,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.InventoryComparator;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.ItemComparator;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.ItemListComparator;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
@@ -1081,7 +1082,19 @@ public class DerbyDatabase implements IDatabase {
 		ItemComparator ic = new ItemComparator();
 		for(Item item : Outer) {
 			count++;
-			if (ic.compare(item, Inner)==1) {
+			if (ic.compare(item, Inner) == 1) {
+				return count;
+			}
+		}
+		return -1;
+	}
+	
+	public static int ItemListIDbyList(List<Item> Inner, ArrayList<ArrayList<Item>> list2) {
+		int count=0;
+		ItemListComparator ilc = new ItemListComparator();
+		for(List<Item> list : list2) {
+			count++;
+			if (ilc.compare(list, Inner) == 1) {
 				return count;
 			}
 		}
@@ -1656,6 +1669,10 @@ public class DerbyDatabase implements IDatabase {
 			public Player execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet2 = null;
+				PreparedStatement stmt3 = null;
+				ResultSet resultSet3 = null;
 				
 				try {
 					stmt = conn.prepareStatement(
@@ -1691,10 +1708,34 @@ public class DerbyDatabase implements IDatabase {
 					
 					stmt.executeUpdate();
 					
+					stmt2 = conn.prepareStatement(
+							"select * from inventory ");
+					resultSet2 = stmt2.executeQuery();
+					ArrayList<Inventory> invList = new ArrayList<Inventory>();
+					
+					while(resultSet2.next()) {
+						Inventory newinv = new Inventory(0, 0, null);
+						ArrayList<Item> ilist = (ArrayList<Item>) findItemList(resultSet2.getInt(1));
+						loadInventory(newinv, resultSet2, 2, ilist);
+						invList.add(newinv);
+					}
+					
+					stmt3 = conn.prepareStatement(
+							"select inventory from player where player.name = ? ");
+					stmt3.setString(1, newPlayer.getName());
+					resultSet3 = stmt3.executeQuery();
+					resultSet3.next();
+					updateInventory(newPlayer.getInventory(), resultSet3.getInt(1));
+					
 					return null;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(resultSet3);
+					DBUtil.closeQuietly(stmt3);
+	
 				}
 			}
 		});
@@ -1836,6 +1877,9 @@ public class DerbyDatabase implements IDatabase {
 			public List<Room> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				PreparedStatement stmt2 = null;
+				PreparedStatement stmt3 = null;
+				ResultSet resultSet3 = null;
+				
 
 				ResultSet resultSet = null;
 				
@@ -1866,7 +1910,18 @@ public class DerbyDatabase implements IDatabase {
 						//have to update the inventory
 						//not yet completed
 						stmt.executeUpdate();
+						stmt3 = conn.prepareStatement(
+								"select  inventory" +
+								"  from  room" +
+								"  where room_id = ?"
+						);
+						stmt3.setInt(1, room.getRoomId());
+						resultSet3 = stmt3.executeQuery();
+						resultSet3.next();
+
+						updateInventory(room.getInventory(), resultSet3.getInt(1));
 					}
+					
 					return null;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
@@ -2671,6 +2726,83 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
 					
+				}
+			}
+		});
+	}
+
+	@Override
+	public Inventory updateInventory(Inventory inv, int invID) {
+		return executeTransaction(new Transaction<Inventory>() {
+			@Override
+			public Inventory execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet2 = null;
+				
+				try {
+					stmt = conn.prepareStatement(
+							"update inventory " +
+							" set  maxstorage = ?," +
+							"  maxquant = ?" +
+							" where inventory.inventory_id = ?"
+					);
+					stmt.setInt(1, inv.getMaxStorage());
+					stmt.setInt(2, inv.getMaxQuant());
+					stmt.setInt(3, invID);
+					stmt.executeUpdate();
+					
+					stmt2 = conn.prepareStatement(
+							"select * from itemlist " 
+					);
+					resultSet2 = stmt2.executeQuery();
+
+					updateItemList(inv.getInventory(), invID);
+					
+					return null;
+					} finally {
+					
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(resultSet2);
+				}
+			}
+		});
+	}
+
+	@Override
+	public List<Item> updateItemList(List<Item> iList, int iListID) {
+		return executeTransaction(new Transaction<List<Item>>() {
+			@Override
+			public List<Item> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				try {
+					
+					stmt = conn.prepareStatement(
+							"update itemlist " +
+							"set item1 = ?, " +
+							"item2 = ?, item3 = ?, item4 = ?, item5 = ?, item6 = ?, item7 = ?, item8 = ?, item9 = ?, item10 = ?, item11 = ?, item12 = ?, " 
+							+ "item13 = ?, item14 = ?, item15 = ?, item16 = ?, item17 = ?, item18 = ?, item19 = ?, item20 = ?, item21 = ?, item22 = ?, "
+							+ "item23 = ?, item24 = ?, item25 = ?, item26 = ?, item27 = ?, item28 = ?, item29 = ?, item30 = ?, item31 = ?, item32 = ?, item33 = ?, item34 = ?, "
+							+ "item35 = ?, item36 = ?, item37 = ?, item38 = ?, item39 = ?, item40 = ?, item41 = ?, item42 = ?, item43 = ?, item44 = ?, item45 = ?, "
+							+ "item46 = ?, item47 = ?, item48 = ?, item49 = ?, item50 = ?" 
+							+ " where itemlist_id = ?");
+					for(int i = 1; i <= 50; i++) {
+						if(i-1 < iList.size()) {
+							stmt.setString(i, iList.get(i-1).getName());
+						}else {
+							stmt.setString(i, "filler");
+						}
+					}
+
+					stmt.setInt(51, iListID);
+					stmt.executeUpdate();
+					return null;
+					} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
 				}
 			}
 		});

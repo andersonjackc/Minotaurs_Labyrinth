@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Ability;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Actor;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Gear;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
@@ -328,37 +329,124 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			}
 			
 			//take
-			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
-				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			else if(req.getParameter("textbox") != null && inputs[0].equals("take")) {
+				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
+					if(containsItem(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory())) {
+						String takeMsg = dbPlayer.take(getItembyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()), dbPlayer.getCurrentRoom().getInventory());
+						Message<String, Integer> msg = new Message<String, Integer>(takeMsg, 0);
+						db.insertIntoTextHistory(msg);
+					}else {
+						Message<String, Integer> msg = new Message<String, Integer>("You can't take " + inputs[1] + ".", 0);
+						db.insertIntoTextHistory(msg);
+					}
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify an item!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}else if(inputs.length > 2) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single item!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}
 			}
 			
 			//drop
-			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
-				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			else if(req.getParameter("textbox") != null && inputs[0].equals("drop")) {
+				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
+					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
+						String takeMsg = dbPlayer.drop(getItembyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()));
+						Message<String, Integer> msg = new Message<String, Integer>(takeMsg, 0);
+						db.insertIntoTextHistory(msg);
+					}else {
+						Message<String, Integer> msg = new Message<String, Integer>("You can't drop " + inputs[1] + ".", 0);
+						db.insertIntoTextHistory(msg);
+					}
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify an item!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}else if(inputs.length > 2) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single item!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}
 			}
 			
 			//barter
-			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
+			else if(req.getParameter("textbox") != null && inputs[0].equals("barter")) {
 				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
 			}
 			
 			//light
-			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
-				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			else if(req.getParameter("textbox") != null && inputs[0].equals("light")) {
+				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
+					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
+						String takeMsg = dbPlayer.light(getItembyName(inputs[1], dbPlayer.getInventory().getInventory()));
+						Message<String, Integer> msg = new Message<String, Integer>(takeMsg, 0);
+						db.insertIntoTextHistory(msg);
+					}else if(containsItem(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory())) {
+						String takeMsg = dbPlayer.light(getItembyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()));
+						Message<String, Integer> msg = new Message<String, Integer>(takeMsg, 0);
+						db.insertIntoTextHistory(msg);
+					}else {
+						Message<String, Integer> msg = new Message<String, Integer>("You can't light " + inputs[1] + " on fire.", 0);
+						db.insertIntoTextHistory(msg);
+					}
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify an item!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}else if(inputs.length > 2) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single item!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}
 			}
 			
 			//equip
-			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
-				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
-			}
+			else if(req.getParameter("textbox") != null && inputs[0].equals("equip")) {
+				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
+					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
+						String takeMsg = dbPlayer.equip(getGearbyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()));
+						Message<String, Integer> msg = new Message<String, Integer>(takeMsg, 0);
+						db.insertIntoTextHistory(msg);
+					}else {
+						Message<String, Integer> msg = new Message<String, Integer>("You can't equip " + inputs[1] + ".", 0);
+						db.insertIntoTextHistory(msg);
+					}
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify a piece of gear!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}else if(inputs.length > 2) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single piece of gear!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}			}
 			
 			//unequip
-			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
-				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
-			}
+			else if(req.getParameter("textbox") != null && inputs[0].equals("unequip")) {
+				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
+					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
+						String takeMsg = dbPlayer.unequip(getGearbyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()));
+						Message<String, Integer> msg = new Message<String, Integer>(takeMsg, 0);
+						db.insertIntoTextHistory(msg);
+					}else {
+						Message<String, Integer> msg = new Message<String, Integer>("You can't drop " + inputs[1] + ".", 0);
+						db.insertIntoTextHistory(msg);
+					}
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify an item!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}else if(inputs.length > 2) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single item!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}			}
 			
 			//use
-			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
+			else if(req.getParameter("textbox") != null && inputs[0].equals("use")) {
 				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
 			}
 			
@@ -367,16 +455,24 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 					//inv
 					if(inputs[1].equals("inventory")) {
-						for(Item i : dbPlayer.getInventory().getInventory()) {
-							Message<String, Integer> msg = new Message<String, Integer>(i.getName() + "\n", 0);
+						if(dbPlayer.getInventory().getInventory().size() != 0) {
+							for(Item i : dbPlayer.getInventory().getInventory()) {
+								Message<String, Integer> msg = new Message<String, Integer>(i.getName() + "\n", 0);
+								db.insertIntoTextHistory(msg);
+							}
+						}else {
+							Message<String, Integer> msg = new Message<String, Integer>("Your inventory is empty!", 0);
 							db.insertIntoTextHistory(msg);
 						}
 					}
-					
+				
 					//item
 					else if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
 						Item i = getItembyName(inputs[1], dbPlayer.getInventory().getInventory());
-						Message<String, Integer> msg = new Message<String, Integer>("Affected Stat: " + i.getAffectedStat() + ", Description: " + i.getDescription() + ", Effect: " + i.getEffect() + ", Name: " + i.getName() + ", Value: " + i.getValue() + ", Variety: " + i.getVariety(), 0);
+						Message<String, Integer> msg = new Message<String, Integer>("Affected Stat: " + i.getAffectedStat() + ", Description: " + i.getDescription() + ", Effect: " + i.getEffect() + ", Value: " + i.getValue() + ", Variety: " + i.getVariety(), 0);
+						db.insertIntoTextHistory(msg);
+					}else {
+						Message<String, Integer> msg = new Message<String, Integer>("You can't check " + inputs[1] + ".", 0);
 						db.insertIntoTextHistory(msg);
 					}
 				}else if(inputs.length<=1){
@@ -514,7 +610,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				db.insertIntoTextHistory(msg);
 			}
 		}
-
+		roomList.set(dbPlayer.getCurrentRoom().getRoomId()-1, dbPlayer.getCurrentRoom());
 		db.updateRooms(roomList);
 		db.updatePlayer(dbPlayer);
 		model.setAtk(dbPlayer.getAtk());
@@ -596,6 +692,15 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		for(Item i : inv) {
 			if(i.getName().equals(name)) {
 				return i;
+			}
+		}
+		return null;
+	}
+	
+	public Gear getGearbyName(String name, ArrayList<Item> inv) {
+		for(Item i : inv) {
+			if(i.getName().equals(name)) {
+				return (Gear) i;
 			}
 		}
 		return null;
