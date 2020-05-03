@@ -39,35 +39,45 @@ public class Player extends Actor {
 		return tmp;
 	}
 	
-	public String light(Item item) {
+	public String light(Item item, ArrayList<Item> iList) {
+		int index = getListIndexbyItem(item, iList);
 		if(item.getFlammable() && item.getLit() == false) {
 			item.setLit(true);
-			return item.getName() + "is now on fire!";
+			iList.set(index, item);
+			return item.getName() + " is now on fire!";
+		}else if(item.getFlammable() && item.getLit() == true) {
+			item.setLit(true);
+			iList.set(index, item);
+			return item.getName() + " is already on fire!";
 		}
 		
-		return "You can't light " + item.getName() + "on fire!";	
+		return "You can't light " + item.getName() + " on fire!";	
 	}
 	
-	public String equip(Gear gear) {
+	public String equip(Gear gear, ArrayList<Item> iList) {
+		int index = getListIndexbyItem(gear, iList);
 		if(getInventory().getInventory().contains(gear) && gear.getEquipped() == false) {
 			gear.setEquipped(true);
 			int atk = getAtk() + gear.getAtk();
 			int def = getDef() + gear.getDef();
 			setAtk(atk);
 			setDef(def);
+			iList.set(index, gear);
 			return "You have equipped " + gear.getName() + "."; 
 		}
 		return "You can't equip " + gear.getName() + "."; 
 		
 	}
 	
-	public String unequip(Gear gear) {
+	public String unequip(Gear gear, ArrayList<Item> iList) {
+		int index = getListIndexbyItem(gear, iList);
 		if(getInventory().getInventory().contains(gear) && gear.getEquipped() == true) {
 			gear.setEquipped(false);
 			int atk = getAtk() - gear.getAtk();
 			int def = getDef() - gear.getDef();
 			setAtk(atk);
 			setDef(def);
+			iList.set(index, gear);
 			return "You have unequipped " + gear.getName() + "."; 
 		}
 		return "You can't unequip " + gear.getName() + "."; 
@@ -101,30 +111,6 @@ public class Player extends Actor {
 		return "You can't talk to yourself!";
 	}
 	
-	public void throNPCItem(NPC target, Item item) {
-		if(item.getThrowable()) {
-			if(item.getVariety().equals("potion")) {
-				item.addEffect(target);
-			}
-			
-			else if(item.getVariety().equals("misc")) {
-				target.setAttitude(target.getAttitude() - 10);
-			}
-			else if(item.getVariety().equals("harmmisc")) {
-				target.setHP(getHP() - 1);
-				target.setAttitude(target.getAttitude() - 10);
-			}
-		}
-		
-	}
-	
-	public void throNPCGear(NPC target, Gear gear) {
-		if(gear.getThrowable()){
-			target.setHP(target.getHP() - gear.getAtk());
-			target.setAttitude(target.getAttitude() - 20);
-		}
-		
-	}
 	
 	public void throObs(Obstacle target, Item item) {
 		if(item.getThrowable()) {
@@ -199,56 +185,6 @@ public class Player extends Actor {
 		
 	}
 	
-	private Room getRoomByRoomId(Integer room_id, ArrayList<Room> allRooms) {
-		for(Room room : allRooms) {
-			if(room.getRoomId() == room_id) {
-				return room;
-			}
-		}
-		return null;
-	}
-
-	
-	public String checkStats() {
-		String Message = "You have: " + this.HP + " HP, " + this.resource + " Mana, " + this.atk + " Attack, " 
-				+ this.def + " Defense";
-		return Message;
-	}
-	
-	public String checkNPC(NPC npc) {
-		String Message = npc.getDescription();
-		return Message;
-	}
-	
-	public String checkItem(Item item) {
-		String Message = item.getDescription();
-		return Message;
-	}
-	
-	public String checkValue(Item item) {
-		String Message = item.getName() + " is worth " + item.getValue() + " Gold";
-		return Message;
-	}
-	
-	public String checkRoom(Room room) {
-		String Message = room.getDescription();
-		return Message;
-	}
-	
-	public String checkInventory(Inventory inventory) {
-		String Message = "";
-		if(inventory.getInventory().isEmpty() != true) {
-			for(Item item: inventory.getInventory()) {
-				Message+=item.getName();
-				Message+=" ";
-			}
-		}
-		else {
-			Message="Your inventory is empty!";
-		}
-		return Message;
-	}
-
 	public String basicAttack(Actor target) {
 		this.status = "combat";
 		if(!this.isDead) {
@@ -315,6 +251,28 @@ public class Player extends Actor {
 			}
 		}
 		return "You are dead!";
+	}
+	
+	//helper
+	public int getListIndexbyItem(Item i, ArrayList<Item> iList ) {
+		ItemComparator IC = new ItemComparator();
+		int count = 0;
+		for(Item item : iList) {
+			if(IC.compare(i, item) == 1) {
+				return count;
+			}
+			count++;
+		}
+		return -1;
+	}
+	
+	private Room getRoomByRoomId(Integer room_id, ArrayList<Room> allRooms) {
+		for(Room room : allRooms) {
+			if(room.getRoomId() == room_id) {
+				return room;
+			}
+		}
+		return null;
 	}
 
 	//getters
