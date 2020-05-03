@@ -21,33 +21,41 @@ public class Item {
 		this.affectedstat = affectedstat;
 	}
 
-	public void addEffect(Actor target)  {
-		if(getAffectedStat().equals("HP")) {
-			target.setHP(target.getHP() + getEffect());
-			if(target.getHP()<=0) {
-				target.setIsDead(true);
+	public String addEffect(Actor target)  {
+		if(!target.getIsDead()) {
+			if(getAffectedStat().equals("HP")) {
+				target.setHP(target.getHP() + getEffect());
+				if(target.getHP()<=0) {
+					target.setIsDead(true);
+				}
+				return "You used " + getName() + " it did " + Math.abs(getEffect()) + " to " + target.getName() + "'s " +  getAffectedStat() + ", it now has " + target.getHP() + " " +  getAffectedStat() + ".";
+			} 
+			else if(getAffectedStat().equals("maxHP")) {
+				target.setMaxHP(target.getMaxHP() + getEffect());
+				return "You used " +  getName() + " it did " + Math.abs( getEffect()) + " to " + target.getName() + "'s " +  getAffectedStat() + ", it now has " + target.getMaxHP() + " " +  getAffectedStat() + ".";
 			}
-		} 
-		else if(getAffectedStat().equals("maxHP")) {
-			target.setMaxHP(target.getMaxHP() + getEffect());
-
+			else if(getAffectedStat().equals("resource")) {
+				target.setResource(target.getResource() + getEffect());
+				return "You used " +  getName() + " it did " + Math.abs( getEffect()) + " to " + target.getName() + "'s " +  getAffectedStat() + ", it now has " + target.getResource() + " " +  getAffectedStat()+ ".";
+	
+			}
+			else if(getAffectedStat().equals("maxResource")) {
+				target.setMaxResource(target.getMaxResource() + getEffect());
+				return "You used " +  getName() + " it did " + Math.abs( getEffect()) + " to " + target.getName() + "'s " +  getAffectedStat() + ", it now has " + target.getMaxResource() + " " +  getAffectedStat()+ ".";
+	
+			}
+			else if(getAffectedStat().equals("atk")) {
+				target.setAtk(target.getAtk() + getEffect());
+				return "You used " +  getName() + " it did " + Math.abs( getEffect()) + " to " + target.getName() + "'s " +  getAffectedStat() + ", it now has " + target.getAtk() + " " +  getAffectedStat()+ ".";
+	
+			}
+			else if(getAffectedStat().equals("def")) {
+				target.setDef(target.getDef() + getEffect());
+				return "You used " +  getName() + " it did " + Math.abs( getEffect()) + " to " + target.getName() + "'s " +  getAffectedStat() + ", it now has " + target.getDef() + " " +  getAffectedStat()+ ".";
+	
+			}
 		}
-		else if(getAffectedStat().equals("resource")) {
-			target.setResource(target.getResource() + getEffect());
-
-		}
-		else if(getAffectedStat().equals("maxResource")) {
-			target.setMaxResource(target.getMaxResource() + getEffect());
-
-		}
-		else if(getAffectedStat().equals("atk")) {
-			target.setAtk(target.getAtk() + getEffect());
-
-		}
-		else if(getAffectedStat().equals("def")) {
-			target.setDef(target.getDef() + getEffect());
-
-		}
+		return "You are dead!"; 
 	}
 	
 	//getters
