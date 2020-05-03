@@ -119,6 +119,7 @@
 		<!-- dont worry about this -->
 		${game.torqu3String}
 		<input name="torqu3String" type="hidden" value="${game.torqu3Counter}" />
+		${game.djHake}
 	</form>
 </body>
 
