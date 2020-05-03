@@ -16,6 +16,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.AbilityComparator;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Choice;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Dialogue;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Enemy;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Gear;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Inventory;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.InventoryComparator;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
@@ -274,6 +275,57 @@ public class DerbyDatabase implements IDatabase {
 		item.setVariety(resultSet.getString(index++));
 		
 		item.setAffectedStat(resultSet.getString(index++));
+		
+		
+	}
+	
+private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLException {
+		
+		gear.setAtk(resultSet.getInt(index++));
+		
+		gear.setDef(resultSet.getInt(index++));
+		
+		gear.setHP(resultSet.getInt(index++));
+
+		gear.setVariety(resultSet.getString(index++));
+
+		if(resultSet.getInt(index++)==1) {
+			gear.setEquipped(true);
+		}
+		else {
+			gear.setEquipped(false);
+		}
+		
+		gear.setDescription(resultSet.getString(index++));
+		gear.setEffect(resultSet.getInt(index++));
+		
+		if(resultSet.getInt(index++)==1) {
+			gear.setFlammable(true);
+		}
+		else {
+			gear.setFlammable(false);
+		}
+		
+		if(resultSet.getInt(index++)==1) {
+			gear.setLit(true);
+		}
+		else {
+			gear.setLit(false);
+		}
+		
+		if(resultSet.getInt(index++)==1) {
+			gear.setThrowable(true);
+		}
+		else {
+			gear.setThrowable(false);
+		}
+		
+		gear.setValue(resultSet.getInt(index++));
+		
+		gear.setName(resultSet.getString(index++));
+		
+		
+		gear.setAffectedStat(resultSet.getString(index++));
 		
 		
 	}
@@ -662,6 +714,7 @@ public class DerbyDatabase implements IDatabase {
 				List<Message<String, Integer>> Messages;
 				List<Dialogue> Dialogues;
 				List<Choice> Choices;
+				List<Gear> Gears;
 				
 				try {
 					
@@ -678,6 +731,7 @@ public class DerbyDatabase implements IDatabase {
 					Messages       = InitialData.getTextHistory();
 					Dialogues      = InitialData.getDialogues();
 					Choices        = InitialData.getChoices();
+					Gears          = InitialData.getGear();
 					
 					
 				} catch (IOException e) {
@@ -698,7 +752,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertMessages = null;
 				PreparedStatement insertDialogue = null;
 				PreparedStatement insertChoices = null;
-
+				PreparedStatement insertGears = null;
 
 				try {
 					
@@ -862,7 +916,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertItems.executeBatch();	
 					
-					System.out.println("NPC table populated");	
+					System.out.println("item table populated");	
 					
 					insertItemList = conn.prepareStatement("insert into itemlist (item1, "
 							+ "item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, "
@@ -1010,6 +1064,51 @@ public class DerbyDatabase implements IDatabase {
 					insertChoices.executeBatch();
 					
 					System.out.println("Choices table populated");
+					
+					insertGears = conn.prepareStatement("insert into gear (atk, def, hp, variety, equipped, description, effect, flammable, lit, throwable, "
+							+ "value, name, affectedStat) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					for (Gear gear : Gears) {
+						insertGears.setInt(1, gear.getAtk());
+						insertGears.setInt(2, gear.getDef());
+						insertGears.setInt(3, gear.getHP());
+						insertGears.setString(4, gear.getVariety());
+						
+						if(gear.getEquipped()) {
+							insertGears.setInt(5, 1);
+						}else{
+							insertGears.setInt(5, 0);
+						}
+						
+						insertGears.setString(6, gear.getDescription());
+						insertGears.setInt(7, gear.getEffect());
+						
+						if(gear.getFlammable()) {
+							insertGears.setInt(8, 1);
+						}else{
+							insertGears.setInt(8, 0);
+						}
+						
+						if(gear.getLit()) {
+							insertGears.setInt(9, 1);
+						}else{
+							insertGears.setInt(9, 0);
+						}
+						
+						if(gear.getThrowable()) {
+							insertGears.setInt(10, 1);
+						}else{
+							insertGears.setInt(10, 0);
+						}
+						
+						insertGears.setInt(11, gear.getValue());
+						insertGears.setString(12, gear.getName());
+						insertGears.setString(13, gear.getAffectedStat());
+						
+						insertGears.addBatch();
+					}
+					insertGears.executeBatch();	
+					
+					System.out.println("gear table populated");	
 					
 					return true;
 				} finally {
@@ -1315,6 +1414,9 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 				
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet2 = null;
+				
 				try {
 					stmt = conn.prepareStatement(
 							"select item.* " +
@@ -1337,6 +1439,22 @@ public class DerbyDatabase implements IDatabase {
 						
 
 						result.add(item);
+					}
+					
+					stmt2 = conn.prepareStatement(
+							"select gear.* " +
+							"  from  gear " 
+					);
+					
+					resultSet2 = stmt2.executeQuery();
+					
+					while (resultSet2.next()) {
+						
+						Gear gear = new Gear(0, 0, 0, null, false, null, 0, false, false, false, 0, null, null);
+						loadGear(gear, resultSet2, 2);
+						
+
+						result.add(gear);
 					}
 					
 					// check if the title was found
@@ -1380,23 +1498,6 @@ public class DerbyDatabase implements IDatabase {
 						
 						Ability ability = new Ability(null, null, null, null, 0, 0);
 						loadAbility(ability, resultSet, 2);
-	
-						result.add(ability);
-					}
-					
-					// check if the title was found
-					if (!found) {
-						System.out.println("No abilitys were found!");
-					}
-					
-					return result;
-				} finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-				}
-			}
-		});
-	}
 	
 	@Override
 	public List<Enemy> findAllEnemies() {
@@ -1716,8 +1817,6 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet2 = null;
 				PreparedStatement stmt3 = null;
 				ResultSet resultSet3 = null;
-				PreparedStatement stmt4 = null;
-				ResultSet resultSet4 = null;
 				
 				try {
 					stmt = conn.prepareStatement(
@@ -1753,17 +1852,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					stmt.executeUpdate();
 					
-					stmt2 = conn.prepareStatement(
-							"select * from inventory ");
-					resultSet2 = stmt2.executeQuery();
-					ArrayList<Inventory> invList = new ArrayList<Inventory>();
 					
-					while(resultSet2.next()) {
-						Inventory newinv = new Inventory(0, 0, null);
-						ArrayList<Item> ilist = (ArrayList<Item>) findItemList(resultSet2.getInt(1));
-						loadInventory(newinv, resultSet2, 2, ilist);
-						invList.add(newinv);
-					}
 					
 					stmt3 = conn.prepareStatement(
 							"select inventory from player where player.name = ? ");
@@ -1827,47 +1916,94 @@ public class DerbyDatabase implements IDatabase {
 			@Override
 			public List<Item> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-				
+				PreparedStatement stmt2 = null;
+
 				try {
-					int count=1;
+					Gear tmpGear = new Gear(0, 0, 0, null, null, null, 0, null, null, null, 0, null, null);
+					
+					int gearCount=1, itemCount=1;
 					for(Item item : itemList) {
-						stmt = conn.prepareStatement(
-								"update item " +
-								" set  description = ?,  effect = ?,  flammable = ?,  lit = ?,  throwable = ?,  " +
-								"   value = ?,  name = ?,  variety = ?,   affectedStat = ? " +
-								" where item.item = ?"
 
-						);
-						
-						stmt.setString(1, item.getDescription());
-						stmt.setInt(2, item.getEffect());
-						if(item.getFlammable()) {
-							stmt.setInt(3, 1);
+						if(item.getClass()!= tmpGear.getClass()) {
+							stmt = conn.prepareStatement(
+									"update item " +
+									" set  description = ?,  effect = ?,  flammable = ?,  lit = ?,  throwable = ?,  " +
+									"   value = ?,  name = ?,  variety = ?,   affectedStat = ? " +
+									" where item.item = ?"
+	
+							);
+							
+							stmt.setString(1, item.getDescription());
+							stmt.setInt(2, item.getEffect());
+							if(item.getFlammable()) {
+								stmt.setInt(3, 1);
+							}else {
+								stmt.setInt(3, 0);
+							}
+							if(item.getLit()) {
+								stmt.setInt(4, 1);
+							}else {
+								stmt.setInt(4, 0);
+							}
+							if(item.getThrowable()) {
+								stmt.setInt(5, 1);
+							}else {
+								stmt.setInt(5, 0);
+							}
+							stmt.setInt(6, item.getValue());
+							stmt.setString(7, item.getName());
+							stmt.setString(8, item.getVariety());
+							stmt.setString(9, item.getAffectedStat());
+							stmt.setInt(10, itemCount++);
+	
+							stmt.executeUpdate();
 						}else {
-							stmt.setInt(3, 0);
+							Gear gear = (Gear) item;
+							
+							stmt2 = conn.prepareStatement(
+									"update gear " +
+									" set  hp = ?, equipped = ?, description = ?,  effect = ?,  flammable = ?,  lit = ?,  throwable = ?,  " +
+									"   value = ?,  name = ?,  variety = ?,   affectedStat = ? " +
+									" where gear.gear_id = ?"
+	
+							);
+							
+							stmt2.setInt(1, gear.getHP());
+							if(gear.getEquipped()) {
+								stmt2.setInt(2, 1);
+							}else {
+								stmt2.setInt(2, 0);
+							}
+							
+							stmt2.setString(3, gear.getDescription());
+							stmt2.setInt(4, gear.getEffect());
+							if(gear.getFlammable()) {
+								stmt2.setInt(5, 1);
+							}else {
+								stmt2.setInt(5, 0);
+							}
+							if(gear.getLit()) {
+								stmt2.setInt(6, 1);
+							}else {
+								stmt2.setInt(6, 0);
+							}
+							if(gear.getThrowable()) {
+								stmt2.setInt(7, 1);
+							}else {
+								stmt2.setInt(7, 0);
+							}
+							stmt2.setInt(8, gear.getValue());
+							stmt2.setString(9, gear.getName());
+							stmt2.setString(10, gear.getVariety());
+							stmt2.setString(11, gear.getAffectedStat());
+							stmt2.setInt(12, gearCount++);
+	
+							stmt2.executeUpdate();
 						}
-						if(item.getLit()) {
-							stmt.setInt(4, 1);
-						}else {
-							stmt.setInt(4, 0);
-						}
-						if(item.getThrowable()) {
-							stmt.setInt(5, 1);
-						}else {
-							stmt.setInt(5, 0);
-						}
-						stmt.setInt(6, item.getValue());
-						stmt.setString(7, item.getName());
-						stmt.setString(8, item.getVariety());
-						stmt.setString(9, item.getAffectedStat());
-						stmt.setInt(10, count++);
-
-						stmt.executeUpdate();
+							
 					}
 					return null;
 				} finally {
-					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
 				}
 			}
@@ -2151,9 +2287,13 @@ public class DerbyDatabase implements IDatabase {
 			public List<Item> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				PreparedStatement stmt2 = null;
-				
+				PreparedStatement stmt3 = null;
+				PreparedStatement stmt4 = null;
+
 				ResultSet resultSet = null;
 				ResultSet resultSet2 = null;
+				ResultSet resultSet3 = null;
+				ResultSet resultSet4 = null;
 				
 				try {
 					ArrayList<Item> itemList = new ArrayList<Item>();
@@ -2171,28 +2311,62 @@ public class DerbyDatabase implements IDatabase {
 					
 					resultSet.next();
 					
+					
+					stmt2 = conn.prepareStatement(
+							"select gear.* " +
+							"  from  gear "
+					);
+					
+					resultSet2 = stmt2.executeQuery();
+					
+					ArrayList<Gear> gearList = new ArrayList<Gear>();
+					ArrayList<String> gearNames = new ArrayList<String>();
+					while(resultSet2.next()) {
+						
+						Gear gear = new Gear(0, 0, 0, null, null, null, 0, null, null, null, 0, null, null);
+						loadGear(gear, resultSet2, 2);
+						gearList.add(gear);
+						gearNames.add(gear.getName());
+					}
 	
 					for(int i=2; i<=51; i++) {
 						
-						if(!resultSet.getString(i).contentEquals("filler")) {
+						if(!resultSet.getString(i).equals("filler") && !gearNames.contains(resultSet.getString(i))) {
 							
-							stmt2 = conn.prepareStatement(
+							stmt3 = conn.prepareStatement(
 									"select item.* " +
 									"  from  item " +
 									"  where item.name = ?"
 							);
 							
-							stmt2.setString(1, resultSet.getString(i));
+							stmt3.setString(1, resultSet.getString(i));
 							
-							resultSet2 = stmt2.executeQuery();
-							resultSet2.next();
+							resultSet3 = stmt3.executeQuery();
+							resultSet3.next();
 							
 
 							Item item = new Item(null, 0, null, null, null, 0, null, null, null);
-							loadItem(item, resultSet2, 2);
+							loadItem(item, resultSet3, 2);
 							
 							itemList.add(item);
 							
+						}else if(!resultSet.getString(i).equals("filler") && gearNames.contains(resultSet.getString(i))) {
+							stmt4 = conn.prepareStatement(
+									"select gear.* " +
+									"  from  gear " +
+									"  where gear.name = ?"
+							);
+							
+							stmt4.setString(1, resultSet.getString(i));
+
+							resultSet4 = stmt4.executeQuery();
+							resultSet4.next();
+							
+
+							Gear gear = new Gear(0, 0, 0, null, null, null, 0, null, null, null, 0, null, null);
+							loadGear(gear, resultSet4, 2);
+							
+							itemList.add(gear);
 						}
 						
 						
@@ -2207,6 +2381,10 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(stmt);
 					DBUtil.closeQuietly(resultSet2);
 					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(resultSet3);
+					DBUtil.closeQuietly(stmt3);
+					DBUtil.closeQuietly(resultSet4);
+					DBUtil.closeQuietly(stmt4);
 					
 				}
 			}
@@ -2810,7 +2988,6 @@ public class DerbyDatabase implements IDatabase {
 							"select * from itemlist " 
 					);
 					resultSet2 = stmt2.executeQuery();
-
 					updateItemList(inv.getInventory(), invID);
 					
 					return null;

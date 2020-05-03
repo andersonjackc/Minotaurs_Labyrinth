@@ -151,6 +151,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setdjHake(" ");
 		model.setTorqu3Counter(getInteger(req, "torqu3String"));
 		
+		
 		Pair<Integer, Integer> arraySize = db.findMapArraySize();
 		
 		String[][] mapArray = new String[arraySize.getRight()][arraySize.getLeft()];
@@ -426,7 +427,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if(req.getParameter("textbox") != null && inputs[0].equals("equip")) {
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
-						String equipMsg = dbPlayer.equip(getGearbyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()), itemList);
+						String equipMsg = dbPlayer.equip(getGearbyName(inputs[1], dbPlayer.getInventory().getInventory()), itemList);
 						Message<String, Integer> msg = new Message<String, Integer>(equipMsg, 0);
 						db.insertIntoTextHistory(msg);
 					}else {

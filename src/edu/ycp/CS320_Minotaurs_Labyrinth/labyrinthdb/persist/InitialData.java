@@ -204,13 +204,15 @@ public class InitialData {
 					gear.setFlammable(false);
 				}else {
 					gear.setFlammable(true);
-				}
+				}				
+				
 				
 				if(Integer.parseInt(i.next())==0) {
 					gear.setLit(false);
 				}else {
 					gear.setLit(true);
 				}
+				
 				
 				if(Integer.parseInt(i.next())==0) {
 					gear.setThrowable(false);
@@ -248,10 +250,17 @@ public class InitialData {
 				Iterator<String> i = tuple.iterator();
 				ArrayList<Item> items = new ArrayList<Item>();
 				ArrayList<Item> tmpList = (ArrayList<Item>) getItems();
+				ArrayList<Gear> gearList = (ArrayList<Gear>) getGear();
 				i.next();
 				while(i.hasNext()) {
 					
-					items.add(getItembyString(tmpList, i.next()));
+					String itemName = i.next();
+					
+					if(!getItembyString(tmpList, itemName).getName().equals("gear")) {
+						items.add(getItembyString(tmpList, itemName));
+					}else {
+						items.add(getGearbyString(gearList, itemName));
+					}
 				}
 				
 				itemList2.add(items);
@@ -621,7 +630,17 @@ public class InitialData {
                 return Item.get(i);
             }
         }
-        return null;
+        
+        return new Item(null, 0, null, null, null, 0, "gear", null, null);
+    }
+	
+	public static Gear getGearbyString(ArrayList<Gear> Gear, String name) {
+        for(int i = 0; i < Gear.size(); i++) {
+            if(Gear.get(i).getName().equals(name)) {
+                return Gear.get(i);
+            }
+        }
+        return new Gear(0, 0, 0, null, null, null, 0, null, null, null, 0, "item", null);
     }
 }
 
