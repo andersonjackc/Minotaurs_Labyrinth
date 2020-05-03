@@ -72,6 +72,7 @@ public interface IDatabase {
 	
 	public List<Item> updateItemList(List<Item> iList, int iListID);
 	
+	
 	//inserts
 	public List<Message<String, Integer>> insertIntoTextHistory(Message<String, Integer> newMessage);
 
