@@ -87,4 +87,5 @@ public interface IDatabase {
 	
 	//restart
 	public Message<String, Integer> restartGame();
+	public Message<String, Integer> loadingTables();
 }

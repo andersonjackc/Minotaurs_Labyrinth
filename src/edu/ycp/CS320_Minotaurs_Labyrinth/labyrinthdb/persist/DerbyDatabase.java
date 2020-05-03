@@ -3120,87 +3120,122 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 				try {
 					
 					stmt = conn.prepareStatement(
-							"truncate table Ability");
+							"drop table ability");
 					
 					stmt.executeUpdate();
 					
 					stmt2 = conn.prepareStatement(
-							"truncate table AbilityList");
+							"drop table abilityList");
 					
 					stmt2.executeUpdate();
 					
 					stmt3 = conn.prepareStatement(
-							"truncate table enemy");
+							"drop table enemy");
 					
 					stmt3.executeUpdate();
 					
 					stmt4 = conn.prepareStatement(
-							"truncate table gear");
+							"drop table gear");
 					
 					stmt4.executeUpdate();
 					
 					stmt5 = conn.prepareStatement(
-							"truncate table inventory");
+							"drop table inventory");
 					
 					stmt5.executeUpdate();
 					
 					stmt6 = conn.prepareStatement(
-							"truncate table item");
+							"drop table item");
 					
 					stmt6.executeUpdate();
 					
 					stmt7 = conn.prepareStatement(
-							"truncate table itemList");
+							"drop table itemList");
 					
 					stmt7.executeUpdate();
 					
 					stmt8 = conn.prepareStatement(
-							"truncate table NPC");
+							"drop table NPC");
 					
 					stmt8.executeUpdate();
 					
 					stmt9 = conn.prepareStatement(
-							"truncate table obstacle");
+							"drop table obstacle");
 					
 					stmt9.executeUpdate();
 					
 					stmt10 = conn.prepareStatement(
-							"truncate table player");
+							"drop table player");
 					
 					stmt10.executeUpdate();
 					
 					stmt11 = conn.prepareStatement(
-							"truncate table room");
+							"drop table room");
 					
 					stmt11.executeUpdate();
 					
 					stmt12 = conn.prepareStatement(
-							"truncate table roomMap");
+							"drop table roomMap");
 					
 					stmt12.executeUpdate();
 					
+					
 					stmt13 = conn.prepareStatement(
-							"truncate table textHistory");
+							"drop table textHistory");
 					
 					stmt13.executeUpdate();
 					
+
 					stmt14 = conn.prepareStatement(
-							"truncate table dialogue");
+							"drop table dialogue");
 					
 					stmt14.executeUpdate();
 					
 					stmt15 = conn.prepareStatement(
-							"truncate table choices");
+							"drop table choices");
 					
 					stmt15.executeUpdate();
 					
-					loadInitialData();
 
+					
 					
 					return null;
 					} finally {
 						DBUtil.closeQuietly(stmt);
+						DBUtil.closeQuietly(stmt2);
+						DBUtil.closeQuietly(stmt3);
+						DBUtil.closeQuietly(stmt4);
+						DBUtil.closeQuietly(stmt5);
+						DBUtil.closeQuietly(stmt6);
+						DBUtil.closeQuietly(stmt7);
+						DBUtil.closeQuietly(stmt8);
+						DBUtil.closeQuietly(stmt9);
+						DBUtil.closeQuietly(stmt10);
+						DBUtil.closeQuietly(stmt11);
+						DBUtil.closeQuietly(stmt12);
+						DBUtil.closeQuietly(stmt13);
+						DBUtil.closeQuietly(stmt14);
+						DBUtil.closeQuietly(stmt15);
+
 				}
+			}
+		});
+	}
+
+	@Override
+	public Message<String, Integer> loadingTables() {
+		return executeTransaction(new Transaction<Message<String, Integer>>() {
+			@Override
+			public Message<String, Integer> execute(Connection conn) throws SQLException {
+		
+				DerbyDatabase db = new DerbyDatabase();
+				db.createTables();
+				db.loadInitialData();
+		
+		
+				System.out.println("Finished restarting the game!");
+		
+				return null;
 			}
 		});
 	}

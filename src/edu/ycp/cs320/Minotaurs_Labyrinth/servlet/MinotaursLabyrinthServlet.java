@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.activation.CommandMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -107,7 +106,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		IDatabase db = DatabaseProvider.getInstance();
 		
-		
+		Boolean restarting = false;
 		ArrayList<Player> testPlayer = (ArrayList<Player>) db.findAllPlayers();
 		ArrayList<Enemy>  enemyList = (ArrayList<Enemy>) db.findAllEnemies();
 		ArrayList<NPC> npcList = (ArrayList<NPC>) db.findAllNPCs();
@@ -344,7 +343,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			//restart
 			else if(req.getParameter("textbox") != null && inputs[0].equals("restart")) {
 				db.restartGame();
-				doGet(req, resp);
+				db.loadingTables();
+				restarting = true;
+
 			}
 			
 			//throw
@@ -662,53 +663,58 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		
 		
-		//the order of these updates matter
-		db.updateItems(itemList);
-		
-		roomList.set(dbPlayer.getCurrentRoom().getRoomId()-1, dbPlayer.getCurrentRoom());
-		db.updateRooms(roomList);
-		
-		db.updatePlayer(dbPlayer);
-		model.setAtk(dbPlayer.getAtk());
-		model.setDef(dbPlayer.getDef());
-		model.setHP(dbPlayer.getHP());
-		model.setResource(dbPlayer.getResource());
-		model.setXP(dbPlayer.getXP());
-		model.setGold(dbPlayer.getGold());
-		db.updateEnemies(enemyList);
-		db.updateNPCs(npcList);
-		db.updateTextHistory();
-		
-		for(Room room : roomList) {
-			
-			Pair<Integer, Integer> coordPair = db.findCoordinates(room.getRoomId());
-			
-			if(room.getIsFound()) {
-				mapArray[coordPair.getRight()][coordPair.getLeft()] = "□";
-			}
-			
-			if(room.getRoomId() == dbPlayer.getCurrentRoom().getRoomId()) {
-				mapArray[coordPair.getRight()][coordPair.getLeft()] = "<span class=circle>●</span>";
-			}
-			
-		}
-		
-		String mapString = "";
-		for(int i = 0; i < mapArray.length; i++) {
-			for(int j = 0; j < mapArray[0].length; j++) {
-				mapString+=mapArray[i][j];
-			}
-			mapString+= ",";
-			
-		}
-		model.setMapString(mapString);
-		//sets our outputstrings value, which is used to persist our past decisions
-		req.setAttribute("outputstrings", (ArrayList<Message<String, Integer>>)db.findTextHistory());
-		req.setAttribute("game", model);		
+				
 
 
 		//re-post
-		req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+		if(restarting) {
+			doGet(req, resp);
+		}else {
+			//the order of these updates matter
+			db.updateItems(itemList);
+			
+			roomList.set(dbPlayer.getCurrentRoom().getRoomId()-1, dbPlayer.getCurrentRoom());
+			db.updateRooms(roomList);
+			
+			db.updatePlayer(dbPlayer);
+			model.setAtk(dbPlayer.getAtk());
+			model.setDef(dbPlayer.getDef());
+			model.setHP(dbPlayer.getHP());
+			model.setResource(dbPlayer.getResource());
+			model.setXP(dbPlayer.getXP());
+			model.setGold(dbPlayer.getGold());
+			db.updateEnemies(enemyList);
+			db.updateNPCs(npcList);
+			db.updateTextHistory();
+			
+			for(Room room : roomList) {
+				
+				Pair<Integer, Integer> coordPair = db.findCoordinates(room.getRoomId());
+				
+				if(room.getIsFound()) {
+					mapArray[coordPair.getRight()][coordPair.getLeft()] = "□";
+				}
+				
+				if(room.getRoomId() == dbPlayer.getCurrentRoom().getRoomId()) {
+					mapArray[coordPair.getRight()][coordPair.getLeft()] = "<span class=circle>●</span>";
+				}
+				
+			}
+			
+			String mapString = "";
+			for(int i = 0; i < mapArray.length; i++) {
+				for(int j = 0; j < mapArray[0].length; j++) {
+					mapString+=mapArray[i][j];
+				}
+				mapString+= ",";
+				
+			}
+			model.setMapString(mapString);
+			//sets our outputstrings value, which is used to persist our past decisions
+			req.setAttribute("outputstrings", (ArrayList<Message<String, Integer>>)db.findTextHistory());
+			req.setAttribute("game", model);
+			req.getRequestDispatcher("/_view/minotaursLabyrinth.jsp").forward(req, resp);
+		}
 		
 	}
 	
