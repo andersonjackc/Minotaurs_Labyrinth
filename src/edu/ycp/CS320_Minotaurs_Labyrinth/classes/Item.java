@@ -54,6 +54,10 @@ public class Item {
 				return "You used " +  getName() + " it did " + Math.abs( getEffect()) + " to " + target.getName() + "'s " +  getAffectedStat() + ", it now has " + target.getDef() + " " +  getAffectedStat()+ ".";
 	
 			}
+			else if(getAffectedStat().equals("none")) {
+				return "You used " +  getName() + " it did nothing.";
+	
+			}
 		}
 		return "You are dead!"; 
 	}

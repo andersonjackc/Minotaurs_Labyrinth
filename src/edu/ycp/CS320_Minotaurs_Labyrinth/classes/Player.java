@@ -56,14 +56,19 @@ public class Player extends Actor {
 	
 	public String equip(Gear gear, ArrayList<Item> iList) {
 		int index = getListIndexbyItem(gear, iList);
-		if(getInventory().getInventory().contains(gear) && gear.getEquipped() == false) {
-			gear.setEquipped(true);
-			int atk = getAtk() + gear.getAtk();
-			int def = getDef() + gear.getDef();
-			setAtk(atk);
-			setDef(def);
-			iList.set(index, gear);
-			return "You have equipped " + gear.getName() + "."; 
+		if(!checkPlayerEquippedSlot(this.inventory.getInventory(), gear.getAffectedStat())) {
+			if(getInventory().getInventory().contains(gear) && gear.getEquipped() == false) {
+				gear.setEquipped(true);
+				int atk = getAtk() + gear.getAtk();
+				int def = getDef() + gear.getDef();
+				setAtk(atk);
+				setDef(def);
+				iList.set(index, gear);
+				return "You have equipped " + gear.getName() + "."; 
+			}
+		}else if(checkPlayerEquippedSlot(this.inventory.getInventory(), gear.getAffectedStat())) {
+			return "You already have something equipped in that slot!";
+			
 		}
 		return "You can't equip " + gear.getName() + "."; 
 		
@@ -273,6 +278,18 @@ public class Player extends Actor {
 			}
 		}
 		return null;
+	}
+	
+	private Boolean checkPlayerEquippedSlot(ArrayList<Item> inv, String slot) {
+		for(Item gear : inv) {
+			if(gear.getAffectedStat().equals(slot)) {
+				Gear tmpGear = (Gear) gear;
+				if(tmpGear.getEquipped()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	//getters
