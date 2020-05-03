@@ -470,7 +470,24 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			
 			//use
 			else if(req.getParameter("textbox") != null && inputs[0].equals("use")) {
-				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
+					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
+						String useMsg = dbPlayer.use(getItembyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()));
+						Message<String, Integer> msg = new Message<String, Integer>(useMsg, 0);
+						db.insertIntoTextHistory(msg);
+					}else {
+						Message<String, Integer> msg = new Message<String, Integer>("You can't take " + inputs[1] + ".", 0);
+						db.insertIntoTextHistory(msg);
+					}
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify an item!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}else if(inputs.length > 2) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single item!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}
 			}
 			
 			//check
