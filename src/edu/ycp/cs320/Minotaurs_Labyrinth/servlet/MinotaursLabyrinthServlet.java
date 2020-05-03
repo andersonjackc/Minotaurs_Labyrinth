@@ -150,6 +150,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setdjHake(" ");
 		model.setTorqu3Counter(getInteger(req, "torqu3String"));
 		
+		
 		Pair<Integer, Integer> arraySize = db.findMapArraySize();
 		
 		String[][] mapArray = new String[arraySize.getRight()][arraySize.getLeft()];
