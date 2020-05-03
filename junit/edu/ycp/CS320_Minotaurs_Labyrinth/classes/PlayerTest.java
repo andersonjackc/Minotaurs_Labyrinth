@@ -85,33 +85,6 @@ public class PlayerTest {
 	}
 	
 	
-	@Test
-	public void testCheckStats() {
-		assertEquals(testPlayer.checkStats(), "You have: 100 HP, 50 Mana, 10 Attack, 5 Defense");
-		
-	}
-	
-	@Test
-	public void testCheckNPC() {
-		assertEquals(testPlayer.checkNPC(testNPC), "A test NPC");
-	}
-	
-	@Test
-	public void testCheckItem() {
-		assertEquals(testPlayer.checkItem(testItem), "A test item");
-	}
-	
-	@Test
-	public void testCheckValue() {
-		assertEquals(testPlayer.checkValue(testItem), "testItem is worth 50 Gold");
-	}
-	
-	@Test
-	public void testCheckInventory() {
-		assertEquals(testPlayer.checkInventory(testPlayer.getInventory()), "Your inventory is empty!");
-		testPlayer.getInventory().addItem(testItem);
-		assertEquals(testPlayer.checkInventory(testPlayer.getInventory()), "testItem ");
-	}
 	
 	@Test
 	public void testBarter() {
@@ -176,23 +149,7 @@ public class PlayerTest {
 		assertTrue(room.getInventory().getInventory().contains(testItem));
 	}
 	
-	@Test
-	public void testThroNPCItem() {
-		testPlayer.throNPCItem(testNPC, testPotion);
-		assertEquals(110, testNPC.getHP());
-		testPlayer.throNPCItem(testNPC, key);
-		assertEquals(90, testNPC.getAttitude());
-		testPlayer.throNPCItem(testNPC, testTorch);
-		assertEquals(80, testNPC.getAttitude());
-		assertEquals(99, testNPC.getHP());
-	}
-	@Test
-	public void testThroNPCGear() {
-		testPlayer.throNPCGear(testNPC, testSword);
-		assertEquals(95, testNPC.getHP());
-		assertEquals(80, testNPC.getAttitude());
-		
-	}
+	
 	@Test
 	public void testThroObs() {
 		testRoomInv.addItem(rope);
@@ -374,9 +331,6 @@ public class PlayerTest {
 		assertEquals("normal", testPlayer.getStatus());
 		assertEquals("Goodbye!", tmp);
 	}
-	@Test
-	public void testCheckRoom() {
-		assertEquals(testPlayer.getCurrentRoom().getDescription(),testPlayer.checkRoom(room));
-	}
+	
 	
 }
