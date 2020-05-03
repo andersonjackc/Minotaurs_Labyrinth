@@ -120,7 +120,7 @@ public class Player extends Actor {
 		}
 	}
 	
-	public void use(Item item, Actor target) {
+	public String use(Item item, Actor target) {
 		if(getInventory().getInventory().contains(item)) {
 			target.setHP(target.getHP()+item.getEffect());
 		}
