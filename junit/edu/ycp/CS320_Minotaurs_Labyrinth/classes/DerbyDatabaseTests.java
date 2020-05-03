@@ -419,7 +419,8 @@ public class DerbyDatabaseTests {
 	public void testFindTextHistoryIDbyString() {
 		System.out.println("\n*** Testing FindTextHistoryIDbyString ***");
 		int ID;
-		ID = db.findTextHistoryIDbyString("You enter a small stone room there are four doorways at each cardinal direction.");
+		//when this fails, make sure you update it to what the actual initial string is :)
+		ID = db.findTextHistoryIDbyString("You awake in a cold, dark stone room. You don't remember how you got here. Your head is pounding, but there is nothing but silence surrounding you. There are four doorways at each cardinal direction. You can type help for a list of commands.");
 		if (ID == 0) {
 			System.out.println("ID not found in Labyrinth Database");
 			fail("No ID returned from Library DB");

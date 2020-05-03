@@ -12,8 +12,9 @@ public class ObstacleTest {
 	Item key2 = new Item("test", 1, true, false, false, 10, null, "quest", null);
 	Obstacle obs = new Obstacle("test", "jumping", key);
 	ArrayList<Item> Inv = new ArrayList<Item>();
+	ArrayList<Item> Inv2 = new ArrayList<Item>();
 	Inventory testInv = new Inventory(100, 100, Inv);
-	Inventory testRoomInv = new Inventory(100, 100, Inv);
+	Inventory testRoomInv = new Inventory(100, 100, Inv2);
 	HashMap<String, Integer> testMap;
 	Room room = new Room("A test room", testRoomInv, obs, testMap,  false, 1);
 	Player testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, testInv, room, false, "test");
@@ -38,8 +39,10 @@ public class ObstacleTest {
 	
 	@Test
 	public void testCheckRequirement() {
-		testPlayer.take(key);
+		testRoomInv.addItem(key);
+		testPlayer.take(key, testRoomInv);
 		assertTrue(obs.checkRequirement(testPlayer));
+		assertEquals(testRoomInv.getInventory().size(), 0);
 	}
 	
 	@Test

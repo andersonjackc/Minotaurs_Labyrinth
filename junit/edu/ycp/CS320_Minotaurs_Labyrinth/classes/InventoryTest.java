@@ -52,6 +52,7 @@ public class InventoryTest {
 		testInventory.addItem(sword);
 		testInventory.removeItem(potion);
 		assertEquals(sword, testInventory.getInventory().get(0));
+		assertFalse(testInventory.getInventory().contains(potion));
 	}
 
 }

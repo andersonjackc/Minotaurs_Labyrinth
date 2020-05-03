@@ -127,22 +127,25 @@ public class PlayerTest {
 	
 	@Test
 	public void testLight() {
-		testPlayer.take(testTorch);
+		testRoomInv.addItem(testTorch);
+		testPlayer.take(testTorch, testRoomInv);
 		testPlayer.light(testTorch);
 		assertTrue(testTorch.getLit());
 	}
 	
 	@Test
 	public void testEquip() {
+		testRoomInv.addItem(testSword);
 		int oldatk = testPlayer.getAtk();
-		testPlayer.take(testSword);
+		testPlayer.take(testSword, testRoomInv);
 		testPlayer.equip(testSword);
 		assertEquals(oldatk + testSword.getAtk(), testPlayer.getAtk());
 	}
 	
 	@Test
 	public void testUnequip() {
-		testPlayer.take(testSword);
+		testRoomInv.addItem(testSword);
+		testPlayer.take(testSword, testRoomInv);
 		testPlayer.equip(testSword);
 		int oldatk = testPlayer.getAtk();
 		testPlayer.unequip(testSword);
@@ -151,20 +154,24 @@ public class PlayerTest {
 	
 	@Test
 	public void testUse() {
-		testPlayer.take(testPotion);
+		testRoomInv.addItem(testPotion);
+		testPlayer.take(testPotion, testRoomInv);
 		testPlayer.use(testPotion, testPlayer);
 		assertEquals(110, testPlayer.getHP());
 	}
 	
 	@Test
 	public void testTake() {
-		testPlayer.take(testItem);
-		assertTrue(testPlayer.getInventory().getInventory().contains(testItem));
+		
+		testPlayer.take(testTorch, testRoomInv2);
+		assertTrue(testPlayer.getInventory().getInventory().contains(testTorch));
+		assertEquals(testRoomInv2.getInventory().size(), 0);
 	}
 	
 	@Test
 	public void testDrop() {
-		testPlayer.take(testItem);
+		testRoomInv.addItem(testItem);
+		testPlayer.take(testItem, testRoomInv);
 		testPlayer.drop(testItem);
 		assertTrue(room.getInventory().getInventory().contains(testItem));
 	}
@@ -188,7 +195,8 @@ public class PlayerTest {
 	}
 	@Test
 	public void testThroObs() {
-		testPlayer.take(rope);
+		testRoomInv.addItem(rope);
+		testPlayer.take(rope, testRoomInv);
 		testPlayer.throObs(obs1, rope);
 		assertEquals("normal", obs1.getStatus());
 	}
@@ -200,7 +208,8 @@ public class PlayerTest {
 		testPlayer.move("south", allRooms);
 		tmp = testPlayer.move("south", allRooms);
 		assertEquals("You can't move in that direction!", tmp);
-		testPlayer.take(key);
+		testRoomInv.addItem(key);
+		testPlayer.take(key, testRoomInv);
 		tmp = testPlayer.move("east", allRooms);
 		assertEquals(testPlayer.getCurrentRoom().getDescription() + " " + "There is a torch in the room.", tmp);
 		testPlayer.setIsDead(true);
