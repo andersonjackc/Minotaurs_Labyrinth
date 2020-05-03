@@ -1499,6 +1499,23 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 						Ability ability = new Ability(null, null, null, null, 0, 0);
 						loadAbility(ability, resultSet, 2);
 	
+						result.add(ability);
+					}
+					
+					// check if the title was found
+					if (!found) {
+						System.out.println("No abilitys were found!");
+					}
+					
+					return result;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
 	@Override
 	public List<Enemy> findAllEnemies() {
 		return executeTransaction(new Transaction<List<Enemy>>() {
@@ -1817,6 +1834,8 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 				ResultSet resultSet2 = null;
 				PreparedStatement stmt3 = null;
 				ResultSet resultSet3 = null;
+				PreparedStatement stmt4 = null;
+				ResultSet resultSet4 = null;
 				
 				try {
 					stmt = conn.prepareStatement(
@@ -1860,6 +1879,9 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 					resultSet3 = stmt3.executeQuery();
 					resultSet3.next();
 					
+					
+					updateInventory(newPlayer.getInventory(), resultSet3.getInt(1));
+					
 					stmt4 = conn.prepareStatement(
 							"select abilities from player where player.name = ? ");
 					stmt4.setString(1, newPlayer.getName());
@@ -1868,6 +1890,7 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 					
 					updateInventory(newPlayer.getInventory(), resultSet3.getInt(1));
 					updateAbilityList(newPlayer.getAbilities(), resultSet4.getInt(1));
+					
 					return null;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
