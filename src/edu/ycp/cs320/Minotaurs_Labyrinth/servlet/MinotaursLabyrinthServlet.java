@@ -25,6 +25,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DerbyDatabase;
 import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.DatabaseProvider;
 import edu.ycp.cs320.Minotaurs_Labyrinth.controller.MinotaursLabyrinthController;
 import edu.ycp.cs320.Minotaurs_Labyrinth.model.Minotaur;
+import sun.security.action.GetIntegerAction;
 
 public class MinotaursLabyrinthServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -55,6 +56,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setResource(dbPlayer.getResource());
 		model.setXP(dbPlayer.getXP());
 		model.setGold(dbPlayer.getGold());
+		model.setTorqu3String(" ");
 
 		String[][] mapArray = new String[arraySize.getRight()][arraySize.getLeft()];
 		String mapString = "";
@@ -142,6 +144,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setResource(dbPlayer.getResource());
 		model.setXP(dbPlayer.getXP());
 		model.setGold(dbPlayer.getGold());
+		model.setTorqu3String(" ");
+		model.setTorqu3Counter(getInteger(req, "torqu3String"));
 		
 		Pair<Integer, Integer> arraySize = db.findMapArraySize();
 		
@@ -320,7 +324,18 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			
 			//torqu3
 			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
-				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+				if(model.getTorqu3Counter()==0 || model.getTorqu3Counter()>=3) {
+				model.setTorqu3String("<div class = \"animation1\"><img class=\"Vroom\" src=\"https://i.imgur.com/NfC1M8o.png\"></div>");
+				model.setTorqu3Counter(1);
+				}
+				else if(model.getTorqu3Counter()==1) {
+				model.setTorqu3String("<div class = \"animation2\"><img class=\"Vroom\" src=\"https://i.imgur.com/NfC1M8o.png\"></div>");
+				model.setTorqu3Counter(2);
+				}
+				else if(model.getTorqu3Counter()==2) {
+				model.setTorqu3String("<div class = \"animation3\"><img class=\"Vroom2\" src=\"https://i.imgur.com/NfC1M8o.png\"></div>");
+				model.setTorqu3Counter(3);
+				}
 			}
 			
 			//throw
@@ -718,6 +733,10 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 	
 	private String getString(HttpServletRequest req, String name) {
 		return String.valueOf(req.getParameter(name));
+	}
+	
+	private int getInteger(HttpServletRequest req, String name) {
+		return Integer.parseInt(req.getParameter(name));
 	}
 	
 	public static boolean isNumeric(final String str) {

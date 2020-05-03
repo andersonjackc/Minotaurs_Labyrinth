@@ -115,7 +115,10 @@
 		<br>
 		</c:forTokens>
 		
-		</div>		
+		</div>
+		<!-- dont worry about this -->
+		${game.torqu3String}
+		<input name="torqu3String" type="hidden" value="${game.torqu3Counter}" />
 	</form>
 </body>
 
