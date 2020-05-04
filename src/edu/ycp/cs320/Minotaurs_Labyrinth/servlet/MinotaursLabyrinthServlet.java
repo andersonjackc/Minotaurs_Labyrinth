@@ -854,8 +854,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 	}
 	
 	public NPC getNPCbyRoomID(int roomID, HashMap<String, Actor> targets) {
+		Player tmpPlayer = new Player(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, false, null);
 		for(Actor target : targets.values()) {
-			if(target.getClass() != targets.get("player").getClass()) {
+			if(target.getClass() != tmpPlayer.getClass()) {
 				if(target.getCurrentRoom().getRoomId() == roomID && !target.getIsDead()) {
 					return (NPC) target;
 				}
