@@ -3,3 +3,6 @@
 3|godmode|a spell that makes the user like a god|godmode|godmode|100|0
 4|cripple|a devastating blow that cripples the target|damage|HP|-5|5
 5|filler|filler|filler|filler|0|0
+6|scorch|a weak fire spell|damage|HP|-5|5
+7|greater-heal|a high level healing spell|healing|HP|10|10
+8|pyroblast|a flaming ball of death and destruction|damage|HP|-20|20

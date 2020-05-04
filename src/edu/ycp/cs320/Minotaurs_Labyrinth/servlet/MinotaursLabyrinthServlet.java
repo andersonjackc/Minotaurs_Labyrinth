@@ -190,11 +190,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
 				if(inputs.length <= 2 && inputs.length > 1 && targets.get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
 					String atkMsg = dbPlayer.basicAttack(targets.get(inputs[1]));
-					if(targets.get(inputs[1]).getIsDead()) {
-						int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
-						dbPlayer.setXP(tmpXP);
-						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
-					}
 					
 					String enemyAtkMsg = ((NPC)targets.get(inputs[1])).rollForAction(dbPlayer);
 					
@@ -220,19 +215,14 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
 				if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
 					String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
-					if(targets.get(inputs[2]).getIsDead()) {
-						int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
-						dbPlayer.setXP(tmpXP);
-						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
-					}
 					if(!inputs[2].equals(dbPlayer.getName())) {
 						String enemyAtkMsg = ((NPC)targets.get(inputs[1])).rollForAction(dbPlayer);
 						Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
 						db.insertIntoTextHistory(msg2);
 
-					}
-					Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
-					db.insertIntoTextHistory(msg);
+						}
+						Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
+						db.insertIntoTextHistory(msg);
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a spell or ability!", 0);
 					db.insertIntoTextHistory(msg);
@@ -255,9 +245,13 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			//talk
 			else if(req.getParameter("textbox") != null && inputs[0].equals("talk")) {
 				if(inputs.length <= 2 && inputs.length > 1 && targets.containsKey(inputs[1]) && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId()) {
-					if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead())) {
+					if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead()) && targets.get(inputs[1]).getClass() != targets.get("ogre").getClass()) {
 						db.findChoicesForNPC(inputs[1]);
 						dbPlayer.setStatus("talking");
+					}else if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead()) && targets.get(inputs[1]).getClass() == targets.get("ogre").getClass()) {
+						String talkMsg = dbPlayer.talk(targets.get(inputs[1]));
+						Message<String, Integer> msg = new Message<String, Integer>(talkMsg, 0);
+						db.insertIntoTextHistory(msg);
 					}else if(!(dbPlayer.getIsDead())) {
 						Message<String, Integer> msg = new Message<String, Integer>("You can't talk to " + targets.get(inputs[1]).getName() + " because it is dead.", 0);
 						db.insertIntoTextHistory(msg);
@@ -590,13 +584,13 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			
 			//cast
 			else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
-				if(targets.get(inputs[2]).getIsDead() && !inputs[2].equals(dbPlayer.getName())) {
-					int tmpXP = targets.get(inputs[1]).getXP() + dbPlayer.getXP();
-					dbPlayer.setXP(tmpXP);
-					model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
-				}
 				if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
 					String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
+					if(targets.get(inputs[2]).getIsDead() && !inputs[2].equals(dbPlayer.getName())) {
+						int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
+						dbPlayer.setXP(tmpXP);
+						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+					}
 					if(!inputs[2].equals(dbPlayer.getName())) {
 					String enemyAtkMsg = ((NPC)targets.get(inputs[1])).rollForAction(dbPlayer);
 					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
