@@ -194,7 +194,11 @@ public class Player extends Actor {
 	public String basicAttack(Actor target) {
 		this.status = "combat";
 		if(!this.isDead) {
-			target.setHP((target.getHP() - getAtk())); 
+			int atk = getAtk() - target.getDef();
+			if(atk < 0) {
+				atk = 0;
+			}
+			target.setHP((target.getHP() - atk)); 
 			
 			if(target.getHP()<=0 || target.getIsDead()) {
 				target.setIsDead(true);
