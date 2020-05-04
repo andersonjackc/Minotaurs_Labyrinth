@@ -218,7 +218,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						if(targets.get(inputs[2]).getIsDead()) {
 							int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
 							dbPlayer.setXP(tmpXP);
-							model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+							String tempstr = model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+							Message<String, Integer> msg = new Message<String, Integer>(tempstr, 0);
+							db.insertIntoTextHistory(msg);
 							int tmpGold = targets.get(inputs[2]).getGold() + dbPlayer.getGold();
 							dbPlayer.setGold(tmpGold);
 							targets.get(inputs[2]).setXP(0);
@@ -566,7 +568,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					if(targets.get(inputs[1]).getIsDead()) {
 						int tmpXP = targets.get(inputs[1]).getXP() + dbPlayer.getXP();
 						dbPlayer.setXP(tmpXP);
-						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+						String tempstr = model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+						Message<String, Integer> msg = new Message<String, Integer>(tempstr, 0);
+						db.insertIntoTextHistory(msg);
 						int tmpGold = targets.get(inputs[1]).getGold() + dbPlayer.getGold();
 						dbPlayer.setGold(tmpGold);
 						targets.get(inputs[1]).setXP(0);
@@ -601,7 +605,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					if(targets.get(inputs[2]).getIsDead() && !inputs[2].equals(dbPlayer.getName())) {
 						int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
 						dbPlayer.setXP(tmpXP);
-						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+						String tempstr = model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+						Message<String, Integer> msg = new Message<String, Integer>(tempstr, 0);
+						db.insertIntoTextHistory(msg);
 						int tmpGold = targets.get(inputs[2]).getGold() + dbPlayer.getGold();
 						dbPlayer.setGold(tmpGold);
 						targets.get(inputs[2]).setXP(0);
