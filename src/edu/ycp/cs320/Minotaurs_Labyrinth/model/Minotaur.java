@@ -88,6 +88,7 @@ public class Minotaur {
 		return xp;
 	}
 	
+	//leveling
 	public void levelUp(Player player, int PlayerXP, ArrayList<Ability> abilityList) {
 		if(player.getXP()>=10 && player.getAbilities().size() <= 1) {
 			player.getAbilities().add(abilityList.get(1));
