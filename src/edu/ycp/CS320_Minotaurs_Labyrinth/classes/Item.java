@@ -22,6 +22,7 @@ public class Item {
 	}
 
 	public String addEffect(Actor target)  {
+		Gear gear = new Gear(effect, effect, effect, affectedstat, flammable, affectedstat, effect, flammable, flammable, flammable, effect, affectedstat, affectedstat);
 		if(!target.getIsDead()) {
 			if(getAffectedStat().equals("HP")) {
 				target.setHP(target.getHP() + getEffect());
@@ -57,6 +58,9 @@ public class Item {
 			else if(getAffectedStat().equals("none")) {
 				return "You used " +  getName() + " it did nothing.";
 	
+			}
+			else if(this.getClass() == gear.getClass()) {
+				return "You can't use " +  getName() + ", try to equip it instead.";
 			}
 		}
 		return "You are dead!"; 
