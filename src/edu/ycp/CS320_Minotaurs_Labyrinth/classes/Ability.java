@@ -20,7 +20,7 @@ public class Ability {
 	public void addEffect(Actor target) {
 	    if(getAffectedStat().equals("HP")) {
 	    	target.setHP(target.getHP() + getEffect());
-	    	if(target.getHP()<=0) {
+	    	if(target.getHP() <= 0) {
 				target.setIsDead(true);
 			}
 		} 

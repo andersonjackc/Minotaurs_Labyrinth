@@ -20,17 +20,19 @@ public class NPC extends Actor {
 	}
 	
 	public String rollForAction(Actor target) {
-		
 		Random rand = new Random();
 		int action = rand.nextInt(2);
 		if(action == 0) {
 			return basicAttack(target);
 		}
 		else if(action == 1){
-			int spellchoice = rand.nextInt(this.abilities.size());
-			if(this.resource >= this.abilities.get(spellchoice).getCost()) {
-				return cast(target, this.abilities.get(spellchoice));
-			}else {
+			if(this.abilities.size() > 0) {
+				int spellchoice = rand.nextInt(this.abilities.size());
+				if(this.resource >= this.abilities.get(spellchoice).getCost()) {	
+					return cast(target, this.abilities.get(spellchoice));
+				}
+			}
+			else {
 				return basicAttack(target);
 			}
 		}

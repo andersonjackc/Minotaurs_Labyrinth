@@ -216,7 +216,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
 					String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
 					if(!inputs[2].equals(dbPlayer.getName())) {
-						String enemyAtkMsg = ((NPC)targets.get(inputs[1])).rollForAction(dbPlayer);
+						String enemyAtkMsg = ((NPC)targets.get(inputs[2])).rollForAction(dbPlayer);
 						Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
 						db.insertIntoTextHistory(msg2);
 
@@ -592,7 +592,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
 					}
 					if(!inputs[2].equals(dbPlayer.getName())) {
-					String enemyAtkMsg = ((NPC)targets.get(inputs[1])).rollForAction(dbPlayer);
+					String enemyAtkMsg = ((NPC)targets.get(inputs[2])).rollForAction(dbPlayer);
 					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
 					db.insertIntoTextHistory(msg2);
 					}

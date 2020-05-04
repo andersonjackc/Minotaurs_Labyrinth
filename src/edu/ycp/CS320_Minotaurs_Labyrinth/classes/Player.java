@@ -219,14 +219,14 @@ public class Player extends Actor {
 				this.status = "combat";
 			}
 			if(abilities.contains(spell) && spell.getCost() <= this.resource) {
-				spell.addEffect(target);
-				setResource(getResource()-spell.getCost());
-				if(target.getHP()<=0 || target.getIsDead()) {
+				if(target.getHP() <= 0 || target.getIsDead()) {
 					target.setIsDead(true);
 					this.status = "normal";
 					return target.getName() + " is dead.";
 					
 				}
+				spell.addEffect(target);
+				setResource(getResource() - spell.getCost());
 				if(spell.getAffectedStat().equals("HP")) {
 					return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getHP() + " " + spell.getAffectedStat();
 				  

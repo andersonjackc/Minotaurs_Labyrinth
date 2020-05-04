@@ -19,10 +19,13 @@ public class Enemy extends NPC {
 			return basicAttack(target);
 		}
 		else if(action == 1){
-			int spellchoice = rand.nextInt(this.abilities.size());
-			if(this.resource >= this.abilities.get(spellchoice).getCost()) {
-				return cast(target, this.abilities.get(spellchoice));
-			}else {
+			if(this.abilities.size() > 0) {
+				int spellchoice = rand.nextInt(this.abilities.size());
+				if(this.resource >= this.abilities.get(spellchoice).getCost()) {	
+					return cast(target, this.abilities.get(spellchoice));
+				}
+			}
+			else {
 				return basicAttack(target);
 			}
 		}
