@@ -194,7 +194,11 @@ public class Player extends Actor {
 	public String basicAttack(Actor target) {
 		this.status = "combat";
 		if(!this.isDead) {
-			target.setHP((target.getHP() - getAtk())); 
+			int atk = getAtk() - target.getDef();
+			if(atk < 0) {
+				atk = 0;
+			}
+			target.setHP((target.getHP() - atk)); 
 			
 			if(target.getHP()<=0 || target.getIsDead()) {
 				target.setIsDead(true);
@@ -215,14 +219,14 @@ public class Player extends Actor {
 				this.status = "combat";
 			}
 			if(abilities.contains(spell) && spell.getCost() <= this.resource) {
-				spell.addEffect(target);
-				setResource(getResource()-spell.getCost());
-				if(target.getHP()<=0 || target.getIsDead()) {
+				if(target.getHP() <= 0 || target.getIsDead()) {
 					target.setIsDead(true);
 					this.status = "normal";
 					return target.getName() + " is dead.";
 					
 				}
+				spell.addEffect(target);
+				setResource(getResource() - spell.getCost());
 				if(spell.getAffectedStat().equals("HP")) {
 					return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getHP() + " " + spell.getAffectedStat();
 				  

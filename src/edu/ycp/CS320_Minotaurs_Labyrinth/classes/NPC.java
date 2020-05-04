@@ -20,15 +20,25 @@ public class NPC extends Actor {
 	}
 	
 	public String rollForAction(Actor target) {
-		
 		Random rand = new Random();
 		int action = rand.nextInt(2);
+
 		if(action == 0) {
 			return basicAttack(target);
 		}
 		else if(action == 1){
-			int spellchoice = rand.nextInt(this.abilities.size());
-			return cast(target, this.abilities.get(spellchoice));
+			if(this.abilities.size() > 0) {
+				int spellchoice = rand.nextInt(this.abilities.size());
+				if(this.resource >= this.abilities.get(spellchoice).getCost()) {	
+					return cast(target, this.abilities.get(spellchoice));
+				}
+				else {
+					return basicAttack(target);
+				}
+			}
+			else {
+				return basicAttack(target);
+			}
 		}
 		return "";
 		
@@ -36,15 +46,19 @@ public class NPC extends Actor {
 	
 	public String basicAttack(Actor target) {
 		if(!this.isDead) {
-		target.setHP(target.getHP() - getAtk()); 
-		
-		if(target.getHP()<=0) {
-			target.setIsDead(true);
-			target.setStatus("normal");
-			return "You are dead.";
-		}
-		
-		return this.name + " did " + this.getAtk() + " to " + target.getName() + ", you now have " + target.getHP() + " HP.";
+			int atk = getAtk() - target.getDef();
+			if(atk < 0) {
+				atk = 0;
+			}
+			target.setHP((target.getHP() - atk)); 
+			
+			if(target.getHP()<=0) {
+				target.setIsDead(true);
+				target.setStatus("normal");
+				return "You are dead.";
+			}
+			
+			return this.name + " did " + this.getAtk() + " to " + target.getName() + ", you now have " + target.getHP() + " HP.";
 		}
 		return "";
 	}
@@ -60,27 +74,27 @@ public class NPC extends Actor {
 				
 			}
 			if(spell.getAffectedStat().equals("HP")) {
-				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getHP() + " " + spell.getAffectedStat();
+				return this.name + " cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getHP() + " " + spell.getAffectedStat();
 		  
 			} 
 			else if(spell.getAffectedStat().equals("maxHP")) {
-				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getMaxHP() + " " + spell.getAffectedStat();
+				return this.name + " cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getMaxHP() + " " + spell.getAffectedStat();
 
 			}
 			else if(spell.getAffectedStat().equals("resource")) {
-				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getResource() + " " + spell.getAffectedStat();
+				return this.name + " cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getResource() + " " + spell.getAffectedStat();
 
 			}
 			else if(spell.getAffectedStat().equals("maxResource")) {
-				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getMaxResource() + " " + spell.getAffectedStat();
+				return this.name + " cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getMaxResource() + " " + spell.getAffectedStat();
 
 			}
 			else if(spell.getAffectedStat().equals("atk")) {
-				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getAtk() + " " + spell.getAffectedStat();
+				return this.name + " cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getAtk() + " " + spell.getAffectedStat();
 
 			}
 			else if(spell.getAffectedStat().equals("def")) {
-				return this.name + " cast " + spell.getName() + " it did " + spell.getEffect() + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getDef() + " " + spell.getAffectedStat();
+				return this.name + " cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", you now have " + target.getDef() + " " + spell.getAffectedStat();
 
 			}
 			else if(spell.getAffectedStat().equals("godmode")) {
