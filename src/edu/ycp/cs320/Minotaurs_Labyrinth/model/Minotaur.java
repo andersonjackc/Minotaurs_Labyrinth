@@ -104,7 +104,7 @@ public class Minotaur {
 			player.setDef(player.getDef()+1);
 			player.setHP(player.getHP()+5);
 			player.setResource(player.getResource()+5);
-			return "Level up! You gained the " + player.getAbilities().get(0).getName() + " spell!";
+			return "Level up! You gained the " + player.getAbilities().get(2).getName() + " spell!";
 
 		}
 		if(player.getXP()>=30 && player.getAbilities().size() <= 3) {
@@ -113,7 +113,7 @@ public class Minotaur {
 			player.setDef(player.getDef()+1);
 			player.setHP(player.getHP()+5);
 			player.setResource(player.getResource()+5);
-			return "Level up! You gained the " + player.getAbilities().get(6).getName() + " spell!";
+			return "Level up! You gained the " + player.getAbilities().get(3).getName() + " spell!";
 
 		}
 		if(player.getXP()>=40 && player.getAbilities().size() <= 4) {
@@ -122,7 +122,7 @@ public class Minotaur {
 			player.setDef(player.getDef()+1);
 			player.setHP(player.getHP()+5);
 			player.setResource(player.getResource()+5);
-			return "Level up! You gained the " + player.getAbilities().get(7).getName() + " spell!";
+			return "Level up! You gained the " + player.getAbilities().get(4).getName() + " spell!";
 		}
 		return "";
 	}
