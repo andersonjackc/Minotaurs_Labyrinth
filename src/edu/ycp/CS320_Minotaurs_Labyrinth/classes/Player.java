@@ -109,7 +109,6 @@ public class Player extends Actor {
 	public String talk(Actor target) {
 		
 		if(target.getClass() != this.getClass()) {
-			this.status = "talking";
 			NPC npc = (NPC) target; 
 			return npc.getDialogue();
 		}
@@ -126,8 +125,10 @@ public class Player extends Actor {
 	}
 	
 	public String use(Item item, Actor target) {
-		
-			return item.addEffect(target);
+		if(item.getVariety().equals("potion")) {
+			this.inventory.removeItem(item);
+		}
+		return item.addEffect(target);
 			
 		
 	}

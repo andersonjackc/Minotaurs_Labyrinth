@@ -133,6 +133,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		commandMap.put("use", "-allows you to use items.");
 		commandMap.put("check item", "-allows you to examine an item.");
 		commandMap.put("check inventory", "-allows you to check the contents of your inventory.");
+		commandMap.put("check abilities", "-allows you to check the abilities you have access to.");
 		commandMap.put("restart", "-restarts the game to the beginning.");
 
 		
@@ -258,9 +259,13 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			//talk
 			else if(req.getParameter("textbox") != null && inputs[0].equals("talk")) {
 				if(inputs.length <= 2 && inputs.length > 1 && targets.containsKey(inputs[1]) && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId()) {
-					if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead())) {
+					if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead()) && targets.get(inputs[1]).getClass() != targets.get("ogre").getClass()) {
 						db.findChoicesForNPC(inputs[1]);
 						dbPlayer.setStatus("talking");
+					}else if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead()) && targets.get(inputs[1]).getClass() == targets.get("ogre").getClass()) {
+						String talkMsg = dbPlayer.talk(targets.get(inputs[1]));
+						Message<String, Integer> msg = new Message<String, Integer>(talkMsg, 0);
+						db.insertIntoTextHistory(msg);
 					}else if(!(dbPlayer.getIsDead())) {
 						Message<String, Integer> msg = new Message<String, Integer>("You can't talk to " + targets.get(inputs[1]).getName() + " because it is dead.", 0);
 						db.insertIntoTextHistory(msg);
@@ -513,6 +518,19 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						}
 					}
 				
+					//ability
+					else if(inputs[1].equals("abilities")) {
+						if(dbPlayer.getAbilities().size() != 0) {
+							for(Ability a : dbPlayer.getAbilities()) {
+								Message<String, Integer> msg = new Message<String, Integer>(a.getName() + "\n", 0);
+								db.insertIntoTextHistory(msg);
+							}
+						}else {
+							Message<String, Integer> msg = new Message<String, Integer>("Your Ability is empty!", 0);
+							db.insertIntoTextHistory(msg);
+						}
+					}
+					
 					//item
 					else if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
 						Item i = getItembyName(inputs[1], dbPlayer.getInventory().getInventory());
