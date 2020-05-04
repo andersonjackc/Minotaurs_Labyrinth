@@ -113,7 +113,7 @@ public class Minotaur {
 			player.setHP(player.getHP()+5);
 			player.setResource(player.getResource()+5);
 		}
-		if(player.getXP()>=10 && !player.getAbilities().contains(abilityList.get(7))) {
+		if(player.getXP()>=50 && !player.getAbilities().contains(abilityList.get(7))) {
 			player.getAbilities().add(abilityList.get(7));
 			System.out.println(abilityList.get(7).getName());
 			player.setAtk(player.getAtk()+2);
