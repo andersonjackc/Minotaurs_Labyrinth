@@ -217,6 +217,16 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
 					if(!inputs[2].equals(dbPlayer.getName())) {
 						String enemyAtkMsg = ((NPC)targets.get(inputs[2])).rollForAction(dbPlayer);
+						if(targets.get(inputs[2]).getIsDead()) {
+							int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
+							dbPlayer.setXP(tmpXP);
+							model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+							int tmpGold = targets.get(inputs[2]).getGold() + dbPlayer.getGold();
+							dbPlayer.setGold(tmpGold);
+							targets.get(inputs[2]).setXP(0);
+							targets.get(inputs[2]).setGold(0);
+
+						}
 						Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
 						db.insertIntoTextHistory(msg2);
 
@@ -559,6 +569,10 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						int tmpXP = targets.get(inputs[1]).getXP() + dbPlayer.getXP();
 						dbPlayer.setXP(tmpXP);
 						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+						int tmpGold = targets.get(inputs[1]).getGold() + dbPlayer.getGold();
+						dbPlayer.setGold(tmpGold);
+						targets.get(inputs[1]).setXP(0);
+						targets.get(inputs[1]).setGold(0);
 					}
 					String enemyAtkMsg = ((NPC)targets.get(inputs[1])).rollForAction(dbPlayer);
 					Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
@@ -590,6 +604,11 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
 						dbPlayer.setXP(tmpXP);
 						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+						int tmpGold = targets.get(inputs[2]).getGold() + dbPlayer.getGold();
+						dbPlayer.setGold(tmpGold);
+						targets.get(inputs[2]).setXP(0);
+						targets.get(inputs[2]).setGold(0);
+
 					}
 					if(!inputs[2].equals(dbPlayer.getName())) {
 					String enemyAtkMsg = ((NPC)targets.get(inputs[2])).rollForAction(dbPlayer);
@@ -732,7 +751,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 	public NPC getNPCbyRoomID(int roomID, HashMap<String, Actor> targets) {
 		for(Actor target : targets.values()) {
 			if(target.getClass() != targets.get("player").getClass()) {
-				if(target.getCurrentRoom().getRoomId() == roomID) {
+				if(target.getCurrentRoom().getRoomId() == roomID && !target.getIsDead()) {
 					return (NPC) target;
 				}
 			}
