@@ -239,6 +239,8 @@ public class DerbyDatabase implements IDatabase {
 		obs.setStatus(resultSet.getString(index++));
 		obs.setRequirement(item);
 		index++;
+		obs.setName(resultSet.getString(index++));
+
 		
 	}
 
@@ -573,7 +575,8 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 							"		generated always as identity (start with 1, increment by 1), " +
 							"	description varchar(7999)," +
 							"	status varchar(40)," +
-							"	requirement integer" +
+							"	requirement integer," +
+							"	name varchar(40)" +
 							")"
 					);
 					stmt10.executeUpdate();
@@ -957,11 +960,13 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 					System.out.println("Rooms table populated");
 					
 					insertObstacles = conn.prepareStatement("insert into obstacle (description, status, "
-							+ "requirement) values (?, ?, ?)");
+							+ "requirement, name) values (?, ?, ?, ?)");
 					for (Obstacle obstacle : Obstacles) {
 						insertObstacles.setString(1, obstacle.getDescription());
 						insertObstacles.setString(2, obstacle.getStatus());
 						insertObstacles.setInt(3, ItemIDbyList(obstacle.getRequirement(), Items));
+						insertObstacles.setString(4, obstacle.getName());
+
 
 						insertObstacles.addBatch();
 					}
@@ -2131,7 +2136,6 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 						stmt3.setInt(1, room.getRoomId());
 						resultSet3 = stmt3.executeQuery();
 						resultSet3.next();
-
 						updateInventory(room.getInventory(), resultSet3.getInt(1));
 					}
 					
@@ -2235,7 +2239,7 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 					loadItem(item, resultSet2, 2);
 					
 					
-					Obstacle obs = new Obstacle(null, null, null);
+					Obstacle obs = new Obstacle(null, null, null, null);
 					loadObstacle(obs, resultSet, item, 2);
 						
 					
@@ -2538,7 +2542,7 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 					
 					newMap = findMap(roomId);
 					
-					Obstacle obs = new Obstacle(null, null, null);
+					Obstacle obs = new Obstacle(null, null, null, null);
 					obs = findObstacle(resultSet.getInt(4));
 					
 					Inventory inv = new Inventory(0, 0, null);
@@ -3033,7 +3037,7 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 				ResultSet resultSet = null;
 				
 				try {
-					
+
 					stmt = conn.prepareStatement(
 							"update itemlist " +
 							"set item1 = ?, " +
@@ -3045,6 +3049,7 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 							+ " where itemlist_id = ?");
 					for(int i = 1; i <= 50; i++) {
 						if(i-1 < iList.size()) {
+
 							stmt.setString(i, iList.get(i-1).getName());
 						}else {
 							stmt.setString(i, "filler");

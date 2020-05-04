@@ -2,14 +2,15 @@ package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 public class Obstacle {
 	//attributes
-	private String description, status;
+	private String description, status, name;
 	private Item requirement;
 
 	//methods
-	public Obstacle(String description, String status, Item requirement) {
+	public Obstacle(String description, String status, Item requirement, String name) {
 		this.description = description;
 		this.status = status;
 		this.requirement = requirement;
+		this.name = name;
 	}
 	
 	public Boolean checkRequirement(Player player) {
@@ -42,6 +43,10 @@ public class Obstacle {
 		return requirement;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 	//setters
 	public void setDescription(String description) {
 		this.description = description;
@@ -53,6 +58,10 @@ public class Obstacle {
 	
 	public void setRequirement(Item requirement) {
 		this.requirement = requirement;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

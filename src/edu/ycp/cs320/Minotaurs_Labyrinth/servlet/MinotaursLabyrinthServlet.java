@@ -16,6 +16,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Gear;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Item;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Message;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.NPC;
+import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Obstacle;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Pair;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Player;
 import edu.ycp.CS320_Minotaurs_Labyrinth.classes.Room;
@@ -350,8 +351,30 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			}
 			
 			//throw
-			else if(req.getParameter("textbox") != null && inputs[0].equals("torqu3")) {
-				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			else if(req.getParameter("textbox") != null && inputs[0].equals("throw")) {
+				if(inputs.length <= 3 && inputs.length > 2) {
+					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
+						String thowMsg = dbPlayer.throObs(getObstaclebyName(inputs[2], dbPlayer.getCurrentRoom().getRoomMap(), roomList), getItembyName(inputs[1], dbPlayer.getInventory().getInventory()), dbPlayer.getCurrentRoom());
+						Message<String, Integer> msg = new Message<String, Integer>(thowMsg, 0);
+						db.insertIntoTextHistory(msg);
+					}else {
+						Message<String, Integer> msg = new Message<String, Integer>(inputs[1] + " isn't in your inventory!", 0);
+						db.insertIntoTextHistory(msg);
+					}
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify an item!", 0);
+					db.insertIntoTextHistory(msg);
+				}else if(inputs.length<=2){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
+					db.insertIntoTextHistory(msg);
+				}else if(inputs.length > 3) {
+					Message<String, Integer> msg = new Message<String, Integer>("Specify a single target!", 0);
+					db.insertIntoTextHistory(msg);
+				}else{
+					Message<String, Integer> msg = new Message<String, Integer>(inputs[2] + " is an invalid target!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}
 			}
 			
 			//take
@@ -380,7 +403,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if(req.getParameter("textbox") != null && inputs[0].equals("drop")) {
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
-						String takeMsg = dbPlayer.drop(getItembyName(inputs[1], dbPlayer.getInventory().getInventory()));
+						String takeMsg = dbPlayer.drop(getItembyName(inputs[1], dbPlayer.getInventory().getInventory()), dbPlayer.getCurrentRoom());
 						Message<String, Integer> msg = new Message<String, Integer>(takeMsg, 0);
 						db.insertIntoTextHistory(msg);
 					}else {
@@ -692,8 +715,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		}else {
 			//the order of these updates matter
 			db.updateItems(itemList);
-			
+
 			roomList.set(dbPlayer.getCurrentRoom().getRoomId()-1, dbPlayer.getCurrentRoom());
+
 			db.updateRooms(roomList);
 			
 			db.updatePlayer(dbPlayer);
@@ -783,6 +807,25 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		for(Item i : inv) {
 			if(i.getName().equals(name)) {
 				return (Gear) i;
+			}
+		}
+		return null;
+	}
+	
+	public Obstacle getObstaclebyName(String name, HashMap<String, Integer> roomMap, ArrayList<Room> rooms) {
+		for(Integer i : roomMap.values()) {
+			Room room = getRoomByRoomId(i, rooms);
+			if(room.getObstacle().getName().equals(name)) {
+				return room.getObstacle();
+			}			
+		}		
+		return new Obstacle(null, null, null, "empty");
+	}
+	
+	private Room getRoomByRoomId(Integer room_id, ArrayList<Room> allRooms) {
+		for(Room room : allRooms) {
+			if(room.getRoomId() == room_id) {
+				return room;
 			}
 		}
 		return null;

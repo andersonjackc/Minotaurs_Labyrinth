@@ -335,7 +335,7 @@ public class InitialData {
 					break;
 				}
 				Iterator<String> i = tuple.iterator();
-				Obstacle obstacle = new Obstacle(null, null, null);
+				Obstacle obstacle = new Obstacle(null, null, null, null);
 				i.next();
 				obstacle.setDescription(i.next());
 				
@@ -344,6 +344,8 @@ public class InitialData {
 				List<Item> tmpList = getItems();
 				
 				obstacle.setRequirement(tmpList.get(Integer.parseInt(i.next())-1));
+				
+				obstacle.setName(i.next());
 				
 				obstacleList.add(obstacle);
 				

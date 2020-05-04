@@ -89,9 +89,9 @@ public class Player extends Actor {
 		
 	}
 	
-	public String drop(Item item) {
+	public String drop(Item item, Room room) {
 		String tmp = this.inventory.removeItem(item);
-		getCurrentRoom().getInventory().addItem(item);
+		room.getInventory().addItem(item);
 		return tmp;
 	}
 	
@@ -116,12 +116,21 @@ public class Player extends Actor {
 	}
 	
 	
-	public void throObs(Obstacle target, Item item) {
-		if(item.getThrowable()) {
-			if(item.getName().equals("rope") && target.getStatus().equals("jumping")) {
+	public String throObs(Obstacle target, Item item, Room room) {
+		if(item.getThrowable() && !target.getName().equals("empty")) {
+			if(target.getRequirement().getName().equals(item.getName())) {
 				target.setStatus("normal");
+				this.inventory.removeItem(item);
+				return "You throw a " + item.getName() + " at the " + target.getName();
+			}else if(!target.getRequirement().getName().equals(item.getName())) {
+				this.inventory.removeItem(item);
+				room.getInventory().addItem(item);
+				return "You throw a " + item.getName() + " at the " + target.getName() + ", it had no effect";
 			}
+		}else if(!item.getThrowable()) {
+			return "You can't throw " + item.getName();
 		}
+		return "There are no obstacles attached to this room.";
 	}
 	
 	public String use(Item item, Actor target) {
