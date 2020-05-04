@@ -135,7 +135,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		commandMap.put("check inventory", "-allows you to check the contents of your inventory.");
 		commandMap.put("check abilities", "-allows you to check the abilities you have access to.");
 		commandMap.put("restart", "-restarts the game to the beginning.");
-
+		commandMap.put("set", "-allows you to set your name, only works once so choose your name carefully!");
 		
 		Player dbPlayer = testPlayer.get(0);
 		//model, controller and attribute for jsp setup
@@ -169,7 +169,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		HashMap<String, Actor> targets = new HashMap<String, Actor>();
 		controller.setModel(model);
 		req.setAttribute("game", model);
-		targets.put("player", dbPlayer);
+		targets.put(dbPlayer.getName(), dbPlayer);
 
 		
 		for(Enemy enemy : enemyList) {
@@ -183,6 +183,11 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		String[] inputs;
 		Message<String, Integer> input = new Message<String, Integer>(inputVal, 1);
 		db.insertIntoTextHistory(input);
+		String[] nameArray = inputVal.split(" ");
+		String name = "";
+		if(nameArray.length>2) {
+			name = nameArray[2];
+		}
 		inputVal = inputVal.toLowerCase();
 		inputs = inputVal.split(" ");	
 		
@@ -420,6 +425,33 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			//barter
 			else if(req.getParameter("textbox") != null && inputs[0].equals("barter")) {
 				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
+			}
+			
+			//set name
+			else if(req.getParameter("textbox") != null && inputs[0].equals("set")) {
+				if(inputs.length <= 3 && inputs.length > 2 && inputs[1] != null && inputs[2]!=null) {
+					if(inputs[1].equals("name") && dbPlayer.getName().equals("player")) {
+						dbPlayer.setName(name);
+						Message<String, Integer> msg = new Message<String, Integer>("Your name is now " + dbPlayer.getName() + "!", 0);
+						db.insertIntoTextHistory(msg);
+					}else {
+						Message<String, Integer> msg = new Message<String, Integer>("You already set your name, " + dbPlayer.getName() + "!", 0);
+						db.insertIntoTextHistory(msg);
+					}
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify the attribute you want to set!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}else if(inputs.length<=2){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify what you want to set your name to!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}else if(inputs.length > 3) {
+					Message<String, Integer> msg = new Message<String, Integer>("Your name can only be one continuous string!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}
+				
 			}
 			
 			//light
