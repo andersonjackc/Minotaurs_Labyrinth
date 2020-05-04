@@ -109,7 +109,6 @@ public class Player extends Actor {
 	public String talk(Actor target) {
 		
 		if(target.getClass() != this.getClass()) {
-			this.status = "talking";
 			NPC npc = (NPC) target; 
 			return npc.getDialogue();
 		}
