@@ -214,18 +214,18 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
 					String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
 					if(!inputs[2].equals(dbPlayer.getName())) {
-					String enemyAtkMsg = targets.get(inputs[2]).basicAttack(dbPlayer);
-					if(targets.get(inputs[2]).getIsDead()) {
-						int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
-						dbPlayer.setXP(tmpXP);
-						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
-					}
-					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
-					db.insertIntoTextHistory(msg2);
+						String enemyAtkMsg = targets.get(inputs[2]).basicAttack(dbPlayer);
+						if(targets.get(inputs[2]).getIsDead()) {
+							int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
+							dbPlayer.setXP(tmpXP);
+							model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+						}
+						Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
+						db.insertIntoTextHistory(msg2);
 
-					}
-					Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
-					db.insertIntoTextHistory(msg);
+						}
+						Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
+						db.insertIntoTextHistory(msg);
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a spell or ability!", 0);
 					db.insertIntoTextHistory(msg);

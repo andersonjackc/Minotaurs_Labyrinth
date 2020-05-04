@@ -89,33 +89,29 @@ public class Minotaur {
 	}
 	
 	public void levelUp(Player player, int PlayerXP, ArrayList<Ability> abilityList) {
-		if(player.getXP()>=10 && !player.getAbilities().contains(abilityList.get(1))) {
+		if(player.getXP()>=10 && player.getAbilities().size() <= 1) {
 			player.getAbilities().add(abilityList.get(1));
-			System.out.println(abilityList.get(1).getName());
 			player.setAtk(player.getAtk()+2);
 			player.setDef(player.getDef()+1);
 			player.setHP(player.getHP()+5);
 			player.setResource(player.getResource()+5);
 		}
-		if(player.getXP()>=20 && !player.getAbilities().contains(abilityList.get(0))) {
+		if(player.getXP()>=20 && player.getAbilities().size() <= 2) {
 			player.getAbilities().add(abilityList.get(0));
-			System.out.println(abilityList.get(0).getName());
 			player.setAtk(player.getAtk()+2);
 			player.setDef(player.getDef()+1);
 			player.setHP(player.getHP()+5);
 			player.setResource(player.getResource()+5);
 		}
-		if(player.getXP()>=30 && !player.getAbilities().contains(abilityList.get(6))) {
+		if(player.getXP()>=30 && player.getAbilities().size() <= 3) {
 			player.getAbilities().add(abilityList.get(6));
-			System.out.println(abilityList.get(6).getName());
 			player.setAtk(player.getAtk()+2);
 			player.setDef(player.getDef()+1);
 			player.setHP(player.getHP()+5);
 			player.setResource(player.getResource()+5);
 		}
-		if(player.getXP()>=50 && !player.getAbilities().contains(abilityList.get(7))) {
+		if(player.getXP()>=40 && player.getAbilities().size() <= 4) {
 			player.getAbilities().add(abilityList.get(7));
-			System.out.println(abilityList.get(7).getName());
 			player.setAtk(player.getAtk()+2);
 			player.setDef(player.getDef()+1);
 			player.setHP(player.getHP()+5);
