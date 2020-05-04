@@ -252,9 +252,15 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 
 						db.insertIntoTextHistory(msg);
 						db.insertIntoTextHistory(msg1);
+						if(!msg2.getMessage().equals("")) {
 						db.insertIntoTextHistory(msg2);
+						}
+						if(!msg3.getMessage().equals("")) {
 						db.insertIntoTextHistory(msg3);
+						}
+						if(!msg4.getMessage().equals("")) {
 						db.insertIntoTextHistory(msg4);
+						}
 
 
 				}else if(inputs.length<=1){
@@ -643,9 +649,15 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 
 					db.insertIntoTextHistory(msg);
 					db.insertIntoTextHistory(msg2);
+					if(!msg3.getMessage().equals("")) {
 					db.insertIntoTextHistory(msg3);
+					}
+					if(!msg4.getMessage().equals("")) {
 					db.insertIntoTextHistory(msg4);
+					}
+					if(!msg5.getMessage().equals("")) {
 					db.insertIntoTextHistory(msg5);
+					}
 
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
@@ -700,9 +712,15 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					
 					db.insertIntoTextHistory(msg);
 					db.insertIntoTextHistory(msg1);
+					if(!msg2.getMessage().equals("")) {
 					db.insertIntoTextHistory(msg2);
+					}
+					if(!msg3.getMessage().equals("")) {
 					db.insertIntoTextHistory(msg3);
+					}
+					if(!msg4.getMessage().equals("")) {
 					db.insertIntoTextHistory(msg4);
+					}
 
 
 				}else if(inputs.length<=1){
