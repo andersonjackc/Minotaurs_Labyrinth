@@ -15,6 +15,7 @@ public class Enemy extends NPC {
 		
 		Random rand = new Random();
 		int action = rand.nextInt(2);
+		
 		if(action == 0) {
 			return basicAttack(target);
 		}
@@ -23,6 +24,9 @@ public class Enemy extends NPC {
 				int spellchoice = rand.nextInt(this.abilities.size());
 				if(this.resource >= this.abilities.get(spellchoice).getCost()) {	
 					return cast(target, this.abilities.get(spellchoice));
+				}
+				else {
+					return basicAttack(target);
 				}
 			}
 			else {

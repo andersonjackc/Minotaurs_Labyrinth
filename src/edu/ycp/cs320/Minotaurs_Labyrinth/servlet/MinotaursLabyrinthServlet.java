@@ -136,7 +136,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		commandMap.put("check inventory", "-allows you to check the contents of your inventory.");
 		commandMap.put("check abilities", "-allows you to check the abilities you have access to.");
 		commandMap.put("restart", "-restarts the game to the beginning.");
-
+		commandMap.put("set", "-allows you to set your name, only works once so choose your name carefully!");
 		
 		Player dbPlayer = testPlayer.get(0);
 		//model, controller and attribute for jsp setup
@@ -170,7 +170,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		HashMap<String, Actor> targets = new HashMap<String, Actor>();
 		controller.setModel(model);
 		req.setAttribute("game", model);
-		targets.put("player", dbPlayer);
+		targets.put(dbPlayer.getName(), dbPlayer);
 
 		
 		for(Enemy enemy : enemyList) {
@@ -184,20 +184,26 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		String[] inputs;
 		Message<String, Integer> input = new Message<String, Integer>(inputVal, 1);
 		db.insertIntoTextHistory(input);
+		String[] nameArray = inputVal.split(" ");
+		String name = "";
+		if(nameArray.length>2) {
+			name = nameArray[2];
+		}
 		inputVal = inputVal.toLowerCase();
 		inputs = inputVal.split(" ");	
 		
 		if(dbPlayer.getStatus().equals("normal")) {
 			if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
 				if(inputs.length <= 2 && inputs.length > 1 && targets.get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
-					String atkMsg = dbPlayer.basicAttack(targets.get(inputs[1]));
 					
+					String atkMsg = dbPlayer.basicAttack(targets.get(inputs[1]));
 					String enemyAtkMsg = ((NPC)targets.get(inputs[1])).rollForAction(dbPlayer);
 					
 					Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
 					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
 					db.insertIntoTextHistory(msg);
 					db.insertIntoTextHistory(msg2);
+					
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
 					db.insertIntoTextHistory(msg);
@@ -216,24 +222,48 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
 				if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
 					String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
+					String tmpXPMsg = "";
+					String tmpGoldMsg = "";
+					String enemyAtkMsg = "";
+					String tempstr = "";
 					if(!inputs[2].equals(dbPlayer.getName())) {
-						String enemyAtkMsg = ((NPC)targets.get(inputs[2])).rollForAction(dbPlayer);
+						enemyAtkMsg = ((NPC)targets.get(inputs[2])).rollForAction(dbPlayer);
 						if(targets.get(inputs[2]).getIsDead()) {
+							
+							if(targets.get(inputs[2]).getXP()!=0 && targets.get(inputs[2]).getGold()!=0) {
+								tmpXPMsg = "You gained " + targets.get(inputs[2]).getXP() + " XP!";
+								tmpGoldMsg = "You gained " + targets.get(inputs[2]).getGold() + " gold!";
+							}
+							
 							int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
 							dbPlayer.setXP(tmpXP);
-							model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+							tempstr = model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
 							int tmpGold = targets.get(inputs[2]).getGold() + dbPlayer.getGold();
 							dbPlayer.setGold(tmpGold);
 							targets.get(inputs[2]).setXP(0);
 							targets.get(inputs[2]).setGold(0);
 
 						}
-						Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
-						db.insertIntoTextHistory(msg2);
-
 						}
 						Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
+						Message<String, Integer> msg1= new Message<String, Integer>(enemyAtkMsg, 2);
+						Message<String, Integer> msg2 = new Message<String, Integer>(tmpGoldMsg, 0);
+						Message<String, Integer> msg3 = new Message<String, Integer>(tmpXPMsg, 0);
+						Message<String, Integer> msg4 = new Message<String, Integer>(tempstr, 0);
+
 						db.insertIntoTextHistory(msg);
+						db.insertIntoTextHistory(msg1);
+						if(!msg2.getMessage().equals("")) {
+						db.insertIntoTextHistory(msg2);
+						}
+						if(!msg3.getMessage().equals("")) {
+						db.insertIntoTextHistory(msg3);
+						}
+						if(!msg4.getMessage().equals("")) {
+						db.insertIntoTextHistory(msg4);
+						}
+
+
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a spell or ability!", 0);
 					db.insertIntoTextHistory(msg);
@@ -426,6 +456,33 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
 			}
 			
+			//set name
+			else if(req.getParameter("textbox") != null && inputs[0].equals("set")) {
+				if(inputs.length <= 3 && inputs.length > 2 && inputs[1] != null && inputs[2]!=null) {
+					if(inputs[1].equals("name") && dbPlayer.getName().equals("player")) {
+						dbPlayer.setName(name);
+						Message<String, Integer> msg = new Message<String, Integer>("Your name is now " + dbPlayer.getName() + "!", 0);
+						db.insertIntoTextHistory(msg);
+					}else {
+						Message<String, Integer> msg = new Message<String, Integer>("You already set your name, " + dbPlayer.getName() + "!", 0);
+						db.insertIntoTextHistory(msg);
+					}
+				}else if(inputs.length<=1){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify the attribute you want to set!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}else if(inputs.length<=2){
+					Message<String, Integer> msg = new Message<String, Integer>("You must specify what you want to set your name to!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}else if(inputs.length > 3) {
+					Message<String, Integer> msg = new Message<String, Integer>("Your name can only be one continuous string!", 0);
+					db.insertIntoTextHistory(msg);
+
+				}
+				
+			}
+			
 			//light
 			else if(req.getParameter("textbox") != null && inputs[0].equals("light")) {
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
@@ -588,10 +645,19 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
 				if(inputs.length <= 2 && inputs.length > 1 && targets.get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
 					String atkMsg = dbPlayer.basicAttack(targets.get(inputs[1]));
+					String tmpXPMsg = "";
+					String tmpGoldMsg = "";
+					String tempstr = "";
 					if(targets.get(inputs[1]).getIsDead()) {
+						
+						if(targets.get(inputs[1]).getXP()!=0 && targets.get(inputs[1]).getGold()!=0) {
+						tmpXPMsg = "You gained " + targets.get(inputs[1]).getXP() + " XP!";
+						tmpGoldMsg = "You gained " + targets.get(inputs[1]).getGold() + " gold!";
+						}
+						
 						int tmpXP = targets.get(inputs[1]).getXP() + dbPlayer.getXP();
 						dbPlayer.setXP(tmpXP);
-						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+						tempstr = model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
 						int tmpGold = targets.get(inputs[1]).getGold() + dbPlayer.getGold();
 						dbPlayer.setGold(tmpGold);
 						targets.get(inputs[1]).setXP(0);
@@ -600,8 +666,21 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					String enemyAtkMsg = ((NPC)targets.get(inputs[1])).rollForAction(dbPlayer);
 					Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
 					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
+					Message<String, Integer> msg3 = new Message<String, Integer>(tmpGoldMsg, 0);
+					Message<String, Integer> msg4 = new Message<String, Integer>(tmpXPMsg, 0);
+					Message<String, Integer> msg5 = new Message<String, Integer>(tempstr, 0);
+
 					db.insertIntoTextHistory(msg);
 					db.insertIntoTextHistory(msg2);
+					if(!msg3.getMessage().equals("")) {
+					db.insertIntoTextHistory(msg3);
+					}
+					if(!msg4.getMessage().equals("")) {
+					db.insertIntoTextHistory(msg4);
+					}
+					if(!msg5.getMessage().equals("")) {
+					db.insertIntoTextHistory(msg5);
+					}
 
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a target!", 0);
@@ -623,10 +702,21 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if (req.getParameter("textbox") != null && inputs[0].equals("cast")){
 				if(inputs.length <= 3 && inputs.length > 2 && targets.get(inputs[2]) != null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[2]).getCurrentRoom().getRoomId() && containsAbility(dbPlayer.getAbilities(), inputs[1])) {
 					String castMsg = dbPlayer.cast(targets.get(inputs[2]), getAbilitybyString(dbPlayer.getAbilities(), inputs[1]));
+					String tmpXPMsg = "";
+					String tmpGoldMsg = "";
+					String tempstr = "";
+					String enemyAtkMsg = "";
+					
 					if(targets.get(inputs[2]).getIsDead() && !inputs[2].equals(dbPlayer.getName())) {
+						
+						if(targets.get(inputs[2]).getXP()!=0 && targets.get(inputs[2]).getGold()!=0) {
+						tmpXPMsg = "You gained " + targets.get(inputs[2]).getXP() + " XP!";
+						tmpGoldMsg = "You gained " + targets.get(inputs[2]).getGold() + " gold!";
+						}
+						
 						int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
 						dbPlayer.setXP(tmpXP);
-						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+						tempstr = model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
 						int tmpGold = targets.get(inputs[2]).getGold() + dbPlayer.getGold();
 						dbPlayer.setGold(tmpGold);
 						targets.get(inputs[2]).setXP(0);
@@ -634,12 +724,27 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 
 					}
 					if(!inputs[2].equals(dbPlayer.getName())) {
-					String enemyAtkMsg = ((NPC)targets.get(inputs[2])).rollForAction(dbPlayer);
-					Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
+					enemyAtkMsg = ((NPC)targets.get(inputs[2])).rollForAction(dbPlayer);
+					}
+					
+					Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
+					Message<String, Integer> msg1 = new Message<String, Integer>(enemyAtkMsg, 2);
+					Message<String, Integer> msg2 = new Message<String, Integer>(tmpGoldMsg, 0);
+					Message<String, Integer> msg3 = new Message<String, Integer>(tmpXPMsg, 0);
+					Message<String, Integer> msg4 = new Message<String, Integer>(tempstr, 0);
+					
+					db.insertIntoTextHistory(msg);
+					db.insertIntoTextHistory(msg1);
+					if(!msg2.getMessage().equals("")) {
 					db.insertIntoTextHistory(msg2);
 					}
-					Message<String, Integer> msg = new Message<String, Integer>(castMsg, 3);
-					db.insertIntoTextHistory(msg);
+					if(!msg3.getMessage().equals("")) {
+					db.insertIntoTextHistory(msg3);
+					}
+					if(!msg4.getMessage().equals("")) {
+					db.insertIntoTextHistory(msg4);
+					}
+
 
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a spell or ability!", 0);
@@ -773,8 +878,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 	}
 	
 	public NPC getNPCbyRoomID(int roomID, HashMap<String, Actor> targets) {
+		Player tmpPlayer = new Player(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, false, null);
 		for(Actor target : targets.values()) {
-			if(target.getClass() != targets.get("player").getClass()) {
+			if(target.getClass() != tmpPlayer.getClass()) {
 				if(target.getCurrentRoom().getRoomId() == roomID && !target.getIsDead()) {
 					return (NPC) target;
 				}
