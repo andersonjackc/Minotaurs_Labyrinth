@@ -190,7 +190,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				if(inputs.length <= 2 && inputs.length > 1 && targets.get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
 					String atkMsg = dbPlayer.basicAttack(targets.get(inputs[1]));
 					if(targets.get(inputs[1]).getIsDead()) {
-						int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
+						int tmpXP = targets.get(inputs[1]).getXP() + dbPlayer.getXP();
 						dbPlayer.setXP(tmpXP);
 						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
 					}
