@@ -133,6 +133,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		commandMap.put("use", "-allows you to use items.");
 		commandMap.put("check item", "-allows you to examine an item.");
 		commandMap.put("check inventory", "-allows you to check the contents of your inventory.");
+		commandMap.put("check abilities", "-allows you to check the abilities you have access to.");
 		commandMap.put("restart", "-restarts the game to the beginning.");
 
 		
@@ -513,6 +514,19 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						}
 					}
 				
+					//ability
+					else if(inputs[1].equals("abilities")) {
+						if(dbPlayer.getAbilities().size() != 0) {
+							for(Ability a : dbPlayer.getAbilities()) {
+								Message<String, Integer> msg = new Message<String, Integer>(a.getName() + "\n", 0);
+								db.insertIntoTextHistory(msg);
+							}
+						}else {
+							Message<String, Integer> msg = new Message<String, Integer>("Your Ability is empty!", 0);
+							db.insertIntoTextHistory(msg);
+						}
+					}
+					
 					//item
 					else if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
 						Item i = getItembyName(inputs[1], dbPlayer.getInventory().getInventory());
