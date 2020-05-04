@@ -219,6 +219,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 							int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
 							dbPlayer.setXP(tmpXP);
 							model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+							targets.get(inputs[2]).setXP(0);
 						}
 						Message<String, Integer> msg2 = new Message<String, Integer>(enemyAtkMsg, 2);
 						db.insertIntoTextHistory(msg2);
@@ -562,6 +563,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						int tmpXP = targets.get(inputs[1]).getXP() + dbPlayer.getXP();
 						dbPlayer.setXP(tmpXP);
 						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+						targets.get(inputs[1]).setXP(0);
 					}
 					String enemyAtkMsg = targets.get(inputs[1]).basicAttack(dbPlayer);
 					Message<String, Integer> msg = new Message<String, Integer>(atkMsg, 2);
@@ -593,6 +595,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						int tmpXP = targets.get(inputs[2]).getXP() + dbPlayer.getXP();
 						dbPlayer.setXP(tmpXP);
 						model.levelUp(dbPlayer, dbPlayer.getXP(), abilityList);
+						targets.get(inputs[2]).setXP(0);
 					}
 					if(!inputs[2].equals(dbPlayer.getName())) {
 					String enemyAtkMsg = targets.get(inputs[2]).basicAttack(dbPlayer);
