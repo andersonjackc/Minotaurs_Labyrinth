@@ -26,7 +26,7 @@ Inventory inv = new Inventory(0, 0, items);
 ArrayList<Item> Inv = new ArrayList<Item>();
 Inventory testRoomInv = new Inventory(100, 100, Inv);
 Item key = new Item("test", 1, true, false, false, 10, null, null, null);
-Obstacle obs = new Obstacle("test", "jumping", key);
+Obstacle obs = new Obstacle("test", "jumping", key, "door");
 HashMap<String, Integer> testMap;
 Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 Room room2 = new Room("A test room", testRoomInv, obs, testMap, false, 1);
@@ -121,10 +121,8 @@ NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, "testDialogue
 	}
 	@Test
 	public void testBasicAttack() {
-		testEnemy.setAtk(1);
-		testEnemy.setHP(5);
 		String tmp = testEnemy.basicAttack(testEnemy); 
-		assertEquals(4, testEnemy.getHP());
+		assertEquals(95, testEnemy.getHP());
 		assertEquals(testEnemy.getName() + " did " + testEnemy.getAtk() + " to " + testEnemy.getName() + ", you now have " + testEnemy.getHP() + " HP.", tmp);
 		testNPC.setIsDead(true);
 		tmp = testEnemy.basicAttack(testNPC);
@@ -132,6 +130,11 @@ NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, "testDialogue
 		testEnemy.setIsDead(true);
 		tmp = testEnemy.basicAttack(testNPC);
 		assertEquals("", tmp);
+		testEnemy.setIsDead(false);
+		testEnemy.setAtk(1);
+		testEnemy.setDef(2);
+		testEnemy.basicAttack(testEnemy);
+		assertEquals(95, testEnemy.getHP());
 	}
 	@Test
 	public void testCast() {
@@ -171,7 +174,7 @@ NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, "testDialogue
 	@Test
 	public void testRollForAction() {
 		testEnemy.setAbilities(abilities2);
-		assertThat(testEnemy.rollForAction(testEnemy), anyOf(containsString("Enemy did 10 to Enemy, you now have 90 HP."), containsString("Enemy cast testMaxHPSpell it did 5 to Enemy's maxHP, you now have 1005 maxHP")));
+		assertThat(testEnemy.rollForAction(testEnemy), anyOf(containsString("Enemy did 10 to Enemy, you now have 95 HP."), containsString("Enemy cast testMaxHPSpell it did 5 to Enemy's maxHP, you now have 1005 maxHP")));
 	}
 	@Test
 	public void testIsDeadMethods() {

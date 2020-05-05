@@ -2,6 +2,8 @@ package edu.ycp.CS320_Minotaurs_Labyrinth.classes;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import javax.management.modelmbean.ModelMBean;
 
 import org.junit.Test;
@@ -53,4 +55,58 @@ public class MinotaurTest {
 		model.setXP(2);
 		assertEquals(2, model.getXP());
 	}
+	
+	@Test
+	public void testTorqu3StringMethods() {
+		model.setTorqu3String("test");
+		assertEquals("test", model.getTorqu3String());
+	}
+	
+	@Test
+	public void testdjHakeMethods() {
+		model.setdjHake("test");
+		assertEquals("test", model.getdjHake());
+	}
+	
+	@Test
+	public void testLevelUpMethods() {
+		Ability test = new Ability("test", "test", "test", "test", 1, 1);
+		ArrayList<Ability> abilities = new ArrayList<Ability>();
+		ArrayList<Ability> abilityList = new ArrayList<Ability>();
+		abilityList.add(test);
+		abilityList.add(test);
+		abilityList.add(test);
+		abilityList.add(test);
+		abilityList.add(test);
+		abilityList.add(test);
+		abilityList.add(test);
+		abilityList.add(test);
+		abilityList.add(test);
+		abilityList.add(test);
+		abilities.add(test);
+		Player testPlayer = new Player(0, 0, 0, 0, 0, 0, 0, 0, abilities, "normal", null, null, false, "player");
+		testPlayer.setXP(10);
+		model.levelUp(testPlayer, testPlayer.getXP(), abilityList);
+		assertEquals(2, testPlayer.getAbilities().size());
+		testPlayer.setXP(20);
+		model.levelUp(testPlayer, testPlayer.getXP(), abilityList);
+		assertEquals(3, testPlayer.getAbilities().size());
+		testPlayer.setXP(30);
+		model.levelUp(testPlayer, testPlayer.getXP(), abilityList);
+		assertEquals(4, testPlayer.getAbilities().size());
+		testPlayer.setXP(40);
+		model.levelUp(testPlayer, testPlayer.getXP(), abilityList);
+		assertEquals(5, testPlayer.getAbilities().size());
+		testPlayer.setXP(0);
+		String tmp = model.levelUp(testPlayer, testPlayer.getXP(), abilityList);
+		assertEquals("", tmp);
+	}
+	
+	@Test
+	public void testTorqu3CounterMethods() {
+		model.setTorqu3Counter(1);
+		assertEquals(1, model.getTorqu3Counter());
+	}
+	
+	
 }

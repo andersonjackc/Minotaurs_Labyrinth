@@ -66,7 +66,11 @@ public class Player extends Actor {
 				iList.set(index, gear);
 				return "You have equipped " + gear.getName() + "."; 
 			}
-		}else if(checkPlayerEquippedSlot(this.inventory.getInventory(), gear.getAffectedStat())) {
+		}else if(checkPlayerEquippedSlot(this.inventory.getInventory(), gear.getAffectedStat()) && getInventory().getInventory().contains(gear)) {
+			if(getInventory().getInventory().contains(gear) && gear.getEquipped() == true) {
+				return gear.getName() + " is already equipped."; 
+			}
+			
 			return "You already have something equipped in that slot!";
 			
 		}
@@ -285,16 +289,16 @@ public class Player extends Actor {
 		return -1;
 	}
 	
-	private Room getRoomByRoomId(Integer room_id, ArrayList<Room> allRooms) {
+	public Room getRoomByRoomId(Integer room_id, ArrayList<Room> allRooms) {
 		for(Room room : allRooms) {
 			if(room.getRoomId() == room_id) {
 				return room;
 			}
 		}
-		return null;
+		return new Room("empty", null, null, null, false, -1);
 	}
 	
-	private Boolean checkPlayerEquippedSlot(ArrayList<Item> inv, String slot) {
+	public Boolean checkPlayerEquippedSlot(ArrayList<Item> inv, String slot) {
 		for(Item gear : inv) {
 			if(gear.getAffectedStat().equals(slot)) {
 				Gear tmpGear = (Gear) gear;

@@ -52,7 +52,7 @@ public class NPC extends Actor {
 			}
 			target.setHP((target.getHP() - atk)); 
 			
-			if(target.getHP()<=0) {
+			if(target.getHP()<=0 || target.getIsDead()) {
 				target.setIsDead(true);
 				target.setStatus("normal");
 				return "You are dead.";

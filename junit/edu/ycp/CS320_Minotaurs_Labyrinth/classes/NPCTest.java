@@ -27,9 +27,10 @@ Inventory inv = new Inventory(0, 0, items);
 ArrayList<Item> Inv = new ArrayList<Item>();
 Inventory testRoomInv = new Inventory(100, 100, Inv);
 Item key = new Item("test", 1, true, false, false, 10, null, null, null);
-Obstacle obs = new Obstacle("test", "jumping", key);
+Obstacle obs = new Obstacle("test", "jumping", key, "door");
 HashMap<String, Integer> testMap;
 Room room = new Room("A test room", testRoomInv, obs, testMap, false, 1);
+Room room2 = new Room("A test room", testRoomInv, obs, testMap, false, 1);
 Enemy testEnemy = new Enemy(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "test", "test", 1, "test", "Enemy", i, room, false);
 
 	@Before
@@ -42,7 +43,7 @@ Enemy testEnemy = new Enemy(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "test", 
 		abilities.add(testDefSpell);
 		abilities.add(testGodmodeSpell);
 		abilities2.add(testMaxHPSpell);
-		testNPC = new NPC(100, 50, 100, 50, 1, 5, 5, 5, abilities, "test", "test", 1, "test", "NPC", i, room, false);
+		testNPC = new NPC(100, 50, 100, 50, 6, 5, 5, 5, abilities, "test", "test", 1, "test", "NPC", i, room, false);
 		
 	}
 	@Test
@@ -119,10 +120,20 @@ Enemy testEnemy = new Enemy(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "test", 
 	}
 	@Test
 	public void testBasicAttack() {
+		String tmp = testNPC.basicAttack(testNPC); 
+		assertEquals(49, testNPC.getHP());
+		assertEquals(testNPC.getName() + " did " + testNPC.getAtk() + " to " + testNPC.getName() + ", you now have " + testNPC.getHP() + " HP.", tmp);
+		testEnemy.setIsDead(true);
+		tmp = testNPC.basicAttack(testEnemy);
+		assertEquals("You are dead.", tmp);
+		testNPC.setIsDead(true);
+		tmp = testNPC.basicAttack(testEnemy);
+		assertEquals("", tmp);
+		testNPC.setIsDead(false);
 		testNPC.setAtk(1);
-		testNPC.setHP(5);
-		testNPC.basicAttack(testNPC); 
-		assertEquals(4, testNPC.getHP());
+		testNPC.setDef(2);
+		testNPC.basicAttack(testNPC);
+		assertEquals(49, testNPC.getHP());
 	}
 	@Test
 	public void testCast() {
@@ -137,14 +148,14 @@ Enemy testEnemy = new Enemy(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "test", 
 		testNPC.cast(testNPC, testResourceSpell);
 		assertEquals(35, testNPC.getResource());
 		testNPC.cast(testNPC, testAtkSpell);
-		assertEquals(6, testNPC.getAtk());
+		assertEquals(11, testNPC.getAtk());
 		testNPC.cast(testNPC, testDefSpell);
 		assertEquals(10, testNPC.getDef());
 		testNPC.setIsDead(true);
 		tmp = testNPC.cast(testNPC, testGodmodeSpell);
 		assertEquals(60, testNPC.getHP());
 		assertEquals(25, testNPC.getResource());
-		assertEquals(11, testNPC.getAtk());
+		assertEquals(16, testNPC.getAtk());
 		assertFalse(testNPC.getIsDead());
 		assertEquals("Godmode activated.", tmp);
 		testEnemy.setIsDead(true);
@@ -168,6 +179,17 @@ Enemy testEnemy = new Enemy(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "test", 
 	@Test
 	public void testRollForAction() {
 		testNPC.setAbilities(abilities2);
-		assertThat(testNPC.rollForAction(testNPC), anyOf(containsString("NPC did 1 to NPC, you now have 49 HP."), containsString("NPC cast testMaxHPSpell it did 5 to NPC's maxHP, you now have 105 maxHP")));
+		assertThat(testNPC.rollForAction(testNPC), anyOf(containsString("NPC did 6 to NPC, you now have 49 HP."), containsString("NPC cast testMaxHPSpell it did 5 to NPC's maxHP, you now have 105 maxHP")));
+	}
+	
+	@Test
+	public void testStatusMethods() {
+		testNPC.setStatus("test");
+		assertEquals("test", testNPC.getStatus());
+	}
+	@Test
+	public void testCurrentRoomMethods() {
+		testNPC.setCurrentRoom(room2);
+		assertEquals(room2.getDescription(), testNPC.getCurrentRoom().getDescription());
 	}
 }

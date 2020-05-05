@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class AbilityTest {
 	private Ability testAbility;
+	private Ability testDamageAbility;
 	private Ability testMaxHPSpell;
 	private Ability testResSpell;
 	private Ability testMaxResSpell;
@@ -16,6 +17,7 @@ public class AbilityTest {
 	@Before
 	public void setup() {
 		testAbility = new Ability("test", "test ability", "test", "HP", 5, 5);
+		testDamageAbility = new Ability("test", "test ability", "test", "HP", -5, 5);
 		testMaxHPSpell = new Ability("test", "test ability", "test", "maxHP", 5, 5);
 		testResSpell = new Ability("test", "test ability", "test", "resource", 5, 5);
 		testMaxResSpell = new Ability("test", "test ability", "test", "maxResource", 5, 5);
@@ -75,6 +77,9 @@ public class AbilityTest {
 		assertEquals(56, testPlayer.getResource());
 		assertEquals(16, testPlayer.getAtk());
 		assertFalse(testPlayer.getIsDead());
+		testPlayer.setHP(5);
+		testDamageAbility.addEffect(testPlayer);
+		assertTrue(testPlayer.getIsDead());
 	}
 	
 

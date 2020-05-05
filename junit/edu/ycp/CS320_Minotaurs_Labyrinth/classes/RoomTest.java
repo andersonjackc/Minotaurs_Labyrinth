@@ -8,8 +8,8 @@ import java.util.HashMap;
 import org.junit.Test;
 
 public class RoomTest {
-	Obstacle obs = new Obstacle("test", "normal", null);
-	Obstacle obs2 = new Obstacle("test", "normal", null);
+	Obstacle obs = new Obstacle("test", "normal", null, "empty");
+	Obstacle obs2 = new Obstacle("test", "normal", null, "empty");
 	ArrayList<Item> Inv = new ArrayList<Item>();
 	Inventory testRoomInv = new Inventory(100, 100, Inv);
 	Inventory testInv = new Inventory(100, 100, Inv);

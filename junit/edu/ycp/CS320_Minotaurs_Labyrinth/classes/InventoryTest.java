@@ -42,6 +42,9 @@ public class InventoryTest {
 		Item potion = new Item("test", 1, false, false, false, 0, null, null, null);
 		testInventory.addItem(potion);
 		assertEquals(potion, testInventory.getInventory().get(0));
+		testInventory.setMaxStorage(1);
+		String tmp = testInventory.addItem(potion);
+		assertEquals("Your inventory is full", tmp);
 	}
 	
 	@Test
@@ -53,6 +56,8 @@ public class InventoryTest {
 		testInventory.removeItem(potion);
 		assertEquals(sword, testInventory.getInventory().get(0));
 		assertFalse(testInventory.getInventory().contains(potion));
+		String tmp = testInventory.removeItem(potion);
+		assertEquals("You don't have a " + potion.getName(), tmp);
 	}
 
 }

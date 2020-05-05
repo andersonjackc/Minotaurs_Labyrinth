@@ -38,7 +38,7 @@ public class GearTest {
 	@Test
 	public void testLitMethods() {
 		testGear.setLit(true);
-		assertFalse(testGear.getLit());
+		assertTrue(testGear.getLit());
 	}
 	
 	@Test

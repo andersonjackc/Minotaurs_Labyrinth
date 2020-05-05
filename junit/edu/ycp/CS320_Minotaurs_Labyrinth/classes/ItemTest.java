@@ -14,18 +14,24 @@ private Item testResPotion;
 private Item testMaxResPotion;
 private Item testAtkPotion;
 private Item testDefPotion;
+private Gear testSword;
+private Item testBlank;
+private Item testDamage;
 private Player testPlayer;
 	
 	@Before
 	public void setUp() {
 		
-		testItem = new Item("test", 1, true, false, true, 10, "testItem", "test", null);
+		testItem = new Item("test", 1, true, false, true, 10, "testItem", "test", "none");
 		testHPPotion = new Item("test", 1, true, false, true, 10, "testItem", "test", "HP");
 		testMaxHPPotion = new Item("test", 1, true, false, true, 10, "testItem", "test", "maxHP");
 		testResPotion = new Item("test", 1, true, false, true, 10, "testItem", "test", "resource");
 		testMaxResPotion = new Item("test", 1, true, false, true, 10, "testItem", "test", "maxResource");
 		testAtkPotion = new Item("test", 1, true, false, true, 10, "testItem", "test", "atk");
 		testDefPotion = new Item("test", 1, true, false, true, 10, "testItem", "test", "def");
+		testSword = new Gear(1, 1, 1, "weapon", false, "test sword", 2, false, false, false, 0, "testSword", "righthand");
+		testBlank = new Item("test", 1, true, false, true, 10, "testBlank", "test", "test");
+		testDamage = new Item("test", -10, true, false, true, 10, "testItem", "test", "HP");
 
 		testPlayer = new Player(1000, 100, 200, 50, 10, 5, 0, 0, null, null, null, null, false, "test");
 	}
@@ -79,6 +85,12 @@ private Player testPlayer;
 	}
 	
 	@Test
+	public void testAffectedStatMethods() {
+		testItem.setAffectedStat("test");
+		assertEquals(testItem.getAffectedStat(), "test");
+	}
+	
+	@Test
 	public void testAddEffect() {
 		testHPPotion.addEffect(testPlayer);
 		assertEquals(101, testPlayer.getHP());
@@ -92,6 +104,15 @@ private Player testPlayer;
 		assertEquals(11, testPlayer.getAtk());
 		testDefPotion.addEffect(testPlayer);
 		assertEquals(6, testPlayer.getDef());
+		String tmp = testItem.addEffect(testPlayer);
+		assertEquals("You used " +  testItem.getName() + " it did nothing.", tmp);
+		tmp = testSword.addEffect(testPlayer);
+		assertEquals("You can't use " +  testSword.getName() + ", try to equip it instead.", tmp);
+		tmp = testBlank.addEffect(testPlayer);
+		assertEquals("You are dead!", tmp);
+		testPlayer.setHP(10);
+		testDamage.addEffect(testPlayer);
+		assertTrue(testPlayer.getIsDead());
 	}
 	
 

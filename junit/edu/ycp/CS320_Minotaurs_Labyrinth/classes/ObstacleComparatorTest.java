@@ -6,8 +6,8 @@ import org.junit.Test;
 
 public class ObstacleComparatorTest {
 	Item test = new Item("test", 0, true, true, true, 0, "test", "test", "test");
-	Obstacle obs1 = new Obstacle("test", "test", test);
-	Obstacle obs2 = new Obstacle("test1", "test1", test);
+	Obstacle obs1 = new Obstacle("test", "test", test, "test");
+	Obstacle obs2 = new Obstacle("test1", "test1", test, "test");
 	ObstacleComparator OC = new ObstacleComparator();
 	
 	

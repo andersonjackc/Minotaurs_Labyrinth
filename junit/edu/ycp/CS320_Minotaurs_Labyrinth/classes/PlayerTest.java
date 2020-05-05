@@ -31,10 +31,11 @@ public class PlayerTest {
 	HashMap<String, Integer> testRoomMap3;
 	HashMap<String, Integer> testRoomMap4;
 	ArrayList<Room> allRooms;
-	Item key = new Item("test", 1, true, false, true, 10, "key", "misc", "none");
-	Obstacle obs = new Obstacle("test", "normal", key);
-	Obstacle obs1 = new Obstacle("test", "jumping", key);
-	Obstacle obs2 = new Obstacle("test", "crawling", key);
+	Item key = new Item("test", 1, false, false, true, 10, "key", "misc", "none");
+	Item rope = new Item("rope", 0, true, false, true, 50, "rope", "misc", "none");
+	Obstacle obs = new Obstacle("test", "normal", key, "empty");
+	Obstacle obs1 = new Obstacle("test", "normal", rope, "hole");
+	Obstacle obs2 = new Obstacle("test", "crawling", key, "door");
 	Room room, room2, room3, room4;
 	
 	
@@ -42,16 +43,16 @@ public class PlayerTest {
 	
 
 	
-	Enemy testEnemy = new Enemy(0, 0, 0, 0, 0, 0, 0, 0, abilities, null, "testDialogue", 0, null, null, testInv, room, false);
+	Enemy testEnemy = new Enemy(0, 0, 0, 0, 0, 0, 0, 0, abilities, "test", "testDialogue", 0, "a test", "testEnemy", testInv, room, false);
 	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, "testDialogue", 100, "A test NPC", "test", null, room, false);
-	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", null, null);
-	Item rope = new Item("rope", 0, true, false, true, 50, "rope", "misc", null);
+	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", "test", "test");
 
 	ArrayList<Item> Inventory = new ArrayList<Item>();
 	Inventory testInventory = new Inventory(100, 100, Inventory);
 	Item testPotion = new Item("test", 10, false, false, true, 5, "health potion", "potion", "HP");
-	Item testTorch = new Item("test", 0, true, false, true, 1, "torch", "harmmisc", null);
-	Gear testSword = new Gear(5, 0 , 0, "sword", false, "test", 0, false, false, true, 5, "sword", null);
+	Item testTorch = new Item("test", 0, true, false, true, 1, "torch", "harmmisc", "none");
+	Gear testSword = new Gear(5, 0 , 0, "sword", false, "test", 0, false, false, false, 5, "sword", "righthand");
+	ArrayList<Item> allItems = new ArrayList<Item>();
 
 	@Before
 	public void setUp() {
@@ -82,6 +83,12 @@ public class PlayerTest {
 		allRooms.add(room3);
 		allRooms.add(room4);
 		
+		allItems.add(key);
+		allItems.add(rope);
+		allItems.add(testItem);
+		allItems.add(testPotion);
+		allItems.add(testSword);
+		
 	}
 	
 	
@@ -102,8 +109,13 @@ public class PlayerTest {
 	public void testLight() {
 		testRoomInv.addItem(testTorch);
 		testPlayer.take(testTorch, testRoomInv);
-		testPlayer.light(testTorch);
+		testPlayer.light(testTorch, testPlayer.getInventory().getInventory());
 		assertTrue(testTorch.getLit());
+		String tmp = testPlayer.light(testTorch, testPlayer.getInventory().getInventory());
+		assertEquals(testTorch.getName() + " is already on fire!", tmp);
+		testPlayer.getInventory().addItem(key);
+		tmp = testPlayer.light(key, testPlayer.getInventory().getInventory());
+		assertEquals("You can't light " + key.getName() + " on fire!", tmp);
 	}
 	
 	@Test
@@ -111,18 +123,31 @@ public class PlayerTest {
 		testRoomInv.addItem(testSword);
 		int oldatk = testPlayer.getAtk();
 		testPlayer.take(testSword, testRoomInv);
-		testPlayer.equip(testSword);
+		testPlayer.equip(testSword, testPlayer.getInventory().getInventory());
 		assertEquals(oldatk + testSword.getAtk(), testPlayer.getAtk());
+		String tmp = testPlayer.equip(testSword, testPlayer.getInventory().getInventory());
+		assertEquals(testSword.getName() + " is already equipped.", tmp);
+		Gear testSword2 = new Gear(5, 0 , 0, "sword2", false, "test2", 0, false, false, false, 5, "sword2", "righthand");
+		testPlayer.getInventory().addItem(testSword2);
+		tmp = testPlayer.equip(testSword2, testPlayer.getInventory().getInventory());
+		assertEquals("You already have something equipped in that slot!", tmp);
+		Gear test = new Gear(5, 0 , 0, "test", false, "test", 0, false, false, false, 5, "test", "test");
+		tmp = testPlayer.equip(test, testPlayer.getInventory().getInventory());
+		assertEquals("You can't equip " + test.getName() + ".", tmp);
+		
+		
 	}
 	
 	@Test
 	public void testUnequip() {
 		testRoomInv.addItem(testSword);
 		testPlayer.take(testSword, testRoomInv);
-		testPlayer.equip(testSword);
+		testPlayer.equip(testSword, testPlayer.getInventory().getInventory());
 		int oldatk = testPlayer.getAtk();
-		testPlayer.unequip(testSword);
+		testPlayer.unequip(testSword, testPlayer.getInventory().getInventory());
 		assertEquals(oldatk - testSword.getAtk(), testPlayer.getAtk());
+		String tmp = testPlayer.unequip(testSword, testPlayer.getInventory().getInventory());
+		assertEquals("You can't unequip " + testSword.getName() + ".", tmp);
 	}
 	
 	@Test
@@ -145,7 +170,7 @@ public class PlayerTest {
 	public void testDrop() {
 		testRoomInv.addItem(testItem);
 		testPlayer.take(testItem, testRoomInv);
-		testPlayer.drop(testItem);
+		testPlayer.drop(testItem, testPlayer.getCurrentRoom());
 		assertTrue(room.getInventory().getInventory().contains(testItem));
 	}
 	
@@ -154,8 +179,18 @@ public class PlayerTest {
 	public void testThroObs() {
 		testRoomInv.addItem(rope);
 		testPlayer.take(rope, testRoomInv);
-		testPlayer.throObs(obs1, rope);
+		testPlayer.throObs(obs1, rope, testPlayer.getCurrentRoom());
 		assertEquals("normal", obs1.getStatus());
+		testPlayer.getInventory().addItem(rope);
+		testPlayer.throObs(obs2, rope, testPlayer.getCurrentRoom());
+		assertEquals("crawling", obs2.getStatus());
+		testPlayer.getInventory().addItem(testSword);
+		assertEquals("You can't throw " + testSword.getName(), testPlayer.throObs(obs2, testSword, testPlayer.getCurrentRoom()));
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("north", 1);
+		Room testRoom = new Room("test", testInv, obs, map, false, 10);
+		testPlayer.setCurrentRoom(testRoom);
+		assertEquals("There are no obstacles attached to this room.", testPlayer.throObs(obs, testPotion, testRoom));
 	}
 	@Test
 	public void testMove() {
@@ -188,8 +223,8 @@ public class PlayerTest {
 	
 	@Test
 	public void testObstacle() {
-		testPlayer.move("east", allRooms);
-		assertNotEquals(testPlayer.getCurrentRoom(), room3);
+		testPlayer.move("west", allRooms);
+		assertNotEquals(testPlayer.getCurrentRoom(), room4);
 	}
 	@Test
 	public void testTalk() {
@@ -271,6 +306,8 @@ public class PlayerTest {
 	}
 	@Test
 	public void testCast() {
+		testPlayer.cast(testEnemy, testAtkSpell);
+		assertEquals("normal", testPlayer.getStatus());
 		String tmp = testPlayer.cast(testPlayer, testMaxHPSpell);
 		assertEquals(1005, testPlayer.getMaxHP());
 		assertEquals(45, testPlayer.getResource());
@@ -311,12 +348,20 @@ public class PlayerTest {
 		
 		String tmp = testPlayer.basicAttack(testNPC);
 		assertEquals("combat", testPlayer.getStatus());
-		assertEquals(90, testNPC.getHP());
-		assertEquals("You did 10 to test, it now has 90 HP.", tmp);
+		assertEquals(95, testNPC.getHP());
+		assertEquals("You did 10 to test, it now has 95 HP.", tmp);
 		testNPC.setIsDead(true);
 		tmp = testPlayer.basicAttack(testNPC);
 		assertEquals("normal", testPlayer.getStatus());
 		assertEquals("test is dead.", tmp);
+		testPlayer.setAtk(1);
+		testPlayer.setDef(2);
+		int hp = testPlayer.getHP();
+		testPlayer.basicAttack(testPlayer);
+		assertEquals(hp, testPlayer.getHP());
+		testPlayer.setIsDead(true);
+		assertEquals("", testPlayer.basicAttack(testEnemy));
+		
 
 	}
 	@Test
@@ -330,6 +375,28 @@ public class PlayerTest {
 		String tmp = testPlayer.leave();
 		assertEquals("normal", testPlayer.getStatus());
 		assertEquals("Goodbye!", tmp);
+	}
+	
+	@Test
+	public void testRoomByRoomId() {
+		assertEquals(room4, testPlayer.getRoomByRoomId(4, allRooms));
+		assertEquals("empty", testPlayer.getRoomByRoomId(5, allRooms).getDescription());
+	}
+	
+	@Test
+	public void testListIndexbyItem() {
+		assertEquals(1, testPlayer.getListIndexbyItem(rope, allItems));
+		assertEquals(-1, testPlayer.getListIndexbyItem(testTorch, allItems));
+	}
+	
+	@Test
+	public void testCheckPlayerEquippedSlot() {
+		testPlayer.getCurrentRoom().getInventory().addItem(testSword);
+		testPlayer.take(testSword, testPlayer.getInventory());
+		testPlayer.equip(testSword, allItems);
+		assertTrue(testPlayer.checkPlayerEquippedSlot(testPlayer.getInventory().getInventory(), "righthand"));
+		testPlayer.unequip(testSword, allItems);
+		assertFalse(testPlayer.checkPlayerEquippedSlot(testPlayer.getInventory().getInventory(), "righthand"));
 	}
 	
 	
