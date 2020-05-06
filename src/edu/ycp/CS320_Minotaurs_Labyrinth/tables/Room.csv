@@ -24,19 +24,19 @@
 24|You enter a lived in nest. It is flooded with bones of various large creatures. An exit lies to the north. A gigantic warning marks the top of the entrance to the south. You recognize this word from a book that was read to you as a child. It simply says: "Mother".|24|1|0|north|23|south|25
 25|You enter a gigantic nest. A chill goes down your spine. Nothing has survived entering this place before you. An exit lies to the north. You spot a small hole in the nest to the south, you can just barely fit through. |25|1|0|north|24|south|26
 26|You enter a tiny alcove filled with treasure.|26|1|0|north|25
-27|You enter a path. Crumbled stone is scattered across the floor. Exits lie to the east and west.|27|1|0|east|11|west|28
-28|Empty room|28|1|0|east|27|west|29
-29|You enter a small stone room, it is empty. There are four doorways at each cardinal direction.|29|1|0|north|31|south|30|east|28|west|33
-30|You enter a small stone room, there is a large hole in the floor and an exit on the other side.|30|3|0|north|29|south|2
-31|Empty room|31|1|0|south|29|north|32
-32|Empty room|32|1|0|south|31
-33|You enter a small stone room, there is an exit on the opposite side of the room.|33|4|0|east|29|west|34
-34|You enter a small stone room, the stench of goblin is unbearable. There is an exit to the north.|34|1|0|east|33|north|35
-35|You enter a small stone room, it is empty. There are three doorways at each cardinal direction except east.|35|1|0|south|34|west|36|north|39
-36|Empty room|36|1|0|east|35|west|37
-37|Empty room|37|1|0|east|36|south|38
-38|Empty room|38|1|0|north|37
-39|You enter a small stone room, There is an exit on the opposite side of the room.|39|1|0|south|35|north|40
-40|You enter a small stone room, vines and other brush grow out of control from a hole in the west wall. There is an exit to your east|40|5|0|south|39|east|41
-41|You enter a small stone room, there is an exit to your north|41|1|0|west|40|north|42
-42|You enter a large stone amphitheater, in the center of the room you see a large creature. It is half bull and half man, you recognize this as the minotaur|42|1|0|south|41
+27|You enter a path. Crumbled stone statues mix with fangs and scales across the floor. Exits lie to the east and west.|27|1|0|east|11|west|28
+28|You enter a wider path. Various parts of stone litter the floor. There is an exit to the east and west.|28|1|0|east|27|west|29
+29|You enter an intersection. Stone statues of people line the exit to the north, you don't recognize them as famous figures. A dirt path opens to the room to the south. Craggy rocks surround the exit to the east. A royal stone doorway lies to the west.|29|1|0|north|31|south|30|east|28|west|33
+30|You enter a small dirt floored room. There is a large hole in the floor and an exit to the north and south.|30|3|0|north|29|south|2
+31|You enter a large room full of statues of terror-infused people. There is a small gap to the north. There is an exit to the south.|31|1|0|south|29|north|32
+32|You enter a tiny gap in the wall. A person probably could've fit in here to hide from that monstrous creature. The exit to the gap is south.|32|1|0|south|31
+33|You enter a royal pathway. Only the foolish head in this direction. Doorways lie to the east and west.|33|4|0|east|29|west|34
+34|You enter a royal room with a turn, the stench of goblin is unbearable. There is an exit to the north and east.|34|1|0|east|33|north|35
+35|You enter a three way intersection, it is empty. There are three doorways at each cardinal direction except east.|35|1|0|south|34|west|36|north|39
+36|OBSTACLE|36|1|0|east|35|west|37
+37|NOTHING|37|1|0|east|36|south|38
+38|ITEM ROOM|38|1|0|north|37
+39|You enter a royal stone room lined with sconces. There is an exit to the south and north.|39|1|0|south|35|north|40
+40|You enter a pathway, vines and other brush grow out of control from a hole in the west wall. Nobody has dared come this far. There is an exit to the south and east.|40|5|0|south|39|east|41
+41|You enter a lavish pathway lined with sconces and covered in the finest tapestries. Light floods into the room from the giant doorway to the north. An escape lies to the west.|41|1|0|west|40|north|42
+42|You enter a large stone amphitheater. A creature, half bull and half man, sits upon a thrown at the center. The Minotaur. King of the labyrinth.|42|1|0|south|41
