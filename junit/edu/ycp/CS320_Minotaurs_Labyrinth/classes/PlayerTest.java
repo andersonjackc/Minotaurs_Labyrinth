@@ -44,7 +44,7 @@ public class PlayerTest {
 
 	
 	Enemy testEnemy = new Enemy(0, 0, 0, 0, 0, 0, 0, 0, abilities, "test", "testDialogue", 0, "a test", "testEnemy", testInv, room, false);
-	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, "testDialogue", 100, "A test NPC", "test", null, room, false);
+	NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, "testDialogue", 100, "A test NPC", "test", testInv, room, false);
 	Item testItem = new Item("A test item", 5, true, false, true, 50, "testItem", "test", "test");
 
 	ArrayList<Item> Inventory = new ArrayList<Item>();

@@ -216,7 +216,12 @@ public class Player extends Actor {
 			if(target.getHP()<=0 || target.getIsDead()) {
 				target.setIsDead(true);
 				this.status = "normal";
-				return target.getName() + " is dead.";
+				String dropped = "";
+				for(Item i : target.getInventory().getInventory()) {
+					this.getCurrentRoom().getInventory().addItem(i);
+					dropped += " " + target.getName() + " dropped " + i.getName() + ".";
+				}
+				return target.getName() + " is dead." + dropped;
 				
 			}
 			
@@ -235,9 +240,12 @@ public class Player extends Actor {
 				spell.addEffect(target);
 				if(target.getHP() <= 0 || target.getIsDead()) {
 					target.setIsDead(true);
-					this.status = "normal";
-					return target.getName() + " is dead.";
-					
+					this.status = "normal";String dropped = "";
+					for(Item i : target.getInventory().getInventory()) {
+						this.getCurrentRoom().getInventory().addItem(i);
+						dropped += " " + target.getName() + " dropped " + i.getName() + ".";
+					}
+					return target.getName() + " is dead." + dropped;
 				}
 				setResource(getResource() - spell.getCost());
 				if(spell.getAffectedStat().equals("HP")) {
@@ -309,7 +317,7 @@ public class Player extends Actor {
 		}
 		return false;
 	}
-
+	
 	//getters
 	public int getMaxHP() {
 		return maxHP;
