@@ -1,42 +1,42 @@
-1|You enter a small stone room there are four doorways at each cardinal direction.|2|1|1|north|2|south|3|east|4|west|5
+1|You enter a small stone room there are four doorways at each cardinal direction.|1|1|1|north|2|south|3|east|4|west|5
 2|You enter a small stone room, the stench of ogre is unbearable. There is an exit on the opposite side of the room from the way you entered.|2|1|0|north|30|south|1
-3|You enter a small stone room. The only exit is the way you entered.|2|1|0|north|1
-4|You enter a small stone room. There is an exit to the east.|2|2|0|west|1|east|7
-5|You enter a small stone room, it is empty. There is an exit on the opposite side of the room from the way you entered.|2|1|0|east|1|west|6
-6|Empty room|3|1|0|east|5
-7|Empty room|2|1|0|west|4|east|8
-8|Empty room|2|1|0|west|7|north|9
-9|Empty room|2|1|0|south|8|north|10
-10|Empty room|2|1|0|south|9|north|11
-11|Empty room|2|1|0|north|12|south|10|east|14|west|27
-12|Empty room|2|1|0|north|13|south|11
-13|Empty room|2|1|0|south|12
-14|Empty room|2|1|0|west|11|east|15
-15|Empty room|2|1|0|west|14|east|16
-16|Empty room|2|1|0|north|17|south|23|east|19|west|15
-17|Empty room|2|1|0|south|16|north|18
-18|Empty room|2|1|0|south|17
-19|Empty room|2|1|0|west|16|east|20
-20|Empty room|2|1|0|west|19|north|21|south|22
-21|Empty room|2|1|0|south|20
-22|Empty room|2|1|0|north|20
-23|Empty room|2|1|0|north|16|south|24
-24|Empty room|2|1|0|north|23|south|25
-25|Empty room|2|1|0|north|24|south|26
-26|Empty room|2|1|0|north|25
-27|Empty room|2|1|0|east|11|west|28
-28|Empty room|2|1|0|east|27|west|29
-29|You enter a small stone room, it is empty. There are four doorways at each cardinal direction.|2|1|0|north|31|south|30|east|28|west|33
-30|You enter a small stone room, there is a large hole in the floor and an exit on the other side.|2|3|0|north|29|south|2
-31|Empty room|2|1|0|south|29|north|32
-32|Empty room|2|1|0|south|31
-33|You enter a small stone room, there is an exit on the opposite side of the room.|2|4|0|east|29|west|34
-34|You enter a small stone room, the stench of goblin is unbearable. There is an exit to the north.|2|1|0|east|33|north|35
-35|You enter a small stone room, it is empty. There are three doorways at each cardinal direction except east.|2|1|0|south|34|west|36|north|39
-36|Empty room|2|1|0|east|35|west|37
-37|Empty room|2|1|0|east|36|south|38
-38|Empty room|2|1|0|north|37
-39|You enter a small stone room, There is an exit on the opposite side of the room.|4|1|0|south|35|north|40
-40|You enter a small stone room, vines and other brush grow out of control from a hole in the west wall. There is an exit to your east|2|5|0|south|39|east|41
-41|You enter a small stone room, there is an exit to your north|2|1|0|west|40|north|42
-42|You enter a large stone amphitheater, in the center of the room you see a large creature. It is half bull and half man, you recognize this as the minotaur|2|1|0|south|41
+3|You enter a small stone room. The only exit is the way you entered.|3|1|0|north|1
+4|You enter a small stone room. There is an exit to the east.|4|2|0|west|1|east|7
+5|You enter a small stone room, it is empty. There is an exit on the opposite side of the room from the way you entered.|5|1|0|east|1|west|6
+6|Empty room|6|1|0|east|5
+7|Empty room|7|1|0|west|4|east|8
+8|Empty room|8|1|0|west|7|north|9
+9|Empty room|9|1|0|south|8|north|10
+10|Empty room|10|1|0|south|9|north|11
+11|Empty room|11|1|0|north|12|south|10|east|14|west|27
+12|Empty room|12|1|0|north|13|south|11
+13|Empty room|13|1|0|south|12
+14|Empty room|14|1|0|west|11|east|15
+15|Empty room|15|1|0|west|14|east|16
+16|Empty room|16|1|0|north|17|south|23|east|19|west|15
+17|Empty room|17|1|0|south|16|north|18
+18|Empty room|18|1|0|south|17
+19|Empty room|19|1|0|west|16|east|20
+20|Empty room|20|1|0|west|19|north|21|south|22
+21|Empty room|21|1|0|south|20
+22|Empty room|22|1|0|north|20
+23|Empty room|23|1|0|north|16|south|24
+24|Empty room|24|1|0|north|23|south|25
+25|Empty room|25|1|0|north|24|south|26
+26|Empty room|26|1|0|north|25
+27|Empty room|27|1|0|east|11|west|28
+28|Empty room|28|1|0|east|27|west|29
+29|You enter a small stone room, it is empty. There are four doorways at each cardinal direction.|29|1|0|north|31|south|30|east|28|west|33
+30|You enter a small stone room, there is a large hole in the floor and an exit on the other side.|30|3|0|north|29|south|2
+31|Empty room|31|1|0|south|29|north|32
+32|Empty room|32|1|0|south|31
+33|You enter a small stone room, there is an exit on the opposite side of the room.|33|4|0|east|29|west|34
+34|You enter a small stone room, the stench of goblin is unbearable. There is an exit to the north.|34|1|0|east|33|north|35
+35|You enter a small stone room, it is empty. There are three doorways at each cardinal direction except east.|35|1|0|south|34|west|36|north|39
+36|Empty room|36|1|0|east|35|west|37
+37|Empty room|37|1|0|east|36|south|38
+38|Empty room|38|1|0|north|37
+39|You enter a small stone room, There is an exit on the opposite side of the room.|39|1|0|south|35|north|40
+40|You enter a small stone room, vines and other brush grow out of control from a hole in the west wall. There is an exit to your east|40|5|0|south|39|east|41
+41|You enter a small stone room, there is an exit to your north|41|1|0|west|40|north|42
+42|You enter a large stone amphitheater, in the center of the room you see a large creature. It is half bull and half man, you recognize this as the minotaur|42|1|0|south|41
