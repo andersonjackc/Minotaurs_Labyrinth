@@ -43,7 +43,25 @@ public class Enemy extends NPC {
 			if(atk < 0) {
 				atk = 0;
 			}
-			target.setHP((target.getHP() - atk)); 
+			target.setHP((target.getHP() - atk));
+			String armorbroke = "";
+			if(target.getInventory().getInventory().size() > 0) {
+				for(int i = 0; i < target.getInventory().getInventory().size() ; i++ ) {
+					if(target.getInventory().getInventory().get(i).getVariety().equals("armor")) {
+						Gear g = (Gear) target.getInventory().getInventory().get(i);
+						if(g.getEquipped()) {
+							removeHPFromGear(g, getAtk());
+							if(g.getHP() <= 0) {
+								Player p = (Player) target;
+								p.unequip(g, p.getInventory().getInventory());
+								target.getInventory().removeItem(g);
+								armorbroke = g.getName() + " broke due to the sustained damage.";
+							}
+						}
+						
+					}
+				}
+			}
 			
 			if(target.getHP()<=0 || target.getIsDead()) {
 				target.setIsDead(true);
@@ -51,7 +69,7 @@ public class Enemy extends NPC {
 				return "You are dead.";
 			}
 			
-			return this.name + " did " + atk + " to " + target.getName() + ", you now have " + target.getHP() + " HP.";
+			return this.name + " did " + atk + " to " + target.getName() + ", you now have " + target.getHP() + " HP." + " " + armorbroke;
 		}
 		return "";
 	}
@@ -104,144 +122,152 @@ public class Enemy extends NPC {
 		return "";
 	}
 	
+	//helpers
+	public void removeHPFromGear(Gear gear, int damage) {
+		if(gear.getVariety().equals("armor")) {
+			gear.setHP(gear.getHP() - damage);
+			}
+		
+	}
+	
 	//getters
-		public int getMaxHP() {
-			return maxHP;
-		}
+	public int getMaxHP() {
+		return maxHP;
+	}
 
-		public int getHP() {
-			return HP;
-		}
-		
-		public int getMaxResource() {
-			return maxResource;
-		}
-		
-		public int getResource() {
-			return resource;
-		}
+	public int getHP() {
+		return HP;
+	}
+	
+	public int getMaxResource() {
+		return maxResource;
+	}
+	
+	public int getResource() {
+		return resource;
+	}
 
-		public int getAtk() {
-			return atk;
-		}
-		
-		public int getDef() {
-			return def;
-		}
-		
-		public int getGold() {
-			return gold;
-		}
+	public int getAtk() {
+		return atk;
+	}
+	
+	public int getDef() {
+		return def;
+	}
+	
+	public int getGold() {
+		return gold;
+	}
 
-		public int getXP() {
-			return XP;
-		}
-		
-		public ArrayList<Ability> getAbilities() {
-			return abilities;
-		}
-		
-		public String getStatus() {
-			return status;
-		}
-		
-		public Room getCurrentRoom() {
-			return currentRoom;
-		}
-		
-		public Boolean getIsDead() {
-			return isDead;
-		}
-		
-		public String getDescription() {
-			return description;
-		}
+	public int getXP() {
+		return XP;
+	}
+	
+	public ArrayList<Ability> getAbilities() {
+		return abilities;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
+	public Room getCurrentRoom() {
+		return currentRoom;
+	}
+	
+	public Boolean getIsDead() {
+		return isDead;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
 
-		public String getName() {
-			return name;
-		}
-		
-		public Inventory getInventory() {
-			return inventory;
-		}
-		
-		public String getDialogue() {
-			return dialogue;
-		}
+	public String getName() {
+		return name;
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
+	public String getDialogue() {
+		return dialogue;
+	}
 
-		public int getAttitude() {
-			return attitude;
-		}
-				
-		//setters
-		public void setHP(int HP) {
-			this.HP = HP;
-		}
-		
-		public void setMaxHP(int maxHP) {
-			this.maxHP = maxHP;
-		}
-		
-		public void setResource(int resource) {
-			this.resource =  resource;
-		}
-		
-		public void setMaxResource(int maxResource) {
-			this.maxResource = maxResource;
-		}
-
-		public void setAtk(int atk) {
-			this.atk = atk;
-		}
-		
-		public void setDef(int def) {
-			this.def = def;
-		}
-		
-		public void setGold(int gold) {
-			this.gold = gold;
-		}
-
-		public void setXP(int XP) {
-			this.XP = XP;
-		}
-		
-		public void setCurrentRoom(Room currentRoom) {
-			this.currentRoom = currentRoom;
-		}
-		
-		public void setIsDead(Boolean isDead) {
-			this.isDead = isDead;
-		}
-		
-		public void setAttitude(int attitude) {
-			this.attitude = attitude;
-		}
-
-		public void setAbilities(ArrayList<Ability> abilities) {
-			this.abilities = abilities;
-		}
-
-		public void setStatus(String status) {
-			this.status = status;
+	public int getAttitude() {
+		return attitude;
+	}
 			
-		}
+	//setters
+	public void setHP(int HP) {
+		this.HP = HP;
+	}
+	
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
+	}
+	
+	public void setResource(int resource) {
+		this.resource =  resource;
+	}
+	
+	public void setMaxResource(int maxResource) {
+		this.maxResource = maxResource;
+	}
 
-		public void setInventory(Inventory inventory) {
-			this.inventory = inventory;
-			
-		}
+	public void setAtk(int atk) {
+		this.atk = atk;
+	}
+	
+	public void setDef(int def) {
+		this.def = def;
+	}
+	
+	public void setGold(int gold) {
+		this.gold = gold;
+	}
+
+	public void setXP(int XP) {
+		this.XP = XP;
+	}
+	
+	public void setCurrentRoom(Room currentRoom) {
+		this.currentRoom = currentRoom;
+	}
+	
+	public void setIsDead(Boolean isDead) {
+		this.isDead = isDead;
+	}
+	
+	public void setAttitude(int attitude) {
+		this.attitude = attitude;
+	}
+
+	public void setAbilities(ArrayList<Ability> abilities) {
+		this.abilities = abilities;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 		
-		public void setDialogue(String dialogue) {
-			this.dialogue = dialogue;
-		}
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 		
-		public void setDescription(String description) {
-			this.description = description;
-		}
-		
-		public void setName(String name) {
-			this.name = name;
-		}
+	}
+	
+	public void setDialogue(String dialogue) {
+		this.dialogue = dialogue;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 }

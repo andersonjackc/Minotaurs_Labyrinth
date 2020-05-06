@@ -1,42 +1,42 @@
-1|You enter a small stone room there are four doorways at each cardinal direction.|1|1|1|north|2|south|3|east|4|west|5
-2|You enter a small stone room, the stench of ogre is unbearable. There is an exit on the opposite side of the room from the way you entered.|2|1|0|north|30|south|1
-3|You enter a small stone room. The only exit is the way you entered.|3|1|0|north|1
-4|You enter a small stone room. There is an exit to the east.|4|2|0|west|1|east|7
-5|You enter a small stone room, it is empty. There is an exit on the opposite side of the room from the way you entered.|5|1|0|east|1|west|6
-6|Empty room|6|1|0|east|5
-7|Empty room|7|1|0|west|4|east|8
-8|Empty room|8|1|0|west|7|north|9
-9|Empty room|9|1|0|south|8|north|10
-10|Empty room|10|1|0|south|9|north|11
-11|Empty room|11|1|0|north|12|south|10|east|14|west|27
-12|Empty room|12|1|0|north|13|south|11
-13|Empty room|13|1|0|south|12
-14|Empty room|14|1|0|west|11|east|15
-15|Empty room|15|1|0|west|14|east|16
-16|Empty room|16|1|0|north|17|south|23|east|19|west|15
-17|Empty room|17|1|0|south|16|north|18
-18|Empty room|18|1|0|south|17
-19|Empty room|19|1|0|west|16|east|20
-20|Empty room|20|1|0|west|19|north|21|south|22
-21|Empty room|21|1|0|south|20
-22|Empty room|22|1|0|north|20
-23|Empty room|23|1|0|north|16|south|24
-24|Empty room|24|1|0|north|23|south|25
-25|Empty room|25|1|0|north|24|south|26
-26|Empty room|26|1|0|north|25
-27|Empty room|27|1|0|east|11|west|28
-28|Empty room|28|1|0|east|27|west|29
-29|You enter a small stone room, it is empty. There are four doorways at each cardinal direction.|29|1|0|north|31|south|30|east|28|west|33
-30|You enter a small stone room, there is a large hole in the floor and an exit on the other side.|30|3|0|north|29|south|2
-31|Empty room|31|1|0|south|29|north|32
-32|Empty room|32|1|0|south|31
-33|You enter a small stone room, there is an exit on the opposite side of the room.|33|4|0|east|29|west|34
-34|You enter a small stone room, the stench of goblin is unbearable. There is an exit to the north.|34|1|0|east|33|north|35
-35|You enter a small stone room, it is empty. There are three doorways at each cardinal direction except east.|35|1|0|south|34|west|36|north|39
-36|Empty room|36|1|0|east|35|west|37
-37|Empty room|37|1|0|east|36|south|38
-38|Empty room|38|1|0|north|37
-39|You enter a small stone room, There is an exit on the opposite side of the room.|39|1|0|south|35|north|40
-40|You enter a small stone room, vines and other brush grow out of control from a hole in the west wall. There is an exit to your east|40|5|0|south|39|east|41
-41|You enter a small stone room, there is an exit to your north|41|1|0|west|40|north|42
-42|You enter a large stone amphitheater, in the center of the room you see a large creature. It is half bull and half man, you recognize this as the minotaur|42|1|0|south|41
+1|You enter a small stone room, there is an exit at each cardinal direction.|1|1|1|north|2|south|3|east|4|west|5
+2|You enter a dirt floored room with a wooden shack shaped like an onion in the middle, the stench of ogre is unbearable. There is an exit to the north and the south.|2|1|0|north|30|south|1
+3|You enter a cozy nook padded with straw and tapestries decorating the walls. The only exit is the way you entered.|3|1|0|north|1
+4|You enter a wide pathway. You see what looks like a shop with an anvil outside of its doors. There is an exit to the west and the east.|4|2|0|west|1|east|7
+5|You enter a tight hallway. There is an exit to the west and the east.|5|1|0|east|1|west|6
+6|You enter what appears to be some sort of storage area. It has long been looted but maybe something got left behind? There is an exit to the east.|6|1|0|east|5
+7|You enter a wide hallway. Bones laced with scorch marks litter the floor. What could have caused them? There is an exit to the west and the east.|7|1|0|west|4|east|8
+8|You enter a small cranny with a small stone house. Some sort of name is etched over the entrance. Some leather strap lays on the ground long removed. It appears to be fireproof. There is an exit to the west and the north.|8|1|0|west|7|north|9
+9|You enter a cramped path. Scorch mark laced bones line the sides. There is an exit to the south and the north.|9|1|0|south|8|north|10
+10|You enter a wide path. There is an exit to the south and the north.|2|1|0|south|9|north|11
+11|You enter an intersection. There is an odd collection of fur, fangs, and shed scales intensifying to the north. Feathers and scratch marks line the exit to the east, some sort of territorial marking? Crumbling stone from a statue long gone surrounds the exit to the west. A wide path lies to the south.|11|1|0|north|12|south|10|east|14|west|27
+12|You enter a giant room with an almost mountainlike range of harsh rocks. There is a small hole in the rocks to the north and an exit to the south.|12|1|0|north|13|south|11
+13|You enter a small hideaway with numerous chests and containers.|2|1|0|south|12
+14|You enter a pathway littered with twigs, sticks and bones. Aggressive territorial markings line the walls. What appears to be a warning lies above the entrance to the east. There is an exit to the west.|13|1|0|west|11|east|15
+15|You enter a pathway full to the brim with random twigs, sticks and bones. There is an exit to east and west.|14|1|0|west|14|east|16
+16|You enter an intersection. The room is a collection of failed nesting material. Various creature's bones are flung around the room without care. There is a marking in a language you don't understand to the south, despite not being fluent in the language you understand its message: do not enter. There is a warm light radiating from the exit to the east. There is an opening to the north.|15|1|0|north|17|south|23|east|19|west|15
+17|You enter a prison. There is an exit to the south and north.|17|1|0|south|16|north|18
+18|You enter a room with joe. There is an exit to the south.|18|1|0|south|17
+19|You enter a cozy walkway lined with torches and fleece. There is a doorway to the west and the east.|19|1|0|west|16|east|20
+20|You enter a split in the walkway. Fleece lines the pathway and a doorway is marked to the north and south with torches, however the southern doorway is significantly larger. There is an exit to the west.|20|1|0|west|19|north|21|south|22
+21|You enter a room that has been converted to a house of sorts. While not being lavish you imagine it is more comfortable than anywhere else in the labyrinth. The exit is a doorway to the south.|21|1|0|south|20
+22|You enter a giant room. A pen full of sheep sits on the southern side. A cooking pot towers above you. Some sheep appear to be freshly sheared. The exit is a giant doorway to the north.|22|1|0|north|20
+23|You enter a small nest-like room. Despite its foreign nature it still appears to be a small creatures room.|23|1|0|north|16|south|24
+24|You enter a lived in nest. It is flooded with bones of various large creatures. An exit lies to the north. A gigantic warning marks the top of the entrance to the south. You recognize this word from a book that was read to you as a child. It simply says: "Mother".|24|1|0|north|23|south|25
+25|You enter a gigantic nest. A chill goes down your spine. Nothing has survived entering this place before you. An exit lies to the north. You spot a small hole in the nest to the south, you can just barely fit through. |25|1|0|north|24|south|26
+26|You enter a tiny alcove filled with treasure.|26|1|0|north|25
+27|You enter a path. Crumbled stone statues mix with fangs and scales across the floor. Exits lie to the east and west.|27|1|0|east|11|west|28
+28|You enter a wider path. Various parts of stone litter the floor. There is an exit to the east and west.|28|1|0|east|27|west|29
+29|You enter an intersection. Stone statues of people line the exit to the north, you don't recognize them as famous figures. A dirt path opens to the room to the south. Craggy rocks surround the exit to the east. A royal stone doorway lies to the west.|29|1|0|north|31|south|30|east|28|west|33
+30|You enter a small dirt floored room. There is a large hole in the floor and an exit to the north and south.|30|3|0|north|29|south|2
+31|You enter a large room full of statues of terror-infused people. There is a small gap to the north. There is an exit to the south.|31|1|0|south|29|north|32
+32|You enter a tiny gap in the wall. A person probably could've fit in here to hide from that monstrous creature. The exit to the gap is south.|32|1|0|south|31
+33|You enter a royal pathway. Only the foolish head in this direction. Doorways lie to the east and west.|33|4|0|east|29|west|34
+34|You enter a royal room with a turn, the stench of goblin is unbearable. There is an exit to the north and east.|34|1|0|east|33|north|35
+35|You enter a three way intersection, it is empty. There are three doorways at each cardinal direction except east.|35|1|0|south|34|west|36|north|39
+36|OBSTACLE|36|1|0|east|35|west|37
+37|NOTHING|37|1|0|east|36|south|38
+38|ITEM ROOM|38|1|0|north|37
+39|You enter a royal stone room lined with sconces. There is an exit to the south and north.|39|1|0|south|35|north|40
+40|You enter a pathway, vines and other brush grow out of control from a hole in the west wall. Nobody has dared come this far. There is an exit to the south and east.|40|5|0|south|39|east|41
+41|You enter a lavish pathway lined with sconces and covered in the finest tapestries. Light floods into the room from the giant doorway to the north. An escape lies to the west.|41|1|0|west|40|north|42
+42|You enter a large stone amphitheater. A creature, half bull and half man, sits upon a thrown at the center. The Minotaur. King of the labyrinth.|42|1|0|south|41

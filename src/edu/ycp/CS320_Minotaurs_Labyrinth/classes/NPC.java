@@ -51,6 +51,24 @@ public class NPC extends Actor {
 				atk = 0;
 			}
 			target.setHP((target.getHP() - atk)); 
+			String armorbroke = "";
+			if(target.getInventory().getInventory().size() > 0) {
+				for(int i = 0; i < target.getInventory().getInventory().size() ; i++ ) {
+					if(target.getInventory().getInventory().get(i).getVariety().equals("armor")) {
+						Gear g = (Gear) target.getInventory().getInventory().get(i);
+						if(g.getEquipped()) {
+							removeHPFromGear(g, getAtk());
+							if(g.getHP() <= 0) {
+								Player p = (Player) target;
+								p.unequip(g, p.getInventory().getInventory());
+								target.getInventory().removeItem(g);
+								armorbroke = " broke due to the sustained damage.";
+							}
+						}
+						
+					}
+				}
+			}
 			
 			if(target.getHP()<=0 || target.getIsDead()) {
 				target.setIsDead(true);
@@ -58,7 +76,7 @@ public class NPC extends Actor {
 				return "You are dead.";
 			}
 			
-			return this.name + " did " + atk + " to " + target.getName() + ", you now have " + target.getHP() + " HP.";
+			return this.name + " did " + atk + " to " + target.getName() + ", you now have " + target.getHP() + " HP." + " " + armorbroke;
 		}
 		return "";
 	}
@@ -109,6 +127,17 @@ public class NPC extends Actor {
 		}
 		return "";
 	}
+	
+	//helpers
+	public void removeHPFromGear(Gear gear, int damage) {
+		if(gear.getVariety().equals("armor")) {
+			gear.setHP(gear.getHP() - damage);
+			}
+		
+	}
+
+	
+	
 	//getters
 	public int getMaxHP() {
 		return maxHP;
