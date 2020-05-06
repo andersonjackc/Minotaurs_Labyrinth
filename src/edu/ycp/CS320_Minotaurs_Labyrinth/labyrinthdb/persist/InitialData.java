@@ -82,6 +82,36 @@ public class InitialData {
 		}
 		
 	}
+
+	public static ArrayList<Ability> getAbilitiesListByID(int alID) throws IOException{
+		ArrayList<Ability> abilities = new ArrayList<Ability>();
+
+		ReadCSV readAbilitiesList = new ReadCSV("AbilityList.csv");
+		try {
+			while (true) {
+				List<String> tuple = readAbilitiesList.next();
+				if (tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				ArrayList<Ability> tmpList = (ArrayList<Ability>)getAbilities();
+				
+				if(Integer.parseInt(i.next()) == alID){
+					while(i.hasNext()) {
+						
+						abilities.add(getAbilitybyString(tmpList, i.next()));
+					}
+					
+				}
+			}
+			
+			System.out.println("abilitiesList loaded from CSV file");			
+			return abilities;
+		} finally {
+			readAbilitiesList.close();
+		}
+		
+	}
 	
 	public static List<Inventory> getInventory() throws IOException{
 		
@@ -105,6 +135,35 @@ public class InitialData {
 			
 			System.out.println("inventoryList loaded from CSV file");			
 			return inventoryList;
+		} finally {
+			readInventory.close();
+		}
+	
+		
+		
+	}
+	
+	public static Inventory getInventoryById(int invId) throws IOException{
+		
+		Inventory inventory = new Inventory(0, 0, null);
+		ReadCSV readInventory = new ReadCSV("Inventory.csv");
+		try {
+			while (true) {
+				List<String> tuple = readInventory.next();
+				if (tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				
+				if(Integer.parseInt(i.next()) == invId) {
+					inventory.setMaxStorage(Integer.parseInt(i.next()));
+					inventory.setMaxQuant(Integer.parseInt(i.next()));
+					inventory.setInventory((ArrayList<Item>)getItemListForInventory(Integer.parseInt(i.next())));
+				}
+			}
+			
+			System.out.println("inventory loaded from CSV file");			
+			return inventory;
 		} finally {
 			readInventory.close();
 		}
@@ -204,6 +263,62 @@ public class InitialData {
 			
 			System.out.println("itemList loaded from CSV file");			
 			return itemList;
+		} finally {
+			readItem.close();
+		}
+	}
+	
+	public static Item getItemByID(int itemID) throws IOException{
+		
+		Item item = new Item(null, 0, null, null, null, 0, null, null, null);
+		ReadCSV readItem = new ReadCSV("Item.csv");
+		try {
+			while (true) {
+				List<String> tuple = readItem.next();
+				if (tuple == null) {
+					break;
+				}
+				
+				Iterator<String> i = tuple.iterator();
+				if(Integer.parseInt(i.next()) == itemID) {
+					item.setDescription(i.next());
+					item.setEffect(Integer.parseInt(i.next()));
+					
+					if(Integer.parseInt(i.next())==0) {
+						item.setFlammable(false);
+					}else {
+						item.setFlammable(true);
+					}
+									
+					if(Integer.parseInt(i.next())==0) {
+					
+						item.setLit(false);
+					}else {
+						
+						item.setLit(true);
+					}
+					
+					
+					
+					if(Integer.parseInt(i.next())==0) {
+						item.setThrowable(false);
+					}else {
+						item.setThrowable(true);
+					}
+					
+					item.setValue(Integer.parseInt(i.next()));
+					
+					item.setName(i.next());
+					
+					item.setVariety(i.next());
+					
+					item.setAffectedStat(i.next());
+				
+				}				
+			}
+			
+			System.out.println("item loaded from CSV file");			
+			return item;
 		} finally {
 			readItem.close();
 		}
@@ -329,8 +444,8 @@ public class InitialData {
 				
 				room.setDescription(i.next());
 				
-				List<Inventory> tmpList = getInventory();
-				room.setInventory(tmpList.get(Integer.parseInt(i.next())-1));
+				
+				room.setInventory(getInventoryById(Integer.parseInt(i.next())));
 				
 				List<Obstacle> tmpList2 = getObstacles();
 				room.setObstacle(tmpList2.get(Integer.parseInt(i.next())-1));
@@ -360,6 +475,54 @@ public class InitialData {
 	
 	}
 	
+	public static Room getRoomByID(int roomID) throws IOException{
+		
+		Room room = new Room(null, null, null, null, false, 0);
+		ReadCSV readRooms = new ReadCSV("Room.csv");
+		try {
+			while (true) {
+				List<String> tuple = readRooms.next();
+				if (tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				
+				int roomNum = Integer.parseInt(i.next());
+				if(roomNum == roomID) {
+					room.setRoomId(roomNum);
+					
+					room.setDescription(i.next());
+					
+					
+					room.setInventory(getInventoryById(Integer.parseInt(i.next())));
+					
+					List<Obstacle> tmpList2 = getObstacles();
+					room.setObstacle(tmpList2.get(Integer.parseInt(i.next())-1));
+					
+					if(Integer.parseInt(i.next())==0) {
+						room.setIsFound(false);
+					}else {
+						room.setIsFound(true);	
+					}
+					
+					HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
+					
+					while(i.hasNext()) {
+						tmpMap.put(i.next(), Integer.parseInt(i.next()));
+					}
+					
+					room.setRoomMap(tmpMap);
+				}
+			}
+			
+			System.out.println("room loaded from CSV file");			
+			return room;
+		} finally {
+			readRooms.close();
+		}
+	
+	}
+	
 	public static List<Obstacle> getObstacles() throws IOException{
 		
 		List<Obstacle> obstacleList = new ArrayList<Obstacle>();
@@ -376,10 +539,8 @@ public class InitialData {
 				obstacle.setDescription(i.next());
 				
 				obstacle.setStatus(i.next());
-				
-				List<Item> tmpList = getItems();
-				
-				obstacle.setRequirement(tmpList.get(Integer.parseInt(i.next())-1));
+								
+				obstacle.setRequirement(getItemByID(Integer.parseInt(i.next())));
 				
 				obstacle.setName(i.next());
 				
@@ -416,18 +577,17 @@ public class InitialData {
 				enemy.setDef(Integer.parseInt(i.next()));
 				enemy.setGold(Integer.parseInt(i.next()));
 				enemy.setXP(Integer.parseInt(i.next()));
-				List<ArrayList<Ability>> tmpList = getAbilitiesList();
-				enemy.setAbilities(tmpList.get(Integer.parseInt(i.next())-1));
+
+				enemy.setAbilities(getAbilitiesListByID(Integer.parseInt(i.next())));
 				enemy.setStatus(i.next());
 				enemy.setDialogue(i.next());
 				enemy.setAttitude(Integer.parseInt(i.next()));
 				enemy.setDescription(i.next());
 				enemy.setName(i.next());
-				List<Inventory> tmpList2 = getInventory();
-				enemy.setInventory(tmpList2.get(Integer.parseInt(i.next())-1));
 				
-				List<Room> tmpList3 = getRooms();
-				enemy.setCurrentRoom(tmpList3.get(Integer.parseInt(i.next())-1));
+				enemy.setInventory(getInventoryById(Integer.parseInt(i.next())));
+				
+				enemy.setCurrentRoom(getRoomByID(Integer.parseInt(i.next())));
 				
 				if(Integer.parseInt(i.next())==0) {
 					enemy.setIsDead(false);
@@ -467,13 +627,13 @@ public class InitialData {
 			player.setDef(Integer.parseInt(i.next()));
 			player.setGold(Integer.parseInt(i.next()));
 			player.setXP(Integer.parseInt(i.next()));
-			List<ArrayList<Ability>> tmpList = getAbilitiesList();
-			player.setAbilities(tmpList.get(Integer.parseInt(i.next())-1));
+			player.setAbilities(getAbilitiesListByID(Integer.parseInt(i.next())));
 			player.setStatus(i.next());
-			List<Inventory> tmpList2 = getInventory();
-			player.setInventory(tmpList2.get(Integer.parseInt(i.next())-1));
-			List<Room> tmpList3 = getRooms();
-			player.setCurrentRoom(tmpList3.get(Integer.parseInt(i.next())-1));
+			
+			player.setInventory(getInventoryById(Integer.parseInt(i.next())));
+
+			
+			player.setCurrentRoom(getRoomByID(Integer.parseInt(i.next())));
 			if(Integer.parseInt(i.next())==0) {
 				player.setIsDead(false);
 			}else {
@@ -513,18 +673,16 @@ public class InitialData {
 				npc.setDef(Integer.parseInt(i.next()));
 				npc.setGold(Integer.parseInt(i.next()));
 				npc.setXP(Integer.parseInt(i.next()));
-				List<ArrayList<Ability>> tmpList = getAbilitiesList();
-				npc.setAbilities(tmpList.get(Integer.parseInt(i.next())-1));
+				npc.setAbilities(getAbilitiesListByID(Integer.parseInt(i.next())));
 				npc.setStatus(i.next());
 				npc.setDialogue(i.next());
 				npc.setAttitude(Integer.parseInt(i.next()));
 				npc.setDescription(i.next());
 				npc.setName(i.next());
-				List<Inventory> tmpList2 = getInventory();
-				npc.setInventory(tmpList2.get(Integer.parseInt(i.next())-1));
 				
-				List<Room> tmpList3 = getRooms();
-				npc.setCurrentRoom(tmpList3.get(Integer.parseInt(i.next())-1));
+				npc.setInventory(getInventoryById(Integer.parseInt(i.next())));
+				
+				npc.setCurrentRoom(getRoomByID(Integer.parseInt(i.next())));
 				
 				if(Integer.parseInt(i.next())==0) {
 					npc.setIsDead(false);
