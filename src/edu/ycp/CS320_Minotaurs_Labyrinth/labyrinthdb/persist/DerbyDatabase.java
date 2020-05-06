@@ -942,10 +942,10 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 					
 					insertRooms = conn.prepareStatement("insert into room (description, inventory, obstacle, "
 							+ "roomMap, isFound) values (?, ?, ?, ?, ?)");
-					
+					int count1=1;
 					for (Room room : Rooms) {
 						insertRooms.setString(1, room.getDescription());
-						insertRooms.setInt(2, InventoryIDbyList(room.getInventory(), InventoryList));
+						insertRooms.setInt(2, count1++);
 						insertRooms.setInt(3, ObstacleIDbyList(room.getObstacle(), Obstacles));
 						insertRooms.setInt(4, room.getRoomId());
 						if(room.getIsFound()) {
@@ -1030,12 +1030,12 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 					
 					insertInventoryList = conn.prepareStatement("insert into inventory (maxstorage, maxquant, inventory) "
 							+ " values (?, ?, ?)");
-					
+					int count2 = 1;
 					for (Inventory inv : InventoryList) {
 						
 						insertInventoryList.setInt(1, inv.getMaxStorage());
 						insertInventoryList.setInt(2, inv.getMaxQuant());
-						insertInventoryList.setInt(3, InventoryIDbyList(inv, InventoryList));
+						insertInventoryList.setInt(3, count2++);
 						
 						insertInventoryList.addBatch();
 					}
@@ -3011,10 +3011,7 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 					stmt.setInt(3, invID);
 					stmt.executeUpdate();
 					
-					stmt2 = conn.prepareStatement(
-							"select * from itemlist " 
-					);
-					resultSet2 = stmt2.executeQuery();
+					
 					updateItemList(inv.getInventory(), invID);
 					
 					return null;
@@ -3047,9 +3044,9 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 							+ "item35 = ?, item36 = ?, item37 = ?, item38 = ?, item39 = ?, item40 = ?, item41 = ?, item42 = ?, item43 = ?, item44 = ?, item45 = ?, "
 							+ "item46 = ?, item47 = ?, item48 = ?, item49 = ?, item50 = ?" 
 							+ " where itemlist_id = ?");
+					System.out.println(iListID);
 					for(int i = 1; i <= 50; i++) {
 						if(i-1 < iList.size()) {
-
 							stmt.setString(i, iList.get(i-1).getName());
 						}else {
 							stmt.setString(i, "filler");
