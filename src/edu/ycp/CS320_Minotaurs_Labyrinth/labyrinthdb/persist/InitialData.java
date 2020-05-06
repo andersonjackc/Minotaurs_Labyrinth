@@ -98,8 +98,7 @@ public class InitialData {
 				i.next();
 				inventory.setMaxStorage(Integer.parseInt(i.next()));
 				inventory.setMaxQuant(Integer.parseInt(i.next()));
-				List<ArrayList<Item>> tmpList = getItemList();
-				inventory.setInventory(tmpList.get(Integer.parseInt(i.next())-1));
+				inventory.setInventory((ArrayList<Item>)getItemListForInventory(Integer.parseInt(i.next())));
 				
 				inventoryList.add(inventory);
 			}
@@ -113,6 +112,45 @@ public class InitialData {
 		
 		
 	}
+	
+	public static List<ArrayList<Item>> getItemList() throws IOException{
+		
+		List<ArrayList<Item>> itemList2 = new ArrayList<ArrayList<Item>>();
+		ReadCSV readItemList = new ReadCSV("ItemList.csv");
+		try {
+			while (true) {
+				List<String> tuple = readItemList.next();
+				if (tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				ArrayList<Item> items = new ArrayList<Item>();
+				ArrayList<Item> tmpList = (ArrayList<Item>) getItems();
+				ArrayList<Gear> gearList = (ArrayList<Gear>) getGear();
+				i.next();
+				while(i.hasNext()) {
+					
+					String itemName = i.next();
+					
+					if(!getItembyString(tmpList, itemName).getName().equals("gear")) {
+						items.add(getItembyString(tmpList, itemName));
+					}else {
+						items.add(getGearbyString(gearList, itemName));
+					}
+				}
+				
+				itemList2.add(items);
+			
+			}
+			
+			System.out.println("ArrayList<Item> loaded from CSV file");			
+			return itemList2;
+		} finally {
+			readItemList.close();
+		}
+		
+	}
+
 	
 	public static List<Item> getItems() throws IOException{
 		
@@ -237,9 +275,8 @@ public class InitialData {
 		}
 	}
 	
-	public static List<ArrayList<Item>> getItemList() throws IOException{
-		
-		List<ArrayList<Item>> itemList2 = new ArrayList<ArrayList<Item>>();
+	public static List<Item> getItemListForInventory(int invId) throws IOException{
+		ArrayList<Item> items = new ArrayList<Item>();
 		ReadCSV readItemList = new ReadCSV("ItemList.csv");
 		try {
 			while (true) {
@@ -248,11 +285,12 @@ public class InitialData {
 					break;
 				}
 				Iterator<String> i = tuple.iterator();
-				ArrayList<Item> items = new ArrayList<Item>();
-				ArrayList<Item> tmpList = (ArrayList<Item>) getItems();
-				ArrayList<Gear> gearList = (ArrayList<Gear>) getGear();
-				i.next();
-				while(i.hasNext()) {
+				
+				
+				if(Integer.parseInt(i.next()) == invId) {
+					
+					ArrayList<Item> tmpList = (ArrayList<Item>) getItems();
+					ArrayList<Gear> gearList = (ArrayList<Gear>) getGear();
 					
 					String itemName = i.next();
 					
@@ -262,14 +300,12 @@ public class InitialData {
 						items.add(getGearbyString(gearList, itemName));
 					}
 				}
-				
-				itemList2.add(items);
 			
 			}
 			
 			System.out.println("ArrayList<Item> loaded from CSV file");			
-			return itemList2;
-		} finally {
+			return items;
+			} finally {
 			readItemList.close();
 		}
 		
