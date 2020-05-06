@@ -349,7 +349,7 @@ public class PlayerTest {
 		String tmp = testPlayer.basicAttack(testNPC);
 		assertEquals("combat", testPlayer.getStatus());
 		assertEquals(95, testNPC.getHP());
-		assertEquals("You did 10 to test, it now has 95 HP.", tmp);
+		assertEquals("You did 5 to test, it now has 95 HP.", tmp);
 		testNPC.setIsDead(true);
 		tmp = testPlayer.basicAttack(testNPC);
 		assertEquals("normal", testPlayer.getStatus());

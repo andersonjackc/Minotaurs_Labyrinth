@@ -123,7 +123,7 @@ NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, "testDialogue
 	public void testBasicAttack() {
 		String tmp = testEnemy.basicAttack(testEnemy); 
 		assertEquals(95, testEnemy.getHP());
-		assertEquals(testEnemy.getName() + " did " + testEnemy.getAtk() + " to " + testEnemy.getName() + ", you now have " + testEnemy.getHP() + " HP.", tmp);
+		assertEquals(testEnemy.getName() + " did 5 to " + testEnemy.getName() + ", you now have " + testEnemy.getHP() + " HP.", tmp);
 		testNPC.setIsDead(true);
 		tmp = testEnemy.basicAttack(testNPC);
 		assertEquals("You are dead.", tmp);

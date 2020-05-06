@@ -122,7 +122,7 @@ Enemy testEnemy = new Enemy(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "test", 
 	public void testBasicAttack() {
 		String tmp = testNPC.basicAttack(testNPC); 
 		assertEquals(49, testNPC.getHP());
-		assertEquals(testNPC.getName() + " did " + testNPC.getAtk() + " to " + testNPC.getName() + ", you now have " + testNPC.getHP() + " HP.", tmp);
+		assertEquals(testNPC.getName() + " did 1 to " + testNPC.getName() + ", you now have " + testNPC.getHP() + " HP.", tmp);
 		testEnemy.setIsDead(true);
 		tmp = testNPC.basicAttack(testEnemy);
 		assertEquals("You are dead.", tmp);

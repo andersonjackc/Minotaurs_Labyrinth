@@ -51,7 +51,7 @@ public class Enemy extends NPC {
 				return "You are dead.";
 			}
 			
-			return this.name + " did " + this.getAtk() + " to " + target.getName() + ", you now have " + target.getHP() + " HP.";
+			return this.name + " did " + atk + " to " + target.getName() + ", you now have " + target.getHP() + " HP.";
 		}
 		return "";
 	}

@@ -220,7 +220,7 @@ public class Player extends Actor {
 				
 			}
 			
-			return "You did " + this.getAtk() + " to " + target.getName() + ", it now has " + target.getHP() + " HP.";
+			return "You did " + atk + " to " + target.getName() + ", it now has " + target.getHP() + " HP.";
 		}
 		return "";
 	}
