@@ -20,7 +20,7 @@ import edu.ycp.CS320_Minotaurs_Labyrinth.labyrinthdb.persist.IDatabase;
 
 public class Minotaur {
 	// :(
-	String mapString, torqu3String,  djhake;
+	String mapString, torqu3String,  djhake, deadStr;
 	int atk, def, hp, resource, gold, xp, torqu3Counter;
 	
 	public void setMapString(String mapString) {
@@ -37,6 +37,13 @@ public class Minotaur {
 	
 	public String getTorqu3String() {
 		return torqu3String;
+	}
+	public void setDeadStr(String deadStr) {
+		this.deadStr = deadStr;
+	}
+	
+	public String getDeadStr() {
+		return deadStr;
 	}
 	public void setdjHake(String djhake) {
 		this.djhake = djhake;
