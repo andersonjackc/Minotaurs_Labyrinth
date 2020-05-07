@@ -121,6 +121,8 @@
 		<input name="torqu3String" type="hidden" value="${game.torqu3Counter}" />
 		${game.djHake}
 		${game.deadStr}
+		${game.combatWinStr}
+		${game.talkWinStr}
 	</form>
 </body>
 

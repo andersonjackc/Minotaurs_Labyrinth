@@ -6,3 +6,14 @@
 6|scorch|a weak fire spell|damage|HP|-5|5
 7|greater-heal|a high level healing spell|healing|HP|10|10
 8|pyroblast|a flaming ball of death and destruction|damage|HP|-20|20
+9|bite|a creature uses its powerful jaws to inflict damage|damage|HP|-5|5
+10|scratch|the creature uses is claws and scratches you|damage|HP|-5|5
+11|stomp|the creature uses its superior weight to crush you and inflict damage|damage|HP|-8|8
+12|screech|the creature uses its loud call to inflict damage|damage|HP|-5|5
+13|smash|the creature uses its large weapon to crush you|damage|HP|-10|10
+14|petrify|the gorgon uses its head of snakes to slow your movements and petrify you|damage|HP|-15|15
+15|verbal spanking|the creature uses powerful words to destroy your psyche|damage|HP|-30|1
+16|electrocute|electricity leaps from the creature and zaps you |damage|HP|-25|1
+17|ran over|a strange contraption being piloted by the creature runs you over|damage|HP|-50|1
+18|tiger song|the creature lets a strange enchanting song that makes you want to help him|damage|HP|-5|5
+19|fire breath|the creature's chest glows as it releases a large gout of flame burning everything in its path|damage|HP|-20|20
