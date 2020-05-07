@@ -794,6 +794,13 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			if(req.getParameter("textbox") != null  && isNumeric(inputs[0]) && Integer.parseInt(inputs[0]) > 0 && Integer.parseInt(inputs[0]) < 4) {
 				if(inputs.length <= 1) {
 						dbPlayer.setStatus(db.findResponse(dbPlayer.getCurrentRoom().getRoomId(), Integer.parseInt(inputs[0])));
+						if(dbPlayer.getStatus().equals("combat")) {
+							Message<String, Integer> statusMsg = new Message<String, Integer>("You have entered combat.", 2);
+							db.insertIntoTextHistory(statusMsg);
+						}else if(dbPlayer.getStatus().equals("normal")) {
+							Message<String, Integer> statusMsg = new Message<String, Integer>("You have left the conversation.", 2);
+							db.insertIntoTextHistory(statusMsg);
+						}
 				}
 			}else if(req.getParameter("textbox") != null && inputs[0].equals("leave") && !dbPlayer.getIsDead()) {
 				String tmp = dbPlayer.leave();
