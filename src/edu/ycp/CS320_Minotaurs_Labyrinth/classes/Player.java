@@ -181,6 +181,7 @@ public class Player extends Actor {
 					if(newRoom.getIsFound()==false) {
 						newRoom.setIsFound(true);
 					}
+					newRoom.getObstacle().setStatus("normal");
 					this.currentRoom = newRoom;
 					
 				}else if(!newRoom.getObstacle().checkStatus(this)) {
@@ -217,9 +218,12 @@ public class Player extends Actor {
 				target.setIsDead(true);
 				this.status = "normal";
 				String dropped = "";
-				for(Item i : target.getInventory().getInventory()) {
-					this.getCurrentRoom().getInventory().addItem(i);
-					dropped += " " + target.getName() + " dropped " + i.getName() + ".";
+				int size = target.getInventory().getInventory().size();
+				for(int i = 0; i < size; i++) {
+					Item item = target.getInventory().getInventory().get(0);
+					this.getCurrentRoom().getInventory().addItem(item);
+					target.getInventory().removeItem(item);
+					dropped += " " + target.getName() + " dropped " + item.getName() + ".";
 				}
 				return target.getName() + " is dead." + dropped;
 				
