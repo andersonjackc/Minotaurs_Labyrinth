@@ -174,7 +174,7 @@ NPC testNPC = new NPC(1000, 100, 200, 50, 10, 5, 0, 0, null, null, "testDialogue
 	@Test
 	public void testRollForAction() {
 		testEnemy.setAbilities(abilities2);
-		assertThat(testEnemy.rollForAction(testEnemy), anyOf(containsString("Enemy did 10 to Enemy, you now have 95 HP."), containsString("Enemy cast testMaxHPSpell it did 5 to Enemy's maxHP, you now have 1005 maxHP")));
+		assertThat(testEnemy.rollForAction(testEnemy), anyOf(containsString("Enemy did 5 to Enemy, you now have 95 HP."), containsString("Enemy cast testMaxHPSpell it did 5 to Enemy's maxHP, you now have 1005 maxHP")));
 	}
 	@Test
 	public void testIsDeadMethods() {

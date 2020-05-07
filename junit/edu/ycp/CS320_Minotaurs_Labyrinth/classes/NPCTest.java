@@ -179,7 +179,7 @@ Enemy testEnemy = new Enemy(1000, 100, 200, 50, 10, 5, 2, 3, abilities, "test", 
 	@Test
 	public void testRollForAction() {
 		testNPC.setAbilities(abilities2);
-		assertThat(testNPC.rollForAction(testNPC), anyOf(containsString("NPC did 6 to NPC, you now have 49 HP."), containsString("NPC cast testMaxHPSpell it did 5 to NPC's maxHP, you now have 105 maxHP")));
+		assertThat(testNPC.rollForAction(testNPC), anyOf(containsString("NPC did 1 to NPC, you now have 49 HP."), containsString("NPC cast testMaxHPSpell it did 5 to NPC's maxHP, you now have 105 maxHP")));
 	}
 	
 	@Test

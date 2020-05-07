@@ -170,7 +170,7 @@ public class DerbyDatabaseTests {
 	@Test
 	public void testFindItemList() {
 		System.out.println("\n*** Testing FindItemList ***");
-		ItemList = (ArrayList<Item>) db.findItemList(1);
+		ItemList = (ArrayList<Item>) db.findItemList(43);
 		if (ItemList.isEmpty()) {
 			System.out.println("No ItemLists found in Labyrinth Database");
 			fail("No ItemLists returned from Library DB");
@@ -292,7 +292,7 @@ public class DerbyDatabaseTests {
 		System.out.println("\n*** Testing FindChoicesForNPC ***");
 		int count = db.findTextHistoryCount();
 		int max = db.findTextHistoryMax();
-		Choices = (ArrayList<Message<String, Integer>>) db.findChoicesForNPC("villager");
+		Choices = (ArrayList<Message<String, Integer>>) db.findChoicesForNPC("geffray");
 		int max2 = db.findTextHistoryMax();
 
 		if (Choices.isEmpty()) {
