@@ -1,10 +1,10 @@
-1|10|10|5|5|1|0|10|10|2|ogre|Grr lets fight!|0|An Ogre wearing a leather tunic stands tall before you.|Ogre|50|2|0
-2|5|5|5|5|1|0|15|10|2|goblin|I'm gonna stab ya!|0|A small scraggly Goblin with a wicked knife stares at you.|Goblin|51|34|0
-3|10|10|5|5|1|0|10|10|2|minotaur|Hello friend, it is good to see you up and moving around.|0|The creature towers above you, an unholy combination of bull and man. Its muscles tense and it rakes its cloven hooves across the floor as you approach.|Minotaur|52|42|0
-4|5|5|5|5|1|0|15|10|2|chimera|The chimera snarls at you!|0|A vile combination of goat, lion, and snake, the chimera's maws drips with salivia in anticipation. It lies in wait as its next meal approaches. |Chimera|53|12|0
-5|10|10|5|5|1|0|10|10|2|gorgon|You'll be a fine addition to my collection.|0|A slender creature that resembles a woman. As it turns towards you it is clear this is no human but rather a gorgon.|Gorgon|54|31|0
-6|5|5|5|5|1|0|15|10|2|cyclops|I can't wait to give this new fleece jacket to my friend.|0|A tall humanoid shape stands before you, its one unblinking eye is unsettling. It turns towards you and looks ready to defend itself.|Cyclops|55|22|0
-7|10|10|5|5|1|0|10|10|2|daemon-dog|Bork Bork!|0|What stands before seems like a but twisted and corrupted by a darkness. It lunges at you as you enter.|Daemon-Dog|56|8|0
-8|5|5|5|5|1|0|15|10|2|small-harpy|I'm gonna rip your eyes out!|0|A small and frail harpy stands before you. what it lacks in physical size it makes up for in its razor sharp claws.|Small-Harpy|57|23|0
-9|10|10|5|5|1|0|10|10|2|harpy|I just want some cool shoes.|0|You find an emaciated creature as you enter the room. It resembles a harpy that has been long neglected. It charges you with fury and hunger in its eyes.|Harpy|58|24|0
-10|5|5|5|5|1|0|15|10|2|mother-harpy|You never should have come here!|0|A large bloated harpy stands before you. It's sheer size and mass show that it is the mother of the previous two. It studies you intently.|Mother-Harpy|59|25|0
+1|10|10|5|5|1|0|10|10|2|ogre|Grr lets fight!|0|An Ogre wearing a leather tunic stands tall before you.|ogre|50|2|0
+2|5|5|5|5|1|0|15|10|3|goblin|I'm gonna stab ya!|0|A small scraggly Goblin with a wicked knife stares at you.|goblin|51|34|0
+3|10|10|5|5|1|0|10|10|4|minotaur|Hello friend, it is good to see you up and moving around.|0|The creature towers above you, an unholy combination of bull and man. Its muscles tense and it rakes its cloven hooves across the floor as you approach.|minotaur|52|42|0
+4|5|5|5|5|1|0|15|10|5|chimera|The chimera snarls at you!|0|A vile combination of goat, lion, and snake, the chimera's maws drips with salivia in anticipation. It lies in wait as its next meal approaches. |chimera|53|12|0
+5|10|10|5|5|1|0|10|10|6|gorgon|You'll be a fine addition to my collection.|0|A slender creature that resembles a woman. As it turns towards you it is clear this is no human but rather a gorgon.|gorgon|54|31|0
+6|5|5|5|5|1|0|15|10|7|cyclops|I can't wait to give this new fleece jacket to my friend.|0|A tall humanoid shape stands before you, its one unblinking eye is unsettling. It turns towards you and looks ready to defend itself.|cyclops|55|22|0
+7|10|10|5|5|1|0|10|10|8|daemon-dog|Bork Bork!|0|What stands before seems like a but twisted and corrupted by a darkness. It lunges at you as you enter.|daemon-dog|56|8|0
+8|5|5|5|5|1|0|15|10|9|small-harpy|I'm gonna rip your eyes out!|0|A small and frail harpy stands before you. what it lacks in physical size it makes up for in its razor sharp claws.|small-harpy|57|23|0
+9|10|10|5|5|1|0|10|10|10|harpy|I just want some cool shoes.|0|You find an emaciated creature as you enter the room. It resembles a harpy that has been long neglected. It charges you with fury and hunger in its eyes.|harpy|58|24|0
+10|5|5|5|5|1|0|15|10|11|mother-harpy|You never should have come here!|0|A large bloated harpy stands before you. It's sheer size and mass show that it is the mother of the previous two. It studies you intently.|mother-harpy|59|25|0
