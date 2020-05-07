@@ -244,13 +244,17 @@ public class Player extends Actor {
 				spell.addEffect(target);
 				if(target.getHP() <= 0 || target.getIsDead()) {
 					target.setIsDead(true);
-					this.status = "normal";String dropped = "";
-					for(Item i : target.getInventory().getInventory()) {
-						this.getCurrentRoom().getInventory().addItem(i);
-						dropped += " " + target.getName() + " dropped " + i.getName() + ".";
+					this.status = "normal";
+					String dropped = "";
+					int size = target.getInventory().getInventory().size();
+					for(int i = 0; i < size; i++) {
+						Item item = target.getInventory().getInventory().get(0);
+						this.getCurrentRoom().getInventory().addItem(item);
+						target.getInventory().removeItem(item);
+						dropped += " " + target.getName() + " dropped " + item.getName() + ".";
 					}
 					return target.getName() + " is dead." + dropped;
-				}
+					}
 				setResource(getResource() - spell.getCost());
 				if(spell.getAffectedStat().equals("HP")) {
 					return "You cast " + spell.getName() + " it did " + Math.abs(spell.getEffect()) + " to " + target.getName() + "'s " + spell.getAffectedStat() + ", it now has " + target.getHP() + " " + spell.getAffectedStat();
