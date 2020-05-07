@@ -151,6 +151,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setGold(dbPlayer.getGold());
 		model.setTorqu3String(" ");
 		model.setdjHake(" ");
+		model.setDeadStr(" ");
 		model.setTorqu3Counter(getInteger(req, "torqu3String"));
 		
 		
@@ -833,6 +834,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			db.updateRooms(roomList);
 			
 			db.updatePlayer(dbPlayer);
+			if(dbPlayer.getHP()<=0 || dbPlayer.getIsDead()) {
+				model.setDeadStr("<div class = \"animation4\"><img class=\"DeadImg\" src=\"https://i.imgur.com/cSCR3Xq.png\"></div>");
+			}
 			model.setAtk(dbPlayer.getAtk());
 			model.setDef(dbPlayer.getDef());
 			model.setHP(dbPlayer.getHP());
