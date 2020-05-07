@@ -142,7 +142,7 @@
   		0%   {left:150%;; top:40%;}
   		100% {left:-50%; top:40%;}
 	}
-	    div.animation4{
+	div.animation4{
   		position: absolute;
   		animation-name: animation4;
   		animation-duration: 15s;
@@ -150,6 +150,17 @@
   		top:100%;
 	}
 	@keyframes animation4 {
+  		50% {left: 10%; top:50%;}
+  		100%{left:0%; top:100%;}
+	}
+	div.animation5{
+  		position: absolute;
+  		animation-name: animation5;
+  		animation-duration: 15s;
+  		left:0%;
+  		top:100%;
+	}
+	@keyframes animation5 {
   		50% {left: 10%; top:50%;}
   		100%{left:0%; top:100%;}
 	}

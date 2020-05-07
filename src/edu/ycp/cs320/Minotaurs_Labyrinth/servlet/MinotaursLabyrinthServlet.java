@@ -152,6 +152,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setTorqu3String(" ");
 		model.setdjHake(" ");
 		model.setDeadStr(" ");
+		model.setCombatWinStr(" ");
 		model.setTorqu3Counter(getInteger(req, "torqu3String"));
 		
 		
@@ -844,6 +845,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			model.setXP(dbPlayer.getXP());
 			model.setGold(dbPlayer.getGold());
 			db.updateEnemies(enemyList);
+			if((targets.get("minotaur").getIsDead() || targets.get("minotaur").getHP() <= 0) && dbPlayer.getCurrentRoom().getRoomId() == targets.get("minotaur").getCurrentRoom().getRoomId()) {
+				model.setDeadStr("<div class = \"animation5\"><img class=\"combatWinImg\" src=\"https://i.imgur.com/J9Pa8En.png\"></div>");
+			}
 			db.updateNPCs(npcList);
 			db.updateTextHistory();
 			
