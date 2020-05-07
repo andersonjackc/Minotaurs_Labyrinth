@@ -127,7 +127,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		commandMap.put("throw", "-allows you to fight other creatures in the Labyrinth.");
 		commandMap.put("take", "-allows you to pick an item up.");
 		commandMap.put("drop", "-allows you to drop an item.");
-		commandMap.put("barter", "-allows you to barter with npc's.");
 		commandMap.put("light", "-allows you to light items on fire.");
 		commandMap.put("equip", "-allows you to equip gear.");
 		commandMap.put("unequip", "-allows you to unequip gear.");
@@ -452,10 +451,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 				}
 			}
 			
-			//barter
-			else if(req.getParameter("textbox") != null && inputs[0].equals("barter")) {
-				model.setTorqu3String("<img class=Vroom src=Vroom.png>");
-			}
+		
 			
 			//set name
 			else if(req.getParameter("textbox") != null && inputs[0].equals("set")) {
