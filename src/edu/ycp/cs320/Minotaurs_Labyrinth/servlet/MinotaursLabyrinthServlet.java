@@ -57,7 +57,11 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setXP(dbPlayer.getXP());
 		model.setGold(dbPlayer.getGold());
 		model.setTorqu3String(" ");
+		model.setTorqu3String(" ");
 		model.setdjHake(" ");
+		model.setDeadStr(" ");
+		model.setCombatWinStr(" ");
+		model.setTalkWinStr(" ");
 
 
 		String[][] mapArray = new String[arraySize.getRight()][arraySize.getLeft()];
@@ -152,6 +156,8 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		model.setTorqu3String(" ");
 		model.setdjHake(" ");
 		model.setDeadStr(" ");
+		model.setCombatWinStr(" ");
+		model.setTalkWinStr(" ");
 		model.setTorqu3Counter(getInteger(req, "torqu3String"));
 		
 		
@@ -292,6 +298,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						dbPlayer.setStatus("talking");
 					}else if(!(targets.get(inputs[1]).getIsDead()) && !(dbPlayer.getIsDead()) && targets.get(inputs[1]).getClass() == targets.get("ogre").getClass()) {
 						String talkMsg = dbPlayer.talk(targets.get(inputs[1]));
+						if (inputs[1].equals("minotaur")) {
+							model.setDeadStr("<div class = \"animation6\"><img class=\"DeadImgTalk\" src=\"https://i.imgur.com/uOuIBQS.png\"></div>");
+						}
 						Message<String, Integer> msg = new Message<String, Integer>(talkMsg, 0);
 						db.insertIntoTextHistory(msg);
 					}else if(!(dbPlayer.getIsDead())) {
@@ -844,6 +853,9 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			model.setXP(dbPlayer.getXP());
 			model.setGold(dbPlayer.getGold());
 			db.updateEnemies(enemyList);
+			if((targets.get("minotaur").getIsDead() || targets.get("minotaur").getHP() <= 0) && dbPlayer.getCurrentRoom().getRoomId() == targets.get("minotaur").getCurrentRoom().getRoomId()) {
+				model.setDeadStr("<div class = \"animation5\"><img class=\"combatWinImg\" src=\"https://i.imgur.com/J9Pa8En.png\"></div>");
+			}
 			db.updateNPCs(npcList);
 			db.updateTextHistory();
 			
