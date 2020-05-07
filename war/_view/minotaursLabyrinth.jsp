@@ -122,6 +122,7 @@
 		${game.djHake}
 		${game.deadStr}
 		${game.combatWinStr}
+		${game.talkWinStr}
 	</form>
 </body>
 
