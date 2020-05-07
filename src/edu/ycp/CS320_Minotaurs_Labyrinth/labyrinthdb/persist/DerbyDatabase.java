@@ -2045,6 +2045,8 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 			public List<Enemy> execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet2 = null;
 				
 				try {
 					int count=1;
@@ -2078,11 +2080,22 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 						stmt.setString(15, enemy.getName());
 						stmt.setInt(16, count++);
 						stmt.executeUpdate();
+						
+						stmt2 = conn.prepareStatement(
+								"select inventory from enemy where enemy.name = ? ");
+						stmt2.setString(1, enemy.getName());
+						resultSet2 = stmt2.executeQuery();
+						resultSet2.next();
+						
+						
+						updateInventory(enemy.getInventory(), resultSet2.getInt(1));
 					}
 					return null;
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
 				}
 			}
 		});
@@ -2155,6 +2168,9 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 			public List<NPC> execute(Connection conn) throws SQLException {
 					PreparedStatement stmt = null;
 					ResultSet resultSet = null;
+					PreparedStatement stmt2 = null;
+					ResultSet resultSet2 = null;
+					
 					
 					try {
 						int count=1;
@@ -2188,11 +2204,25 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 							stmt.setString(15, NPC.getName());
 							stmt.setInt(16, count++);
 							stmt.executeUpdate();
+							
+							stmt2 = conn.prepareStatement(
+									"select inventory from npc where npc.name = ? ");
+							stmt2.setString(1, NPC.getName());
+							resultSet2 = stmt2.executeQuery();
+							resultSet2.next();
+							
+							
+							updateInventory(NPC.getInventory(), resultSet2.getInt(1));
 						}
+						
+						
+						
 						return null;
 					} finally {
 						DBUtil.closeQuietly(resultSet);
 						DBUtil.closeQuietly(stmt);
+						DBUtil.closeQuietly(resultSet2);
+						DBUtil.closeQuietly(stmt2);
 					}
 				}
 			});
@@ -2472,7 +2502,7 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 					resultSet.next();
 					int size = resultSet.getInt(1);
 					
-					while(size>30) {
+					while(size > 50) {
 						
 						
 						
@@ -3044,7 +3074,6 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 							+ "item35 = ?, item36 = ?, item37 = ?, item38 = ?, item39 = ?, item40 = ?, item41 = ?, item42 = ?, item43 = ?, item44 = ?, item45 = ?, "
 							+ "item46 = ?, item47 = ?, item48 = ?, item49 = ?, item50 = ?" 
 							+ " where itemlist_id = ?");
-					System.out.println(iListID);
 					for(int i = 1; i <= 50; i++) {
 						if(i-1 < iList.size()) {
 							stmt.setString(i, iList.get(i-1).getName());
