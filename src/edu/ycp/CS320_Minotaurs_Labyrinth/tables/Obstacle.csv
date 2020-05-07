@@ -1,5 +1,9 @@
 1|No obstacle.|normal|2|empty
 2|The room is locked.|locked|1|door
 3|A large hole across the middle of the room.|jumping|3|hole
-4|There is a strange door with a Minotaur engraved on it blocking your path, it seems to require a key of some kind.|normal|4|Mdoor
-5|large thick vines block the door|normal|5|vines
+4|There is a strange door with a Minotaur engraved on it blocking your path, it seems to require a key of some kind.|locked|4|minotaur-door
+5|Large thick vines block the door.|vines|5|vines
+6|There is a broken lever, it seems to interact in some way with the door ahead.|locked|10|broken-lever
+7|There is a small spherical slot beside the door. It seems to take some kind of orb.|locked|11|door
+8|There is a small pyramidal slot beside the door. It seems to take some kind of pyramid.|locked|12|door
+9|There is debris blocking your path. The debris is too large to move in your current state. It seems some sort of excavating tool is needed.|debris|13|debris
