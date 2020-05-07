@@ -1,9 +1,28 @@
-1|Key|0|0|0|1|0|key|Key|none
+1|A smalle brass key|0|0|0|1|0|key|Key|none
 2|nothing|0|0|0|1|0|nothing|nothing|none
-3|a hemp rope.|0|1|0|1|0|rope|obstacle item|none
-4|a key with a minotaur engraved on it|0|0|0|1|0|MKey|quest|none
-5|a pair of shears|0|0|0|1|0|shears|obstacle item|none
+3|A hemp rope.|0|1|0|1|0|rope|obstacle item|none
+4|A key with a minotaur engraved on it.|0|0|0|1|0|minotaur-key|obstacle item|none
+5|A pair of shears|0|0|0|1|0|shears|obstacle item|none
 6|filler|0|0|0|1|0|filler|filler|none
-7|SampleItem|0|0|0|1|0|SampleItem|Sample|none
-8|SampleItem2|0|0|0|1|0|SampleItem2|Sample|none
+7|A resource potion.|10|0|0|0|10|resource-potion|potion|resource
+8|A soft wool fleece|0|0|0|0|5|fleece|misc|none
 9|a health potion|5|0|0|0|5|health-potion|potion|HP
+10|A primitive lever arm.|0|0|0|1|0|lever-arm|obstacle item|none
+11|A smooth stone orb. You are unsure how it was made.|0|0|0|1|0|stone-orb|obstacle item|none
+12|A pyramid made of clear crystal. When held up to light it casts a myriad of colors around the room.|0|0|0|1|0|crystal-pyramid|obstacle item|none
+13|A simple, worn shovel.|0|0|0|1|0|shovel|obstacle item|none
+14|A large resource potion.|20|0|0|0|20|large-resource-potion|potion|resource
+15|A large health potion.|20|0|0|0|20|large-health-potion|potion|HP
+16|The head of the slain gorgon.|0|0|0|0|50|gorgon-head|trophy|none
+17|The eye of the slain cyclops.|0|0|0|0|50|cyclops-eye|trophy|none
+18|The claw of the slain mother harpy.|0|0|0|0|50|harpy-claw|trophy|none
+19|The scale of the slain chimera.|0|0|0|0|50|chimera-scale|trophy|none
+20|The collar of the slain daemon dog.|0|0|0|0|50|collar|trophy|none
+21|The horn of the slain minotaur.|0|0|0|0|50|minotaur-horn|trophy|none
+22|The jewel of the slain goblin.|0|0|0|0|50|goblin-jewel|trophy|none
+23|The onion of the slain ogre.|0|0|0|0|50|smelly-onion|trophy|none
+24|The ring of the slain shopkeeper, Stevyn.|0|0|0|0|50|ring|trophy|none
+25|The harpy necklace of the slain woman, Ysmeina.|0|0|0|0|50|harpy-necklace|trophy|none
+26|The fleece pillow of the friend of the cyclops, Mirabelle.|0|0|0|0|50|fleece-pillow|trophy|none
+27|The note of the slain villager, Geffray. The note details about how Geffray wishes to return to his wife and family.|0|0|0|0|2|note|trophy|none
+28|The amulet of the slain tiger man, Joe Exotic.|0|0|0|0|50|tiger-amulet|trophy|none
