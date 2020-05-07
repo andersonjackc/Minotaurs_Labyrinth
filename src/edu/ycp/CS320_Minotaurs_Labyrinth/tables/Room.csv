@@ -4,19 +4,19 @@
 4|You enter a wide pathway. You see what looks like a shop with an anvil outside of its doors. There is an exit to the west and the east.|4|2|0|west|1|east|7
 5|You enter a tight hallway. There is an exit to the west and the east.|5|1|0|east|1|west|6
 6|You enter what appears to be some sort of storage area. It has long been looted but maybe something got left behind? There is an exit to the east.|6|1|0|east|5
-7|You enter a wide hallway. Bones laced with scorch marks litter the floor. What could have caused them? There is an exit to the west and the east.|7|1|0|west|4|east|8
+7|You enter a wide hallway. Bones laced with scorch marks litter the floor. What could have caused them? There is an exit to the west and the east.|7|9|0|west|4|east|8
 8|You enter a small cranny with a small stone house. Some sort of name is etched over the entrance. Some leather strap lays on the ground long removed. It appears to be fireproof. There is an exit to the west and the north.|8|1|0|west|7|north|9
 9|You enter a cramped path. Scorch mark laced bones line the sides. There is an exit to the south and the north.|9|1|0|south|8|north|10
 10|You enter a wide path. There is an exit to the south and the north.|2|1|0|south|9|north|11
-11|You enter an intersection. There is an odd collection of fur, fangs, and shed scales intensifying to the north. Feathers and scratch marks line the exit to the east, some sort of territorial marking? Crumbling stone from a statue long gone surrounds the exit to the west. A wide path lies to the south.|11|1|0|north|12|south|10|east|14|west|27
-12|You enter a giant room with an almost mountainlike range of harsh rocks. There is a small hole in the rocks to the north and an exit to the south.|12|1|0|north|13|south|11
-13|You enter a small hideaway with numerous chests and containers.|2|1|0|south|12
+11|You enter an intersection. There is an odd collection of fur, fangs, and shed scales intensifying to the north. Feathers and scratch marks line the exit to the east, some sort of territorial marking? Crumbling stone from a statue long gone surrounds the exit to the west. A wide path lies to the south.|11|6|0|north|12|south|10|east|14|west|27
+12|You enter a giant room with an almost mountain-like range of harsh rocks. There is a small hole in the rocks to the north and an exit to the south.|12|1|0|north|13|south|11
+13|You enter a small hide-away with numerous chests and containers.|2|1|0|south|12
 14|You enter a pathway littered with twigs, sticks and bones. Aggressive territorial markings line the walls. What appears to be a warning lies above the entrance to the east. There is an exit to the west.|13|1|0|west|11|east|15
 15|You enter a pathway full to the brim with random twigs, sticks and bones. There is an exit to east and west.|14|1|0|west|14|east|16
 16|You enter an intersection. The room is a collection of failed nesting material. Various creature's bones are flung around the room without care. There is a marking in a language you don't understand to the south, despite not being fluent in the language you understand its message: do not enter. There is a warm light radiating from the exit to the east. There is an opening to the north.|15|1|0|north|17|south|23|east|19|west|15
 17|You enter a prison. There is an exit to the south and north.|17|1|0|south|16|north|18
 18|You enter a room with joe. There is an exit to the south.|18|1|0|south|17
-19|You enter a cozy walkway lined with torches and fleece. There is a doorway to the west and the east.|19|1|0|west|16|east|20
+19|You enter a cozy walkway lined with torches and fleece. There is a doorway to the west and the east.|19|7|0|west|16|east|20
 20|You enter a split in the walkway. Fleece lines the pathway and a doorway is marked to the north and south with torches, however the southern doorway is significantly larger. There is an exit to the west.|20|1|0|west|19|north|21|south|22
 21|You enter a room that has been converted to a house of sorts. While not being lavish you imagine it is more comfortable than anywhere else in the labyrinth. The exit is a doorway to the south.|21|1|0|south|20
 22|You enter a giant room. A pen full of sheep sits on the southern side. A cooking pot towers above you. Some sheep appear to be freshly sheared. The exit is a giant doorway to the north.|22|1|0|north|20
@@ -33,9 +33,9 @@
 33|You enter a royal pathway. Only the foolish head in this direction. Doorways lie to the east and west.|33|4|0|east|29|west|34
 34|You enter a royal room with a turn, the stench of goblin is unbearable. There is an exit to the north and east.|34|1|0|east|33|north|35
 35|You enter a three way intersection, it is empty. There are three doorways at each cardinal direction except east.|35|1|0|south|34|west|36|north|39
-36|OBSTACLE|36|1|0|east|35|west|37
-37|NOTHING|37|1|0|east|36|south|38
-38|ITEM ROOM|38|1|0|north|37
+36|You enter a dark, empty room. It seems this room has been closed off for some time. There is an exit to the west and east.|36|8|0|east|35|west|37
+37|You enter a ancient vault. Scattered across the floor are various trinkets and items as if they were left in a hurry. There is an exit to the south and east.|37|1|0|east|36|south|38
+38|You enter a large and cozy home. You hear the sounds of exotic birds off in a separate room. There is an exit to the north.|38|1|0|north|37
 39|You enter a royal stone room lined with sconces. There is an exit to the south and north.|39|1|0|south|35|north|40
 40|You enter a pathway, vines and other brush grow out of control from a hole in the west wall. Nobody has dared come this far. There is an exit to the south and east.|40|5|0|south|39|east|41
 41|You enter a lavish pathway lined with sconces and covered in the finest tapestries. Light floods into the room from the giant doorway to the north. An escape lies to the west.|41|1|0|west|40|north|42
