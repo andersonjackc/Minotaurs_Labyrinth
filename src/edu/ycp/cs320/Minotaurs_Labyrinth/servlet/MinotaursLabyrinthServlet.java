@@ -201,7 +201,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		if(dbPlayer.getStatus().equals("normal")) {
 			if (req.getParameter("textbox") != null && inputs[0].equals("attack")){
-				if(inputs.length <= 2 && inputs.length > 1 && targets.get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals("player")) {
+				if(inputs.length <= 2 && inputs.length > 1 && targets.get(inputs[1])!=null && dbPlayer.getCurrentRoom().getRoomId() == targets.get(inputs[1]).getCurrentRoom().getRoomId() && !inputs[1].equals(dbPlayer.getName().toLowerCase())) {
 					
 					String atkMsg = dbPlayer.basicAttack(targets.get(inputs[1]));
 					String enemyAtkMsg = ((NPC)targets.get(inputs[1])).rollForAction(dbPlayer);
@@ -233,7 +233,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					String tmpGoldMsg = "";
 					String enemyAtkMsg = "";
 					String tempstr = "";
-					if(!inputs[2].equals(dbPlayer.getName())) {
+					if(!inputs[2].equals(dbPlayer.getName().toLowerCase())) {
 						enemyAtkMsg = ((NPC)targets.get(inputs[2])).rollForAction(dbPlayer);
 						if(targets.get(inputs[2]).getIsDead()) {
 							
@@ -340,7 +340,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					}
 					Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
 					db.insertIntoTextHistory(msg);
-					if(enemyIsInRoom(dbPlayer.getCurrentRoom().getRoomId(), targets)) {
+					if(enemyIsInRoom(dbPlayer.getCurrentRoom().getRoomId(), targets) ) {
 						dbPlayer.setStatus("combat");
 						Message<String, Integer> statusMsg = new Message<String, Integer>("You have entered combat.", 2);
 						db.insertIntoTextHistory(statusMsg);
@@ -719,7 +719,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					String tempstr = "";
 					String enemyAtkMsg = "";
 					
-					if(targets.get(inputs[2]).getIsDead() && !inputs[2].equals(dbPlayer.getName())) {
+					if(targets.get(inputs[2]).getIsDead() && !inputs[2].equals(dbPlayer.getName().toLowerCase())) {
 						
 						if(targets.get(inputs[2]).getXP()!=0 && targets.get(inputs[2]).getGold()!=0) {
 						tmpXPMsg = "You gained " + targets.get(inputs[2]).getXP() + " XP!";
@@ -735,7 +735,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 						targets.get(inputs[2]).setGold(0);
 
 					}
-					if(!inputs[2].equals(dbPlayer.getName())) {
+					if(!inputs[2].equals(dbPlayer.getName().toLowerCase())) {
 					enemyAtkMsg = ((NPC)targets.get(inputs[2])).rollForAction(dbPlayer);
 					}
 					
@@ -996,10 +996,11 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		Collection<Actor> allActors = targets.values();
 		Enemy enemy = new Enemy(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, 0, null, null, null, null, false);
 		for(Actor actor : allActors) {
-			if(actor.getClass() == enemy.getClass() && actor.getCurrentRoom().getRoomId() == roomId && !actor.getName().equals("minotaur")) {
+			if(actor.getClass() == enemy.getClass() && actor.getCurrentRoom().getRoomId() == roomId && !actor.getName().equals("minotaur") && !actor.getIsDead()) {
 				return true;
 			}
 		}
 		return false;
 	}
+	
 }
