@@ -172,11 +172,11 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		
 		
-		//initializing the map/player in the model, eventually will be removed
+		//initializing the map/player in the model
 		HashMap<String, Actor> targets = new HashMap<String, Actor>();
 		controller.setModel(model);
 		req.setAttribute("game", model);
-		targets.put(dbPlayer.getName(), dbPlayer);
+		targets.put(dbPlayer.getName().toLowerCase(), dbPlayer);
 
 		
 		for(Enemy enemy : enemyList) {
@@ -540,7 +540,7 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 			else if(req.getParameter("textbox") != null && inputs[0].equals("unequip")) {
 				if(inputs.length <= 2 && inputs.length > 1 && inputs[1] != null) {
 					if(containsItem(inputs[1], dbPlayer.getInventory().getInventory())) {
-						String unequipMsg = dbPlayer.unequip(getGearbyName(inputs[1], dbPlayer.getCurrentRoom().getInventory().getInventory()), itemList);
+						String unequipMsg = dbPlayer.unequip(getGearbyName(inputs[1], dbPlayer.getInventory().getInventory()), itemList);
 						Message<String, Integer> msg = new Message<String, Integer>(unequipMsg, 0);
 						db.insertIntoTextHistory(msg);
 					}else {
