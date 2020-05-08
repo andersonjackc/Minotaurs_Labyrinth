@@ -2,6 +2,7 @@ package edu.ycp.cs320.Minotaurs_Labyrinth.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -339,6 +340,11 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 					}
 					Message<String, Integer> msg = new Message<String, Integer>(moveMsg, 0);
 					db.insertIntoTextHistory(msg);
+					if(enemyIsInRoom(dbPlayer.getCurrentRoom().getRoomId(), targets)) {
+						dbPlayer.setStatus("combat");
+						Message<String, Integer> statusMsg = new Message<String, Integer>("You have entered combat.", 2);
+						db.insertIntoTextHistory(statusMsg);
+					}
 
 				}else if(inputs.length<=1){
 					Message<String, Integer> msg = new Message<String, Integer>("You must specify a direction!", 0);
@@ -795,7 +801,6 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
 		
 		//talking status
 		//THIS IS THE SECOND PHASE OF THE CONVERSATION
-		//comment
 		else if(dbPlayer.getStatus().equals("talking")) {
 			if(req.getParameter("textbox") != null  && isNumeric(inputs[0]) && Integer.parseInt(inputs[0]) > 0 && Integer.parseInt(inputs[0]) < 4) {
 				if(inputs.length <= 1) {
@@ -986,4 +991,15 @@ public class MinotaursLabyrinthServlet extends HttpServlet {
             return false;
         }
     }
+	
+	private boolean enemyIsInRoom(int roomId, HashMap<String, Actor> targets) {
+		Collection<Actor> allActors = targets.values();
+		Enemy enemy = new Enemy(0, 0, 0, 0, 0, 0, 0, 0, null, null, null, 0, null, null, null, null, false);
+		for(Actor actor : allActors) {
+			if(actor.getClass() == enemy.getClass() && actor.getCurrentRoom().getRoomId() == roomId && !actor.getName().equals("minotaur")) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
