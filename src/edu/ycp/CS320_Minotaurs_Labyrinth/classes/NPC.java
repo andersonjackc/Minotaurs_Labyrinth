@@ -21,12 +21,12 @@ public class NPC extends Actor {
 	
 	public String rollForAction(Actor target) {
 		Random rand = new Random();
-		int action = rand.nextInt(2);
+		int action = rand.nextInt(3);
 
 		if(action == 0) {
 			return basicAttack(target);
 		}
-		else if(action == 1){
+		else if(action == 1 || action == 2){
 			if(this.abilities.size() > 0) {
 				int spellchoice = rand.nextInt(this.abilities.size());
 				if(this.resource >= this.abilities.get(spellchoice).getCost()) {	
