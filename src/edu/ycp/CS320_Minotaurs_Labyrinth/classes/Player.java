@@ -182,7 +182,9 @@ public class Player extends Actor {
 					if(newRoom.getIsFound()==false) {
 						newRoom.setIsFound(true);
 					}
-					newRoom.getObstacle().setStatus("normal");
+					if(newRoom.getObstacle().checkRequirement(this) && this.getStatus().equals("normal")) {
+						newRoom.getObstacle().setStatus("normal");
+					}
 					this.currentRoom = newRoom;
 					
 				}else if(!newRoom.getObstacle().checkStatus(this)) {
@@ -336,9 +338,16 @@ public class Player extends Actor {
 		ArrayList<String> obsDescrips = new ArrayList<String>();
 		for(Integer i : room.getRoomMap().values()) {
 			Room checkRoom = getRoomByRoomId(i, rooms);
-			if(!checkRoom.getObstacle().getStatus().equals("normal")) {
-				obsDescrips.add(checkRoom.getObstacle().getDescription());
+			String direction = "";
+			for(String s : room.getRoomMap().keySet()) {
+				if(room.getRoomMap().get(s) == i) {
+					direction = s;
+					if(!checkRoom.getObstacle().getStatus().equals("normal")) {
+						obsDescrips.add("To the " + direction + ": " + checkRoom.getObstacle().getDescription());
+					}
+				}
 			}
+			
 		}		
 		return obsDescrips;
 	}
