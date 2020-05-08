@@ -1793,7 +1793,7 @@ private void loadGear(Gear gear, ResultSet resultSet, int index) throws SQLExcep
 				try {
 					stmt = conn.prepareStatement(
 							"select textHistory.* " +
-							"  from  textHistory " 
+							"  from  textHistory  order by texthistory_id asc" 
 					);
 					
 					
