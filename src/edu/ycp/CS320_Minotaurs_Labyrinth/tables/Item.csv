@@ -5,7 +5,7 @@
 5|A pair of shears|0|0|0|1|0|shears|obstacle item|none
 6|filler|0|0|0|1|0|filler|filler|none
 7|A resource potion.|10|0|0|0|10|resource-potion|potion|resource
-8|A soft wool fleece|0|0|0|0|5|fleece|misc|none
+8|A soft wool fleece|0|1|0|0|5|fleece|misc|none
 9|a health potion|5|0|0|0|5|health-potion|potion|HP
 10|A primitive lever arm.|0|0|0|1|0|lever-arm|obstacle item|none
 11|A smooth stone orb. You are unsure how it was made.|0|0|0|1|0|stone-orb|obstacle item|none
@@ -23,6 +23,6 @@
 23|The onion of the slain ogre.|0|0|0|0|50|smelly-onion|trophy|none
 24|The ring of the slain shopkeeper, Stevyn.|0|0|0|0|50|ring|trophy|none
 25|The harpy necklace of the slain woman, Ysmeina.|0|0|0|0|50|harpy-necklace|trophy|none
-26|The fleece pillow of the friend of the cyclops, Mirabelle.|0|0|0|0|50|fleece-pillow|trophy|none
+26|The fleece pillow of the friend of the cyclops, Mirabelle.|0|1|0|0|50|fleece-pillow|trophy|none
 27|The note of the slain villager, Geffray. The note details about how Geffray wishes to return to his wife and family.|0|0|0|0|2|note|trophy|none
 28|The amulet of the slain tiger man, Joe Exotic.|0|0|0|0|50|tiger-amulet|trophy|none
