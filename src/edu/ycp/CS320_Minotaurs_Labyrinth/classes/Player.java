@@ -172,11 +172,12 @@ public class Player extends Actor {
 	public String move(String direction, ArrayList<Room> allRooms) {
 		
 		HashMap<String, Integer> roomMap = this.currentRoom.getRoomMap();
-		
+		ArrayList<String> obsDescrips = new ArrayList<String>();
 		if(!this.isDead) {
 			if(roomMap.containsKey(direction)){
 				
 				Room newRoom = getRoomByRoomId(roomMap.get(direction), allRooms);
+				obsDescrips = getObstaclesByRoom(newRoom, allRooms);
 				if(newRoom.getObstacle().checkStatus(this) || newRoom.getObstacle().getStatus().equals("normal") || newRoom.getObstacle().checkRequirement(this)){
 					if(newRoom.getIsFound()==false) {
 						newRoom.setIsFound(true);
@@ -197,6 +198,11 @@ public class Player extends Actor {
 				String resp = "There is a " + item.getName() + " in the room.";
 				tempStr= tempStr + " " + resp;
 			}
+			
+			for(String str : obsDescrips) {
+				tempStr += " " + str;
+			}
+			
 			return tempStr;
 			
 		}else {
@@ -325,6 +331,18 @@ public class Player extends Actor {
 		}
 		return false;
 	}
+	
+	public ArrayList<String> getObstaclesByRoom(Room room, ArrayList<Room> rooms) {
+		ArrayList<String> obsDescrips = new ArrayList<String>();
+		for(Integer i : room.getRoomMap().values()) {
+			Room checkRoom = getRoomByRoomId(i, rooms);
+			if(!checkRoom.getObstacle().getStatus().equals("normal")) {
+				obsDescrips.add(checkRoom.getObstacle().getDescription());
+			}
+		}		
+		return obsDescrips;
+	}
+	
 	
 	//getters
 	public int getMaxHP() {
