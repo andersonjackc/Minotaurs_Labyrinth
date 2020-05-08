@@ -1,12 +1,12 @@
 1|0|10|20|armor|0|An iron chestplate.|0|0|0|0|10|chestplate|chest
-2|5|0|0|weapon|0|A plain iron sword.|0|0|0|0|0|sword|right hand
+2|3|0|0|weapon|0|A plain iron sword.|0|0|0|0|0|sword|right hand
 3|0|1|1|armor|0|A pair of simple sandals.|0|0|0|0|10|sandals|feet
-4|6|0|0|weapon|0|A simple iron hammer, used for smithing.|0|0|0|0|0|hammer|right hand
+4|4|0|0|weapon|0|A simple iron hammer, used for smithing.|0|0|0|0|0|hammer|right hand
 5|0|2|5|armor|0|A pair of really cool shoes. The envy of siblings everywhere.|0|0|0|0|10|cool-shoes|feet
 6|0|-1|40|armor|0|A pair of not so cool sketchers. Probably given to a sibling that isn't liked that much|0|0|0|0|10|sketchers|feet
 7|0|5|20|armor|0|A pair of iron boots.|0|0|0|0|10|boots|feet
 8|0|8|20|armor|0|A pair of iron greaves.|0|0|0|0|10|greaves|legs
 9|0|2|20|armor|0|An iron helmet.|0|0|0|0|10|helmet|head
 10|0|5|20|armor|0|An iron banded shield.|0|0|0|0|10|shield|left hand
-11|10|0|0|weapon|0|A well crafted steel sword.|0|0|0|0|0|steel-sword|right hand
+11|6|0|0|weapon|0|A well crafted steel sword.|0|0|0|0|0|steel-sword|right hand
 12|0|1000|1000|armor|0|A beautiful pink safari hat. You sense great power within the hat.|0|0|0|0|1000000|pink-safari-hat|head
